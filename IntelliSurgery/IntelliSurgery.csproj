@@ -6,8 +6,6 @@
 
   <ItemGroup>
     <Folder Include="DTOs\" />
-    <Folder Include="Models\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Pages\css\" />
     <Folder Include="Pages\js\" />
   </ItemGroup>

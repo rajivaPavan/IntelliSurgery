@@ -7,4 +7,10 @@
         Medium,
         High
     }
+
+    public enum AnesthesiaType
+    {
+        None,
+        General
+    }
 }

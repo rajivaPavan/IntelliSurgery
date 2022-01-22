@@ -5,7 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\" />
+    <Folder Include="Global\" />
+    <Folder Include="MLScripts\" />
     <Folder Include="Pages\css\" />
     <Folder Include="Pages\js\" />
   </ItemGroup>

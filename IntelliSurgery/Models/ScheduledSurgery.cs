@@ -1,6 +1,6 @@
 ﻿namespace IntelliSurgery.Models
 {
-    public class Doctor
+    public class ScheduledSurgery
     {
     }
 }

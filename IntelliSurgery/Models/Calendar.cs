@@ -5,8 +5,9 @@ namespace IntelliSurgery.Models
 {
     public class Event
     {
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public int Id { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
 
     }
 

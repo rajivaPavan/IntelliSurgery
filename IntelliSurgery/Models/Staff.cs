@@ -6,16 +6,23 @@
     }
     public class SurgeryStaff : Staff
     {
+        public Calendar WorkingHours { get; set; }
     }
-    public class Doctor : SurgeryStaff
+
+    public class Surgeon : SurgeryStaff
     {
+        public Speciality Speciality { get; set; }
+        
     }
+
     public class Nurse : SurgeryStaff
     {
-
+        
     }
+
     public class Anesthetist: SurgeryStaff 
     {
+
     }
 
 }

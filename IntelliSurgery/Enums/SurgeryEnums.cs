@@ -13,4 +13,14 @@
         None,
         General
     }
+
+    public enum Status
+    {
+        Scheduled,
+        InWaitingList,
+        Ongoing,
+        Interrupted,
+        Cancelled,
+        Completed
+    }
 }

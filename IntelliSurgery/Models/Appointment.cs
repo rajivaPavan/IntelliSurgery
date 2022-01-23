@@ -7,8 +7,9 @@ namespace IntelliSurgery.Models
     {
         public int Id { get; set; }
         public Patient Patient { get; set; }
-        public Doctor Surgeon { get; set; }
+        public Surgeon Surgeon { get; set; }
         public SurgeryType SurgeryType { get; set; }
+        public PriorityLevel PriorityLevel { get; set; }
         public AnesthesiaType AnesthesiaType { get; set; }
         public float PredictedTimeDuration { get; set; }
     }

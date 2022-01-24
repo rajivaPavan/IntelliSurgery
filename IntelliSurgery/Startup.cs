@@ -39,6 +39,8 @@ namespace IntelliSurgery
             services.AddScoped<ISurgeryRepository, SurgeryRepository>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 
+            services.AddMvc();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,7 +55,6 @@ namespace IntelliSurgery
                 app.UseExceptionHandler("/Error");
             }
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -64,7 +65,7 @@ namespace IntelliSurgery
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Surgeries}/{action=List}/{id?}");
+                    pattern: "{controller=Calendar}/{action=Index}/{id?}");
             });
         }
     }

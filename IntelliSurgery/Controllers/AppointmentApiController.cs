@@ -1,6 +1,7 @@
 ﻿using IntelliSurgery.DbOperations;
 using IntelliSurgery.DTOs;
 using IntelliSurgery.Enums;
+using IntelliSurgery.Global;
 using IntelliSurgery.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -29,9 +30,12 @@ namespace IntelliSurgery.Controllers
 
         public async Task<IActionResult> AddAppointment(AppointmentDTO appointmentDTO) {
 
+            PythonScript pythonScript = new PythonScript();
+
             Patient patient = await patientRepository.GetPatientById(appointmentDTO.PatientId);
             SurgeryType surgerytype = await surgeryRepository.GetSurgeryTypeById(appointmentDTO.SurgeryType);
             Surgeon surgeon = await surgeonRepository.GetSurgeonById(appointmentDTO.DoctorId);
+            TimeSpan predictedTime = pythonScript.PredictTime();
 
             //create appointment object
             Appointment appointment = new Appointment() {
@@ -39,7 +43,8 @@ namespace IntelliSurgery.Controllers
                 Surgeon = surgeon,
                 SurgeryType = surgerytype,
                 AnesthesiaType = (AnesthesiaType)Enum.Parse(typeof(AnesthesiaType), appointmentDTO.AnesthesiaType, true),
-                PriorityLevel = (PriorityLevel)Enum.Parse(typeof(PriorityLevel), appointmentDTO.PriorityLevel,true)
+                PriorityLevel = (PriorityLevel)Enum.Parse(typeof(PriorityLevel), appointmentDTO.PriorityLevel,true),
+                PredictedTimeDuration = predictedTime
             };
             
             //save appointment in database

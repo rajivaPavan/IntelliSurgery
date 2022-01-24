@@ -1,4 +1,5 @@
 ﻿
+using IntelliSurgery.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace IntelliSurgery.DbOperations
@@ -10,5 +11,14 @@ namespace IntelliSurgery.DbOperations
         {
 
         }
+
+        public DbSet<Patient> Patients { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<Speciality> Specialities { get; set; }
+        public DbSet<Surgeon> Surgeons { get; set;}
+        public DbSet<SurgeryType> SurgeryTypes { get; set;}
+        public DbSet<ScheduledSurgery> ScheduledSurgeries{ get; set; }
+        public DbSet<UnScheduledSurgery> UnScheduledSurgeries { get; set; }
+        public DbSet<OperationTheatre> OperationTheatres { get; set;}
     }
 }

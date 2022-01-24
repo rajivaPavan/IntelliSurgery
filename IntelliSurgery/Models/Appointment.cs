@@ -13,5 +13,6 @@ namespace IntelliSurgery.Models
         public PriorityLevel PriorityLevel { get; set; }
         public AnesthesiaType AnesthesiaType { get; set; }
         public TimeSpan PredictedTimeDuration { get; set; }
+        public Status AppointmentStatus { get; set; }
     }
 }

@@ -3,7 +3,6 @@
     public class Surgery
     {
         public int Id { get; set; }
-        public int SurgeryNumber { get; set; }
         public Appointment Appointment { get; set; }
     }
     public class UnScheduledSurgery : Surgery

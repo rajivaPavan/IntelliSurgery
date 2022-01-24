@@ -28,6 +28,7 @@ namespace IntelliSurgery.Controllers
             this.surgeryRepository = surgeryRepository;
         }
 
+        [HttpPost]
         public async Task<IActionResult> AddAppointment(AppointmentDTO appointmentDTO) {
 
             PythonScript pythonScript = new PythonScript();
@@ -50,7 +51,28 @@ namespace IntelliSurgery.Controllers
             //save appointment in database
             await appointmentRepository.CreateAppointment(appointment);
 
+            //return predicted Time
             return Json(new { success = true }) ;
         }
+
+        ////called on page load
+        //[HttpGet]
+        //public async Task<IActionResult> GetFormDropDownLists()
+        //{
+        //    //surgery types and surgeon list
+        //    //write a new dto class that with fields of type two list of above types of data
+
+        //    return Json(new { success = true /* ,data = */});
+        //}
+
+        ////on patientload
+        ////allergies, diseases
+        //public async Task<IActionResult> GetPatientHistory(PatientDTO patientDto)
+        //{
+        //      find patient and read patient allergies and dieseases
+        //    //write a class for patient history
+        //    //create a patient history object and send that as data
+            
+        //}
     }
 }

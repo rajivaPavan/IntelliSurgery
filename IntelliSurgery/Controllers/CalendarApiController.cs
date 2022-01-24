@@ -22,6 +22,8 @@ namespace IntelliSurgery.Controllers
         [HttpGet]
         public async Task<IActionResult> GetScheduledSurgeries()
         {
+            //implement this method
+
             //List<ScheduledSurgery> surgeries = await surgeryRepository.();
 
             return Json(new { success = true  /* , data = */ });

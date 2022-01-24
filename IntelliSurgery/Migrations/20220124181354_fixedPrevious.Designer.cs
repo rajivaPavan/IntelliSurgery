@@ -3,6 +3,7 @@ using System;
 using IntelliSurgery.DbOperations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IntelliSurgery.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220124181354_fixedPrevious")]
+    partial class fixedPrevious
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -99,9 +101,6 @@ namespace IntelliSurgery.Migrations
                     b.Property<int?>("AvailableHoursId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("SurgeryTypeSurgeryTheatreId")
-                        .HasColumnType("int");
-
                     b.Property<int>("TheatreNumber")
                         .HasColumnType("int");
 
@@ -111,8 +110,6 @@ namespace IntelliSurgery.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AvailableHoursId");
-
-                    b.HasIndex("SurgeryTypeSurgeryTheatreId");
 
                     b.ToTable("OperationTheatres");
                 });
@@ -205,25 +202,14 @@ namespace IntelliSurgery.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("longtext");
 
+                    b.Property<int?>("OperationTheatreId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("OperationTheatreId");
 
                     b.ToTable("SurgeryTypes");
-                });
-
-            modelBuilder.Entity("IntelliSurgery.Models.SurgeryTypeSurgeryTheatre", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int?>("SurgeryTypeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SurgeryTypeId");
-
-                    b.ToTable("SurgeryType_Theatres");
                 });
 
             modelBuilder.Entity("IntelliSurgery.Models.UnScheduledSurgery", b =>
@@ -276,10 +262,6 @@ namespace IntelliSurgery.Migrations
                         .WithMany()
                         .HasForeignKey("AvailableHoursId");
 
-                    b.HasOne("IntelliSurgery.Models.SurgeryTypeSurgeryTheatre", null)
-                        .WithMany("SuitableOR")
-                        .HasForeignKey("SurgeryTypeSurgeryTheatreId");
-
                     b.Navigation("AvailableHours");
                 });
 
@@ -313,13 +295,11 @@ namespace IntelliSurgery.Migrations
                     b.Navigation("WorkingHours");
                 });
 
-            modelBuilder.Entity("IntelliSurgery.Models.SurgeryTypeSurgeryTheatre", b =>
+            modelBuilder.Entity("IntelliSurgery.Models.SurgeryType", b =>
                 {
-                    b.HasOne("IntelliSurgery.Models.SurgeryType", "SurgeryType")
-                        .WithMany()
-                        .HasForeignKey("SurgeryTypeId");
-
-                    b.Navigation("SurgeryType");
+                    b.HasOne("IntelliSurgery.Models.OperationTheatre", null)
+                        .WithMany("PossibleSurgeryTypess")
+                        .HasForeignKey("OperationTheatreId");
                 });
 
             modelBuilder.Entity("IntelliSurgery.Models.UnScheduledSurgery", b =>
@@ -336,9 +316,9 @@ namespace IntelliSurgery.Migrations
                     b.Navigation("Events");
                 });
 
-            modelBuilder.Entity("IntelliSurgery.Models.SurgeryTypeSurgeryTheatre", b =>
+            modelBuilder.Entity("IntelliSurgery.Models.OperationTheatre", b =>
                 {
-                    b.Navigation("SuitableOR");
+                    b.Navigation("PossibleSurgeryTypess");
                 });
 #pragma warning restore 612, 618
         }

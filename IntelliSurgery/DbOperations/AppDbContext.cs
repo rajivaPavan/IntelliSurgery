@@ -20,5 +20,6 @@ namespace IntelliSurgery.DbOperations
         public DbSet<ScheduledSurgery> ScheduledSurgeries{ get; set; }
         public DbSet<UnScheduledSurgery> UnScheduledSurgeries { get; set; }
         public DbSet<OperationTheatre> OperationTheatres { get; set;}
+        public DbSet<SurgeryTypeSurgeryTheatre> SurgeryType_Theatres { get; set; }
     }
 }

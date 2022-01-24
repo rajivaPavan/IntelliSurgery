@@ -1,4 +1,5 @@
-﻿using static IntelliSurgery.Enums.OperationTheatreEnums;
+﻿using System.Collections.Generic;
+using static IntelliSurgery.Enums.OperationTheatreEnums;
 
 namespace IntelliSurgery.Models
 {
@@ -8,6 +9,5 @@ namespace IntelliSurgery.Models
         public int TheatreNumber { get; set; }
         public TheatreType TheatreType{ get; set; }
         public Calendar AvailableHours { get; set; }
-
     }
 }

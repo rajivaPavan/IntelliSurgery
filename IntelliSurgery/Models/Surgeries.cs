@@ -12,7 +12,7 @@
 
     public class ScheduledSurgery : Surgery
     {
-        public Event Time { get; set; }
+        public Event SurgeryEvent { get; set; }
     }
 
 

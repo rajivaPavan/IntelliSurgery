@@ -7,9 +7,9 @@ namespace IntelliSurgery.Controllers
     [Route("api/[controller]/[action]")]
     public class SurgeriesApiController : Controller
     {
-        private readonly ISurgeryRepository surgeryRepository;
+        private readonly ISurgeryTypeRepository surgeryRepository;
 
-        public SurgeriesApiController(ISurgeryRepository surgeryRepository)
+        public SurgeriesApiController(ISurgeryTypeRepository surgeryRepository)
         {
             this.surgeryRepository = surgeryRepository;
         }

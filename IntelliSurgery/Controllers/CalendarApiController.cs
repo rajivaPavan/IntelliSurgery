@@ -1,4 +1,5 @@
 ﻿using IntelliSurgery.DbOperations;
+using IntelliSurgery.DTOs;
 using IntelliSurgery.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -22,11 +23,10 @@ namespace IntelliSurgery.Controllers
         [HttpGet]
         public async Task<IActionResult> GetScheduledSurgeries()
         {
-            //implement this method
-
-            //List<ScheduledSurgery> surgeries = await surgeryRepository.();
-
-            return Json(new { success = true  /* , data = */ });
+            List<ScheduledSurgery> surgeries = await surgeryRepository.GetAllSurgeries();
+            ScheduledSurgeriesDTO scheduledSurgeriesDTO = new ScheduledSurgeriesDTO();
+            scheduledSurgeriesDTO.ScheduledSurgeries = surgeries;
+            return Json(new { success = true, data =  scheduledSurgeriesDTO});
         }
         
     }

@@ -1,4 +1,5 @@
 ﻿using IntelliSurgery.Models;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IntelliSurgery.DbOperations
@@ -7,5 +8,6 @@ namespace IntelliSurgery.DbOperations
     {
         Task<SurgeryType> CreateSurgery(SurgeryType surgeryType);
         Task<SurgeryType> GetSurgeryTypeById(int id);
+        Task<List<SurgeryType>> GetSurgeryTypes();
     }
 }

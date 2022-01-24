@@ -1,5 +1,6 @@
 ﻿using IntelliSurgery.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IntelliSurgery.DbOperations
@@ -15,6 +16,11 @@ namespace IntelliSurgery.DbOperations
         public async Task<Surgeon> GetSurgeonById(int id)
         {
             return await context.Surgeons.FirstOrDefaultAsync(s => s.Id == id);
+        }
+
+        public async Task<List<Surgeon>> GetSurgeons()
+        {
+            return await context.Surgeons.ToListAsync();
         }
     }
 }

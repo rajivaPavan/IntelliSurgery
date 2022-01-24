@@ -1,4 +1,6 @@
 ﻿using IntelliSurgery.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IntelliSurgery.DbOperations
@@ -18,6 +20,10 @@ namespace IntelliSurgery.DbOperations
             await context.SaveChangesAsync();
             return surgery;
         }
-        
+
+        public async Task<List<ScheduledSurgery>> GetAllSurgeries()
+        {
+            return await context.ScheduledSurgeries.ToListAsync();
+        }
     }
 }

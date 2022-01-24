@@ -1,5 +1,6 @@
 ﻿using IntelliSurgery.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace IntelliSurgery.DbOperations
@@ -24,6 +25,10 @@ namespace IntelliSurgery.DbOperations
         {
             return await context.SurgeryTypes.FirstOrDefaultAsync(s => s.Id == id);
         }
-        
+
+        public async Task<List<SurgeryType>> GetSurgeryTypes()
+        {
+            return await context.SurgeryTypes.ToListAsync();
+        }
     }
 }

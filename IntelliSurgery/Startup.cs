@@ -33,7 +33,11 @@ namespace IntelliSurgery
                options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
             services.AddScoped<ICalendarRepository, CalendarRepository>();
+            services.AddScoped<ISurgeryTypeRepository, SurgeryTypeRepository>();
+            services.AddScoped<IPatientRepository, PatientRepository>();
+            services.AddScoped<ISurgeonRepository, SurgeonRepository>();
             services.AddScoped<ISurgeryRepository, SurgeryRepository>();
+            services.AddScoped<IAppointmentRepository, AppointmentRepository>();
 
         }
 

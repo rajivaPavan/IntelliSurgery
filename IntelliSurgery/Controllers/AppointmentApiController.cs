@@ -15,10 +15,10 @@ namespace IntelliSurgery.Controllers
         private readonly IAppointmentRepository appointmentRepository;
         private readonly IPatientRepository patientRepository;
         private readonly ISurgeonRepository surgeonRepository;
-        private readonly ISurgeryRepository surgeryRepository;
+        private readonly ISurgeryTypeRepository surgeryRepository;
 
         public AppointmentApiController(IAppointmentRepository appointmentRepository, IPatientRepository patientRepository,
-            ISurgeonRepository surgeonRepository, ISurgeryRepository surgeryRepository)
+            ISurgeonRepository surgeonRepository, ISurgeryTypeRepository surgeryRepository)
         {
 
             this.appointmentRepository = appointmentRepository;
@@ -27,17 +27,17 @@ namespace IntelliSurgery.Controllers
             this.surgeryRepository = surgeryRepository;
         }
 
-        public async Task<IActionResult> SubmitForm(AppointmentDTO appointmentDTO) {
+        public async Task<IActionResult> AddAppointment(AppointmentDTO appointmentDTO) {
 
             Patient patient = await patientRepository.GetPatientById(appointmentDTO.PatientId);
-            //get surgerytype
-            //get surgeon
+            SurgeryType surgerytype = await surgeryRepository.GetSurgeryTypeById(appointmentDTO.SurgeryType);
+            Surgeon surgeon = await surgeonRepository.GetSurgeonById(appointmentDTO.DoctorId);
 
             //create appointment object
             Appointment appointment = new Appointment() {
                 Patient = patient,
-                //Surgeon = 
-                //SurgeryType =
+                Surgeon = surgeon,
+                SurgeryType = surgerytype,
                 AnesthesiaType = (AnesthesiaType)Enum.Parse(typeof(AnesthesiaType), appointmentDTO.AnesthesiaType, true),
                 PriorityLevel = (PriorityLevel)Enum.Parse(typeof(PriorityLevel), appointmentDTO.PriorityLevel,true)
             };

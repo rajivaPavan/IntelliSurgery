@@ -1,6 +1,6 @@
 ﻿namespace IntelliSurgery.DbOperations
 {
-    public interface ISurgeryRepository
+    public class SurgeonRepository : ISurgeonRepository
     {
     }
 }

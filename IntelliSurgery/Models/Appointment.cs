@@ -1,5 +1,6 @@
 ﻿using IntelliSurgery.DTOs;
 using IntelliSurgery.Enums;
+using System;
 
 namespace IntelliSurgery.Models
 {
@@ -11,6 +12,6 @@ namespace IntelliSurgery.Models
         public SurgeryType SurgeryType { get; set; }
         public PriorityLevel PriorityLevel { get; set; }
         public AnesthesiaType AnesthesiaType { get; set; }
-        public float PredictedTimeDuration { get; set; }
+        public TimeSpan PredictedTimeDuration { get; set; }
     }
 }

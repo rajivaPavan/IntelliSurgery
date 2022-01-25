@@ -5,9 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\lib\vue\**" />
+    <Content Remove="wwwroot\lib\vue\**" />
+    <EmbeddedResource Remove="wwwroot\lib\vue\**" />
+    <None Remove="wwwroot\lib\vue\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="MLScripts\" />
     <Folder Include="Pages\css\" />
     <Folder Include="Pages\js\" />
+    <Folder Include="Views\Appointment\" />
+    <Folder Include="Views\Surgeries\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +30,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.0" />
+    <PackageReference Include="TimePeriodLibrary.NET" Version="2.1.1" />
   </ItemGroup>
 
 </Project>

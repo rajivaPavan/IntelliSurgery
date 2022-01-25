@@ -1,4 +1,5 @@
 using IntelliSurgery.DbOperations;
+using IntelliSurgery.Global;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -38,6 +39,8 @@ namespace IntelliSurgery
             services.AddScoped<ISurgeonRepository, SurgeonRepository>();
             services.AddScoped<ISurgeryRepository, SurgeryRepository>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+
+            services.AddScoped<ISurgeryScheduler, SurgeryScheduler>();
 
             services.AddMvc();
 

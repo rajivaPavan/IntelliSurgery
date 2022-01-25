@@ -21,5 +21,19 @@ namespace IntelliSurgery.DbOperations
         public DbSet<UnScheduledSurgery> UnScheduledSurgeries { get; set; }
         public DbSet<OperationTheatre> OperationTheatres { get; set;}
         public DbSet<SurgeryTypeSurgeryTheatre> SurgeryType_Theatres { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Appointment>()
+                .HasIndex(x => x.DateAdded);
+            modelBuilder.Entity<Appointment>()
+                .HasIndex(x => x.PriorityLevel);
+            modelBuilder.Entity<Appointment>()
+                .HasIndex(x => x.Priority);
+            modelBuilder.Entity<Appointment>()
+                .HasIndex(x => x.Status);
+        }
+
+
     }
 }

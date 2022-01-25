@@ -72,8 +72,10 @@ namespace IntelliSurgery.Controllers
                 Surgeon = surgeon,
                 SurgeryType = surgerytype,
                 AnesthesiaType = (AnesthesiaType)Enum.Parse(typeof(AnesthesiaType), appointmentDTO.AnesthesiaType, true),
-                PriorityLevel = (PriorityLevel)Enum.Parse(typeof(PriorityLevel), appointmentDTO.PriorityLevel,true),
-                PredictedTimeDuration = predictedTime
+                PriorityLevel = (PriorityLevel)Enum.Parse(typeof(PriorityLevel), appointmentDTO.PriorityLevel, true),
+                PredictedTimeDuration = predictedTime,
+                Status = Status.Pending,
+                DateAdded = DateTime.Now
             };
             
             //save appointment in database

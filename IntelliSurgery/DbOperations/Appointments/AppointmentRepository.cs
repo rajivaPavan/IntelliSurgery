@@ -1,4 +1,5 @@
-﻿using IntelliSurgery.Models;
+﻿using IntelliSurgery.Enums;
+using IntelliSurgery.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,18 @@ namespace IntelliSurgery.DbOperations
         public async Task<List<Appointment>> GetAppointments()
         {
             return await context.Appointments.ToListAsync();
+        }
+
+        public async Task<List<Appointment>> GetAppointmentsOfPriorityLevel(PriorityLevel priorityLevel)
+        {
+            return await context.Appointments.Where(a => a.PriorityLevel == priorityLevel).ToListAsync();
+        }
+
+        public async Task UpdateAppointments(List<Appointment> appointments)
+        {
+            context.Appointments.UpdateRange(appointments);
+            await context.SaveChangesAsync();
+            return Task.CompletedTask;
         }
     }
 }

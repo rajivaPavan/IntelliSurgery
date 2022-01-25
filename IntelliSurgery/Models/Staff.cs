@@ -1,4 +1,7 @@
-﻿namespace IntelliSurgery.Models
+﻿using Itenso.TimePeriod;
+using System.Collections.Generic;
+
+namespace IntelliSurgery.Models
 {
     public class Staff
     {
@@ -6,7 +9,7 @@
     }
     public class SurgeryStaff : Staff
     {
-        public Calendar WorkingHours { get; set; }
+        public List<WorkingPeriod> WorkingHours { get; set; }
     }
 
     public class Surgeon : SurgeryStaff
@@ -23,6 +26,11 @@
     public class Anesthetist: SurgeryStaff 
     {
 
+    }
+
+    public class WorkingPeriod : TimeRange
+    {
+        public int Id { get; set; }
     }
 
 }

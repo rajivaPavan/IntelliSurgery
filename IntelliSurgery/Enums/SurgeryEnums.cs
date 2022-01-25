@@ -21,6 +21,7 @@
         Ongoing,
         Interrupted,
         Cancelled,
-        Completed
+        Completed,
+        Pending
     }
 }

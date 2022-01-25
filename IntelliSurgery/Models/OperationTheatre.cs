@@ -9,12 +9,12 @@ namespace IntelliSurgery.Models
         public int Id { get; set; }
         public int TheatreNumber { get; set; }
         public TheatreType TheatreType{ get; set; }
-        public Calendar AvailableHours { get; set; }
+        public List<TheaterAvailablePeriod> TheaterAvailablePeriods { get; set; }
+        public List<ScheduledSurgery> Surgeries { get; set; }
     }
-
-    //public class TheaterAvailableHours : Itenso.TimePeriod
-    //{
-
-    //}
+    public class TheaterAvailablePeriod : TimeRange
+    {
+        public int Id { get; set; }
+    }
 }
 

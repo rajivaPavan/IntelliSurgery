@@ -1,9 +1,10 @@
-﻿namespace IntelliSurgery.Models
+﻿using Itenso.TimePeriod;
+
+namespace IntelliSurgery.Models
 {
     public class Surgery
     {
         public int Id { get; set; }
-        public Appointment Appointment { get; set; }
     }
     public class UnScheduledSurgery : Surgery
     {
@@ -12,7 +13,12 @@
 
     public class ScheduledSurgery : Surgery
     {
-        public Event SurgeryEvent { get; set; }
+        public SurgeryEvent SurgeryEvent { get; set; }
+    }
+
+    public class SurgeryEvent: TimeRange
+    {
+        public int Id { get; set; }
     }
 
 

@@ -13,11 +13,14 @@ namespace IntelliSurgery.Controllers
     {
         private readonly ISurgeryRepository surgeryRepository;
         private readonly IAppointmentRepository appointmentRepository;
+        private readonly ISurgeryScheduler surgeryScheduler;
 
-        public SurgeriesApiController(ISurgeryRepository surgeryRepository, IAppointmentRepository appointmentRepository)
+        public SurgeriesApiController(ISurgeryRepository surgeryRepository, IAppointmentRepository appointmentRepository,
+            ISurgeryScheduler surgeryScheduler)
         {
             this.surgeryRepository = surgeryRepository;
             this.appointmentRepository = appointmentRepository;
+            this.surgeryScheduler = surgeryScheduler;
         }
 
         [HttpGet]
@@ -29,11 +32,8 @@ namespace IntelliSurgery.Controllers
 
         [HttpPost]
         public async Task<IActionResult> CreateSchedule()
-        {
-            List<Appointment> appointments = await appointmentRepository.GetAppointments();
-            
-            SurgeryScheduler scheduler = new SurgeryScheduler(surgeryRepository);
-            await scheduler.CreateSchedule(appointments);
+        {           
+            await surgeryScheduler.CreateSchedule();
             return Json(new { success = true });
         }
 

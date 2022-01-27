@@ -31,9 +31,9 @@ namespace IntelliSurgery.Controllers
         }
 
         [HttpPost] 
-        public async Task<IActionResult> ValidatePatient(PatientDTO patientDTO)
+        public async Task<IActionResult> ValidatePatient(int patientId)
         {
-            Patient patient = await patientRepository.GetPatientById(patientDTO.PatientId);
+            Patient patient = await patientRepository.GetPatientById(patientId);
             bool isPatientExist = true;
             if (patient == null)
             {
@@ -82,7 +82,7 @@ namespace IntelliSurgery.Controllers
             await appointmentRepository.CreateAppointment(appointment);
 
             //return predicted Time
-            return Json(new { success = true }) ;
+            return Json(new { success = true, data = appointment.PredictedTimeDuration }) ;
         }
 
         //called on page load

@@ -1,5 +1,5 @@
-﻿async function GetScheduledSurgeries() {
-    var res = await axios.get("/api/CalendarApi/GetScheduledSurgeries");
+﻿async function GetScheduledSurgeriesRequest(theaterType) {
+    var res = await axios.get("/api/CalendarApi/GetScheduledSurgeries"+theaterType.toString());
     var dto = {};
     var surgeries = [];
     if (res.data.success == true) {

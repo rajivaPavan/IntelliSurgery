@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Itenso.TimePeriod;
+using static IntelliSurgery.Enums.OperationTheatreEnums;
 
 namespace IntelliSurgery.Global
 {
@@ -20,21 +22,25 @@ namespace IntelliSurgery.Global
             this.appointmentRepository = appointmentRepository;
         }
 
-        public async Task CreateSchedule()
-        { 
+        public async Task CreateSchedule(TheatreType theatreType)
+        {
             //////////implement algorithm//////////////
-            
-            //get appointments of the following week
-            
-            
-            //prioritize appointments for the following week
 
+            //get appointments of the following week
+            var appointments = await appointmentRepository.GetAppointments(
+                AppointmentQueryLogic.StatusNotEqual(Status.Completed));
+
+            //prioritize appointments for the following week
+            appointments = await PrioritizeAppointments(appointments);
             
             //calculate time blocks
+
+
+            //save time blocks in database
             
 
             //alocate time for surgeries
-            
+            //implement the best fit algorithm in memory management accordingly
 
         }
 
@@ -54,7 +60,7 @@ namespace IntelliSurgery.Global
                     appointment.Priority = (float)appointment.PriorityLevel + appointment.PredictedTimeDuration.Ticks/avgTime;
                 }
 
-                await appointmentRepository.UpdateAppointments(appointments);
+                appointments = await appointmentRepository.UpdateAppointments(appointments);
             }
 
             return appointments;
@@ -66,6 +72,12 @@ namespace IntelliSurgery.Global
             double averageTicks = ticksPerTimeSpan.Average();
             return (float)averageTicks;
         }
+
+        //private List<TimeRange> CalculateTimeBlocks()
+        //{
+
+        //    return 
+        //}
     }
 
 }

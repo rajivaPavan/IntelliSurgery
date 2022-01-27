@@ -4,6 +4,7 @@ using IntelliSurgery.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using static IntelliSurgery.Enums.OperationTheatreEnums;
 
 namespace IntelliSurgery.Controllers
 {
@@ -31,9 +32,9 @@ namespace IntelliSurgery.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateSchedule()
+        public async Task<IActionResult> CreateSchedule(int theaterType)
         {           
-            await surgeryScheduler.CreateSchedule();
+            await surgeryScheduler.CreateSchedule((TheatreType)theaterType);
             return Json(new { success = true });
         }
 

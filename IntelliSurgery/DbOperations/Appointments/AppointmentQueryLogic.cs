@@ -17,5 +17,14 @@ namespace IntelliSurgery.DbOperations.Appointments
         {
             return a => a.PriorityLevel == priorityLevel;
         }
+
+        public static Expression<Func<Appointment, bool>> AfterSpecificDate(DateTime dateTime)
+        {
+            return a => a.DateAdded >= dateTime;
+        }
+        public static Expression<Func<Appointment, bool>> StatusNotEqual(Status status)
+        {
+            return a => a.Status != status;
+        }
     }
 }

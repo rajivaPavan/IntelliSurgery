@@ -9,9 +9,3 @@
     return surgeries;
 }
 
-$(document).ready(async () => {
-    var scheduledSurgeries = await GetScheduledSurgeries();
-    scheduledSurgeries.forEach(s => {
-        console.log(s);
-    });
-});

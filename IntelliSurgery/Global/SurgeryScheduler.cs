@@ -38,17 +38,19 @@ namespace IntelliSurgery.Global
             //get appointments of the following week
             appointments = appointments.Where(a => a.Status != Status.Completed).ToList();
 
+            //get list of surgeons allocated to the above appointments
+            List<Surgeon> surgeons = appointments.Select(a => a.Surgeon).Distinct().ToList();
+
+            //sort surgeons in descending order of total time of 
 
             //prioritize appointments for the following week
             appointments = await PrioritizeAppointments(appointments);
             
             //calculate time blocks
-
-
             //save time blocks in database
             
 
-            //alocate time for surgeries
+            //allocate time for surgeries within the time blocks
             //implement the best fit algorithm in memory management accordingly
 
         }

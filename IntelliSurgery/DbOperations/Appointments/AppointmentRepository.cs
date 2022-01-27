@@ -42,7 +42,6 @@ namespace IntelliSurgery.DbOperations
         {
             context.Appointments.UpdateRange(appointments);
             await context.SaveChangesAsync();
-            return Task.CompletedTask;
         }
     }
 }

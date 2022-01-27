@@ -2,15 +2,19 @@ using IntelliSurgery.DbOperations;
 using IntelliSurgery.Global;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using React.AspNet;
+using JavaScriptEngineSwitcher.V8;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
 
 namespace IntelliSurgery
 {
@@ -28,6 +32,10 @@ namespace IntelliSurgery
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddReact();
+            services.AddJsEngineSwitcher(options => options.DefaultEngineName = V8JsEngine.EngineName).AddV8();
+
             services.AddControllersWithViews();
 
             services.AddDbContextPool<AppDbContext>(
@@ -57,6 +65,11 @@ namespace IntelliSurgery
             {
                 app.UseExceptionHandler("/Error");
             }
+
+            app.UseReact(config =>
+            {
+
+            });
 
             app.UseStaticFiles();
 

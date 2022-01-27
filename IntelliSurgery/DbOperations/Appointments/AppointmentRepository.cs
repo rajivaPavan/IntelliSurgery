@@ -1,8 +1,10 @@
 ﻿using IntelliSurgery.Enums;
 using IntelliSurgery.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace IntelliSurgery.DbOperations
@@ -23,25 +25,26 @@ namespace IntelliSurgery.DbOperations
             return appointment;
         }
 
-        public async Task<Appointment> GetAppointmentById(int id)
+        public async Task<Appointment> GetAppointment(Expression<Func<Appointment, bool>> predicate)
         {
-            return await context.Appointments.FirstOrDefaultAsync(a => a.Id == id);
+            return await context.Appointments.FirstOrDefaultAsync(predicate);
         }
 
-        public async Task<List<Appointment>> GetAppointments()
+        public async Task<List<Appointment>> GetAllAppointments()
         {
             return await context.Appointments.ToListAsync();
         }
 
-        public async Task<List<Appointment>> GetAppointmentsOfPriorityLevel(PriorityLevel priorityLevel)
+        public async Task<List<Appointment>> GetAppointments(Expression<Func<Appointment, bool>> predicate)
         {
-            return await context.Appointments.Where(a => a.PriorityLevel == priorityLevel).ToListAsync();
+            return await context.Appointments.Where(predicate).ToListAsync();
         }
 
-        public async Task UpdateAppointments(List<Appointment> appointments)
+        public async Task<List<Appointment>> UpdateAppointments(List<Appointment> appointments)
         {
             context.Appointments.UpdateRange(appointments);
             await context.SaveChangesAsync();
+            return appointments;
         }
     }
 }

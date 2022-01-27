@@ -26,7 +26,7 @@ namespace IntelliSurgery.Controllers
         [HttpGet]
         public async Task<IActionResult> GetTableData()
         {
-            List<Appointment> appointments = await appointmentRepository.GetAppointments();
+            List<Appointment> appointments = await appointmentRepository.GetAllAppointments();
             return Json(new { success = true, data = appointments });
         }
 

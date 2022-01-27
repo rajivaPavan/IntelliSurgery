@@ -1,17 +1,20 @@
 ﻿using IntelliSurgery.Enums;
 using IntelliSurgery.Models;
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace IntelliSurgery.DbOperations
 {
     public interface IAppointmentRepository
-    {
-        Task<Appointment> GetAppointmentById(int id);
-        Task<List<Appointment>> GetAppointments();
+    { 
+        Task<List<Appointment>> GetAllAppointments();
         Task<Appointment> CreateAppointment(Appointment appointment);
-        Task<List<Appointment>> GetAppointmentsOfPriorityLevel(PriorityLevel priorityLevel);
+        Task<List<Appointment>> UpdateAppointments(List<Appointment> appointments);
+        Task<List<Appointment>> GetAppointments(Expression<Func<Appointment, bool>> predicate);
+        Task<Appointment> GetAppointment(Expression<Func<Appointment, bool>> predicate);
 
-        Task UpdateAppointments(List<Appointment> appointments);
+
     }
 }

@@ -1,4 +1,4 @@
-﻿
+﻿using IntelliSurgery.DbOperations.Appointments;
 using IntelliSurgery.DbOperations;
 using IntelliSurgery.Enums;
 using IntelliSurgery.Models;
@@ -21,22 +21,30 @@ namespace IntelliSurgery.Global
         }
 
         public async Task CreateSchedule()
-        {
-            await PrioritizeAppointments();
+        { 
+            //////////implement algorithm//////////////
+            
+            //get appointments of the following week
+            
+            
+            //prioritize appointments for the following week
 
-            //
-            //implement algorithm
-            //make necessary updates in the database
-            //
+            
+            //calculate time blocks
+            
+
+            //alocate time for surgeries
+            
 
         }
 
-        public async Task<List<Appointment>> PrioritizeAppointments()
+        public async Task<List<Appointment>> PrioritizeAppointments(List<Appointment> appointments)
         {
-            List<Appointment> appointments;
             foreach (int level in Enum.GetValues(typeof(PriorityLevel)))
             {
-                appointments = await appointmentRepository.GetAppointmentsOfPriorityLevel((PriorityLevel)level);
+                appointments = await appointmentRepository.GetAppointments(
+                    AppointmentQueryLogic.ByPriorityLevel((PriorityLevel)level));
+
                 appointments = appointments.Where(a => a.Status != Status.Completed).ToList();
                 List<TimeSpan> timeSpans = appointments.Select(a => a.PredictedTimeDuration).ToList();
                 float avgTime = CalculateAverage(timeSpans);
@@ -49,7 +57,7 @@ namespace IntelliSurgery.Global
                 await appointmentRepository.UpdateAppointments(appointments);
             }
 
-            return await appointmentRepository.GetAppointments();
+            return appointments;
         }
 
         private float CalculateAverage(IEnumerable<TimeSpan> timeSpans)

@@ -1,10 +1,10 @@
 ﻿using IntelliSurgery.DbOperations;
+using IntelliSurgery.DbOperations.Theatres;
 using IntelliSurgery.Global;
 using IntelliSurgery.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using static IntelliSurgery.Enums.OperationTheatreEnums;
 
 namespace IntelliSurgery.Controllers
 {
@@ -15,13 +15,15 @@ namespace IntelliSurgery.Controllers
         private readonly ISurgeryRepository surgeryRepository;
         private readonly IAppointmentRepository appointmentRepository;
         private readonly ISurgeryScheduler surgeryScheduler;
+        private ITheatreRepository theatreRepository;
 
         public SurgeriesApiController(ISurgeryRepository surgeryRepository, IAppointmentRepository appointmentRepository,
-            ISurgeryScheduler surgeryScheduler)
+            ISurgeryScheduler surgeryScheduler, ITheatreRepository theatreRepository)
         {
             this.surgeryRepository = surgeryRepository;
             this.appointmentRepository = appointmentRepository;
             this.surgeryScheduler = surgeryScheduler;
+            this.theatreRepository = theatreRepository;
         }
 
         [HttpGet]
@@ -32,9 +34,10 @@ namespace IntelliSurgery.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateSchedule(int theaterType)
-        {           
-            await surgeryScheduler.CreateSchedule((TheatreType)theaterType);
+        public async Task<IActionResult> CreateSchedule(int theaterTypeId)
+        {
+            TheatreType theatreType = await theatreRepository.GetTheatreType(TheatreTypeQueryLogic.ById(theaterTypeId));
+            await surgeryScheduler.CreateSchedule(theatreType);
             return Json(new { success = true });
         }
 

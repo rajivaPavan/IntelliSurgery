@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using static IntelliSurgery.Enums.OperationTheatreEnums;
 
 namespace IntelliSurgery.Models
 {
@@ -19,6 +20,6 @@ namespace IntelliSurgery.Models
     {
         public int Id { get; set; }
         public SurgeryType SurgeryType { get; set; }
-        public List<OperationTheatre> SuitableOR { get; set; }
+        public List<TheatreType> SuitableTheatreTypes { get; set; }
     }
 }

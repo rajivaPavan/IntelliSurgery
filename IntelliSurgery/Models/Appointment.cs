@@ -1,6 +1,7 @@
 ﻿using IntelliSurgery.DTOs;
 using IntelliSurgery.Enums;
 using System;
+using static IntelliSurgery.Enums.OperationTheatreEnums;
 
 namespace IntelliSurgery.Models
 {
@@ -10,6 +11,7 @@ namespace IntelliSurgery.Models
         public Patient Patient { get; set; }
         public Surgeon Surgeon { get; set; }
         public SurgeryType SurgeryType { get; set; }
+        public TheatreType TheatreType{ get; set; }
         public PriorityLevel PriorityLevel { get; set; }
         public float Priority { get; set; }
         public AnesthesiaType AnesthesiaType { get; set; }

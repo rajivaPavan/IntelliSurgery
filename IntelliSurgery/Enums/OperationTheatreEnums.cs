@@ -2,7 +2,7 @@
 {
     public class OperationTheatreEnums
     {
-        public enum TheatreType
+        public enum OperationTheatreType
         {
 
 

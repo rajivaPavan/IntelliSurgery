@@ -1,4 +1,5 @@
 ﻿using IntelliSurgery.DbOperations;
+using IntelliSurgery.DbOperations.Theatres;
 using IntelliSurgery.DTOs;
 using IntelliSurgery.Enums;
 using IntelliSurgery.Global;
@@ -6,6 +7,7 @@ using IntelliSurgery.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using static IntelliSurgery.Enums.OperationTheatreEnums;
 
 namespace IntelliSurgery.Controllers
 {
@@ -18,9 +20,11 @@ namespace IntelliSurgery.Controllers
         private readonly ISurgeonRepository surgeonRepository;
         private readonly ISurgeryTypeRepository surgeryRepository;
         private readonly ISurgeryTypeRepository surgeryTypeRepository;
+        private readonly ITheatreRepository theatreRepository;
 
         public AppointmentApiController(IAppointmentRepository appointmentRepository, IPatientRepository patientRepository,
-            ISurgeonRepository surgeonRepository, ISurgeryTypeRepository surgeryRepository, ISurgeryTypeRepository surgeryTypeRepository)
+            ISurgeonRepository surgeonRepository, ISurgeryTypeRepository surgeryRepository, ISurgeryTypeRepository surgeryTypeRepository,
+            ITheatreRepository theatreRepository)
         {
 
             this.appointmentRepository = appointmentRepository;
@@ -28,6 +32,7 @@ namespace IntelliSurgery.Controllers
             this.surgeonRepository = surgeonRepository;
             this.surgeryRepository = surgeryRepository;
             this.surgeryTypeRepository = surgeryTypeRepository;
+            this.theatreRepository = theatreRepository;
         }
 
         [HttpPost] 
@@ -65,12 +70,14 @@ namespace IntelliSurgery.Controllers
             SurgeryType surgerytype = await surgeryRepository.GetSurgeryTypeById(appointmentDTO.SurgeryType);
             Surgeon surgeon = await surgeonRepository.GetSurgeonById(appointmentDTO.DoctorId);
             TimeSpan predictedTime = pythonScript.PredictTime();
+            TheatreType theatreType = await theatreRepository.GetTheatreType(TheatreTypeQueryLogic.ById(appointmentDTO.TheatreType));
 
             //create appointment object
             Appointment appointment = new Appointment() {
                 Patient = patient,
                 Surgeon = surgeon,
                 SurgeryType = surgerytype,
+                TheatreType = theatreType,
                 AnesthesiaType = (AnesthesiaType)Enum.Parse(typeof(AnesthesiaType), appointmentDTO.AnesthesiaType, true),
                 PriorityLevel = (PriorityLevel)Enum.Parse(typeof(PriorityLevel), appointmentDTO.PriorityLevel, true),
                 PredictedTimeDuration = predictedTime,

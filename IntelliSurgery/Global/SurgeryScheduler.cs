@@ -8,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Itenso.TimePeriod;
 using static IntelliSurgery.Enums.OperationTheatreEnums;
+using IntelliSurgery.DbOperations.Theatres;
 
 namespace IntelliSurgery.Global
 {
@@ -15,23 +16,28 @@ namespace IntelliSurgery.Global
     {
         private readonly ISurgeryRepository surgeryRepository;
         private readonly IAppointmentRepository appointmentRepository;
+        private readonly ITheatreRepository theatreRepository;
 
-        public SurgeryScheduler(ISurgeryRepository surgeryRepository, IAppointmentRepository appointmentRepository)
+        public SurgeryScheduler(ISurgeryRepository surgeryRepository, IAppointmentRepository appointmentRepository, ITheatreRepository theatreRepository)
         {
             this.surgeryRepository = surgeryRepository;
             this.appointmentRepository = appointmentRepository;
+            this.theatreRepository = theatreRepository;
         }
 
         public async Task CreateSchedule(TheatreType theatreType)
         {
             ///////////  implement algorithm ///////////
-            
-            //filter appointments that can be done in the theatertype
+            ///
+            //get list of theatres of theatreType
+            List<Theatre> theatres = await theatreRepository.GetTheatres(TheatreQueryLogic.ByTheatreType(theatreType));
 
+            //filter appointments that can be done in the theatertype
+            List<Appointment> appointments = await appointmentRepository.GetAppointments(AppointmentQueryLogic.ByTheatreType(theatreType));
 
             //get appointments of the following week
-            var appointments = await appointmentRepository.GetAppointments(
-                AppointmentQueryLogic.StatusNotEqual(Status.Completed));
+            appointments = appointments.Where(a => a.Status != Status.Completed).ToList();
+
 
             //prioritize appointments for the following week
             appointments = await PrioritizeAppointments(appointments);
@@ -54,7 +60,6 @@ namespace IntelliSurgery.Global
                 appointments = await appointmentRepository.GetAppointments(
                     AppointmentQueryLogic.ByPriorityLevel((PriorityLevel)level));
 
-                //appointments = appointments.Where(a => a.Status != Status.Completed).ToList();
                 List<TimeSpan> timeSpans = appointments.Select(a => a.PredictedTimeDuration).ToList();
                 float avgTime = CalculateAverage(timeSpans);
 

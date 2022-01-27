@@ -19,7 +19,8 @@ namespace IntelliSurgery.DbOperations
         public DbSet<SurgeryType> SurgeryTypes { get; set;}
         public DbSet<ScheduledSurgery> ScheduledSurgeries{ get; set; }
         public DbSet<UnScheduledSurgery> UnScheduledSurgeries { get; set; }
-        public DbSet<OperationTheatre> OperationTheatres { get; set;}
+        public DbSet<Theatre> Theatres {get; set; }
+        public DbSet<TheatreType> TheatreTypes { get; set;}
         public DbSet<SurgeryTypeSurgeryTheatre> SurgeryType_Theatres { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

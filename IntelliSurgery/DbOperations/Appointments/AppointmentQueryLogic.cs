@@ -2,6 +2,7 @@
 using IntelliSurgery.Models;
 using System;
 using System.Linq.Expressions;
+using static IntelliSurgery.Enums.OperationTheatreEnums;
 
 namespace IntelliSurgery.DbOperations.Appointments
 {
@@ -11,7 +12,10 @@ namespace IntelliSurgery.DbOperations.Appointments
         {
             return a => a.Id == appointmentId;
         }
-
+        public static Expression<Func<Appointment, bool>> ByTheatreType(TheatreType theatreType)
+        {
+            return a => a.TheatreType == theatreType;
+        }
 
         public static Expression<Func<Appointment, bool>> ByPriorityLevel(PriorityLevel priorityLevel)
         {

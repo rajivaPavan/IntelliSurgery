@@ -10,6 +10,7 @@ namespace IntelliSurgery.Models
         public int Age { get; set; }
         public Gender Gender { get; set; }
         public float Weight { get; set; }
+        public float Height { get; set; }
          
     }
 

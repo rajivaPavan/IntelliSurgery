@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
+using IntelliSurgery.DbOperations.Theatres;
 
 namespace IntelliSurgery
 {
@@ -41,12 +42,15 @@ namespace IntelliSurgery
             services.AddDbContextPool<AppDbContext>(
                options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
+            //add repository
             services.AddScoped<ICalendarRepository, CalendarRepository>();
             services.AddScoped<ISurgeryTypeRepository, SurgeryTypeRepository>();
             services.AddScoped<IPatientRepository, PatientRepository>();
             services.AddScoped<ISurgeonRepository, SurgeonRepository>();
             services.AddScoped<ISurgeryRepository, SurgeryRepository>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+            services.AddScoped<ITheatreRepository, TheatreRepository>();
+
 
             services.AddScoped<ISurgeryScheduler, SurgeryScheduler>();
 

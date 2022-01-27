@@ -13,8 +13,8 @@
 
   <ItemGroup>
     <Folder Include="MLScripts\" />
-    <Folder Include="Pages\css\" />
-    <Folder Include="Pages\js\" />
+    <Folder Include="HTMLFileHaduwothMekataDanna\css\" />
+    <Folder Include="HTMLFileHaduwothMekataDanna\js\" />
     <Folder Include="Views\Appointment\" />
     <Folder Include="Views\Surgeries\" />
   </ItemGroup>

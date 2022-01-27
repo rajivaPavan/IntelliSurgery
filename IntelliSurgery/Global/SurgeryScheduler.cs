@@ -24,7 +24,10 @@ namespace IntelliSurgery.Global
 
         public async Task CreateSchedule(TheatreType theatreType)
         {
-            //////////implement algorithm//////////////
+            ///////////  implement algorithm ///////////
+            
+            //filter appointments that can be done in the theatertype
+
 
             //get appointments of the following week
             var appointments = await appointmentRepository.GetAppointments(
@@ -51,7 +54,7 @@ namespace IntelliSurgery.Global
                 appointments = await appointmentRepository.GetAppointments(
                     AppointmentQueryLogic.ByPriorityLevel((PriorityLevel)level));
 
-                appointments = appointments.Where(a => a.Status != Status.Completed).ToList();
+                //appointments = appointments.Where(a => a.Status != Status.Completed).ToList();
                 List<TimeSpan> timeSpans = appointments.Select(a => a.PredictedTimeDuration).ToList();
                 float avgTime = CalculateAverage(timeSpans);
 

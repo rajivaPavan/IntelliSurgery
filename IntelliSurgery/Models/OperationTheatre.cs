@@ -22,6 +22,15 @@ namespace IntelliSurgery.Models
     public class TheaterAvailablePeriod : TimeRange
     {
         public int Id { get; set; }
+        public TimeRange GetTimeRange()
+        {
+            return new TimeRange()
+            {
+                Start = this.Start,
+                End = this.End,
+                Duration = this.Duration
+            };
+        }
     }
 }
 

@@ -46,5 +46,12 @@ namespace IntelliSurgery.DbOperations
             await context.SaveChangesAsync();
             return appointments;
         }
+
+        public async Task<Appointment> UpdateAppointment(Appointment appointment)
+        {
+            context.Appointments.Update(appointment);
+            await context.SaveChangesAsync();
+            return appointment;
+        }
     }
 }

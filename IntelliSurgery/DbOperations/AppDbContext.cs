@@ -1,4 +1,5 @@
 ﻿
+using IntelliSurgery.Global;
 using IntelliSurgery.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +23,7 @@ namespace IntelliSurgery.DbOperations
         public DbSet<Theatre> Theatres {get; set; }
         public DbSet<TheatreType> TheatreTypes { get; set;}
         public DbSet<SurgeryTypeSurgeryTheatre> SurgeryType_Theatres { get; set; }
+        public DbSet<WorkingBlock> WorkingBlocks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

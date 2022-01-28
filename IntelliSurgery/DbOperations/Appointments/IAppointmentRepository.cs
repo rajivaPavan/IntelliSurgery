@@ -14,7 +14,6 @@ namespace IntelliSurgery.DbOperations
         Task<List<Appointment>> UpdateAppointments(List<Appointment> appointments);
         Task<List<Appointment>> GetAppointments(Expression<Func<Appointment, bool>> predicate);
         Task<Appointment> GetAppointment(Expression<Func<Appointment, bool>> predicate);
-
-
+        Task<Appointment> UpdateAppointment(Appointment appointment);
     }
 }

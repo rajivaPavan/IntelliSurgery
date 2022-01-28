@@ -55,7 +55,8 @@ namespace IntelliSurgery.Controllers
                 Age = patientDTO.Age,
                 Gender = (Gender)patientDTO.Gender,
                 Weight = patientDTO.Weight,
-                Name = patientDTO.Name
+                Name = patientDTO.Name,
+                Height = patientDTO.Height
             };
             newPatient = await patientRepository.CreatePatient(newPatient);
             return Json(new {success= true, data = newPatient.Id });

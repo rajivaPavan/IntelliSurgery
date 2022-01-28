@@ -11,11 +11,9 @@ using Microsoft.Extensions.Hosting;
 using React.AspNet;
 using JavaScriptEngineSwitcher.V8;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
 using IntelliSurgery.DbOperations.Theatres;
+using IntelliSurgery.DbOperations.WorkingBlocks;
 
 namespace IntelliSurgery
 {
@@ -50,6 +48,7 @@ namespace IntelliSurgery
             services.AddScoped<ISurgeryRepository, SurgeryRepository>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
             services.AddScoped<ITheatreRepository, TheatreRepository>();
+            services.AddScoped<IWorkingBlockRepository, WorkingBLockRepository>();
 
 
             services.AddScoped<ISurgeryScheduler, SurgeryScheduler>();

@@ -17,6 +17,8 @@ namespace IntelliSurgery.Global
         private readonly ISurgeryRepository surgeryRepository;
         private readonly IAppointmentRepository appointmentRepository;
         private readonly ITheatreRepository theatreRepository;
+        private TimeSpan prepTime = new TimeSpan(0,5,0);
+        private TimeSpan cleanTime = new TimeSpan(0, 5, 0);
 
         public SurgeryScheduler(ISurgeryRepository surgeryRepository, IAppointmentRepository appointmentRepository, ITheatreRepository theatreRepository)
         {
@@ -27,8 +29,7 @@ namespace IntelliSurgery.Global
 
         public async Task CreateSchedule(TheatreType theatreType)
         {
-            ///////////  implement algorithm ///////////
-            ///
+           
             //get list of theatres of theatreType
             List<Theatre> theatres = await theatreRepository.GetTheatres(TheatreQueryLogic.ByTheatreType(theatreType));
 
@@ -41,13 +42,13 @@ namespace IntelliSurgery.Global
             //get list of surgeons allocated to the above appointments
             List<Surgeon> surgeons = appointments.Select(a => a.Surgeon).Distinct().ToList();
 
-            //sort surgeons in descending order of total time of 
+            //sort surgeons in descending order of total time of surgeries
 
             //prioritize appointments for the following week
             appointments = await PrioritizeAppointments(appointments);
             
             //calculate time blocks
-            //save time blocks in database
+            //
             
 
             //allocate time for surgeries within the time blocks
@@ -83,11 +84,95 @@ namespace IntelliSurgery.Global
             return (float)averageTicks;
         }
 
-        //private List<TimeRange> CalculateTimeBlocks()
+        //private List<WorkingBlock> CalculateTimeBlocks()
         //{
 
         //    return 
         //}
+
+        private async Task<List<WorkingBlock>> AllocatedSurgeriesToBlocks(List<WorkingBlock> workingBlocks, 
+            List<Appointment> appointments)
+        {
+            ///////best fit algorithm in memory management//////
+            
+            //initially every appointment is unscheduled
+
+            int numOfBlocks = workingBlocks.Count;
+            int numOfAppointments = appointments.Count;
+
+            TimeSpan blockDuration;
+            TimeSpan surgeryDuration;
+            Appointment currentAppointment;
+            WorkingBlock currentBlock;
+
+            for(int i = 0; i < numOfAppointments; i++)
+            {
+                int bestBlockIndex = -1;
+                WorkingBlock bestBlock = null;
+
+                currentAppointment = appointments.ElementAt(i);
+                surgeryDuration = GetFinalSurgeryDuration(currentAppointment.PredictedTimeDuration);
+
+                for (int j = 0; j < numOfBlocks; j++)
+                {
+                    currentBlock = workingBlocks[j];
+                    blockDuration = currentBlock.Duration;
+
+                    //find the best block index for the current appointment
+                    if (blockDuration >= surgeryDuration)
+                    {
+                        if (bestBlock == null || bestBlock.Duration > blockDuration)
+                        {
+                            bestBlockIndex = j;
+                            bestBlock = workingBlocks[bestBlockIndex];   
+                        }
+                    }
+                }
+                //if a block was found for the current appointment
+                if (bestBlockIndex != -1)
+                {
+                    //set appointment status to scheduled
+                    currentAppointment.Status = Status.Scheduled;
+
+                    //reduce remaining time in block
+                    bestBlock.RemainingTime = bestBlock.RemainingTime.Subtract(surgeryDuration);
+
+                    //set appointment surgery duration with preparation and cleanging time
+                    TimeRange surgeryTimeRange = new TimeRange()
+                    {
+                        Start = bestBlock.End.Subtract(bestBlock.RemainingTime),
+                        Duration = surgeryDuration
+                    };
+                    currentAppointment.ScheduledSurgery.SurgeryEvent.SetTimeRange(surgeryTimeRange);
+
+                   
+
+                    //update appointmentRepo
+                    currentAppointment = await appointmentRepository.UpdateAppointment(currentAppointment);
+
+                    //add scheduled surgery to working block
+                    bestBlock.AllocatedSurgeries.Add(currentAppointment.ScheduledSurgery);
+                }
+                else
+                {
+                    //set unscheduled appointment status to InWaitingList
+                    currentAppointment.Status = Status.InWaitingList;
+                }
+
+                //update best working block
+                workingBlocks[bestBlockIndex] = bestBlock;
+            }
+
+            return workingBlocks;
+        }
+
+        private TimeSpan GetFinalSurgeryDuration(TimeSpan predictedTime)
+        {
+            return predictedTime.Add(prepTime).Add(cleanTime);
+        }
+        
+
     }
 
 }
+

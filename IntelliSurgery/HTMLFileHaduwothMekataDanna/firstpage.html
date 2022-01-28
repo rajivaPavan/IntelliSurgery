@@ -15,71 +15,72 @@
 <body>
     <div class="row">
         <div class="col-md-6">
-            <form action="firstpage.html" method="post">
-                <h1> Appointment </h1>
+            <div class="form_class">
 
-                <fieldset>
+            <h1> Appointment </h1>
 
-                    <legend><span class="number">1</span> Patient's Details </legend>
+            <fieldset>
 
-                    <label for="name">Name:</label>
-                    <input type="text" id="name" name="user_name">
+                <legend><span class="number">1</span> Patient's Details </legend>
 
-                    <label for="patient_id" class="mr-sm-2">Patient ID:</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Patient ID" id="patient_id">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="user_name">
+
+                <label for="patient_id" class="mr-sm-2">Patient ID:</label>
+                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Patient ID" id="patient_id">
 
 
-                    <label for="age">Age:</label>
-                    <input type="number" id="age" name="user_age">
-                    
-                    <lable for="weight">Weight:</lable>
-                        
-                            <input type="text" class="form-control" id="weight"name="weight">
-                            <div class="input-group-lg">
-                                <input type="text" class="form-control" >
-                                <div class="input-group-append">
-                                    <span class="input-group-text">kg</span>
-                                </div>
-                            
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="user_age">
 
-                        </div>
-                        <label for="height">Height:</label>
-                            <input type="text" class="form-control" id="height"name="height">
-                            <div class="input-group-lg">
-                                <input type="text" class="form-control" >
-                                <div class="input-group-append">
-                                    <span class="input-group-text">cm</span>
-                                </div>
-                            
-                        </div>
+                <lable for="weight">Weight:</lable>
 
-                    
-                </fieldset>
-                <fieldset>
+                <input type="text" class="form-control" id="weight" name="weight">
+                <div class="input-group-lg">
+                    <input type="text" class="form-control">
+                    <div class="input-group-append">
+                        <span class="input-group-text">kg</span>
+                    </div>
 
-                    <legend><span class="number">2</span> Surgery Requirements</legend>
 
-                    <label for="surgery">Surgery:</label>
-                    <select id="surgery" name="user_surgery">
+                </div>
+                <label for="height">Height:</label>
+                <input type="text" class="form-control" id="height" name="height">
+                <div class="input-group-lg">
+                    <input type="text" class="form-control">
+                    <div class="input-group-append">
+                        <span class="input-group-text">cm</span>
+                    </div>
 
-                        <option value="surgery_1">Gastrointestinal surgery</option>
-                        <option value="surgery_2">Orthopedic surgery</option>
-                        <option value="surgery_3">Cardiovascular Surgery</option>
-                        <option value="surgery_4">Gynaecology</option>
-                        <option value="surgery_5">Neurosurgery</option>
-                        <option value="surgery_6">Ophthalmology</option>
-                        <option value="surgery_7">Oral and Maxillofacial Surgery</option>
-                        <option value="surgery_8">Otolaryngology</option>
-                        <option value="surgery_9">Thoracic</option>
-                        <option value="surgery_10">Urology</option>
-                    </select>
-                    </fieldset>
+                </div>
 
-                    </form>
+
+            </fieldset>
+            <fieldset>
+
+                <legend><span class="number">2</span> Surgery Requirements</legend>
+
+                <label for="surgery">Surgery:</label>
+                <select id="surgery" name="user_surgery">
+
+                    <option value="surgery_1">Gastrointestinal surgery</option>
+                    <option value="surgery_2">Orthopedic surgery</option>
+                    <option value="surgery_3">Cardiovascular Surgery</option>
+                    <option value="surgery_4">Gynaecology</option>
+                    <option value="surgery_5">Neurosurgery</option>
+                    <option value="surgery_6">Ophthalmology</option>
+                    <option value="surgery_7">Oral and Maxillofacial Surgery</option>
+                    <option value="surgery_8">Otolaryngology</option>
+                    <option value="surgery_9">Thoracic</option>
+                    <option value="surgery_10">Urology</option>
+                </select>
+            </fieldset>
+
+        </div>
                 
         </div>
         <div class="col-md-6">
-            <form action="firstpage.html" method="post">
+            <div class="form_class">
                 <fieldset>
                     <label for="surgeon">Surgeon:</label>
                     <select id="surgeon" name="user_surgeon">
@@ -145,8 +146,8 @@
 
                 <button type="submit">Sign Up</button>
 
-            </form>
-        </div>
+            </div>
+            </div>
     </div>
 
 </body>

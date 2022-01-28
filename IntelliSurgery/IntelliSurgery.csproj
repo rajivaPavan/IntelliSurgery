@@ -5,9 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\css\NewFolder\**" />
     <Compile Remove="wwwroot\lib\vue\**" />
+    <Content Remove="wwwroot\css\NewFolder\**" />
     <Content Remove="wwwroot\lib\vue\**" />
+    <EmbeddedResource Remove="wwwroot\css\NewFolder\**" />
     <EmbeddedResource Remove="wwwroot\lib\vue\**" />
+    <None Remove="wwwroot\css\NewFolder\**" />
     <None Remove="wwwroot\lib\vue\**" />
   </ItemGroup>
 

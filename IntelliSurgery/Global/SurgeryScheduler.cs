@@ -19,8 +19,8 @@ namespace IntelliSurgery.Global
         private readonly IAppointmentRepository appointmentRepository;
         private readonly ITheatreRepository theatreRepository;
         private readonly IWorkingBlockRepository workingBlockRepository;
-        private TimeSpan prepTime = new TimeSpan(0,5,0);
-        private TimeSpan cleanTime = new TimeSpan(0, 5, 0);
+        private readonly TimeSpan prepTime = new(0,5,0);
+        private readonly TimeSpan cleanTime = new(0, 5, 0);
 
         public SurgeryScheduler(ISurgeryRepository surgeryRepository, IAppointmentRepository appointmentRepository, 
             ITheatreRepository theatreRepository, IWorkingBlockRepository workingBlockRepository)

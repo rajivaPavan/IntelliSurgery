@@ -3,7 +3,7 @@
 }
 
 @section Styles{
-    <link ref="stylesheet" href="~/css/appointment-form.css" />
+    <link ref="stylesheet" href="~/css/appointment.css" />
     <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
 }
 
@@ -25,19 +25,38 @@
 
                     <legend><span class="number">2</span> Patient's Details </legend>
 
-                    <label for="patient_name">Name:</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2" id="patient_name" name="patient_name">
-
-                    <label for="birthday">Birthday:</label>
-                    <input type="date" id="birthday" name="birthday" class="form-control mb-2 mr-sm-2">
-
-                    <div class="col-md-6">
-                        <label for="weight" class="form-label">Weight:</label>
-                        <input type="text" class="form-control" id="weight" placeholder="kg">
-                    </div>
-                    <div class="col-md-6">
-                        <label for="height" class="form-label">Height:</label>
-                        <input type="text" class="form-control" id="height" placeholder="cm">
+                    <div class="row">
+                        <div class="col-md-12">
+                        <label for="patient_name">Name:</label>
+                        <input type="text" class="form-control mb-2 mr-sm-2" id="patient_name" name="patient_name">
+                        </div>
+                        <div class="col-md-6">
+                             <label for="birthday">Birthday:</label>
+                        <input type="date" id="birthday" name="birthday" class="form-control mb-2 mr-sm-2">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Gender:</label>
+                            <div class="form-check">
+                                <input class="form-check-input gender" type="radio" value="Male" id="gender_male" name="gender">
+                                <label class="form-check-label" for="importance_high">
+                                    Male
+                                </label>                        
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input gender" type="radio" value="Female" id="gender_female" name="gender">
+                                <label class="form-check-label" for="importance_medium">
+                                    Female
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="weight" class="form-label">Weight:</label>
+                            <input type="text" class="form-control" id="weight" placeholder="kg">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="height" class="form-label">Height:</label>
+                            <input type="text" class="form-control" id="height" placeholder="cm">
+                        </div>
                     </div>
 
 

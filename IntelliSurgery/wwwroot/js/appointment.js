@@ -1,7 +1,8 @@
 ﻿function clearAllPatientFields() {
     $("#patient_name").val("");
     $("#birthday").val("");
-    $("#gender").val("");
+    $("#gender_male").prop("checked",false);
+    $("#gender_female").prop("checked", false);
     $("#weight").val("");
     $("#height").val("");
 }
@@ -9,7 +10,8 @@
 function disablePatientConstantFields(isDisable) {
     $("#patient_name").prop("disabled", isDisable);
     $("#birthday").prop("disabled", isDisable);
-    $("#gender").prop("disabled", isDisable);
+    $("#gender_male").prop("disabled", isDisable);
+    $("#gender_female").prop("disabled", isDisable);
 }
 
 function enableAllPatientFields() {
@@ -24,6 +26,10 @@ function setPatientDetails(patientDetails) {
     $("#gender").val(patientDetails.gender);
     $("#weight").val(patientDetails.weight);
     $("#height").val(patientDetails.height);
+}
+
+function getPatientDetails() {
+    var gender = $("input:radio.someClass:checked").val();
 }
 
 async function validatePatient() {

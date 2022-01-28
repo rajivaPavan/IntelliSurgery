@@ -11,11 +11,23 @@
             }
         },
         headerToolbar: {
-            start: 'title', // will normally be on the left. if RTL, will be on the right
-            center: '',
-            end: 'today prev,next' // will normally be on the right. if RTL, will be on the left
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'// will normally be on the right. if RTL, will be on the left
         },
-        height:1000
+        selectable: true,
+        events: [
+            { // this object will be "parsed" into an Event Object
+                title: 'The Title', // a property!
+                start: '2022-02-01', // a property!
+                end: '2022-02-02' // a property! ** see important note below about 'end' **
+            }, {
+                start: '2022-01-10T10:23:00',
+                end: '2022-01-10T16:00:00',
+                display: 'background'
+            }   
+            
+        ]
     });
 
     calendar.render();

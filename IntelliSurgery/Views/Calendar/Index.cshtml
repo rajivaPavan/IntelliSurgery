@@ -10,22 +10,17 @@
 
 <div class="container-fluid">
     <div class="row ">
-        <div class="col-xs-3 col-md-5">
-            @*<h4>Select Operating Theatre</h4>*@
+        <div class="col-12 col-md-3">
+            <h4>Select Operating Theatre</h4>
         </div>
-        <div class="col-xs-9 col-md-7 pull-right" style="background: grey;">
-            @*<iframe src="https://calendar.google.com/calendar/embed?src=beratiles%40gmail.com&ctz=Asia%2FColombo"
-                style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>*@
-
+        <div class="col-12 col-md-9">
+            <div id="calendar"></div>
         </div>
-
     </div>
 </div>
-<div id="calendar"></div>
 
 
 @section Scripts{
     <script src="~/js/calendar-requests.js"></script>
     <script src="~/js/calendar.js"></script>
-
 }

@@ -22,6 +22,13 @@ namespace IntelliSurgery.DbOperations.WorkingBlocks
             return workingBlock;
         }
 
+        public async Task<List<WorkingBlock>> AddBlocks(List<WorkingBlock> blocks)
+        {
+            await context.WorkingBlocks.AddRangeAsync(blocks);
+            await context.SaveChangesAsync();
+            return blocks;
+        }
+
         public async Task<List<WorkingBlock>> GetWorkBlocks()
         {
             return await context.WorkingBlocks.ToListAsync();

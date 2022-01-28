@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Itenso.TimePeriod;
 using static IntelliSurgery.Enums.OperationTheatreEnums;
 using IntelliSurgery.DbOperations.Theatres;
+using IntelliSurgery.DbOperations.WorkingBlocks;
 
 namespace IntelliSurgery.Global
 {
@@ -17,14 +18,17 @@ namespace IntelliSurgery.Global
         private readonly ISurgeryRepository surgeryRepository;
         private readonly IAppointmentRepository appointmentRepository;
         private readonly ITheatreRepository theatreRepository;
-        private TimeSpan prepTime = new TimeSpan(0,5,0);
-        private TimeSpan cleanTime = new TimeSpan(0, 5, 0);
+        private readonly IWorkingBlockRepository workingBlockRepository;
+        private readonly TimeSpan prepTime = new(0,5,0);
+        private readonly TimeSpan cleanTime = new(0, 5, 0);
 
-        public SurgeryScheduler(ISurgeryRepository surgeryRepository, IAppointmentRepository appointmentRepository, ITheatreRepository theatreRepository)
+        public SurgeryScheduler(ISurgeryRepository surgeryRepository, IAppointmentRepository appointmentRepository, 
+            ITheatreRepository theatreRepository, IWorkingBlockRepository workingBlockRepository)
         {
             this.surgeryRepository = surgeryRepository;
             this.appointmentRepository = appointmentRepository;
             this.theatreRepository = theatreRepository;
+            this.workingBlockRepository = workingBlockRepository;
         }
 
         public async Task CreateSchedule(TheatreType theatreType)
@@ -46,13 +50,15 @@ namespace IntelliSurgery.Global
 
             //prioritize appointments for the following week
             appointments = await PrioritizeAppointments(appointments);
-            
+
             //calculate time blocks
-            //
-            
+            List<WorkingBlock> workingBlocks = CalculateTimeBlocks();
 
             //allocate time for surgeries within the time blocks
-            //implement the best fit algorithm in memory management accordingly
+            workingBlocks = await AllocateSurgeriesToBlocks(workingBlocks, appointments);
+            
+            //add blocks to the database
+            await workingBlockRepository.AddBlocks(workingBlocks);
 
         }
 
@@ -84,13 +90,17 @@ namespace IntelliSurgery.Global
             return (float)averageTicks;
         }
 
-        //private List<WorkingBlock> CalculateTimeBlocks()
-        //{
+        private List<WorkingBlock> CalculateTimeBlocks()
+        {
+            ////
+            //////
+            ///// IMPLEMENT
+            //////
+            /////
+            return new List<WorkingBlock>();
+        }
 
-        //    return 
-        //}
-
-        private async Task<List<WorkingBlock>> AllocatedSurgeriesToBlocks(List<WorkingBlock> workingBlocks, 
+        private async Task<List<WorkingBlock>> AllocateSurgeriesToBlocks(List<WorkingBlock> workingBlocks, 
             List<Appointment> appointments)
         {
             ///////best fit algorithm in memory management//////
@@ -157,12 +167,12 @@ namespace IntelliSurgery.Global
                 {
                     //set unscheduled appointment status to InWaitingList
                     currentAppointment.Status = Status.InWaitingList;
+                    currentAppointment = await appointmentRepository.UpdateAppointment(currentAppointment);
                 }
 
                 //update best working block
                 workingBlocks[bestBlockIndex] = bestBlock;
             }
-
             return workingBlocks;
         }
 

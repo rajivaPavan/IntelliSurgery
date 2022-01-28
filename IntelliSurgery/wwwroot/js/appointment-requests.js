@@ -5,7 +5,7 @@ async function validatePatientRequest(patientId) {
     // this function returns a bool
 
     var isPatientExists = false;
-    var res = await axios.post("/api/AppointmentApi/AddAppointment/" + patientId.toString());
+    var res = await axios.post("/api/AppointmentApi/AddAppointment?patientId=" + patientId.toString());
     if (res.data.success == true) {
         isPatientExists  = res.data.data;
     }
@@ -15,7 +15,7 @@ async function validatePatientRequest(patientId) {
 async function addPatientRequest(patient) {
     //var patient = {
     //    Name: 0,
-    //    Age: 0,
+    //    DateOfBirth: 0,
     //    Weight: 0,
     //    Height:0,
     //    Gender: 0

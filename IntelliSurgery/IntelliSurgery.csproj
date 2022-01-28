@@ -19,7 +19,6 @@
     <Folder Include="MLScripts\" />
     <Folder Include="HTMLFileHaduwothMekataDanna\css\" />
     <Folder Include="HTMLFileHaduwothMekataDanna\js\" />
-    <Folder Include="Views\Appointment\" />
     <Folder Include="Views\Surgeries\" />
   </ItemGroup>
 

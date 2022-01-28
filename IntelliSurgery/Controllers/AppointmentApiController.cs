@@ -52,7 +52,7 @@ namespace IntelliSurgery.Controllers
         {
             Patient newPatient = new Patient()
             {
-                Age = patientDTO.Age,
+                DateOfBirth = patientDTO.DateOfBirth,
                 Gender = (Gender)patientDTO.Gender,
                 Weight = patientDTO.Weight,
                 Name = patientDTO.Name,

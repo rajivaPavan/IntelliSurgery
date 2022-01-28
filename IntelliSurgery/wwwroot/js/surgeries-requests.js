@@ -7,8 +7,8 @@
     return appointments;
 }
 
-async function CreateScheduleRequest() {
-    var res = await axios.post("/api/CalendarApi/CreateSchedule");
+async function CreateScheduleRequest(theatreTypeId) {
+    var res = await axios.post("/api/CalendarApi/CreateSchedule?typeId" + theatreTypeId);
     var IsCompleted = false;
     if (res.data.success == true) {
         IsCompleted = true;

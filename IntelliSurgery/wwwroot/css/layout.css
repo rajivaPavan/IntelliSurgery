@@ -1,5 +1,5 @@
 ﻿namespace IntelliSurgery.wwwroot.css
 
-li a{
-    color: #333;
+.nav-link {
+    color: red !important;
 }

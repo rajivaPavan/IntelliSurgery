@@ -3,13 +3,16 @@ async function validatePatientRequest(patientId) {
     // validate patient
     // api method returns if patient exists or not
     // this function returns a bool
-
-    var isPatientExists = false;
-    var res = await axios.post("/api/AppointmentApi/AddAppointment?patientId=" + patientId.toString());
+    var patientDetails = null;
+    var res = await axios.post("/api/AppointmentApi/ValidatePatient?patientId=" + patientId.toString());
     if (res.data.success == true) {
-        isPatientExists  = res.data.data;
+        var isPatientExists = res.data.data;
+        if (isPatientExists == true) {
+            patientDetails = res.data.patient;
+        }
     }
-    return isPatientExists;
+    //keys in patientDetails => dateOfBirth,gender,height,weight,name
+    return patientDetails;
 }
 
 async function addPatientRequest(patient) {
@@ -57,8 +60,8 @@ async function getDropDownListsRequest() {
     var dto = {};
     var dropDownLists = {
         surgeons: [],
-        surgeryTypes:[]
-    }
+        surgeryTypes: []
+    };
     if (res.data.success == true) {
         dto = res.data.data;
         dropDownList.surgeons = dto.surgeons;
@@ -66,3 +69,5 @@ async function getDropDownListsRequest() {
     }
     return dropDownLists;
 }
+
+

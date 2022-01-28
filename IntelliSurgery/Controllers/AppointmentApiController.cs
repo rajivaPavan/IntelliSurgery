@@ -39,12 +39,23 @@ namespace IntelliSurgery.Controllers
         public async Task<IActionResult> ValidatePatient(int patientId)
         {
             Patient patient = await patientRepository.GetPatientById(patientId);
-            bool isPatientExist = true;
-            if (patient == null)
+            bool isPatientExist = false;
+            PatientDTO patientDTO = null;
+
+            if (patient != null)
             {
-                isPatientExist = false;
+                isPatientExist = true;
+                patientDTO = new PatientDTO()
+                {
+                    DateOfBirth = patient.DateOfBirth,
+                    Gender = (int)patient.Gender,
+                    Height = patient.Height,
+                    Weight = patient.Weight,
+                    Name = patient.Name
+                };
             }
-            return Json(new {success =  true, data = isPatientExist});
+            
+            return Json(new {success =  true, data = isPatientExist , patient = patientDTO});
         }
 
         [HttpPost]

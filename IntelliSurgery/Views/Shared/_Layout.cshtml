@@ -6,7 +6,9 @@
     <title>@ViewBag.Title</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/layout.css" />
-    <link rel="stylesheet" href="~/lib/fontawesome/css/all.css" />    
+    <link rel="stylesheet" href="~/lib/fontawesome/css/all.css" /> 
+    <link href="~/lib/sweetalert2/dist/sweetalert2.css" rel="stylesheet" >
+
     @RenderSection("Styles", required: false)
 </head>
 <body>
@@ -39,7 +41,8 @@
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/lib/axios/axios.min.js"></script>
-
+    <script src="~/lib/sweetalert2/dist/sweetalert2.js"></script>
+    <script src="~/js/common-functions.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

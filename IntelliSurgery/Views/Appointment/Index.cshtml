@@ -3,7 +3,7 @@
 }
 
 @section Styles{
-    <link ref="stylesheet" href="~/css/appointment.css" />
+    <link ref="stylesheet" href="~/css/appointment-form.css" />
     <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
 }
 
@@ -21,10 +21,12 @@
                     <label for="patient_id" class="mr-sm-2">Patient ID:</label>
                     <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" id="patient_id">
 
+                    <button class="btn btn-primary" id="validate-patient-btn">Validate Patient</button>
+
                     <legend><span class="number">2</span> Patient's Details </legend>
 
-                    <label for="name">Name:</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2" id="name" name="user_name">
+                    <label for="patient_name">Name:</label>
+                    <input type="text" class="form-control mb-2 mr-sm-2" id="patient_name" name="patient_name">
 
                     <label for="birthday">Birthday:</label>
                     <input type="date" id="birthday" name="birthday" class="form-control mb-2 mr-sm-2">
@@ -139,4 +141,5 @@
 
 @section Scripts{
     <script src=~/js/appointment-requests.js></script>
+    <script src="~/js/appointment.js"></script>
 }

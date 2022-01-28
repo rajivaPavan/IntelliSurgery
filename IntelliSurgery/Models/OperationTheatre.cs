@@ -16,8 +16,7 @@ namespace IntelliSurgery.Models
     public class TheatreType
     {
         public int Id { get; set; }
-        public OperationTheatreType OperationTheatreType{ get; set; }
-       
+        public string Name { get; set; }
     }
     public class TheaterAvailablePeriod : TimeRange
     {

@@ -6,7 +6,7 @@ namespace IntelliSurgery.DbOperations
 {
     public interface ISurgeryTypeRepository
     {
-        Task<SurgeryType> CreateSurgery(SurgeryType surgeryType);
+        Task<SurgeryType> AddSurgeryType(SurgeryType surgeryType);
         Task<SurgeryType> GetSurgeryTypeById(int id);
         Task<List<SurgeryType>> GetSurgeryTypes();
     }

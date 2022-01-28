@@ -10,7 +10,7 @@ namespace IntelliSurgery.Models
     {
         public int Id { get; set; }
         public TheaterAvailablePeriod TheaterAvailablePeriod { get; set; }
-        public WorkingPeriod SurgeonWorkingPeriod { get; set; }
+        public StaffWorkingPeriod SurgeonWorkingPeriod { get; set; }
         public TimeSpan RemainingTime { get; set; }
         public List<ScheduledSurgery> AllocatedSurgeries { get; set; }
 

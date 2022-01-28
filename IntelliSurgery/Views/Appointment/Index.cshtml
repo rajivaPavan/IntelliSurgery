@@ -1,0 +1,142 @@
+﻿@{
+    ViewBag.Title = "Add Appointment";
+}
+
+@section Styles{
+    <link ref="stylesheet" href="~/css/appointment.css" />
+    <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+}
+
+<div class="container px-0">
+        <div class="row">
+        <div class="col-md-6">
+            <div class="form_class">
+
+                <h1> Appointment </h1>
+
+                <fieldset>
+
+                    <legend><span class="number">1</span> Validate Patient </legend>
+
+                    <label for="patient_id" class="mr-sm-2">Patient ID:</label>
+                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" id="patient_id">
+
+                    <legend><span class="number">2</span> Patient's Details </legend>
+
+                    <label for="name">Name:</label>
+                    <input type="text" class="form-control mb-2 mr-sm-2" id="name" name="user_name">
+
+                    <label for="birthday">Birthday:</label>
+                    <input type="date" id="birthday" name="birthday" class="form-control mb-2 mr-sm-2">
+
+                    <div class="col-md-6">
+                        <label for="weight" class="form-label">Weight:</label>
+                        <input type="text" class="form-control" id="weight" placeholder="kg">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="height" class="form-label">Height:</label>
+                        <input type="text" class="form-control" id="height" placeholder="cm">
+                    </div>
+
+
+                </fieldset>
+                
+
+            </div>
+
+        </div>
+        <div class="col-md-6">
+            <div class="form_class">
+                <fieldset>
+
+                    <legend><span class="number">3</span> Surgery Requirements</legend><br>
+
+                    <label for="surgery">Surgery:</label>
+                    <select id="surgery" name="user_surgery">
+
+                        <option selected>Choose...</option>
+                        <option value="surgery_1">Gastrointestinal surgery</option>
+                        <option value="surgery_2">Orthopedic surgery</option>
+                        <option value="surgery_3">Cardiovascular Surgery</option>
+                        <option value="surgery_4">Gynaecology</option>
+                        <option value="surgery_5">Neurosurgery</option>
+                        <option value="surgery_6">Ophthalmology</option>
+                        <option value="surgery_7">Oral and Maxillofacial Surgery</option>
+                        <option value="surgery_8">Otolaryngology</option>
+                        <option value="surgery_9">Thoracic</option>
+                        <option value="surgery_10">Urology</option>
+                    </select>
+                </fieldset>
+                <fieldset>
+                    <label for="surgeon">Surgeon:</label>
+                    <select id="surgeon" name="user_surgeon">
+                        <option selected>Choose...</option>
+                        <optgroup label="Orthopedic Surgeon">
+                            <option value="doctor_1"> Dr. Indika Ellawala </option>
+                            <option value="doctor_2"> Dr. Asela Gunawardana </option>
+                            <option value="doctor_3"> Dr. Pavan Pitiwaduge </option>
+                        </optgroup>
+                        <optgroup label="Cardiovascular Surgeon">
+                            <option value="doctor_4">Dr. Suveen Ellawela</option>
+                            <option value="doctor_5">Dr. Kasun </option>
+                            <option value="doctor_6">Dr. Happy</option>
+                        </optgroup>
+                        <optgroup label="Gynaecologist">
+                            <option value="doctor_7r">Dr. Tharushi</option>
+                            <option value="doctor_8">Dr. Dosthara Honda Hitha</option>
+                        </optgroup>
+                    </select>
+                    <label> Anastheasists: </label>
+
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="required" name="anastheasist" value="Required"><label class="form-check-label" for="required">Required</label><br>
+                        <input type="radio" class="form-check-input" id="not_required" name="anastheasist" value="Not Required"><label class="form-check-label" for="not_required">Not Required</label>
+
+                    </div>
+                    <label for="anasthesia_type">Anasthesia Type:</label>
+                    <select id="anasthesia_type" name="user_anas_type">
+                        <option selected>Choose...</option>
+                        <option value="type_1">A</option>
+                        <option value="type_2">B</option>
+                        <option value="type_3">C</option>
+
+                    </select>
+                    <label for="or_theater">Operating Theater:</label>
+                    <select id="or_theater" name="user_or">
+                        <option selected>Choose...</option>
+                        <option value="or_1">OR1</option>
+                        <option value="or_2">OR2</option>
+                        <option value="or_3">OR3</option>
+
+                    </select>
+
+
+                    <label>Importance:</label>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="High" id="importance_high" name="importance">
+                        <label class="form-check-label" for="importance_high">
+                            High
+                        </label>
+                        <input class="form-check-input" type="radio" value="Medium" id="importance_medium" name="importance">
+                        <label class="form-check-label" for="importance_medium">
+                            Medium
+                        </label>
+                        <input class="form-check-input" type="radio" value="Low" id="importance_low" name="importance">
+                        <label class="form-check-label" for="importance_low">
+                            Low
+                        </label>
+                    </div>
+
+                    
+                </fieldset>
+
+                <button type="submit">Add Appointment</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src=~/js/appointment-requests.js></script>
+}

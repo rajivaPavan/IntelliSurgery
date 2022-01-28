@@ -21,7 +21,7 @@ namespace IntelliSurgery.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetScheduledSurgeries()
+        public async Task<IActionResult> GetScheduledSurgeries(int typeId)
         {
             List<ScheduledSurgery> surgeries = await surgeryRepository.GetAllSurgeries();
             ScheduledSurgeriesDTO scheduledSurgeriesDTO = new ScheduledSurgeriesDTO();

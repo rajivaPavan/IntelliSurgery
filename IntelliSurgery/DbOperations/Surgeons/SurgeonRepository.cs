@@ -13,6 +13,12 @@ namespace IntelliSurgery.DbOperations
         {
             this.context = context;
         }
+        public async Task<Surgeon> AddSurgeon(Surgeon surgeon)
+        {
+            await context.Surgeons.AddAsync(surgeon);
+            await context.SaveChangesAsync();
+            return surgeon;
+        }
         public async Task<Surgeon> GetSurgeonById(int id)
         {
             return await context.Surgeons.FirstOrDefaultAsync(s => s.Id == id);

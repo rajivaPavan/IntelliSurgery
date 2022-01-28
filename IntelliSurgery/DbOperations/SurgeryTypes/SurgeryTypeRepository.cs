@@ -14,7 +14,7 @@ namespace IntelliSurgery.DbOperations
             this.context = context;
         }
 
-        public async Task<SurgeryType> CreateSurgery(SurgeryType surgery)
+        public async Task<SurgeryType> AddSurgeryType(SurgeryType surgery)
         {
             await context.SurgeryTypes.AddAsync(surgery);
             await context.SaveChangesAsync();

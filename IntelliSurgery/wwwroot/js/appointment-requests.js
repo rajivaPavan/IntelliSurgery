@@ -17,6 +17,7 @@ async function addPatientRequest(patient) {
     //    Name: 0,
     //    Age: 0,
     //    Weight: 0,
+    //    Height:0,
     //    Gender: 0
     //};
     const NULL_PATIENT_ID = 0;

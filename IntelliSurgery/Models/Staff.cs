@@ -6,10 +6,11 @@ namespace IntelliSurgery.Models
     public class Staff
     {
         public int Id { get; set; }
+        public string Name { get; set; }
     }
     public class SurgeryStaff : Staff
     {
-        public List<WorkingPeriod> WorkingHours { get; set; }
+        public List<StaffWorkingPeriod> WorkingHours { get; set; }
     }
 
     public class Surgeon : SurgeryStaff
@@ -28,19 +29,6 @@ namespace IntelliSurgery.Models
 
     }
 
-    public class WorkingPeriod : TimeRange
-    {
-        public int Id { get; set; }
-
-        public TimeRange GetTimeRange()
-        {
-            return new TimeRange()
-            {
-                Start = this.Start,
-                End = this.End,
-                Duration = this.Duration
-            };
-        }
-    }
+    
 
 }

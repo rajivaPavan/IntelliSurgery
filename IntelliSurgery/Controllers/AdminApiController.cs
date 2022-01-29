@@ -23,8 +23,7 @@ namespace IntelliSurgery.Controllers
         {
             Surgeon surgeon = new Surgeon() 
             {
-                Name = surgeonDTO.SurgeonName,
-                //Speciality = surgeonDTO.SurgeonId
+                Name = surgeonDTO.SurgeonName
             };
             await surgeonRepository.AddSurgeon(surgeon);
             return Json(new { success = true });

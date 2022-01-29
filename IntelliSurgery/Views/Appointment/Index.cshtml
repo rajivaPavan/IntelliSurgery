@@ -19,7 +19,7 @@
                     <label for="patient_id" class="mr-sm-2">Patient ID:</label>
                     <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" id="patient_id" required>
 
-                    <button type="submit" class="btn btn-primary" id="validate-patient-btn">Validate Patient</button>
+                    <button type="submit" class="" id="validate-patient-btn">Validate Patient</button>
                 </fieldset>
             
             
@@ -31,11 +31,11 @@
                         <label for="patient_name">Name:</label>
                         <input type="text" class="form-control mb-2 mr-sm-2" id="patient_name" name="patient_name">
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-7">
                              <label for="birthday">Birthday:</label>
                         <input type="date" id="birthday" name="birthday" class="form-control mb-2 mr-sm-2">
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <label>Gender:</label>
                             <div class="form-check">
                                 <input class="form-check-input gender" type="radio" value="0" id="gender_male" name="gender" checked>
@@ -60,8 +60,8 @@
                         </div>
                     </div>
 
-                    <button id="add-patient-btn" type="submit">Add Patient</button>
-                    <button id="update-patient-btn" type="submit" style="display:none;">Update Patient</button>
+                    <button id="add-patient-btn" class="" type="submit">Add Patient</button>
+                    <button id="update-patient-btn" class="" type="submit" style="display:none;">Update Patient</button>
                     
                 </fieldset>
                 
@@ -97,7 +97,7 @@
                         <input type="radio" class="form-check-input" id="required" name="anastheasist" value="Required" checked>
                         <label class="form-check-label" for="required">Required</label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check mb-2">
                         <input type="radio" class="form-check-input" id="not_required" name="anastheasist" value="Not Required">
                         <label class="form-check-label" for="not_required">Not Required</label>
                     </div>
@@ -120,27 +120,32 @@
 
 
                     <label>Importance:</label>
-                    <div class="form-check">
+                    <div class="col-12 mb-5">
+                        <div class="row ">
+                        <div class="form-check col-4">
                         <input class="form-check-input priority" type="radio" value="2" id="importance_high" name="importance">
                         <label class="form-check-label" for="importance_high">
                             High
                         </label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check col-4">
                         <input class="form-check-input priority" type="radio" value="1" 
                             id="importance_medium" name="importance" checked>
                         <label class="form-check-label" for="importance_medium" >
                             Medium
                         </label>
                     </div>
-                    <div class="form-check">
+                    <div class="form-check col-4">
                            <input class="form-check-input priority" type="radio" value="0" id="importance_low" name="importance">
                             <label class="form-check-label" for="importance_low">
                                 Low
                             </label>
                     </div>
+                    </div>
+                    </div>
+                    
 
-                <button id="add-appointment-btn" type="submit">Add Appointment</button>
+                <button id="add-appointment-btn" class="" type="submit">Add Appointment</button>
 
                 </fieldset>
 

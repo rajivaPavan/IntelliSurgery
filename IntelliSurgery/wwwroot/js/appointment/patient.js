@@ -1,15 +1,24 @@
 ﻿function clearAllPatientFields() {
     $("#patient_name").val("");
     $("#birthday").val("");
-    $("input:radio.gender:checked").prop("checked", false);
     $("#weight").val("");
     $("#height").val("");
+}
+
+function showPatientAddBtn(ishow) {
+    if (ishow) {
+        $("#update-patient-btn").hide();
+        $("#add-patient-btn").show();
+    } else {
+        $("#add-patient-btn").hide();
+        $("#update-patient-btn").show();
+    }
 }
 
 function disablePatientConstantFields(isDisable) {
     $("#patient_name").prop("disabled", isDisable);
     $("#birthday").prop("disabled", isDisable);
-    $("input:radio.gender:checked").prop("checked", isDisable);
+    $("input:radio.gender").prop("disabled", isDisable);
 }
 
 function enableAllPatientFields() {
@@ -59,8 +68,7 @@ async function validatePatient() {
             setPatientDetails(patientDetails);
             disablePatientConstantFields(true);
 
-            $("#add-patient-btn").hide();
-            $("#update-patient-btn").show();
+            showPatientAddBtn(false);
 
         } else {
             //patient doesnot exits
@@ -68,8 +76,7 @@ async function validatePatient() {
             clearAllPatientFields();
             enableAllPatientFields();
 
-            $("#add-patient-btn").show();
-            $("#update-patient-btn").hide();
+            showPatientAddBtn(true);
 
         }
     } else {

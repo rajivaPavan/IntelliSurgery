@@ -10,7 +10,7 @@ body {
 }
 
 .form_class {
-    max-width: 400px;
+/*    max-width: 400px;*/
     margin: 20px auto;
     padding: 20px 20px;
     background: #f4f7f8;
@@ -52,10 +52,6 @@ select {
     margin-bottom:10px;
 }
 
-input[type="radio"],
-input[type="checkbox"] {
-    margin: 0 4px 8px 0;
-}
 
 select {
     padding: 6px;
@@ -63,7 +59,7 @@ select {
 }
 
 button {
-    padding: 19px 39px 18px 39px;
+    padding: 10px 39px 10px 39px !important;
     color: #FFF;
     background-color: palevioletred;
     font-size: 18px;
@@ -112,11 +108,7 @@ label {
     margin-bottom: 10px;
 
 }
-.form-check-label{
-    margin: 5px;
-    line-height: 15px;
-    
-}
+
 @media screen and (min-width: 480px) {
     form_class {
         max-width: 480px;

@@ -21,6 +21,5 @@ async function addAppointment(patientId) {
 function clearAllAppointmentFields() {
     $("#surgery").val(-1);
     $("#surgeon").val(-1);
-    $("#anasthesia_type").val(0);
-    $("input:radio.priority:checked").val(null);
+    $("#anasthesia_type").val(-1);
 }

@@ -18,11 +18,19 @@ $("#add-appointment-btn").click(async () => {
             icon: "success",
             text: "Appointment added. Predicted Time duration for surgery is " + predictedTime
         });
-        clearAllFields();
+        resetForms();
+        
     } else {
         displaySweetAlert("Validate and or Add a Patient first");
     }
 })
+
+function resetForms() {
+    global = initGlobalVariable()
+    clearAllFields();
+    enableAllPatientFields();
+    showPatientAddBtn(true);
+}
 
 function clearAllFields() {
     $("#patient_id").val("");
@@ -33,8 +41,6 @@ function clearAllFields() {
 
 function initGlobalVariable() {
     return {
-        validatedPatientId: NULL_ENTITY_ID,
-        addedPatientId: NULL_ENTITY_ID,
         patientId: NULL_ENTITY_ID,
         selectedSurgeonId: NULL_ENTITY_ID,
         selectedSurgeryType: NULL_ENTITY_ID,

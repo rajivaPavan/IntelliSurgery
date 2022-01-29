@@ -11,9 +11,12 @@
             }
         },
         headerToolbar: {
-            start: 'title', // will normally be on the left. if RTL, will be on the right
-            center: '',
-            end: 'today prev,next' // will normally be on the right. if RTL, will be on the left
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+            //start: 'title', // will normally be on the left. if RTL, will be on the right
+            //center: '',
+            //end: 'today prev,next' // will normally be on the right. if RTL, will be on the left
         },
         height:1000
     });

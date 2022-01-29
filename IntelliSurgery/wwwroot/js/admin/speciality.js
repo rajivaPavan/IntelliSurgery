@@ -13,7 +13,7 @@ async function addSpecialityRequest(speciality) {
     const NULL_SPECIALITY_ID = 0;
     var specialityId = NULL_SPECIALITY_ID;
 
-    var res = await axios.post("/api/AdminApi/SaveHospitalDate", hospitalData.Specialities);
+    var res = await axios.post("/api/AdminApi/SaveHospitalData", hospitalData.Specialities);
     if (res.data.success == true) {
         specialityId = res.data.data;
     }

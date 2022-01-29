@@ -18,7 +18,11 @@
             //center: '',
             //end: 'today prev,next' // will normally be on the right. if RTL, will be on the left
         },
-        height:1000
+        height: 1000,
+        initialDate: '2022-01-29',      //date should be given in this format
+        initialView: 'timeGridWeek',
+        navLinks: true,                 // can click day/week names to navigate views
+        editable: true
     });
 
     calendar.render();

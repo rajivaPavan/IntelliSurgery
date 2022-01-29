@@ -34,7 +34,7 @@ namespace IntelliSurgery.DbOperations
             return await context.Patients.FirstOrDefaultAsync(p => p.Id == patientId);
         }
 
-        public async Task<Patient> UpdatePatientAsync(Patient update)
+        public async Task<Patient> UpdatePatient(Patient update)
         {
             context.Patients.Update(update);
             await context.SaveChangesAsync();

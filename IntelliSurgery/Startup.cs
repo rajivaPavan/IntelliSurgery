@@ -31,9 +31,7 @@ namespace IntelliSurgery
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            //services.AddReact();
-            //services.AddJsEngineSwitcher(options => options.DefaultEngineName = V8JsEngine.EngineName).AddV8();
+            
 
             services.AddControllersWithViews();
 
@@ -49,6 +47,7 @@ namespace IntelliSurgery
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
             services.AddScoped<ITheatreRepository, TheatreRepository>();
             services.AddScoped<IWorkingBlockRepository, WorkingBLockRepository>();
+            services.AddScoped<ISpecialityRepository, SpecialityRepository>();
 
 
             services.AddScoped<ISurgeryScheduler, SurgeryScheduler>();
@@ -68,11 +67,6 @@ namespace IntelliSurgery
             {
                 app.UseExceptionHandler("/Error");
             }
-
-            //app.UseReact(config =>
-            //{
-
-            //});
 
             app.UseStaticFiles();
 

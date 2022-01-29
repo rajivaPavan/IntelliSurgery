@@ -8,6 +8,6 @@ function displaySweetAlert(message) {
 
 function formatDateTime(datetime) {
     var dateAndTime = datetime.split("T");
-    var date = dateAndTime[0].replace(/-/g, "/");;
+    var date = dateAndTime[0];
     return date;
 }

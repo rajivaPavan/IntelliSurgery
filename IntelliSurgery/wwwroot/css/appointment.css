@@ -7,10 +7,15 @@
 body {
     font-family: 'Nunito', sans-serif;
     color: #384047;
+    background-color: #F1F1F1;
 }
-
+#logo {
+    background: url("../assets/images/IntelliSurgery.png") no-repeat;
+    background-size:contain;
+    background-position:center;
+}
 .form_class {
-    max-width: 400px;
+/*    max-width: 400px;*/
     margin: 20px auto;
     padding: 20px 20px;
     background: #f4f7f8;
@@ -19,7 +24,7 @@ body {
 .form-inline {
     display: flex;
     flex-flow: row wrap;
-    align-items: center;
+    /*align-items: center;*/
 }
 h1 {
     margin: 0 0 30px 0;
@@ -49,23 +54,18 @@ select {
     background-color: #e8eeef;
     color: #8a97a0;
     box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-    margin-bottom: 30px;
+    margin-bottom:10px;
 }
 
-input[type="radio"],
-input[type="checkbox"] {
-    margin: 0 4px 8px 0;
-}
 
 select {
     padding: 6px;
-    height: 32px;
     border-radius: 2px;
 }
 
 button {
-    padding: 19px 39px 18px 39px;
-    color: #FFF;
+    padding: 10px 39px 10px 39px !important;
+    color: #000;
     background-color: palevioletred;
     font-size: 18px;
     text-align: center;
@@ -99,7 +99,7 @@ label {
     }
 
 .number {
-    background-color: pink;
+    background-color: #e3f2fd;
     color: #fff;
     height: 30px;
     width: 30px;
@@ -111,13 +111,8 @@ label {
     text-shadow: 0 1px 0 rgba(255,255,255,0.2);
     border-radius: 100%;
     margin-bottom: 10px;
+}
 
-}
-.form-check-label{
-    margin: 5px;
-    line-height: 15px;
-    
-}
 @media screen and (min-width: 480px) {
     form_class {
         max-width: 480px;

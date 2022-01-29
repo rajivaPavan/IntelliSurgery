@@ -56,7 +56,7 @@ async function addAppointmentRequest(appointment) {
 }
 
 async function getDropDownListsRequest() {
-    var res = await axios.get("/api/AppoinmentApi/GetFormDropDownLists");
+    var res = await axios.get("/api/AppointmentApi/GetFormDropDownLists");
     var dto = {};
     var dropDownLists = {
         surgeons: [],
@@ -64,8 +64,8 @@ async function getDropDownListsRequest() {
     };
     if (res.data.success == true) {
         dto = res.data.data;
-        dropDownList.surgeons = dto.surgeons;
-        dropDownList.surgeryTypes = dto.surgeryTypes;
+        dropDownLists.surgeons = dto.surgeons;
+        dropDownLists.surgeryTypes = dto.surgeryTypes;
     }
     return dropDownLists;
 }

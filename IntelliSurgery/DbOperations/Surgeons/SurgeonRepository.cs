@@ -26,7 +26,7 @@ namespace IntelliSurgery.DbOperations
 
         public async Task<List<Surgeon>> GetSurgeons()
         {
-            return await context.Surgeons.ToListAsync();
+            return await context.Surgeons.Include(s=>s.Speciality).ToListAsync();
         }
     }
 }

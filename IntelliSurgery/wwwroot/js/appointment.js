@@ -1,6 +1,4 @@
-﻿import { init } from "../lib/sweetalert2/src/utils/dom";
-
-function clearAllPatientFields() {
+﻿function clearAllPatientFields() {
     $("#patient_name").val("");
     $("#birthday").val("");
     $("input:radio.gender:checked").prop("checked",false);
@@ -75,7 +73,8 @@ async function validatePatient() {
     return patientId;
 }
 
-async function addPatient() {
+async function addAppointment() {
+
 }
 
 //event listeners
@@ -93,6 +92,43 @@ function initGlobalVariable() {
     };
 }
 
+function initSurgeons(surgeons) {
+
+    var surgeonsByType = {};
+
+    surgeons.forEach((surgeon) => {
+        var specialityName = surgeon.speciality.name;
+        if (!(surgeonsByType.hasOwnProperty(specialityName))) {
+            surgeonsByType[specialityName] = [];
+        }
+        surgeonsByType[specialityName].push(surgeon);
+
+    });
+
+    var specialities = Object.keys(surgeonsByType);
+    specialities.forEach((specialityName) => {
+        var $optgroup = $("<optgroup label='" + specialityName + "'>");
+        var filteredSurgeons = surgeonsByType[specialityName];
+        filteredSurgeons.forEach((surgeon) => {
+            $optgroup.append(new Option(surgeon.name, surgeon.id));
+        });
+        $('#surgeon').append($optgroup);
+    })
+}
+
+async function initDropDownLists() {
+    var dropDowns = await getDropDownListsRequest();
+    var surgeons = dropDowns.surgeons;
+    var surgeryTypes = dropDowns.surgeryTypes;
+
+    initSurgeons(surgeons);
+
+    //initSurgeryTypes
+    surgeryTypes.forEach((surgeryType) => {
+        $('#surgery').append(new Option(surgeryType.name, surgeryType.id));
+    });
+}
+
 //main
 const NULL_ENTITY_ID = 0;
 
@@ -101,4 +137,5 @@ var global = {};
 //Runs after the DOM is ready
 $(document).ready(async function () {
     global = initGlobalVariable();
+    await initDropDownLists();
 });

@@ -1,4 +1,5 @@
-﻿using IntelliSurgery.Models;
+﻿using IntelliSurgery.DTOs;
+using IntelliSurgery.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,25 @@ namespace IntelliSurgery.DbOperations.Theatres
         public async Task<List<TheatreType>> GetAllTheatreTypes()
         {
             return await context.TheatreTypes.ToListAsync();
+        }
+
+        public async Task<List<Theatre>> AddTheatres(List<Theatre> theatres)
+        {
+            await context.Theatres.AddRangeAsync(theatres);
+            await context.SaveChangesAsync();
+            return theatres;
+        }
+
+        public async Task<List<TheatreType>> AddTheatreTypes(List<TheatreType> theatreTypes)
+        {
+            await context.TheatreTypes.AddRangeAsync(theatreTypes);
+            await context.SaveChangesAsync();
+            return theatreTypes;
+        }
+
+        public async Task<List<Theatre>> GetAllTheatres()
+        {
+            return await context.Theatres.ToListAsync();
         }
     }
 

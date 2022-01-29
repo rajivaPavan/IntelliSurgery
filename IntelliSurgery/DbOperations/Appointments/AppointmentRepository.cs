@@ -1,6 +1,7 @@
 ﻿using IntelliSurgery.Enums;
 using IntelliSurgery.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,16 @@ namespace IntelliSurgery.DbOperations
     public class AppointmentRepository : IAppointmentRepository
     {
         private readonly AppDbContext context;
+        private readonly IIncludableQueryable<Appointment, Patient> readAppointments;
 
         public AppointmentRepository(AppDbContext context)
         {
             this.context = context;
+            readAppointments = context.Appointments.Include(a => a.TheatreType)
+                                             .Include(a => a.Surgeon)
+                                             .Include(a => a.ScheduledSurgery)
+                                             .Include(a => a.SurgeryType)
+                                             .Include(a => a.Patient);
         }
 
         public async Task<Appointment> CreateAppointment(Appointment appointment)
@@ -27,17 +34,17 @@ namespace IntelliSurgery.DbOperations
 
         public async Task<Appointment> GetAppointment(Expression<Func<Appointment, bool>> predicate)
         {
-            return await context.Appointments.FirstOrDefaultAsync(predicate);
+            return await readAppointments.FirstOrDefaultAsync(predicate);
         }
 
         public async Task<List<Appointment>> GetAllAppointments()
         {
-            return await context.Appointments.ToListAsync();
+            return await readAppointments.ToListAsync();
         }
 
         public async Task<List<Appointment>> GetAppointments(Expression<Func<Appointment, bool>> predicate)
         {
-            return await context.Appointments.Where(predicate).ToListAsync();
+            return await readAppointments.Where(predicate).ToListAsync();
         }
 
         public async Task<List<Appointment>> UpdateAppointments(List<Appointment> appointments)

@@ -41,10 +41,7 @@ function clearAllFields() {
 
 function initGlobalVariable() {
     return {
-        patientId: NULL_ENTITY_ID,
-        selectedSurgeonId: NULL_ENTITY_ID,
-        selectedSurgeryType: NULL_ENTITY_ID,
-        anesthesiaType: NULL_ENTITY_ID
+        patientId: NULL_ENTITY_ID
     };
 }
 

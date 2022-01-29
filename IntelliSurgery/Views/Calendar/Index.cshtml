@@ -3,8 +3,10 @@
 }
 
 @section Styles{
-    <link href="~/lib/fullcalendar/main.css" rel="stylesheet" />
-    <script src="~/lib/fullcalendar/main.js"></script>
+    <environment include="development">
+            <link href="~/lib/fullcalendar/main.css" rel="stylesheet" />
+            <script src="~/lib/fullcalendar/main.js"></script>
+    </environment>
     <link ref="stylesheet" href="~/css/calendar.css" />
 }
 

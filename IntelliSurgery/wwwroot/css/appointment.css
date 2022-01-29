@@ -10,7 +10,7 @@ body {
     background-color: #F1F1F1;
 }
 #logo {
-    background: url("../assets/IntelliSurgery.png") no-repeat;
+    background: url("../assets/images/IntelliSurgery.png") no-repeat;
     background-size:contain;
     background-position:center;
 }

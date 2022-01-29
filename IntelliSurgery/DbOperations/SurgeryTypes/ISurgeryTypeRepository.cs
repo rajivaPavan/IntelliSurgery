@@ -1,4 +1,5 @@
-﻿using IntelliSurgery.Models;
+﻿using IntelliSurgery.DTOs;
+using IntelliSurgery.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,6 +9,9 @@ namespace IntelliSurgery.DbOperations
     {
         Task<SurgeryType> AddSurgeryType(SurgeryType surgeryType);
         Task<SurgeryType> GetSurgeryTypeById(int id);
-        Task<List<SurgeryType>> GetSurgeryTypes();
+        Task<List<SurgeryType>> GetAllSurgeryTypes();
+        Task<List<SurgeryType>> AddSurgeryTypes(List<SurgeryType> surgeryTypes);
+        Task<List<SurgeryTypeSurgeryTheatre>> AddMappings(List<SurgeryTypeSurgeryTheatre> surgeryTypeSurgeryTheatres);
+        Task<List<SurgeryTypeSurgeryTheatre>> GetAllMappings();
     }
 }

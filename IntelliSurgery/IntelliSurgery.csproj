@@ -6,13 +6,12 @@
 
   <ItemGroup>
     <Folder Include="MLScripts\" />
-    <Folder Include="HTMLFileHaduwothMekataDanna\css\" />
-    <Folder Include="HTMLFileHaduwothMekataDanna\js\" />
     <Folder Include="Views\Surgeries\" />
+    <Folder Include="wwwroot\assets\fonts\" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\assets\Logo.png" />
+    <None Include="wwwroot\assets\images\Logo.png" />
   </ItemGroup>
 
   <ItemGroup>

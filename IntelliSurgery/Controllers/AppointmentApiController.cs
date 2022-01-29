@@ -74,6 +74,17 @@ namespace IntelliSurgery.Controllers
             return Json(new {success= true, data = newPatient.Id });
         }
 
+        public async Task<IActionResult> UpdatePatient(PatientDTO patientDTO)
+        {
+            Patient updatePatient = new Patient()
+            {
+                Weight = patientDTO.Weight,
+                Height = patientDTO.Height
+            };
+            updatePatient = await patientRepository.UpdatePatient(updatePatient);
+            return Json(new { success = true, data = updatePatient.Id });
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddAppointment(AppointmentDTO appointmentDTO) {
 
@@ -112,7 +123,7 @@ namespace IntelliSurgery.Controllers
         {
             //surgery types and surgeon list
             var surgeons = await surgeonRepository.GetSurgeons();
-            var surgeryTypes = await surgeryTypeRepository.GetSurgeryTypes();
+            var surgeryTypes = await surgeryTypeRepository.GetAllSurgeryTypes();
             var theatreTypes = await theatreRepository.GetAllTheatreTypes();
             List<AnesthesiaDTO> anesthesias = new List<AnesthesiaDTO>();
             foreach(AnesthesiaType item in Enum.GetValues(typeof(AnesthesiaType))){

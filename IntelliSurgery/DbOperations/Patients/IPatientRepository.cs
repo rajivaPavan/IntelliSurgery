@@ -9,7 +9,7 @@ namespace IntelliSurgery.DbOperations
     {
         Task<Patient> CreatePatient(Patient patient);
         Task<Patient> GetPatientById(int patientId);
-        Task<Patient> UpdatePatientAsync(Patient update);
+        Task<Patient> UpdatePatient(Patient update);
         Task DeletePatientAsync(Patient patientToBeDeleted);
     }
 }

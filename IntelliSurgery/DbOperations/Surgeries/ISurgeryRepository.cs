@@ -6,7 +6,7 @@ namespace IntelliSurgery.DbOperations
 {
     public interface ISurgeryRepository
     {
-        Task<ScheduledSurgery> CreateSurgery(ScheduledSurgery surgery);
+        Task<ScheduledSurgery> AddSurgery(ScheduledSurgery surgery);
         Task<List<ScheduledSurgery>> GetAllSurgeries();
     }
 }

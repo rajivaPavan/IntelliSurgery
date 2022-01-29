@@ -19,6 +19,14 @@ namespace IntelliSurgery.DbOperations
             await context.SaveChangesAsync();
             return surgeon;
         }
+
+        public async Task<List<Surgeon>> AddSurgeons(List<Surgeon> surgeons)
+        {
+            await context.Surgeons.AddRangeAsync(surgeons);
+            await context.SaveChangesAsync();
+            return surgeons;
+        }
+
         public async Task<Surgeon> GetSurgeonById(int id)
         {
             return await context.Surgeons.FirstOrDefaultAsync(s => s.Id == id);

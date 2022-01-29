@@ -26,7 +26,7 @@ namespace IntelliSurgery.DbOperations
             return await context.SurgeryTypes.FirstOrDefaultAsync(s => s.Id == id);
         }
 
-        public async Task<List<SurgeryType>> GetSurgeryTypes()
+        public async Task<List<SurgeryType>> GetAllSurgeryTypes()
         {
             return await context.SurgeryTypes.ToListAsync();
         }

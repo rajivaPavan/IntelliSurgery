@@ -47,6 +47,7 @@ namespace IntelliSurgery
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
             services.AddScoped<ITheatreRepository, TheatreRepository>();
             services.AddScoped<IWorkingBlockRepository, WorkingBLockRepository>();
+            services.AddScoped<ISpecialityRepository, SpecialityRepository>();
 
 
             services.AddScoped<ISurgeryScheduler, SurgeryScheduler>();

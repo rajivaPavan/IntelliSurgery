@@ -1,4 +1,5 @@
-﻿using IntelliSurgery.Models;
+﻿using IntelliSurgery.DTOs;
+using IntelliSurgery.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -12,5 +13,8 @@ namespace IntelliSurgery.DbOperations.Theatres
 
         Task<List<TheatreType>> GetAllTheatreTypes();
         Task<List<Theatre>> GetTheatres(Expression<Func<Theatre, bool>> expression);
+        Task<List<Theatre>> AddTheatres(List<Theatre> theatres);
+        Task<List<TheatreType>> AddTheatreTypes(List<TheatreType> theatreTypes);
+        Task<List<TheatreDTO>> GetAllTheatres();
     }
 }

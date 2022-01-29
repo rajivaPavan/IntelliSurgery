@@ -13,7 +13,7 @@
 </head>
 <body>
     
-        <nav class="pl-2 navbar navbar-expand-md navbar-light" style="background-color: #999da0;">
+        <nav class="pl-2 navbar navbar-expand-md navbar-light border-bottom bg-info">
             <a href='#' class="navbar-brand">IntelliSurgery</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" >
                  <span class="navbar-toggler-icon"></span>
@@ -21,13 +21,21 @@
             <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a asp-controller="Appointment" asp-action="Index" class="nav-link">Add Appointment</a>
+                    <a asp-controller="Appointment" asp-action="Index" class="nav-link">
+                        Add Appointment 
+                        <span><i class="fas fa-user-plus"></i></span>
+                        </a>
                 </li>
                 <li class="nav-item">
-                    <a asp-controller="Surgeries" asp-action="Index" class="nav-link">Appointments Table</a>
+                    <a asp-controller="Surgeries" asp-action="Index" class="nav-link">
+                        Appointments Table
+                        <span><i class="fas fa-table "></i></span></a>
                 </li>
                 <li class="nav-item">
-                    <a asp-controller="Calendar" asp-action="Index" class="nav-link">Surgery Calendar</a>
+                    <a asp-controller="Calendar" asp-action="Index" class="nav-link">
+                        Surgery Calendar
+                        <span><i class="far fa-calendar-alt"></i></span>
+                    </a>
                 </li>
             </ul>
             </div>

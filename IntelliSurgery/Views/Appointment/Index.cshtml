@@ -60,7 +60,9 @@
                         </div>
                     </div>
 
-
+                    <button id="add-patient-btn" type="submit">Add Patient</button>
+                    <button id="update-appointment-btn" type="submit" style="display:none;">Update Patient</button>
+                    
                 </fieldset>
                 
 
@@ -131,10 +133,10 @@
                         </label>
                     </div>
 
-                    
+                <button id="add-appointment-btn" type="submit">Add Appointment</button>
+
                 </fieldset>
 
-                <button type="submit">Add Appointment</button>
 
             </div>
         </div>
@@ -142,6 +144,8 @@
 </div>
 
 @section Scripts{
-    <script src="~/js/appointment-requests.js"></script>
-    <script src="~/js/appointment.js"></script>
+    <script src="~/js/appointment/requests.js"></script>
+    <script src="~/js/appointment/patient.js"></script>
+    <script src="~/js/appointment/appointment.js"></script>
+    <script src="~/js/appointment/main.js"></script>
 }

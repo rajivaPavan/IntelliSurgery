@@ -9,6 +9,8 @@ namespace IntelliSurgery.DbOperations.Theatres
     public interface ITheatreRepository
     {
         Task<TheatreType> GetTheatreType(Expression<Func<TheatreType,bool>> expression);
+
+        Task<List<TheatreType>> GetAllTheatreTypes();
         Task<List<Theatre>> GetTheatres(Expression<Func<Theatre, bool>> expression);
     }
 }

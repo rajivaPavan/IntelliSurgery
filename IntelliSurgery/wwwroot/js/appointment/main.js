@@ -1,15 +1,34 @@
 ﻿//event listeners
 $("#validate-patient-btn").click(async () => {
-    global.validatedPatientId = await validatePatient();
+    global.patientId = await validatePatient();
 })
 
+$("#add-patient-btn").click(async () => {
+    global.patientId = await addPatient();
+});
+
+$("#update-patient-btn").click(async () => {
+    global.patientId = await updatePatient();
+});
+
 $("#add-appointment-btn").click(async () => {
-    var predictedTime = await addAppointment();
-    Swal.fire({
-        icon: "success",
-        message: "Appointment added. Predicted Time duration for surgery is " + predictedTime
-    });
+    if (global.patientId != NULL_ENTITY_ID) {
+        var predictedTime = await addAppointment(global.patientId);
+        Swal.fire({
+            icon: "success",
+            text: "Appointment added. Predicted Time duration for surgery is " + predictedTime
+        });
+        clearAllFields();
+    } else {
+        displaySweetAlert("Validate and or Add a Patient first");
+    }
 })
+
+function clearAllFields() {
+    $("#patient_id").val("");
+    clearAllPatientFields();
+    clearAllAppointmentFields();
+}
 
 
 function initGlobalVariable() {
@@ -51,13 +70,21 @@ async function initDropDownLists() {
     var dropDowns = await getDropDownListsRequest();
     var surgeons = dropDowns.surgeons;
     var surgeryTypes = dropDowns.surgeryTypes;
+    var anesthesiaTypes = dropDowns.anesthesiaTypes;
+    var theatreTypes = dropDowns.theatreTypes;
 
     initSurgeons(surgeons);
 
-    //initSurgeryTypes
-    surgeryTypes.forEach((surgeryType) => {
-        $('#surgery').append(new Option(surgeryType.name, surgeryType.id));
+    surgeryTypes.forEach((s) => {
+        $('#surgery').append(new Option(s.name, s.id));
     });
+    anesthesiaTypes.forEach((a) => {
+        $('#anasthesia_type').append(new Option(a.name, a.id));
+    });
+    theatreTypes.forEach((t) => {
+        $('#or_theatre').append(new Option(t.name, t.id));
+    });
+
 }
 
 //main

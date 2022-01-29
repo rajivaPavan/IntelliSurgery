@@ -61,7 +61,7 @@
                     </div>
 
                     <button id="add-patient-btn" type="submit">Add Patient</button>
-                    <button id="update-appointment-btn" type="submit" style="display:none;">Update Patient</button>
+                    <button id="update-patient-btn" type="submit" style="display:none;">Update Patient</button>
                     
                 </fieldset>
                 
@@ -93,13 +93,15 @@
                         
                     </select>
                     <label> Anastheasists: </label>
-
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" id="required" name="anastheasist" value="Required"><label class="form-check-label" for="required">Required</label><br>
-                        <input type="radio" class="form-check-input" id="not_required" name="anastheasist" value="Not Required"><label class="form-check-label" for="not_required">Not Required</label>
-
+                        <input type="radio" class="form-check-input" id="required" name="anastheasist" value="Required" checked>
+                        <label class="form-check-label" for="required">Required</label>
                     </div>
-                    <label for="anasthesia_type">Anasthesia Type:</label>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="not_required" name="anastheasist" value="Not Required">
+                        <label class="form-check-label" for="not_required">Not Required</label>
+                    </div>
+                    <label for="anasthesia_type">Anesthesia Type:</label>
                     <select id="anasthesia_type" name="user_anas_type">
                         <option value="-1" selected>Choose...</option>
                         @*<option value="type_1">A</option>
@@ -107,8 +109,8 @@
                         <option value="type_3">C</option>*@
 
                     </select>
-                    <label for="or_theater">Operating Theater:</label>
-                    <select id="or_theater" name="user_or">
+                    <label for="or_theatre">Theatre Type:</label>
+                    <select id="or_theatre" name="user_or">
                         <option value="-1" selected>Choose...</option>
                         @*<option value="or_1">OR1</option>
                         <option value="or_2">OR2</option>
@@ -119,18 +121,23 @@
 
                     <label>Importance:</label>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" value="0" id="importance_high" name="importance">
+                        <input class="form-check-input priority" type="radio" value="2" id="importance_high" name="importance">
                         <label class="form-check-label" for="importance_high">
                             High
                         </label>
-                        <input class="form-check-input" type="radio" value="1" id="importance_medium" name="importance">
-                        <label class="form-check-label" for="importance_medium">
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input priority" type="radio" value="1" 
+                            id="importance_medium" name="importance" checked>
+                        <label class="form-check-label" for="importance_medium" >
                             Medium
                         </label>
-                        <input class="form-check-input" type="radio" value="2" id="importance_low" name="importance">
-                        <label class="form-check-label" for="importance_low">
-                            Low
-                        </label>
+                    </div>
+                    <div class="form-check">
+                           <input class="form-check-input priority" type="radio" value="0" id="importance_low" name="importance">
+                            <label class="form-check-label" for="importance_low">
+                                Low
+                            </label>
                     </div>
 
                 <button id="add-appointment-btn" type="submit">Add Appointment</button>

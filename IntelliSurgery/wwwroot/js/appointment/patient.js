@@ -1,5 +1,4 @@
-﻿//
-function clearAllPatientFields() {
+﻿function clearAllPatientFields() {
     $("#patient_name").val("");
     $("#birthday").val("");
     $("input:radio.gender:checked").prop("checked", false);
@@ -7,21 +6,18 @@ function clearAllPatientFields() {
     $("#height").val("");
 }
 
-//
 function disablePatientConstantFields(isDisable) {
     $("#patient_name").prop("disabled", isDisable);
     $("#birthday").prop("disabled", isDisable);
     $("input:radio.gender:checked").prop("checked", isDisable);
 }
 
-//
 function enableAllPatientFields() {
     disablePatientConstantFields(false);
     $("#weight").prop("disabled", false);
     $("#height").prop("disabled", false);
 }
 
-//
 function setPatientDetails(patientDetails) {
     $("#patient_name").val(patientDetails.name);
     $("#birthday").val(formatDateTime(patientDetails.dateOfBirth));
@@ -30,7 +26,6 @@ function setPatientDetails(patientDetails) {
     $("#height").val(patientDetails.height);
 }
 
-//
 function getPatientDetails() {
     var name = $("#patient_name").val();
     var dateOfBirth = $("#birthday").val(formatDateTime());
@@ -63,11 +58,18 @@ async function validatePatient() {
             patientId = parseInt(patientId);
             setPatientDetails(patientDetails);
             disablePatientConstantFields(true);
+
+            $("#add-patient-btn").hide();
+            $("#update-patient-btn").show();
+
         } else {
             //patient doesnot exits
             patientId = NULL_ENTITY_ID;
             clearAllPatientFields();
             enableAllPatientFields();
+
+            $("#add-patient-btn").show();
+            $("#update-patient-btn").hide();
 
         }
     } else {
@@ -78,14 +80,14 @@ async function validatePatient() {
 }
 
 async function addPatient() {
-
+    var patientId = NULL_ENTITY_ID;
     var patient = getPatientDetails();
-    var patientId = await addPatientRequest(patient);
-    global.addedPatientId = patientId;
+    patientId = await addPatientRequest(patient);
+    return patientId;
 }
 
 async function updatePatient() {
     var patient = getPatientDetails();
     var patientId = await updatePatientRequest(patient);
-    global.patientId = patientId;
+    return patientId;
 }

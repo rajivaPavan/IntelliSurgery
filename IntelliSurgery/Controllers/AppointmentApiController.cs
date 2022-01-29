@@ -6,6 +6,7 @@ using IntelliSurgery.Global;
 using IntelliSurgery.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using static IntelliSurgery.Enums.OperationTheatreEnums;
 
@@ -80,7 +81,7 @@ namespace IntelliSurgery.Controllers
 
             Patient patient = await patientRepository.GetPatientById(appointmentDTO.PatientId);
             SurgeryType surgerytype = await surgeryRepository.GetSurgeryTypeById(appointmentDTO.SurgeryType);
-            Surgeon surgeon = await surgeonRepository.GetSurgeonById(appointmentDTO.DoctorId);
+            Surgeon surgeon = await surgeonRepository.GetSurgeonById(appointmentDTO.SurgeonId);
             TimeSpan predictedTime = pythonScript.PredictTime();
             TheatreType theatreType = await theatreRepository.GetTheatreType(TheatreTypeQueryLogic.ById(appointmentDTO.TheatreType));
 
@@ -90,11 +91,12 @@ namespace IntelliSurgery.Controllers
                 Surgeon = surgeon,
                 SurgeryType = surgerytype,
                 TheatreType = theatreType,
-                AnesthesiaType = (AnesthesiaType)Enum.Parse(typeof(AnesthesiaType), appointmentDTO.AnesthesiaType, true),
-                PriorityLevel = (PriorityLevel)Enum.Parse(typeof(PriorityLevel), appointmentDTO.PriorityLevel, true),
+                AnesthesiaType = (AnesthesiaType)appointmentDTO.AnesthesiaType,
+                PriorityLevel = (PriorityLevel)appointmentDTO.PriorityLevel,
                 PredictedTimeDuration = predictedTime,
                 Status = Status.Pending,
-                DateAdded = DateTime.Now
+                DateAdded = DateTime.Now,
+                Priority = null
             };
             
             //save appointment in database
@@ -111,10 +113,17 @@ namespace IntelliSurgery.Controllers
             //surgery types and surgeon list
             var surgeons = await surgeonRepository.GetSurgeons();
             var surgeryTypes = await surgeryTypeRepository.GetSurgeryTypes();
+            var theatreTypes = await theatreRepository.GetAllTheatreTypes();
+            List<AnesthesiaDTO> anesthesias = new List<AnesthesiaDTO>();
+            foreach(AnesthesiaType item in Enum.GetValues(typeof(AnesthesiaType))){
+                anesthesias.Add(new AnesthesiaDTO(item));
+            }
 
             DropDownListsDTO dropDownLists = new DropDownListsDTO() { 
                 SurgeryTypes = surgeryTypes, 
-                Surgeons = surgeons 
+                Surgeons = surgeons,
+                TheatreTypes = theatreTypes,
+                Anesthesias = anesthesias
             };
 
             return Json(new { success = true, data = dropDownLists});

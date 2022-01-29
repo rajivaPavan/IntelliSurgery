@@ -26,6 +26,11 @@ namespace IntelliSurgery.DbOperations.Theatres
         {
             return await context.Theatres.Where(expression).ToListAsync();
         }
+
+        public async Task<List<TheatreType>> GetAllTheatreTypes()
+        {
+            return await context.TheatreTypes.ToListAsync();
+        }
     }
 
     public class TheatreQueryLogic

@@ -19,11 +19,16 @@
         events: [
             { // this object will be "parsed" into an Event Object
                 title: 'The Title', // a property!
-                start: '2022-02-01', // a property!
-                end: '2022-02-02' // a property! ** see important note below about 'end' **
+                start: '2022-02-10T10:40:00',
+                end: '2022-02-10T15:23:00', // a property! ** see important note below about 'end' **
+            },
+            { // this object will be "parsed" into an Event Object
+                title: '2', // a property!
+                start: '2022-02-10T13:40:00',
+                end: '2022-02-10T15:21:00', // a property! ** see important note below about 'end' **
             }, {
-                start: '2022-01-10T10:23:00',
-                end: '2022-01-10T16:00:00',
+                start: '2022-02-10T10:23:00',
+                end: '2022-02-10T16:00:00',
                 display: 'background'
             }   
             

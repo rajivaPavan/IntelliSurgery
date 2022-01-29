@@ -30,5 +30,24 @@ namespace IntelliSurgery.DbOperations
         {
             return await context.SurgeryTypes.ToListAsync();
         }
+
+        public async Task<List<SurgeryType>> AddSurgeryTypes(List<SurgeryType> surgeryTypes)
+        {
+            await context.SurgeryTypes.AddRangeAsync(surgeryTypes);
+            await context.SaveChangesAsync();
+            return surgeryTypes;
+        }
+
+        public async Task<List<SurgeryTypeSurgeryTheatre>> AddMappings(List<SurgeryTypeSurgeryTheatre> surgeryTypeSurgeryTheatres)
+        {
+            await context.SurgeryType_Theatres.AddRangeAsync(surgeryTypeSurgeryTheatres);
+            await context.SaveChangesAsync();
+            return surgeryTypeSurgeryTheatres;
+        }
+
+        public async Task<List<SurgeryTypeSurgeryTheatre>> GetAllMappings()
+        {
+            return await context.SurgeryType_Theatres.ToListAsync();
+        }
     }
 }

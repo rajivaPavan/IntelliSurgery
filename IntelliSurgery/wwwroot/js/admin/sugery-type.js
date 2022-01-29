@@ -1,8 +1,8 @@
-﻿function getNewSurgeryType{
+﻿function getNewSurgeryType(){
     var newSurgeryType = $('#surgery_type').val();
 
     var surgeryType = {
-        name: newSurgeryType;
+        name: newSurgeryType
     }
 
     return surgeryType;
@@ -27,7 +27,7 @@ async function addSurgeryType() {
     global.addedPatientId = patientId;
 }
 
-function clearNewSurgeryTypeField{
+function clearNewSurgeryTypeField(){
     $('#speciality_type').val("");
 }
 

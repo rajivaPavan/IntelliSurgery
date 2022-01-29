@@ -4,8 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewBag.Title</title>
-    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/lib/fontawesome/css/all.css" rel="stylesheet" />
+    <environment include="development">
+            <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+            <link href="~/lib/fontawesome/css/all.css" rel="stylesheet" />
+    </environment>
+    <environment exclude="development">
+        <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+    </environment>
     <link rel="stylesheet" href="~/css/layout.css" />
     @RenderSection("Styles", required: false)
 

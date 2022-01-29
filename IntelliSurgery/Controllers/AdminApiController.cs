@@ -27,7 +27,19 @@ namespace IntelliSurgery.Controllers
             this.theatreRepository = theatreRepository;
             this.specialityRepository = specialityRepository;
         }
+        [HttpGet]
+        public async Task<IActionResult> GetHospitalData()
+        {
+            HospitalDataDTO hospitalData = new HospitalDataDTO()
+            {
+                Specialities = await specialityRepository.GetAllSpecialities(),
+                SurgeryTypes = await surgeryTypeRepository.GetAllSurgeryTypes(),
+                TheatreTypes = await theatreRepository.GetAllTheatreTypes()
+            };
+            return Json(new { succes = true, data = hospitalData });
+        }
 
+        [HttpPost]
         public async Task<IActionResult> SaveHospitalDate(HospitalDataDTO hospitalData)
         {
             await AddSpecialities(hospitalData.Specialities);
@@ -40,6 +52,8 @@ namespace IntelliSurgery.Controllers
             return Json(new { success = true });
         }
 
+        
+        [NonAction]
         private async Task AddSurgeryTypeTheatres(List<SurgeryTypeTheatresDTO> surgeryTypeTheatres)
         {
             List<SurgeryTypeSurgeryTheatre> surgeryTypeSurgeryTheatres = new List<SurgeryTypeSurgeryTheatre>();
@@ -60,18 +74,8 @@ namespace IntelliSurgery.Controllers
             surgeryTypeSurgeryTheatres = await surgeryTypeRepository.AddMappings(surgeryTypeSurgeryTheatres);
         }
 
-        public async Task<IActionResult> GetHospitalData()
-        {
-            HospitalDataDTO hospitalData = new HospitalDataDTO() {
-                Specialities = await specialityRepository.GetAllSpecialities(),
-                SurgeryTypes = await surgeryTypeRepository.GetAllSurgeryTypes(),
-                TheatreTypes = await theatreRepository.GetAllTheatreTypes(),
-            };
-            return Json(new { succes = true, data = hospitalData });
-        }
-
         [NonAction]
-        private async Task AddSurgeons(List<SurgeonDTO> surgeonDTOs)
+        private async Task<List<Surgeon>> AddSurgeons(List<SurgeonDTO> surgeonDTOs)
         {
             List<Surgeon> surgeons = new List<Surgeon>();
             foreach(var s in surgeonDTOs)
@@ -84,29 +88,29 @@ namespace IntelliSurgery.Controllers
                 surgeons.Add(surgeon);
             }
             
-            surgeons = await surgeonRepository.AddSurgeons(surgeons);
+            return await surgeonRepository.AddSurgeons(surgeons);
         }
         
         [NonAction]
-        private async Task AddSurgeryTypes(List<SurgeryType> surgeryTypes)
+        private async Task<List<SurgeryType>> AddSurgeryTypes(List<SurgeryType> surgeryTypes)
         {
-            surgeryTypes = await surgeryTypeRepository.AddSurgeryTypes(surgeryTypes);
+            return await surgeryTypeRepository.AddSurgeryTypes(surgeryTypes);
         }
 
         [NonAction]
-        public async Task AddSpecialities(List<Speciality> specialities)
+        public async Task<List<Speciality>> AddSpecialities(List<Speciality> specialities)
         {
-            specialities = await specialityRepository.AddSpecialities(specialities);
+            return await specialityRepository.AddSpecialities(specialities);
         }
 
         [NonAction]
-        public async Task AddTheatreTypes(List<TheatreType> theatreTypes)
+        public async Task<List<TheatreType>> AddTheatreTypes(List<TheatreType> theatreTypes)
         {
-            theatreTypes = await theatreRepository.AddTheatreTypes(theatreTypes);
+            return await theatreRepository.AddTheatreTypes(theatreTypes);
         }
 
         [NonAction]
-        private async Task AddTheatres(List<TheatreDTO> theatreDTOs)
+        private async Task<List<Theatre>> AddTheatres(List<TheatreDTO> theatreDTOs)
         {
             List<Theatre> theatres = new List<Theatre>();
             foreach (var t in theatreDTOs)
@@ -119,7 +123,7 @@ namespace IntelliSurgery.Controllers
                 theatres.Add(theatre);
             }
 
-            theatres = await theatreRepository.AddTheatres(theatres);
+            return await theatreRepository.AddTheatres(theatres);
         }
 
     }

@@ -5,13 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="MLScripts\" />
-    <Folder Include="Views\Surgeries\" />
-    <Folder Include="wwwroot\assets\fonts\" />
+    <Content Remove="wwwroot\js\admin\surgery.js" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\assets\images\Logo.png" />
+    <Folder Include="MLScripts\" />
+    <Folder Include="HTMLFileHaduwothMekataDanna\css\" />
+    <Folder Include="HTMLFileHaduwothMekataDanna\js\" />
+    <Folder Include="Views\Surgeries\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\assets\Logo.png" />
   </ItemGroup>
 
   <ItemGroup>

@@ -14,7 +14,6 @@
             },
             selectable: true,
             editable: true,
-            navlinks: true,
             headerToolbar: {
                 left: 'prev,next today',
                 center: 'title',

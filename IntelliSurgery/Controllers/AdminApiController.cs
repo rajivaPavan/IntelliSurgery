@@ -60,7 +60,7 @@ namespace IntelliSurgery.Controllers
                 Theatres = theatreDTOs,
                 Surgeons = surgeonDTOs
             };
-            return Json(new { succes = true, data = hospitalData });
+            return Json(new { success = true, data = hospitalData });
         }
 
         [HttpPost]

@@ -17,22 +17,20 @@
                 <h4>Calendars</h4>
             </div>
             <div class="col-12 my-2">
-                <label>Get Calendar By:</label>
+                <div class="">Get Calendar By:</div>
                 <select v-model="selectedFilter" id="calendarFilter" name="calendarFilter" 
-                        class="btn dropdown-toggle border border-dark">
+                        class="w-100 btn dropdown-toggle border border-dark">
                     <option value="" selected>Choose...</option>
-                    <option v-for="option in getFilterValueOptions" v-bind:value="option.id">
-                    {{ option.name }}
+                    <option v-for="option in filters" v-bind:value="option.value">
+                        {{ option.text }}
                   </option>
-                    <option value="theatres" >Theatre</option>
-                    <option value="theatreTypes" >Theatre Type</option>
-                    <option value="surgeryTypes" >Surgery Type</option>
-                    <option value="surgeons" selected>Surgeon</option>
+                    
                 </select>
             </div>
             <div class="col-12 my-2"> 
-                <label>Select {}:</label>
-                <select v-model="selected" class="btn dropdown-toggle border border-dark">
+                <div class="">Select {{getSelectedFilterText}}:</div>
+                <select v-model="selectedFilterValue" class="w-100 btn dropdown-toggle border border-dark" 
+                    id="filterValuesDropDown" disabled>
                     <option value="-1" selected>Choose...</option>
                   <option v-for="option in getFilterValueOptions" v-bind:value="option.id">
                     {{ option.name }}
@@ -49,14 +47,14 @@
     </div>
 </div>
 
-<div id="deleteEventModal">             
+@*<div id="deleteEventModal">             
       <h2>Event</h2>
 
       <p id="eventText"></p>
 
       <button id="deleteButton">Delete</button>
       <button id="closeButton">Close</button>
-</div>
+</div>*@
 
 @section Scripts{
     <script src="~/lib/vue/dist/vue.global.js"></script>

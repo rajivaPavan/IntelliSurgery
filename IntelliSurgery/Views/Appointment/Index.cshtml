@@ -31,6 +31,7 @@
                         <div class="col-md-12">
                         <label for="patient_name">Name:</label>
                         <input type="text" class="form-control mb-2 mr-sm-2" id="patient_name" name="patient_name">
+                        <h6 id="patientNameCheck" style="color: red;" >**Name is missing</h6>
                         </div>
                         <div class="col-md-7">
                              <label for="birthday">Birthday:</label>
@@ -54,10 +55,12 @@
                         <div class="col-md-6">
                             <label for="weight" class="form-label">Weight:</label>
                             <input type="text" class="form-control" id="weight" placeholder="kg">
+                            <h6 id="weightCheck" style="color: red;" >**Weight is missing</h6>
                         </div>
                         <div class="col-md-6">
                             <label for="height" class="form-label">Height:</label>
                             <input type="text" class="form-control" id="height" placeholder="cm">
+                            <h6 id="heightCheck" style="color: red;" >**Height is missing</h6>
                         </div>
                     </div>
 
@@ -160,4 +163,5 @@
     <script src="~/js/appointment/patient.js"></script>
     <script src="~/js/appointment/appointment.js"></script>
     <script src="~/js/appointment/appointment-main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 }

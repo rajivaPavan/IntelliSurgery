@@ -1,5 +1,5 @@
 ﻿var specialityInput = [];
-// var specialityDisplay = [];
+var specialityDisplay = [];
 
 function getNewSpeciality() {
     var newSpeciality = $('#speciality').val();
@@ -17,7 +17,11 @@ function clearNewSpecialityField(){
 
 function showNewSpecialityDetails() {
     var message = $('#speciality').val();
-    $('#speciality_list').append(new Option(message))
+    var res = '  ' + message;
+    specialityDisplay.push(res);
+    $('#specialitylist').text(specialityDisplay);
+    //document.getElementById("#speciality_list").innerHTML = message;
+    // $('#speciality_list').append(new Option(message))
     // $('#display_speciality').append(new Option())
 }
 

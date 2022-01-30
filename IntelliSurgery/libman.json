@@ -15,6 +15,11 @@
       "provider": "jsdelivr",
       "library": "sweetalert2@11.1.7",
       "destination": "wwwroot/lib/sweetalert2/"
+    },
+    {
+      "provider": "unpkg",
+      "library": "vue@3.2.19",
+      "destination": "wwwroot/lib/vue/"
     }
   ]
 }

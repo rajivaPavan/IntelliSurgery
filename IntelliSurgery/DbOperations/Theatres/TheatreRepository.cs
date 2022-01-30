@@ -20,12 +20,16 @@ namespace IntelliSurgery.DbOperations.Theatres
         public async Task<TheatreType> GetTheatreType(Expression<Func<TheatreType,bool>> expression)
         {
             return await context.TheatreTypes.FirstOrDefaultAsync(expression);
-
         }
 
         public async Task<List<Theatre>> GetTheatres(Expression<Func<Theatre, bool>> expression)
         {
             return await context.Theatres.Where(expression).ToListAsync();
+        }
+
+        public async Task<Theatre> GetTheatre(Expression<Func<Theatre, bool>> expression)
+        {
+            return await context.Theatres.FirstOrDefaultAsync(expression);
         }
 
         public async Task<List<TheatreType>> GetAllTheatreTypes()
@@ -51,6 +55,7 @@ namespace IntelliSurgery.DbOperations.Theatres
         {
             return await context.Theatres.ToListAsync();
         }
+
     }
 
     public class TheatreQueryLogic

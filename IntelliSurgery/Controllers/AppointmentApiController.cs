@@ -122,7 +122,7 @@ namespace IntelliSurgery.Controllers
         public async Task<IActionResult> GetFormDropDownLists()
         {
             //surgery types and surgeon list
-            var surgeons = await surgeonRepository.GetSurgeons();
+            var surgeons = await surgeonRepository.GetAllSurgeons();
             var surgeryTypes = await surgeryTypeRepository.GetAllSurgeryTypes();
             var theatreTypes = await theatreRepository.GetAllTheatreTypes();
             List<AnesthesiaDTO> anesthesias = new List<AnesthesiaDTO>();

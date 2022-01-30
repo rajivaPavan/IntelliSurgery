@@ -1,7 +1,10 @@
 ﻿using IntelliSurgery.DbOperations;
+using IntelliSurgery.DbOperations.Theatres;
+using IntelliSurgery.DbOperations.WorkingBlocks;
 using IntelliSurgery.DTOs;
 using IntelliSurgery.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,23 +14,38 @@ namespace IntelliSurgery.Controllers
     [Route("api/[controller]/[action]")]
     public class CalendarApiController : Controller
     {
-        private readonly ICalendarRepository calendarRepository;
-        private readonly ISurgeryRepository surgeryRepository;
+        private readonly IWorkingBlockRepository workingBlockRepository;
+        private readonly ITheatreRepository theatreRepository;
 
-        public CalendarApiController(ICalendarRepository calendarRepository,ISurgeryRepository surgeryRepository)
+        public CalendarApiController(IWorkingBlockRepository workingBlockRepository)
         {
-            this.calendarRepository = calendarRepository;
-            this.surgeryRepository = surgeryRepository;
+            this.workingBlockRepository = workingBlockRepository;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetScheduledSurgeries(int typeId)
+        public async Task<IActionResult> GetScheduledSurgeries(int theatreId)
         {
-            List<ScheduledSurgery> surgeries = await surgeryRepository.GetAllSurgeries();
-            ScheduledSurgeriesDTO scheduledSurgeriesDTO = new ScheduledSurgeriesDTO();
-            scheduledSurgeriesDTO.ScheduledSurgeries = surgeries;
-            return Json(new { success = true, data =  scheduledSurgeriesDTO});
+            Theatre theatre = await theatreRepository.GetTheatre(TheatreQueryLogic.ById(theatreId));
+            List<Appointment> scheduledAppointments = theatre.ScheduledAppointments;
+            List<FullCalendarEvent> fullCalendarEvents = new List<FullCalendarEvent>();
+            foreach(var appointment in scheduledAppointments)
+            {
+                fullCalendarEvents.Add(new FullCalendarEvent() { 
+                    Title = appointment.Surgeon.Name+" : "+appointment.Patient.Name,
+                    Start = appointment.ScheduledSurgery.SurgeryEvent.Start,
+                    End = appointment.ScheduledSurgery.SurgeryEvent.End,
+                    Appointment = appointment
+                });
+            }
+            return Json(new { success = true, data = fullCalendarEvents });
         }
-        
+    }
+
+    public class FullCalendarEvent
+    {
+        public string Title { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
+        public Appointment Appointment { get; set; }
     }
 }

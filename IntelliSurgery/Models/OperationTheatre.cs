@@ -10,7 +10,7 @@ namespace IntelliSurgery.Models
         public TheatreType TheatreType { get; set; }
         public string Name { get; set; }
         public List<TheaterAvailablePeriod> TheaterAvailablePeriods { get; set; }
-        public List<ScheduledSurgery> Surgeries { get; set; }
+        public List<Appointment> ScheduledAppointments { get; set; }
     }
 
     public class TheatreType

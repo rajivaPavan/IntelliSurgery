@@ -11,3 +11,4 @@ function formatDateTime(datetime) {
     var date = dateAndTime[0];
     return date;
 }
+

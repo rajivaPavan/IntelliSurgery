@@ -30,11 +30,35 @@ namespace IntelliSurgery.Controllers
         [HttpGet]
         public async Task<IActionResult> GetHospitalData()
         {
+            List<TheatreDTO> theatreDTOs = new List<TheatreDTO>();
+            List<Theatre> theatres = await theatreRepository.GetAllTheatres();
+            foreach (var theatre in theatres)
+            {
+                theatreDTOs.Add(new TheatreDTO() { 
+                    Id = theatre.Id,
+                    Name = theatre.Name,
+                    TheatreTypeId = theatre.TheatreType.Id
+                });
+            }
+
+            List<SurgeonDTO> surgeonDTOs = new List<SurgeonDTO>();
+            List<Surgeon>  surgeons = await surgeonRepository.GetAllSurgeons();
+            foreach (var surgeon in surgeons)
+            {
+                surgeonDTOs.Add(new SurgeonDTO()
+                {
+                    Id = surgeon.Id,
+                    Name = surgeon.Name
+                });
+            }
+
             HospitalDataDTO hospitalData = new HospitalDataDTO()
             {
                 Specialities = await specialityRepository.GetAllSpecialities(),
                 SurgeryTypes = await surgeryTypeRepository.GetAllSurgeryTypes(),
-                TheatreTypes = await theatreRepository.GetAllTheatreTypes()
+                TheatreTypes = await theatreRepository.GetAllTheatreTypes(),
+                Theatres = theatreDTOs,
+                Surgeons = surgeonDTOs
             };
             return Json(new { succes = true, data = hospitalData });
         }

@@ -10,10 +10,38 @@
     <link ref="stylesheet" href="~/css/calendar.css" />
 }
 
-<div class="container-fluid">
-    <div class="row ">
-        <div class="col-12 col-md-3">
-            <h4>Select Operating Theatre</h4>
+<div class="container px-1 pt-2" id="calendar-main">
+    <div class="row">
+        <div class="col-12 col-md-3 bg-light h-100 border border-dark">
+            <div class="col-12 my-2">
+                <h4>Calendars</h4>
+            </div>
+            <div class="col-12 my-2">
+                <label>Get Calendar By:</label>
+                <select v-model="selectedFilter" id="calendarFilter" name="calendarFilter" 
+                        class="btn dropdown-toggle border border-dark">
+                    <option value="" selected>Choose...</option>
+                    <option v-for="option in getFilterValueOptions" v-bind:value="option.id">
+                    {{ option.name }}
+                  </option>
+                    <option value="theatres" >Theatre</option>
+                    <option value="theatreTypes" >Theatre Type</option>
+                    <option value="surgeryTypes" >Surgery Type</option>
+                    <option value="surgeons" selected>Surgeon</option>
+                </select>
+            </div>
+            <div class="col-12 my-2"> 
+                <label>Select {}:</label>
+                <select v-model="selected" class="btn dropdown-toggle border border-dark">
+                    <option value="-1" selected>Choose...</option>
+                  <option v-for="option in getFilterValueOptions" v-bind:value="option.id">
+                    {{ option.name }}
+                  </option>
+                </select>
+            </div>
+            <div class="col-12 my-2">
+                <button v-on:click="renderCalendar" class="btn btn-primary">Get Calendar</button>
+            </div>
         </div>
         <div class="col-12 col-md-9">
             <div id="calendar"></div>
@@ -23,6 +51,8 @@
 
 
 @section Scripts{
-    <script src="~/js/calendar-requests.js"></script>
-    <script src="~/js/calendar.js"></script>
+    <script src="~/lib/vue/dist/vue.global.js"></script>
+    <script src="~/js/calendar/calendar-requests.js"></script>
+    <script src="~/js/calendar/calendar.js"></script>
+    <script src="~/js/calendar/calendar-main.js"></script>
 }

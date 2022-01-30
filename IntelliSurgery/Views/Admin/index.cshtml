@@ -8,8 +8,9 @@
 
 <h1> Admin Site </h1>
     <div class="row">
+      
         <div class="col-md-6">
-            <div class="shadow-lg p-3 mb-5 bg-transparent rounded">
+            <div class="shadow p-0 mb-5 bg-transparent rounded">
                 <div class="form_class">
 
 
@@ -28,7 +29,7 @@
                             <div class="col-md-1">
                                 <button id="add-speciality-btn" type="submit" class="btn btn-primary mb-2" class="form-control">Add</button>
                             </div>
-
+                           
                             <div class="col-md-5">
 
                                 <div class="col">
@@ -37,26 +38,29 @@
 
                                     </p>
                                     <div class="collapse multi-collapse" id="specialitylist">
+                       
+                        
+                          
                                         <div class="card card-body">
                                             @*Added Specialities:*@
                                         </div>
                                     </div>
-
-                                </div>
-                            </div>
+                   </div>
+                          
+                        </div>
                         </div>
                     </fieldset>
                 </div>
             </div>
 
 
-        </div>
+      </div>
 
 
 
 
         <div class="col-md-6">
-            <div class="shadow-lg p-3 mb-5 bg-transparent rounded">
+            <div class="shadow p-0 mb-5 bg-transparent rounded">
                 <div class="form_class">
 
                     <fieldset>
@@ -81,7 +85,7 @@
 
 
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <label for="inlineFormInputName2" class="sr-only">Name</label>
                                 <input type="text" class="form-control" id="inlineFormInputName2">
 
@@ -90,33 +94,38 @@
                             <div class="col-md-1">
                                 <button type="submit" class="btn btn-primary mb-2" class="form-control">Add</button>
                             </div>
-                            <div class="col-md-2">
-
-                                <div class="col-md-12">
+                            <div class="col-md-3">
+                                <div class="col">
+                                
                                     <p>
                                         <a class="btn btn-primary" data-toggle="collapse" href="#surgeonlist" role="button" aria-expanded="false" aria-controls="surgeonlist">List</a>
 
                                     </p>
+                                    
                                     <div class="collapse multi-collapse" id="surgeonlist">
+                                     
                                         <div class="card card-body">
                                             @*Anim pariatur cliche reprehenderit,*@
                                         </div>
+                                       
+                                    
                                     </div>
-
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                      
 
 
                     </fieldset>
+                      </div>
                 </div>
             </div>
 
         </div>
-    </div>
+    
     <div class="row">
     <div class="col-md-6">
-        <div class="shadow p-3 mb-5 bg-white rounded">
+        <div class="shadow p-0 mb-5 bg-white rounded">
             <div class="form_class">
 
 
@@ -126,19 +135,19 @@
                     <h6>Enter the Surgery :</h6>
                     <div class="form-row">
                        
-                        <div class="col-md-6 mb-1">
+                        <div class="col-md-6">
                             <label for="surgery" class="sr-only">Name</label>
                             <input type="text" class="form-control" id="surgery">
 
                         </div>
 
-                        <div class="col-md-1 mb-6">
+                        <div class="col-md-1">
                             <button id="add-surgery-btn" type="submit" class="btn btn-primary mb-2" class="form-control">Add</button>
                         </div>
 
                         <div class="col-md-5">
 
-                            <div class="col">
+                          <div class="col">
                                 <p>
                                     <a class="btn btn-primary" data-toggle="collapse" href="#surgerylist" role="button" aria-expanded="false" aria-controls="surgerylist">List</a>
 
@@ -158,9 +167,191 @@
         </div>
 
     </div>
-    </div>
+   
 
-    <div class="col-md-6"></div>
+    <div class="col-md-6">
+        <div class="shadow p-0 mb-5 bg-white rounded">
+            <div class="form_class">
+
+
+                <fieldset>
+
+                    <legend><span class="number">4</span> Operating Theater Types </legend>
+                    <h6>Enter the Operating Theater type :</h6>
+                    <div class="form-row">
+                       
+                        <div class="col-md-6 mb-1">
+                            <label for="inlineFormInputName2" class="sr-only">Name</label>
+                            <input type="text" class="form-control" id="inlineFormInputName2">
+
+                        </div>
+
+                        <div class="col-md-1 mb-6">
+                            <button type="submit" class="btn btn-primary mb-2" class="form-control">Add</button>
+                        </div>
+
+                        <div class="col-md-5">
+
+                            <div class="col">
+                                <p>
+                                    <a class="btn btn-primary" data-toggle="collapse" href="#ORtypelist" role="button" aria-expanded="false" aria-controls="ORtypelist">List</a>
+
+                                </p>
+                                <div class="collapse multi-collapse" id="ORtypelist">
+                                    <div class="card card-body">
+                                        Anim pariatur cliche reprehenderit,
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </fieldset>
+        </div>
+        </div>
+
+    </div>
+     </div>
+     <div class="row"> 
+         <div class="col-md-6">
+            <div class="shadow p-0 mb-5 bg-transparent rounded">
+                <div class="form_class">
+
+                    <fieldset>
+
+                        <legend><span class="number">5</span> Operating Theaters </legend>
+
+                        <h6> Theater Type: </h6>
+
+                        <div class="form-row">
+                            <div class="col-md-3">
+
+
+                                <label for="surgeon" class="sr-only">Thetaer Type :</label>
+                                <select id="surgeon" name="user_surgeon" class="btn btn-info dropdown-toggle">
+                                    <option selected>Choose...</option>
+
+                                    <option value="Spec_1"> OR Type 1 </option>
+                                    <option value="Spec_2"> OR Type 2 </option>
+                                    <option value="Spec_3"> OR Type 3 </option>
+
+                                </select>
+
+
+                            </div>
+                            <div class="col-md-5">
+                                <label for="inlineFormInputName2" class="sr-only">Name</label>
+                                <input type="text" class="form-control" id="inlineFormInputName2">
+
+                            </div>
+
+                            <div class="col-md-1">
+                                <button type="submit" class="btn btn-primary mb-2" class="form-control">Add</button>
+                            </div>
+                            <div class="col-md-3">
+
+                                <div class="col">
+                                    <p>
+                                        <a class="btn btn-primary" data-toggle="collapse" href="#ORlist" role="button" aria-expanded="false" aria-controls="ORlist">List</a>
+
+                                    </p>
+                                    
+                                    <div class="collapse multi-collapse" id="ORlist">
+                                      
+                                        <div class="card card-body">
+                                            Anim pariatur cliche reprehenderit
+                                        </div>
+                                       
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </fieldset>
+                </div>
+            </div>
+            </div>
+            <div class="col-md-6">
+            <div class="shadow p-0 mb-5 bg-transparent rounded">
+                <div class="form_class">
+
+                    <fieldset>
+
+                        <legend><span class="number">6</span> Operating Theaters for Surgeries </legend>
+
+                        <h6> Surgery: </h6>
+
+                        <div class="form-row">
+                            <div class="col-md-5">
+
+
+                                <label for="surgeon" class="sr-only">Surgery:</label>
+                                <select id="surgeon" name="user_surgeon" class="btn btn-info dropdown-toggle">
+                                    <option selected>Choose...</option>
+
+                                    <option value="Surgery_1"> Cardiovascular Surgery </option>
+                                    <option value="Surgery_2"> Orthopedic surgery </option>
+                                    <option value="Surgery_3">Neurosurgery </option>
+
+                                </select>
+
+
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-check">
+                                       <input class="form-check-input" type="checkbox" value="" id="ORtype_1">
+                                     <label class="form-check-label" for="ORtype_1">
+                                                        OR Type 1
+                                                  </label>
+                                    </div>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="" id="ORtype_2">
+                                      <label class="form-check-label" for="ORtype_2">
+                                        OR Type 2
+                                      </label>
+                                    </div>
+                                    <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="" id="ORtype_3">
+                                      <label class="form-check-label" for="ORtype_3">
+                                        OR Type 3
+                                      </label>
+                                    </div>
+                            </div>
+
+                            <div class="col-md-1">
+                                <button type="submit" class="btn btn-primary mb-2" class="form-control">Add</button>
+                            </div>
+                            <div class="col-md-3">
+
+                                <div class="col">
+                                    <p>
+                                        <a class="btn btn-primary" data-toggle="collapse" href="#ORlist" role="button" aria-expanded="false" aria-controls="ORlist">List</a>
+
+                                    </p>
+                                    
+                                    <div class="collapse multi-collapse" id="ORlist">
+                                      
+                                           
+                                        <div class="card card-body">
+                                            Anim pariatur cliche reprehenderit
+                                        </div>
+                                 
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </fieldset>
+                      </div>
+                </div>
+
+            </div>
+           </div>
 
 @section Scripts{
     <script src="~/js/admin/requests.js"></script>

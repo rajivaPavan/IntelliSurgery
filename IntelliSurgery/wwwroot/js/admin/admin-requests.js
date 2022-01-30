@@ -16,9 +16,9 @@ async function saveHospitalDataRequest(hospitalData) {
     // hospitalData parameter show look like the follow object
     // {
     //    Surgeons: [ { Name: "Dr.ABC", SpecialityId: 1 }, similar_objects...],
-    //    Specialities: [ { Name: "Neurologist" }, { Name: "Cardiac Surgeon"}],
-    //    SurgeryTypes: [{ Name: "type asd" },......],
-    //    TheatreTypes: [{ Name: "type asd" },......],
+    //    Specialities: [ { Name: "Neurologist" }, { Name: "Cardiac Surgeon"}], DONE
+    //    SurgeryTypes: [{ Name: "type asd" },......], DONE
+    //    TheatreTypes: [{ Name: "type asd" },......], 
     //    Theatres: [{ Name: "OR 1", TheatreTypeId: 1 }, {}],
     //    SurgeryTypeTheatres: [{ SurgeryTypeId: 1, TheatreIds: [1, 2, 3, 4] }, ....]
     // }

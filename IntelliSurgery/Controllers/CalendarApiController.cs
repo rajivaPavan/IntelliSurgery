@@ -58,7 +58,7 @@ namespace IntelliSurgery.Controllers
                     Color = FullCalendarEvent.GetPriorityColor(appointment.PriorityLevel)
                 });
             }
-
+            //hardcoded values
             fullCalendarEvents.Add(new FullCalendarEvent()
             {
                 Id = "surgeons-1-1",

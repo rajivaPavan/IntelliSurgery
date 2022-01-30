@@ -7,8 +7,13 @@
 body {
     font-family: 'Nunito', sans-serif;
     color: #384047;
+    background-color: #F1F1F1;
 }
-
+#logo {
+    background: url("../assets/images/IntelliSurgery.png") no-repeat;
+    background-size:contain;
+    background-position:center;
+}
 .form_class {
 /*    max-width: 400px;*/
     margin: 20px auto;
@@ -19,7 +24,7 @@ body {
 .form-inline {
     display: flex;
     flex-flow: row wrap;
-    align-items: center;
+    /*align-items: center;*/
 }
 h1 {
     margin: 0 0 30px 0;
@@ -60,7 +65,7 @@ select {
 
 button {
     padding: 10px 39px 10px 39px !important;
-    color: #FFF;
+    color: #000;
     background-color: palevioletred;
     font-size: 18px;
     text-align: center;
@@ -94,7 +99,7 @@ label {
     }
 
 .number {
-    background-color: pink;
+    background-color: #e3f2fd;
     color: #fff;
     height: 30px;
     width: 30px;
@@ -106,7 +111,6 @@ label {
     text-shadow: 0 1px 0 rgba(255,255,255,0.2);
     border-radius: 100%;
     margin-bottom: 10px;
-
 }
 
 @media screen and (min-width: 480px) {

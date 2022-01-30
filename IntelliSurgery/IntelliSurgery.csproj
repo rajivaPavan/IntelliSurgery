@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\js\admin\surgery.js" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="MLScripts\" />
     <Folder Include="HTMLFileHaduwothMekataDanna\css\" />
     <Folder Include="HTMLFileHaduwothMekataDanna\js\" />

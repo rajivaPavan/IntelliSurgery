@@ -92,12 +92,13 @@ namespace IntelliSurgery.Global
 
         private List<WorkingBlock> CalculateTimeBlocks()
         {
+            List<WorkingBlock> workingBlocks = new List<WorkingBlock>();
             ////
             //////
             ///// IMPLEMENT
             //////
             /////
-            return new List<WorkingBlock>();
+            return workingBlocks;
         }
 
         private async Task<List<WorkingBlock>> AllocateSurgeriesToBlocks(List<WorkingBlock> workingBlocks, 

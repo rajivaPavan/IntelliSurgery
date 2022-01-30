@@ -4,27 +4,28 @@
 
 @section Styles{
     <link href="~/css/appointment.css" rel="stylesheet"/>
-    <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
 }
 
-<div class="container px-0">
+<div class="container-fluid" >
         <div class="row">
-        <div class="col-md-6">
-            <div class="form_class">
+        <div class="col-lg-2" id="logo">
+        </div>
+        <div class="col-lg-5">
+            <div class="form_class border border-dark">
                                 <h1> Patient </h1>
 
                 <fieldset>
-                    <legend><span class="number">1</span> Validate Patient </legend>
+                    <legend><span class="number bg-info">1</span> Validate Patient </legend>
 
                     <label for="patient_id" class="mr-sm-2">Patient ID:</label>
                     <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" id="patient_id" required>
 
-                    <button type="submit" class="" id="validate-patient-btn">Validate Patient</button>
+                    <button type="submit" class="btn btn-info" id="validate-patient-btn">Validate Patient</button>
                 </fieldset>
             
             
                 <fieldset>
-                    <legend><span class="number">2</span> Patient's Details </legend>
+                    <legend><span class="number bg-info">2</span> Patient's Details </legend>
 
                     <div class="row">
                         <div class="col-md-12">
@@ -60,22 +61,21 @@
                         </div>
                     </div>
 
-                    <button id="add-patient-btn" class="" type="submit">Add Patient</button>
-                    <button id="update-patient-btn" class="" type="submit" style="display:none;">Update Patient</button>
+                    <button id="add-patient-btn" class="btn btn-info" type="submit">Add Patient</button>
+                    <button id="update-patient-btn" class="btn btn-primary" type="submit" style="display:none;">Update Patient</button>
                     
                 </fieldset>
                 
 
             </div>
-
         </div>
-        <div class="col-md-6">
-            <div class="form_class">
+        <div class="col-lg-5">
+            <div class="form_class border border-dark shadow">
                                 <h1> Appointment </h1>
 
                 <fieldset>
 
-                    <legend><span class="number">3</span> Surgery Requirements</legend>
+                    <legend><span class="number bg-info">3</span> Surgery Requirements</legend>
 
                     <label for="surgery">Surgery:</label>
                     <select id="surgery" name="user_surgery">
@@ -122,20 +122,20 @@
                     <label>Importance:</label>
                     <div class="col-12 mb-5">
                         <div class="row ">
-                        <div class="form-check col-4">
+                        <div class="form-check col-2">
                         <input class="form-check-input priority" type="radio" value="2" id="importance_high" name="importance">
                         <label class="form-check-label" for="importance_high">
                             High
                         </label>
                     </div>
-                    <div class="form-check col-4">
+                    <div class="form-check col-2">
                         <input class="form-check-input priority" type="radio" value="1" 
                             id="importance_medium" name="importance" checked>
                         <label class="form-check-label" for="importance_medium" >
                             Medium
                         </label>
                     </div>
-                    <div class="form-check col-4">
+                    <div class="form-check col-2">
                            <input class="form-check-input priority" type="radio" value="0" id="importance_low" name="importance">
                             <label class="form-check-label" for="importance_low">
                                 Low
@@ -145,7 +145,7 @@
                     </div>
                     
 
-                <button id="add-appointment-btn" class="" type="submit">Add Appointment</button>
+                <button id="add-appointment-btn" class="btn btn-info" type="submit">Add Appointment</button>
 
                 </fieldset>
 

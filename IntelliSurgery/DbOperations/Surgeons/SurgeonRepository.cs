@@ -14,7 +14,8 @@ namespace IntelliSurgery.DbOperations
         public SurgeonRepository(AppDbContext context)
         {
             this.context = context;
-            readSurgeons = context.Surgeons.Include(s => s.Speciality);
+            readSurgeons = context.Surgeons.Include(s => s.WorkingHours)
+                                            .Include(s => s.Speciality);
         }
         public async Task<Surgeon> AddSurgeon(Surgeon surgeon)
         {

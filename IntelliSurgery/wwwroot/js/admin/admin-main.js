@@ -21,3 +21,9 @@ $("#add-theatre-btn").click(() => {
     showNewTheatreDetails();
     clearNewTheatreField();
 })
+
+$("#add-surgeon-btn").click(() => {
+    getNewSurgeon();
+    showNewSurgeonDetails();
+    clearNewSurgeonField();
+})

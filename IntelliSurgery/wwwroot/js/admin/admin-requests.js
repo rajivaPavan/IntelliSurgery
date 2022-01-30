@@ -18,17 +18,19 @@ async function initDropDownLists() {
     var surgeryTypes = dropDowns.surgeryTypes;
     var anesthesiaTypes = dropDowns.anesthesiaTypes;
     var theatreTypes = dropDowns.theatreTypes;
+    //var surgeonSpecialityTypes = dropDowns.surgeonSpecialityTypes;
 
     initSurgeons(surgeons);
+    //surgeonSpecialityTypes.forEach((s) => {
+    //    $('#surgeon_speciality').append(new Option(s.name, s.id));
+    //});
 
     surgeryTypes.forEach((s) => {
-        $('#surgery').append(new Option(s.name, s.id));
+        $('#surgery_type_data').append(new Option(s.name, s.id));
     });
-    anesthesiaTypes.forEach((a) => {
-        $('#anasthesia_type').append(new Option(a.name, a.id));
-    });
+   
     theatreTypes.forEach((t) => {
-        $('#theatre_type').append(new Option(t.name, t.id));
+        $('#theatre_type_data').append(new Option(t.name, t.id));
     });
 
 }
@@ -36,7 +38,7 @@ async function initDropDownLists() {
 async function saveHospitalDataRequest(hospitalData) {
     // hospitalData parameter show look like the follow object
     // {
-    //    Surgeons: [ { Name: "Dr.ABC", SpecialityId: 1 }, similar_objects...],
+    //    Surgeons: [ { Name: "Dr.ABC", SpecialityId: 1 }, similar_objects...], DONE
     //    Specialities: [ { Name: "Neurologist" }, { Name: "Cardiac Surgeon"}], DONE
     //    SurgeryTypes: [{ Name: "type asd" },......], DONE
     //    TheatreTypes: [{ Name: "type asd" },......], DONE

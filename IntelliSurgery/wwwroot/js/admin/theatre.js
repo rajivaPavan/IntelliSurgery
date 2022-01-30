@@ -3,7 +3,7 @@ var theatreDisplay = [];
 
 function getNewTheatre() {
     var newTheatre = $('#theatre').val();
-    var selectedId = $("#theatretypelist :selected").val();
+    var selectedId = $("#theatrelist :selected").val();
 
     var theatre = {
         name: newTheatre,
@@ -14,12 +14,12 @@ function getNewTheatre() {
 }
 
 function clearNewTheatreField() {
-    $('#theatre-type').val("");
+    $('#theatre').val("");
 }
 
 function showNewTheatreDetails() {
-    var message = $('#theatre-type').val();
+    var message = $('#theatre').val();
     var res = '  ' + message;
     theatreDisplay.push(res);
-    $('#theatretypelist').text(theatreDisplay);
+    $('#theatrelist').text(theatreDisplay);
 }

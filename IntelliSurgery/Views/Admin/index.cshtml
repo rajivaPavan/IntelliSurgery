@@ -6,7 +6,9 @@
     <link href="~/css/admin.css" rel="stylesheet"/>
 }
 
-<h1> Admin Site </h1>
+<div class="row">
+    <img src="~/assets/images/IntelliSurgeryAdmin.png" class="col-md-12 img-responsive" />
+</div>
     <div class="row">
       
         <div class="col-md-6">
@@ -328,11 +330,11 @@
 
                                 <div class="col">
                                     <p>
-                                        <a class="btn btn-primary" data-toggle="collapse" href="#ORlist" role="button" aria-expanded="false" aria-controls="ORlist">List</a>
+                                        <a class="btn btn-primary" data-toggle="collapse" href="#ORforSurgerieslist" role="button" aria-expanded="false" aria-controls="ORforSurgerieslist">List</a>
 
                                     </p>
                                     
-                                    <div class="collapse multi-collapse" id="ORlist">
+                                    <div class="collapse multi-collapse" id="ORforSurgerieslist">
                                       
                                            
                                         <div class="card card-body">
@@ -350,6 +352,83 @@
                       </div>
                 </div>
 
+            </div>
+           </div>
+           <div class="row">
+               <div class="col-md-6">
+            <div class="shadow p-0 mb-5 bg-transparent rounded">
+                <div class="form_class">
+
+                    <fieldset>
+
+                        <legend><span class="number">7</span> Working Hours </legend>
+
+                        <h6> Surgeon: </h6>
+
+                        <div class="form-row">
+                            <div class="col-md-2">
+
+
+                                <label for="surgeon" class="sr-only">Surgeon:</label>
+                                <select id="surgeon" name="user_surgeon" class="btn btn-info dropdown-toggle">
+                                    <option selected>Choose...</option>
+
+                                    <option value="Surgeon_1"> Dr. Pitiwaduge </option>
+                                    <option value="Surgeon_2"> Dr. Ellawela </option>
+                                    <option value="Surgeon_3"> Dr. Perera </option>
+
+                                </select>
+
+
+                            </div>
+                            <div class="col-md-5">
+                                <div class="well">
+                                      <div id="datetimepicker2" class="input-append">
+                                        <input data-format="MM/dd/yyyy HH:mm:ss PP" type="text">
+                                        <span class="add-on">
+                                          <i data-time-icon="icon-time" data-date-icon="icon-calendar">
+                                          </i>
+                                        </span>
+                                      </div>
+                                    </div>
+                                    <script type="text/javascript">
+                                      $(function() {
+                                        $('#datetimepicker2').datetimepicker({
+                                          language: 'en',
+                                          pick12HourFormat: true
+                                        });
+                                      });
+                                    </script>
+                            </div>
+
+                            <div class="col-md-1">
+                                <button type="submit" class="btn btn-primary mb-2" class="form-control">Add</button>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="col">
+                                
+                                    <p>
+                                        <a class="btn btn-primary" data-toggle="collapse" href="#surgeonlist" role="button" aria-expanded="false" aria-controls="surgeonlist">List</a>
+
+                                    </p>
+                                    
+                                    <div class="collapse multi-collapse" id="surgeonlist">
+                                     
+                                        <div class="card card-body">
+                                            Anim pariatur cliche reprehenderit
+                                        </div>
+                                       
+                                    
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                      
+
+
+                    </fieldset>
+                      </div>
+                </div>
             </div>
            </div>
 

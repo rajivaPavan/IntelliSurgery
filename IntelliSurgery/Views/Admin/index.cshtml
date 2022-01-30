@@ -20,34 +20,28 @@
                         <h6>Enter the Speciality:</h6>
                         <div class="form-row">
 
-                            <div class="col-md-6">
+                            <div class="col-12 col-md-8">
                                 <label for="speciality" class="sr-only">Name</label>
                                 <input type="text" class="form-control" id="speciality">
 
                             </div>
-
-                            <div class="col-md-1">
-                                <button id="add-speciality-btn" type="submit" class="btn btn-primary mb-2" class="form-control">Add</button>
+                            <div class="col-6 col-md-2">
+                                <button id="add-speciality-btn" type="submit" class="btn btn-primary w-100 form-control">Add</button>
                             </div>
                            
-                            <div class="col-md-5">
-
-                                <div class="col">
-                                    <p>
-                                        <a class="btn btn-primary" data-toggle="collapse" href="#specialitylist" role="button" aria-expanded="false" aria-controls="specialitylist">List</a>
-
-                                    </p>
-                                    <div class="collapse multi-collapse" id="specialitylist">
-                       
-                        
-                          
-                                        <div class="card card-body">
-                                            @*Added Specialities:*@
-                                        </div>
-                                    </div>
-                   </div>
-                          
+                            <div class="col-6 col-md-2">
+                                <button class="btn btn-primary w-100 form-control" data-toggle="collapse" href="#speciality-list" role="button" 
+                                        aria-expanded="false" aria-controls="specialitylist">List</button>
+                                  
+                             </div>
                         </div>
+                        
+                        <div class="col-12">
+                            <div class="collapse multi-collapse" id="speciality-list">                          
+                                  <div class="card card-body mt-3" id="specialitylist" >
+                                      @*Added Specialities:*@
+                                  </div>
+                             </div>
                         </div>
                     </fieldset>
                 </div>

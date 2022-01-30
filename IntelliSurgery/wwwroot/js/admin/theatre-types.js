@@ -11,12 +11,12 @@ function getNewTheatreType() {
 }
 
 function clearNewTheatreTypeField() {
-    $('#speciality').val("");
+    $('#theatre-type').val("");
 }
 
 function showNewTheatreTypeDetails() {
-    var message = $('#speciality').val();
-    display_speciality.innerHTML = message;
+    var message = $('#theatre-type').val();
+    display_theatre_type.innerHTML = message;
 }
 
 //display_speciality should be the id in the html part where the msg is displayed

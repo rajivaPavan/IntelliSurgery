@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\NewFolder1\**" />
+    <Content Remove="Views\NewFolder1\**" />
+    <EmbeddedResource Remove="Views\NewFolder1\**" />
+    <None Remove="Views\NewFolder1\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="wwwroot\js\admin\surgery.js" />
   </ItemGroup>
 
@@ -12,6 +19,8 @@
     <Folder Include="MLScripts\" />
     <Folder Include="HTMLFileHaduwothMekataDanna\css\" />
     <Folder Include="HTMLFileHaduwothMekataDanna\js\" />
+    <Folder Include="Views\NewFolder2\" />
+    <Folder Include="Views\NewFolder\" />
     <Folder Include="Views\Surgeries\" />
   </ItemGroup>
 

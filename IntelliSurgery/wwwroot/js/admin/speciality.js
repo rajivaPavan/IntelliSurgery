@@ -1,4 +1,5 @@
 ﻿var specialityInput = [];
+// var specialityDisplay = [];
 
 function getNewSpeciality() {
     var newSpeciality = $('#speciality').val();
@@ -16,7 +17,8 @@ function clearNewSpecialityField(){
 
 function showNewSpecialityDetails() {
     var message = $('#speciality').val();
-    display_speciality.innerHTML = message;
+    $('#speciality_list').append(new Option(message))
+    // $('#display_speciality').append(new Option())
 }
 
-//display_speciality should be the id in the html part where the msg is displayed
+//speciality should be the id in the 'list' button

@@ -1,50 +1,48 @@
-﻿function initCalendar(calendarEvents) {
+﻿
+function initCalendar(calendarEvents) {
 
-        var calendarEl = document.getElementById('calendar');
+    var calendarEl = document.getElementById('calendar');
 
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'timeGridWeek',
-            themeSystem: "bootstrap",
-            initialDate: "2022-02-10",
-            views: {
-                dayGridMonth: { // name of view
-                    titleFormat: { year: 'numeric', month: '2-digit', day: '2-digit' }
-                    // other view-specific options here
-                }
-            },
-            selectable: true,
-            editable: true,
-            headerToolbar: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay'// will normally be on the right. if RTL, will be on the left
-            },
-            events: calendarEvents
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'timeGridWeek',
+        themeSystem: "bootstrap",
+        views: {
+            dayGridMonth: { // name of view
+                titleFormat: { year: 'numeric', month: '2-digit', day: '2-digit' }
+                // other view-specific options here
+            }
+        },
+        eventClick: function (info) {
+
+            var event = info.event;
+            var appointment = event.extendedProps;
+
+            var selected = {
+                surgeon: appointment.surgeon.name,
+                patient: appointment.patient.name,
+                surgery: appointment.surgeryType.name,
+                priority: appointment.priorityLevel,
+                //theatre: appointment.theatre.name,
+                startTime: event.start,
+                endTime: event.end,
+                duration: event.duration
+            };
+
+            calendarVueApp.selectedEvent = selected;
+        },
+        eventTextColor: "#000",
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'// will normally be on the right. if RTL, will be on the left
+        },
+        events: calendarEvents
         });
         calendar.render();
 
 
 }
 
-var events = [
-    { // this object will be "parsed" into an Event Object
-        title: 'The Title', // a property!
-        start: '2022-02-10T10:40:00',
-        end: '2022-02-10T15:23:00',
-        display: "auto"
-    },
-    { // this object will be "parsed" into an Event Object
-        title: '2', // a property!
-        start: '2022-02-10T13:40:00',
-        end: '2022-02-10T15:21:00',
-        display: "auto"
-    }, {
-        start: '2022-02-10T10:23:00',
-        end: '2022-02-10T16:00:00',
-        display: 'background'
-    }
-
-];
 
 /* remove event code (need to create buttons)
 

@@ -39,22 +39,27 @@
                     </select>
                 </div>
                 <div class="col-12 my-2">
-                    <button v-on:click="renderCalendar" class="btn btn-primary">Get Calendar</button>
+                    <button v-on:click="renderCalendar" class="mx-auto btn btn-primary">Get Calendar</button>
                 </div>
             </div>
-            <div class="my-2 border border-dark">
+            <div class="my-2 border border-dark" v-if="null != getSelectedEvent">
                 <div class="col-12 my-2">
                     <h4>Appointment Details</h4>
                 </div>
                 <div class="col-12">
-                    <div class="my-2">Surgeon : </div>
-                    <div class="my-2">Patient : </div>
-                    <div class="my-2">Surgery : </div>
+                    <div class="my-2">Surgeon : {{getSelectedEvent.surgeon}} </div>
+                    <div class="my-2">Patient : {{getSelectedEvent.patient}}</div>
+                    <div class="my-2">Surgery : {{getSelectedEvent.surgery}}</div>
                     <div class="my-2">Theatre : </div>
-                    <div class="my-2">Start Time : </div>
-                    <div class="my-2">Duration : </div>
-                    <div class="my-2">EndTime : </div>
-                    <div class="my-2">Priority : </div>
+                    <div class="my-2">Start Time : {{getSelectedEvent.startTime}}</div>
+                    <div class="my-2">Duration : {{getSelectedEvent.duration}}</div>
+                    <div class="my-2">EndTime : {{getSelectedEvent.endTime}}</div>
+
+                    <div class="my-2">Priority : 
+                        <span v-if="getSelectedEvent.priority == 0" class="text-success">Low</span>
+                        <span v-else-if="getSelectedEvent.priority == 1" class="text-warning">Medium</span>
+                        <span v-else-if="getSelectedEvent.priority == 2" class="text-danger">High</span>
+                    </div>
                 </div>
             </div>
             
@@ -79,5 +84,6 @@
     <script src="~/lib/vue/dist/vue.global.js"></script>
     <script src="~/js/calendar/calendar-requests.js"></script>
     <script src="~/js/calendar/calendar.js"></script>
+    <script src="~/js/calendar/calendar-vue-app.js"></script>
     <script src="~/js/calendar/calendar-main.js"></script>
 }

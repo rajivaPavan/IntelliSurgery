@@ -21,6 +21,7 @@ namespace IntelliSurgery.DTOs
         public List<Surgeon> Surgeons { get; set; }
         public List<TheatreType> TheatreTypes{ get; set; }
         public List<AnesthesiaDTO> Anesthesias { get; set; }
+        public List<Speciality> Specialities { get; set; }
     }
 
 }

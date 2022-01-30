@@ -9,6 +9,7 @@ namespace IntelliSurgery.Models
     public class WorkingBlock : TimeRange
     {
         public int Id { get; set; }
+        public Theatre Theatre { get; set; }
         public TheaterAvailablePeriod TheaterAvailablePeriod { get; set; }
         public StaffWorkingPeriod SurgeonWorkingPeriod { get; set; }
         public TimeSpan RemainingTime { get; set; }

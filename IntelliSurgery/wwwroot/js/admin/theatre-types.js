@@ -1,7 +1,9 @@
 ﻿var theatreTypeInput = [];
+var theatreTypeDisplay = [];
 
 function getNewTheatreType() {
     var newTheatreType = $('#theatre-type').val();
+    
 
     var theatreType = {
         name: newTheatreType
@@ -16,7 +18,8 @@ function clearNewTheatreTypeField() {
 
 function showNewTheatreTypeDetails() {
     var message = $('#theatre-type').val();
-    display_theatre_type.innerHTML = message;
+    var res = '  ' + message;
+    stheatreTypeDisplay.push(res);
+    $('#theatretypelist').text(theatreTypeDisplay);
 }
 
-//display_speciality should be the id in the html part where the msg is displayed

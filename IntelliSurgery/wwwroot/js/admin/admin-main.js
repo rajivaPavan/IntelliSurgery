@@ -15,3 +15,9 @@ $("#add-theatre-type-btn").click(() => {
     showNewTheatreTypeDetails();
     clearNewTheatreTypeField();
 })
+
+$("#add-theatre-btn").click(() => {
+    getNewTheatre();
+    showNewTheatreDetails();
+    clearNewTheatreField();
+})

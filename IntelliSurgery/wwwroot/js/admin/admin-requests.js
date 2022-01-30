@@ -40,7 +40,7 @@ async function saveHospitalDataRequest(hospitalData) {
     //    Specialities: [ { Name: "Neurologist" }, { Name: "Cardiac Surgeon"}], DONE
     //    SurgeryTypes: [{ Name: "type asd" },......], DONE
     //    TheatreTypes: [{ Name: "type asd" },......], DONE
-    //    Theatres: [{ Name: "OR 1", TheatreTypeId: 1 }, {}],
+    //    Theatres: [{ Name: "OR 1", TheatreTypeId: 1 }, {}],DONE
     //    SurgeryTypeTheatres: [{ SurgeryTypeId: 1, TheatreIds: [1, 2, 3, 4] }, ....]
     // }
 

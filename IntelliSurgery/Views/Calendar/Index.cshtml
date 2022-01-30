@@ -10,36 +10,55 @@
     <link ref="stylesheet" href="~/css/calendar.css" />
 }
 
-<div class="container px-1 pt-2" id="calendar-main">
+<div class="col-12 pt-2 bg-light" id="calendar-main">
     <div class="row">
-        <div class="col-12 col-md-3 bg-light h-100 border border-dark">
-            <div class="col-12 my-2">
+        <div class="col-12 col-md-3 h-100">
+            <div class="border border-dark">
+                <div class="col-12 my-2">
                 <h4>Calendars</h4>
-            </div>
-            <div class="col-12 my-2">
-                <div class="">Get Calendar By:</div>
-                <select v-model="selectedFilter" id="calendarFilter" name="calendarFilter" 
-                        class="w-100 btn dropdown-toggle border border-dark">
-                    <option value="" selected>Choose...</option>
-                    <option v-for="option in filters" v-bind:value="option.value">
-                        {{ option.text }}
-                  </option>
+                </div>
+                <div class="col-12 my-2">
+                    <div class="">Get Calendar By:</div>
+                    <select v-model="selectedFilter" id="calendarFilter" name="calendarFilter" 
+                            class="w-100 btn dropdown-toggle border border-dark">
+                        <option value="" selected>Choose...</option>
+                        <option v-for="option in filters" v-bind:value="option.value">
+                            {{ option.text }}
+                      </option>
                     
-                </select>
+                    </select>
+                </div>
+                <div class="col-12 my-2"> 
+                    <div class="">Select {{getSelectedFilterText}}:</div>
+                    <select v-model="selectedFilterValue" class="w-100 btn dropdown-toggle border border-dark" 
+                        id="filterValuesDropDown" disabled>
+                        <option value="-1" selected>Choose...</option>
+                      <option v-for="option in getFilterValueOptions" v-bind:value="option.id">
+                        {{ option.name }}
+                      </option>
+                    </select>
+                </div>
+                <div class="col-12 my-2">
+                    <button v-on:click="renderCalendar" class="btn btn-primary">Get Calendar</button>
+                </div>
             </div>
-            <div class="col-12 my-2"> 
-                <div class="">Select {{getSelectedFilterText}}:</div>
-                <select v-model="selectedFilterValue" class="w-100 btn dropdown-toggle border border-dark" 
-                    id="filterValuesDropDown" disabled>
-                    <option value="-1" selected>Choose...</option>
-                  <option v-for="option in getFilterValueOptions" v-bind:value="option.id">
-                    {{ option.name }}
-                  </option>
-                </select>
+            <div class="my-2 border border-dark">
+                <div class="col-12 my-2">
+                    <h4>Appointment Details</h4>
+                </div>
+                <div class="col-12">
+                    <div class="my-2">Surgeon : </div>
+                    <div class="my-2">Patient : </div>
+                    <div class="my-2">Surgery : </div>
+                    <div class="my-2">Theatre : </div>
+                    <div class="my-2">Start Time : </div>
+                    <div class="my-2">Duration : </div>
+                    <div class="my-2">EndTime : </div>
+                    <div class="my-2">Priority : </div>
+                </div>
             </div>
-            <div class="col-12 my-2">
-                <button v-on:click="renderCalendar" class="btn btn-primary">Get Calendar</button>
-            </div>
+            
+
         </div>
         <div class="col-12 col-md-9">
             <div id="calendar"></div>

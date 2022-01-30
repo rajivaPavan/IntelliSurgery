@@ -23,9 +23,9 @@ namespace IntelliSurgery.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetScheduledSurgeries(int theatreId)
+        public async Task<IActionResult> GetScheduledSurgeries(string filter, int filterValue)
         {
-            Theatre theatre = await theatreRepository.GetTheatre(TheatreQueryLogic.ById(theatreId));
+            Theatre theatre = await theatreRepository.GetTheatre(TheatreQueryLogic.ById(filterValue));
             List<Appointment> scheduledAppointments = theatre.ScheduledAppointments;
             List<FullCalendarEvent> fullCalendarEvents = new List<FullCalendarEvent>();
             foreach(var appointment in scheduledAppointments)

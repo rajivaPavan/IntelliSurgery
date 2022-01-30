@@ -12,6 +12,9 @@
                     // other view-specific options here
                 }
             },
+            selectable: true,
+            editable: true,
+            navlinks: true,
             headerToolbar: {
                 left: 'prev,next today',
                 center: 'title',
@@ -43,3 +46,16 @@ var events = [
     }
 
 ];
+
+/* remove event code (need to create buttons)
+
+var event = calendar.getEventById('1');  //Will return an Event Object if found, and null otherwise.
+event.remove();
+---------------------------------------------------
+add event code (manually-if needed)
+
+calendar.addEvent(event[, source]);
+-------------------------------------------------------
+get event code
+
+calendar.getEvents()  //This method will return an array of Event Objects that FullCalendar has stored in client-side memory.*/

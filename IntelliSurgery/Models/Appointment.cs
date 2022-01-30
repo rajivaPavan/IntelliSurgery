@@ -12,6 +12,7 @@ namespace IntelliSurgery.Models
         public Surgeon Surgeon { get; set; }
         public SurgeryType SurgeryType { get; set; }
         public TheatreType TheatreType{ get; set; }
+        public Theatre Theatre { get; set; }
         public PriorityLevel PriorityLevel { get; set; }
         public float? Priority { get; set; }
         public AnesthesiaType AnesthesiaType { get; set; }

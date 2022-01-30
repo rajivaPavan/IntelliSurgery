@@ -22,10 +22,11 @@ namespace IntelliSurgery.Controllers
         private readonly ISurgeryTypeRepository surgeryRepository;
         private readonly ISurgeryTypeRepository surgeryTypeRepository;
         private readonly ITheatreRepository theatreRepository;
+        private readonly ISpecialityRepository specialityRepository;
 
         public AppointmentApiController(IAppointmentRepository appointmentRepository, IPatientRepository patientRepository,
             ISurgeonRepository surgeonRepository, ISurgeryTypeRepository surgeryRepository, ISurgeryTypeRepository surgeryTypeRepository,
-            ITheatreRepository theatreRepository)
+            ITheatreRepository theatreRepository, ISpecialityRepository specialityRepository)
         {
 
             this.appointmentRepository = appointmentRepository;
@@ -34,6 +35,7 @@ namespace IntelliSurgery.Controllers
             this.surgeryRepository = surgeryRepository;
             this.surgeryTypeRepository = surgeryTypeRepository;
             this.theatreRepository = theatreRepository;
+            this.specialityRepository = specialityRepository;
         }
 
         [HttpPost] 
@@ -125,6 +127,7 @@ namespace IntelliSurgery.Controllers
             var surgeons = await surgeonRepository.GetAllSurgeons();
             var surgeryTypes = await surgeryTypeRepository.GetAllSurgeryTypes();
             var theatreTypes = await theatreRepository.GetAllTheatreTypes();
+            var specialities = await specialityRepository.GetAllSpecialities();
             List<AnesthesiaDTO> anesthesias = new List<AnesthesiaDTO>();
             foreach(AnesthesiaType item in Enum.GetValues(typeof(AnesthesiaType))){
                 anesthesias.Add(new AnesthesiaDTO(item));
@@ -134,7 +137,8 @@ namespace IntelliSurgery.Controllers
                 SurgeryTypes = surgeryTypes, 
                 Surgeons = surgeons,
                 TheatreTypes = theatreTypes,
-                Anesthesias = anesthesias
+                Anesthesias = anesthesias,
+                Specialities =specialities
             };
 
             return Json(new { success = true, data = dropDownLists});

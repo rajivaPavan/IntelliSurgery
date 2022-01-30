@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\css\admin.css" />
     <Content Remove="wwwroot\js\admin\surgery.js" />
   </ItemGroup>
 
@@ -20,12 +21,12 @@
     <Folder Include="HTMLFileHaduwothMekataDanna\css\" />
     <Folder Include="HTMLFileHaduwothMekataDanna\js\" />
     <Folder Include="Views\NewFolder2\" />
-    <Folder Include="Views\NewFolder\" />
     <Folder Include="Views\Surgeries\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="wwwroot\assets\Logo.png" />
+    <None Include="wwwroot\css\admin.css" />
   </ItemGroup>
 
   <ItemGroup>

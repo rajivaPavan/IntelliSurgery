@@ -1,0 +1,46 @@
+﻿*,
+*:before,
+*:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    color: #384047;
+}
+
+h1 {
+    text-align: center;
+    padding: 10px 10px;
+}
+
+}
+h6{
+    text-align: left;
+    display: inline-block;
+}
+
+.form_class {
+    padding: 20px 20px;
+    background: #f4f7f8;
+    border-radius: 8px;
+    margin: 10px auto;
+    margin-bottom: 5px;
+}
+
+.number {
+    background-color: cornflowerblue;
+    color: #fff;
+    height: 30px;
+    width: 30px;
+    display: inline-block;
+    font-size: 0.8em;
+    margin-right: 4px;
+    line-height: 30px;
+    text-align: center;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.2);
+    border-radius: 100%;
+    margin-bottom: 10px;
+}

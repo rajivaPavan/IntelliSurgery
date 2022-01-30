@@ -22,6 +22,7 @@ namespace IntelliSurgery.DbOperations
                                              .Include(a => a.Surgeon)
                                              .Include(a => a.ScheduledSurgery)
                                              .Include(a => a.SurgeryType)
+                                             .Include(a => a.Theatre)
                                              .Include(a => a.Patient);
         }
 

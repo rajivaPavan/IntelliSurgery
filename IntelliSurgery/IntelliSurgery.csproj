@@ -5,12 +5,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="HTMLFileHaduwothMekataDanna\css\**" />
+    <Compile Remove="HTMLFileHaduwothMekataDanna\js\**" />
     <Compile Remove="Views\NewFolder1\**" />
     <Compile Remove="Views\NewFolder2\**" />
+    <Content Remove="HTMLFileHaduwothMekataDanna\css\**" />
+    <Content Remove="HTMLFileHaduwothMekataDanna\js\**" />
     <Content Remove="Views\NewFolder1\**" />
     <Content Remove="Views\NewFolder2\**" />
+    <EmbeddedResource Remove="HTMLFileHaduwothMekataDanna\css\**" />
+    <EmbeddedResource Remove="HTMLFileHaduwothMekataDanna\js\**" />
     <EmbeddedResource Remove="Views\NewFolder1\**" />
     <EmbeddedResource Remove="Views\NewFolder2\**" />
+    <None Remove="HTMLFileHaduwothMekataDanna\css\**" />
+    <None Remove="HTMLFileHaduwothMekataDanna\js\**" />
     <None Remove="Views\NewFolder1\**" />
     <None Remove="Views\NewFolder2\**" />
   </ItemGroup>
@@ -22,8 +30,6 @@
 
   <ItemGroup>
     <Folder Include="MLScripts\" />
-    <Folder Include="HTMLFileHaduwothMekataDanna\css\" />
-    <Folder Include="HTMLFileHaduwothMekataDanna\js\" />
     <Folder Include="Views\Surgeries\" />
   </ItemGroup>
 

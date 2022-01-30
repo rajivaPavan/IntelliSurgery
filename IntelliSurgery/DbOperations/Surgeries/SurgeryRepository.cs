@@ -23,7 +23,7 @@ namespace IntelliSurgery.DbOperations
 
         public async Task<List<ScheduledSurgery>> GetAllSurgeries()
         {
-            return await context.ScheduledSurgeries.ToListAsync();
+            return await context.ScheduledSurgeries.Include(s => s.SurgeryEvent).ToListAsync();
         }
     }
 }

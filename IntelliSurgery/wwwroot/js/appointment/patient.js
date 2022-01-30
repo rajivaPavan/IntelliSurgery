@@ -80,7 +80,7 @@ async function validatePatient() {
 
         }
     } else {
-        displaySweetAlert("Patient Id is empty");
+        //displaySweetAlert("Patient Id is empty");
     }
 
     return patientId;

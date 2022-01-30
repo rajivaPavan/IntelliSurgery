@@ -1,10 +1,8 @@
-﻿
-
-calendarApp = Vue.createApp({
+﻿calendarApp = Vue.createApp({
     data() {
         return {
             calendars: {},
-            filters: initFilters(),
+            filters: [],
             fitlerValues: {},
             selectedFilter: "",
             selectedFilterValue:-1
@@ -36,7 +34,18 @@ calendarApp = Vue.createApp({
     },
     methods: {
         async renderCalendar() {
-
+            var selectedFilter = this.selectedFilter;
+            var selectedFilterValue = this.selectedFilterValue;
+            if (selectedFilter != "" && selectedFilterValue != -1) {
+                var events = getCalendarEvents(selectedFilter, selectedFilterValue);
+                if (events == null) {
+                    events = await getScheduledSurgeriesRequest(selectedFilter, selectedFilterValue);
+                }
+                initCalendar(events);
+                
+            } else {
+                displaySweetAlert("Choose filters");
+            }
         }
     }
 
@@ -49,9 +58,17 @@ $(document).ready(async () => {
     var noEvents = [];
     initCalendar(noEvents);
 
+
     //init dropdowns
+    var filters = initFilters();
+    calendarVueApp.filters = filters;
+
     var filterValues = await getFilterValuesRequest();
     calendarVueApp.filterValues = filterValues;
+
+    //init calendars array
+    calendarVueApp.calendars = initCalendarsObj(filters, filterValues);
+
 });
 
 
@@ -63,4 +80,31 @@ function initFilters() {
         { text: "Surgery Type", value: "surgeryTypes" }
     ];
     return filters;
+}
+
+function initCalendarsObj(filters, filterValues) {
+    var calendars = {};
+    filters.forEach((filter) => {
+        calendars[filter.value] = [];
+        filterValues[filter.value].forEach((val) => {
+            calendars[filter.value].push({
+                id: val["id"],
+                events:null
+            });
+        })
+        
+    })
+    console.log(calendars);
+    return calendars;
+}
+
+function getCalendarEvents(searchFilter, searchFilterValue) {
+    var events = null;
+    var calendars = calendarVueApp.calendars;
+    var entities = calendars[searchFilter];
+    var entity = entities.find((entity) => {
+        return entity.id == searchFilterValue;
+    });
+    events = entity.events;
+    return events;
 }

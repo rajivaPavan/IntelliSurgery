@@ -67,8 +67,8 @@
                             <div class="col-md-5">
 
 
-                                <label for="surgeon" class="sr-only">Speciality :</label>
-                                <select id="surgeon" name="user_surgeon" class="btn btn-info dropdown-toggle">
+                                <label for="surgeon_speciality" class="sr-only">Speciality :</label>
+                                <select id="surgeon_speciality" name="user_surgeon" class="btn btn-info dropdown-toggle">
                                     <option selected>Choose...</option>
 
                                     <option value="Spec_1"> Orthopedic Surgeon </option>
@@ -80,13 +80,13 @@
 
                             </div>
                             <div class="col-md-3">
-                                <label for="inlineFormInputName2" class="sr-only">Name</label>
-                                <input type="text" class="form-control" id="inlineFormInputName2">
+                                <label for="surgeon" class="sr-only">Name</label>
+                                <input type="text" class="form-control" id="surgeon">
 
                             </div>
 
                             <div class="col-md-1">
-                                <button type="submit" class="btn btn-primary mb-2" class="form-control">Add</button>
+                                <button id="add-suregon-btn" type="submit" class="btn btn-primary mb-2" class="form-control">Add</button>
                             </div>
                             <div class="col-md-3">
                                 <div class="col">
@@ -175,13 +175,13 @@
                     <div class="form-row">
                        
                         <div class="col-md-6 mb-1">
-                            <label for="inlineFormInputName2" class="sr-only">Name</label>
-                            <input type="text" class="form-control" id="inlineFormInputName2">
+                            <label for="theatre-type" class="sr-only">Name</label>
+                            <input type="text" class="form-control" id="theatre-type">
 
                         </div>
 
                         <div class="col-md-1 mb-6">
-                            <button type="submit" class="btn btn-primary mb-2" class="form-control">Add</button>
+                            <button id="add-theatre-type-btn" type="submit" class="btn btn-primary mb-2" class="form-control">Add</button>
                         </div>
 
                         <div class="col-md-5">
@@ -191,9 +191,9 @@
                                     <a class="btn btn-primary" data-toggle="collapse" href="#ORtypelist" role="button" aria-expanded="false" aria-controls="ORtypelist">List</a>
 
                                 </p>
-                                <div class="collapse multi-collapse" id="ORtypelist">
+                                <div class="collapse multi-collapse" id="theatretypelist">
                                     <div class="card card-body">
-                                        Anim pariatur cliche reprehenderit,
+                                        @*Anim pariatur cliche reprehenderit,*@
                                     </div>
                                 </div>
 
@@ -222,8 +222,8 @@
                             <div class="col-md-3">
 
 
-                                <label for="theatre_type" class="sr-only">Theatre Type :</label>
-                                <select id="theatre_type" name="user_surgeon" class="btn btn-info dropdown-toggle">
+                                <label for="theatre_type_data" class="sr-only">Theatre Type :</label>
+                                <select id="theatre_type_data" name="user_surgeon" class="btn btn-info dropdown-toggle">
                                     <option selected>Choose...</option>
 
                                     @*<option value="Spec_1"> OR Type 1 </option>
@@ -235,13 +235,13 @@
 
                             </div>
                             <div class="col-md-5">
-                                <label for="inlineFormInputName2" class="sr-only">Name</label>
-                                <input type="text" class="form-control" id="inlineFormInputName2">
+                                <label for="theatre" class="sr-only">Name</label>
+                                <input type="text" class="form-control" id="theatre">
 
                             </div>
 
                             <div class="col-md-1">
-                                <button type="submit" class="btn btn-primary mb-2" class="form-control">Add</button>
+                                <button id="add-theatre-btn" type="submit" class="btn btn-primary mb-2" class="form-control">Add</button>
                             </div>
                             <div class="col-md-3">
 
@@ -251,7 +251,7 @@
 
                                     </p>
                                     
-                                    <div class="collapse multi-collapse" id="ORlist">
+                                    <div class="collapse multi-collapse" id="theatrelist">
                                       
                                         <div class="card card-body">
                                             Anim pariatur cliche reprehenderit
@@ -282,8 +282,8 @@
                             <div class="col-md-5">
 
 
-                                <label for="surgeon" class="sr-only">Surgery:</label>
-                                <select id="surgeon" name="user_surgeon" class="btn btn-info dropdown-toggle">
+                                <label for="surgery-type-data" class="sr-only">Surgery:</label>
+                                <select id="surgery-type-data" name="user_surgeon" class="btn btn-info dropdown-toggle">
                                     <option selected>Choose...</option>
 
                                     <option value="Surgery_1"> Cardiovascular Surgery </option>
@@ -316,7 +316,7 @@
                             </div>
 
                             <div class="col-md-1">
-                                <button type="submit" class="btn btn-primary mb-2" class="form-control">Add</button>
+                                <button id="add-surgery-type-theatre-btn"type="submit" class="btn btn-primary mb-2" class="form-control">Add</button>
                             </div>
                             <div class="col-md-3">
 

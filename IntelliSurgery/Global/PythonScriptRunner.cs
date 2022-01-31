@@ -17,9 +17,11 @@ namespace IntelliSurgery.Global
         public TimeSpan PredictTime()
         {
             // full path of python interpreter
+            //stirng python = @"..........."
             string python = configuration.GetValue<string>("PythonPath");
 
             // python app to call 
+            //stirng myPythonApp = @"..........."
             string myPythonApp = configuration.GetValue<string>("PythonProgramPath");
 
             // dummy parameters to send Python script 
@@ -42,7 +44,7 @@ namespace IntelliSurgery.Global
             // assign start information to  the process 
             myProcess.StartInfo = myProcessStartInfo;
 
-            Console.WriteLine("Calling Python script with arguments {0} and {1}", x, y);
+            //Console.WriteLine("Calling Python script with arguments {0} and {1}", x, y);
             // start the process 
             myProcess.Start();
 

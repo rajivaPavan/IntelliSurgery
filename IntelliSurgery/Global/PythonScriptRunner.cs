@@ -16,8 +16,9 @@ namespace IntelliSurgery.Global
             string myPythonApp = @"C:\Users\pavan\Documents\After Alevel\Projects\IntelliSurgery\IntelliSurgery\Global\test1.py";
 
             // dummy parameters to send Python script 
-            int x = 50;
-            int y = 60;
+            int Gender = 1;
+            int ASA = 0;
+            int Status = 0;
 
             // Create new process start info 
             ProcessStartInfo myProcessStartInfo = new ProcessStartInfo(python);
@@ -29,7 +30,7 @@ namespace IntelliSurgery.Global
             // start python app with 3 arguments  
             // 1st arguments is pointer to itself,  
             // 2nd and 3rd are actual arguments we want to send 
-            myProcessStartInfo.Arguments = myPythonApp + " " + x + " " + y;
+            myProcessStartInfo.Arguments = myPythonApp + " " + Gender + " " + ASA + " " + Status;
 
             Process myProcess = new Process();
             // assign start information to  the process 

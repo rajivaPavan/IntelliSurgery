@@ -26,22 +26,16 @@ function clearAllAppointmentFields() {
 
 async function validatePatient() {
     
-
-
     return patientId;
 }
 
 async function addPatient() {
     
 
-
     return patientId;
 }
 
 async function updatePatient() {
-
-
-
 
     return patientId;
 }
@@ -69,23 +63,30 @@ function validatePatientName() {
 
 //Validate Weight
 $('#weightCheck').hide();
-let weightError = true;
+let weightError = true; 
 
 $('#weight').keyup(function () {
     validateWeight();
 });
 
 function validateWeight() {
-    let weight = $('#weight').val();
+    let weightInput = $('#weight').val();
 
-    if (weight.length == '') {
+    if (weightInput.length == '') {
         $('#weightCheck').show();
         weightError = false;
         return false;
     }
-    else {
-        $('#weightCheck').hide();    //need to check whether isNumeric(),
+    else if (!$.isNumeric(weightInput)) {
+        $('#weightCheck').show();
+        $('#weightCheck').html('**Invalid weight-should be numeric');
+        $('#weightCheck').css("color", "red");
+        weightError = false;
+        return false;
     }
+    else{
+        $('#weightCheck').hide();
+}
 }
 
 
@@ -98,14 +99,139 @@ $('#height').keyup(function () {
 });
 
 function validateHeight() {
-    let height = $('#height').val();
+    let heightInput = $('#height').val();
 
-    if (height.length == '') {
+    if (heightInput.length == '') {
         $('#heightCheck').show();
         heightError = false;
         return false;
     }
+    else if (!$.isNumeric(heightInput)) {                                     
+        $('#heightCheck').show();
+        $('#heightCheck').html('**Invalid height-should be numeric');
+        $('#heightCheck').css("color", "red");
+        heightError = false;
+        return false;
+    }
     else {
-        $('#heightCheck').hide();             //need to check whether isNumeric(),
+        $('#heightCheck').hide();             
+    }
+}
+
+/*
+//check weather gender radio button is selected or not
+$('#genderCheck').hide();
+let genderError = true;
+
+$('#----').keyup(function () {
+    validateGender();
+});
+
+function validateGender() {
+    if ((!($('#gender_male').prop('checked'))) && (!($('#gender_female').prop('checked')))) {
+        $('#genderCheck').show();
+        genderError = false;
+        return false;
+    }
+    else{
+        $('#genderCheck').hide();
+    }
+    
+}
+
+//check weather anastheasists radio button is selected or not
+$('#anastheasistCheck').hide();
+let anastheasistError = true;
+
+$('#----').keyup(function () {
+    validateAnastheasist();
+});
+
+function validateAnastheasist() {
+    if ((!($('#required').prop('checked'))) && (!($('#not_required').prop('checked')))) {
+        $('#anastheasistCheck').show();
+        anastheasistError = false;
+        return false;
+    }
+    else {
+        $('#anastheasistCheck').hide();
+    }
+}
+*/
+
+//check weather surgery is selected or not
+$('#surgeryCheck').hide();
+let surgeryError = true;
+
+$('#surgery').keyup(function () {
+    validateSurgery();
+});
+
+function validateSurgery() {
+    if ($('#surgery').val() == 'Choose...') {
+        $('#surgeryCheck').show();
+        surgeryError = false;
+        return false;
+    }
+    else {
+        $('#surgeryCheck').hide();
+    }
+}
+
+//check weather surgeon is selected or not
+$('#surgeonCheck').hide();
+let surgeonError = true;
+
+$('#surgeon').keyup(function () {
+    validateSurgeon();
+});
+
+function validateSurgeon() {
+    if ($('#surgeon').val() == 'Choose...') {
+        $('#surgeonCheck').show();
+        surgeryError = false;
+        return false;
+    }
+    else {
+        $('#surgeonCheck').hide();
+    }
+}
+
+//check weather anasthesia_type is selected or not
+$('#anasthesia_typeCheck').hide();
+let anasthesia_typeError = true;
+
+$('#anasthesia_type').keyup(function () {
+    validateAnasthesia_type();
+});
+
+function validateAnasthesia_type() {
+    if ($('#anasthesia_type').val() == 'Choose...') {
+        $('#anasthesia_typeCheck').show();
+        anasthesia_typeError = false;
+        return false;
+    }
+    else {
+        $('#anasthesia_typeCheck').hide();
+    }
+}
+
+
+//check weather or_theatre is selected or not
+$('#or_theatreCheck').hide();
+let or_theatreError = true;
+
+$('#or_theatre').keyup(function () {
+    validateOr_theatre();
+});
+
+function validateOr_theatre() {
+    if ($('#or_theatre').val() == 'Choose...') {
+        $('#or_theatreCheck').show();
+        or_theatreError = false;
+        return false;
+    }
+    else {
+        $('#or_theatreCheck').hide();
     }
 }

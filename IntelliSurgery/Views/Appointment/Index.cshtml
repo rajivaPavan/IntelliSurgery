@@ -29,14 +29,16 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                        <label for="patient_name">Name:</label>
-                        <input type="text" class="form-control mb-2 mr-sm-2" id="patient_name" name="patient_name">
-                        <h6 id="patientNameCheck" style="color: red;" >**Name is missing</h6>
+                            <label for="patient_name">Name:</label>
+                            <input type="text" class="form-control mb-2 mr-sm-2" id="patient_name" name="patient_name">
+                            <h6 id="patientNameCheck" style="color: red;" >**Patient name is missing</h6>
                         </div>
+
                         <div class="col-md-7">
                              <label for="birthday">Birthday:</label>
-                        <input type="date" id="birthday" name="birthday" class="form-control mb-2 mr-sm-2">
+                             <input type="date" id="birthday" name="birthday" class="form-control mb-2 mr-sm-2">
                         </div>
+
                         <div class="col-md-5">
                             <label>Gender:</label>
                             <div class="form-check">
@@ -51,12 +53,15 @@
                                     Female
                                 </label>
                             </div>
+                            @*<h6 id="genderCheck" style="color: red;" >**Select gender</h6>*@
                         </div>
+
                         <div class="col-md-6">
                             <label for="weight" class="form-label">Weight:</label>
                             <input type="text" class="form-control" id="weight" placeholder="kg">
                             <h6 id="weightCheck" style="color: red;" >**Weight is missing</h6>
                         </div>
+
                         <div class="col-md-6">
                             <label for="height" class="form-label">Height:</label>
                             <input type="text" class="form-control" id="height" placeholder="cm">
@@ -84,6 +89,7 @@
                     <select id="surgery" name="user_surgery">
                         <option value="-1" selected>Choose...</option>
                     </select>
+                    <h6 id="surgeryCheck" style="color: red;" >**Choose a surgery type</h6>
 
                     <label for="surgeon">Surgeon:</label>
                     <select id="surgeon" name="user_surgeon">
@@ -95,6 +101,7 @@
                         </optgroup>*@
                         
                     </select>
+                    <h6 id="surgeonCheck" style="color: red;" >**Choose a surgeon</h6>
                     <label> Anastheasists: </label>
                     <div class="form-check">
                         <input type="radio" class="form-check-input" id="required" name="anastheasist" value="Required" checked>
@@ -104,6 +111,7 @@
                         <input type="radio" class="form-check-input" id="not_required" name="anastheasist" value="Not Required">
                         <label class="form-check-label" for="not_required">Not Required</label>
                     </div>
+                    
                     <label for="anasthesia_type">Anesthesia Type:</label>
                     <select id="anasthesia_type" name="user_anas_type">
                         <option value="-1" selected>Choose...</option>
@@ -112,6 +120,8 @@
                         <option value="type_3">C</option>*@
 
                     </select>
+                    <h6 id="anasthesia_typeCheck" style="color: red;" >**Choose an anasthesia type</h6>
+                    
                     <label for="or_theatre">Theatre Type:</label>
                     <select id="or_theatre" name="user_or">
                         <option value="-1" selected>Choose...</option>
@@ -120,7 +130,7 @@
                         <option value="or_3">OR3</option>*@
 
                     </select>
-
+                    <h6 id="or_theatreCheck" style="color: red;" >**Choose an operating theatre</h6>
 
                     <label>Importance:</label>
                     <div class="col-12 mb-5">
@@ -132,8 +142,7 @@
                         </label>
                     </div>
                     <div class="form-check col-2">
-                        <input class="form-check-input priority" type="radio" value="1" 
-                            id="importance_medium" name="importance" checked>
+                        <input class="form-check-input priority" type="radio" value="1" id="importance_medium" name="importance" checked>
                         <label class="form-check-label" for="importance_medium" >
                             Medium
                         </label>
@@ -163,5 +172,6 @@
     <script src="~/js/appointment/patient.js"></script>
     <script src="~/js/appointment/appointment.js"></script>
     <script src="~/js/appointment/appointment-main.js"></script>
+    @*<script type="text/javascript" src="JS/jquery-3.2.1.js"></script>*@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 }

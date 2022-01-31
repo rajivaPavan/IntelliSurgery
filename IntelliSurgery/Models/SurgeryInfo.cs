@@ -14,12 +14,7 @@ namespace IntelliSurgery.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-    }
-
-    public class SurgeryTypeSurgeryTheatre
-    {
-        public int Id { get; set; }
-        public SurgeryType SurgeryType { get; set; }
         public List<TheatreType> SuitableTheatreTypes { get; set; }
+
     }
 }

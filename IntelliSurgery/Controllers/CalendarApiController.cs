@@ -7,6 +7,7 @@ using IntelliSurgery.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace IntelliSurgery.Controllers
@@ -27,24 +28,24 @@ namespace IntelliSurgery.Controllers
         public async Task<IActionResult> GetScheduledSurgeries(string filter, int filterValue)
         {
             List<FullCalendarEvent> fullCalendarEvents = new List<FullCalendarEvent>();
-            List<Appointment> scheduledAppointments = await appointmentRepository.GetAppointments(a => a.ScheduledSurgery != null);
+            List<Appointment> scheduledAppointments = new List<Appointment>();
 
             if (filter == "theatres")
             {
-                scheduledAppointments = scheduledAppointments.FindAll(a => a.Theatre.Id == filterValue);
+                scheduledAppointments = await appointmentRepository.GetAppointments(a => a.ScheduledSurgery != null && a.Theatre.Id == filterValue);
             }
             else if (filter == "surgeons")
             {
-                scheduledAppointments = scheduledAppointments.FindAll(a => a.Surgeon.Id == filterValue);
+                scheduledAppointments = await appointmentRepository.GetAppointments(a => a.ScheduledSurgery != null && a.Surgeon.Id == filterValue);
             }
             else if (filter == "theatreTypes")
             {
-                scheduledAppointments = scheduledAppointments.FindAll(a => a.TheatreType.Id == filterValue);
+                scheduledAppointments = await appointmentRepository.GetAppointments(a => a.ScheduledSurgery != null && a.TheatreType.Id == filterValue);
 
             }
             else if (filter == "surgeryTypes")
             {
-                scheduledAppointments = scheduledAppointments.FindAll(a => a.SurgeryType.Id == filterValue);
+                scheduledAppointments = await appointmentRepository.GetAppointments(a => a.ScheduledSurgery != null && a.SurgeryType.Id == filterValue);
             }
 
             foreach (var appointment in scheduledAppointments)

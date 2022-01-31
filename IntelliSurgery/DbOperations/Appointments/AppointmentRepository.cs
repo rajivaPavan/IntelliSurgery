@@ -33,9 +33,9 @@ namespace IntelliSurgery.DbOperations
             return appointment;
         }
 
-        public async Task<Appointment> GetAppointment(Expression<Func<Appointment, bool>> predicate)
+        public async Task<Appointment> GetAppointment(Expression<Func<Appointment, bool>> expression)
         {
-            return await readAppointments.FirstOrDefaultAsync(predicate);
+            return await readAppointments.FirstOrDefaultAsync(expression);
         }
 
         public async Task<List<Appointment>> GetAllAppointments()
@@ -43,9 +43,9 @@ namespace IntelliSurgery.DbOperations
             return await readAppointments.ToListAsync();
         }
 
-        public async Task<List<Appointment>> GetAppointments(Expression<Func<Appointment, bool>> predicate)
+        public async Task<List<Appointment>> GetAppointments(Expression<Func<Appointment, bool>> expression)
         {
-            return await readAppointments.Where(predicate).ToListAsync();
+            return await readAppointments.Where(expression).ToListAsync();
         }
 
         public async Task<List<Appointment>> UpdateAppointments(List<Appointment> appointments)

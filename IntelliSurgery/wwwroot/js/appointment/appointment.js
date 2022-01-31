@@ -25,21 +25,23 @@ function clearAllAppointmentFields() {
     $("#theatreType").val(-1);
 }
 
-async function validatePatient() {
+//I have commented these 3 functions bevause their names have been used for other functions in another file
+
+//async function validatePatient() {
     
-    return patientId;
-}
+//    return patientId;
+//}
 
-async function addPatient() {
+//async function addPatient() {
     
 
-    return patientId;
-}
+//    return patientId;
+//}
 
-async function updatePatient() {
+//async function updatePatient() {
 
-    return patientId;
-}
+//    return patientId;
+//}
 
 // Validate patient name
 $('#patientNameCheck').hide();

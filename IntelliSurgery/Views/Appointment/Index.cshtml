@@ -39,13 +39,13 @@
                         <div class="col-md-5">
                             <label>Gender:</label>
                             <div class="form-check">
-                                <input class="form-check-input gender" type="radio" value="0" id="gender_male" name="gender" checked>
+                                <input class="form-check-input gender" type="radio" value="1" id="gender_male" name="gender" checked>
                                 <label class="form-check-label" for="gender_male">
                                     Male
                                 </label>                        
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input gender" type="radio" value="1" id="gender_female" name="gender">
+                                <input class="form-check-input gender" type="radio" value="2" id="gender_female" name="gender">
                                 <label class="form-check-label" for="gender_female">
                                     Female
                                 </label>
@@ -79,17 +79,13 @@
 
                     <label for="surgery">Surgery:</label>
                     <select id="surgery" name="user_surgery">
-                        <option value="-1" selected>Choose...</option>
+                        <option value="-1" selected hidden>Choose...</option>
                     </select>
 
                     <label for="surgeon">Surgeon:</label>
                     <select id="surgeon" name="user_surgeon">
-                        <option value="-1" selected>Choose...</option>
-                        @*<optgroup label="Orthopedic Surgeon">
-                            <option value="doctor_1"> Dr. Indika Ellawala </option>
-                            <option value="doctor_2"> Dr. Asela Gunawardana </option>
-                            <option value="doctor_3"> Dr. Pavan Pitiwaduge </option>
-                        </optgroup>*@
+                        <option value="-1" selected hidden>Choose...</option>
+                        
                         
                     </select>
                     <label> Anastheasists: </label>
@@ -103,19 +99,11 @@
                     </div>
                     <label for="anasthesia_type">Anesthesia Type:</label>
                     <select id="anasthesia_type" name="user_anas_type">
-                        <option value="-1" selected>Choose...</option>
-                        @*<option value="type_1">A</option>
-                        <option value="type_2">B</option>
-                        <option value="type_3">C</option>*@
-
+                        <option value="-1" selected hidden>Choose...</option>
                     </select>
                     <label for="or_theatre">Theatre Type:</label>
-                    <select id="or_theatre" name="user_or">
-                        <option value="-1" selected>Choose...</option>
-                        @*<option value="or_1">OR1</option>
-                        <option value="or_2">OR2</option>
-                        <option value="or_3">OR3</option>*@
-
+                    <select id="theatreType" name="user_or">
+                        <option value="-1" selected hidden>Choose...</option>
                     </select>
 
 

@@ -1,19 +1,26 @@
 ﻿using System;
 using System.IO;
 using System.Diagnostics;
+using Microsoft.Extensions.Configuration;
 
 namespace IntelliSurgery.Global
 {
     public class PythonScript
     {
-        
+        private readonly IConfiguration configuration;
+
+        public PythonScript(IConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
+
         public TimeSpan PredictTime()
         {
-            // full path of python interpreter 
-            string python = @"C:\Users\pavan\AppData\Local\Programs\Python\Python38\python.exe";
+            // full path of python interpreter
+            string python = configuration.GetValue<string>("PythonPath");
 
             // python app to call 
-            string myPythonApp = @"C:\Users\pavan\Documents\After Alevel\Projects\IntelliSurgery\IntelliSurgery\Global\test1.py";
+            string myPythonApp = configuration.GetValue<string>("PythonProgramPath");
 
             // dummy parameters to send Python script 
             int x = 50;

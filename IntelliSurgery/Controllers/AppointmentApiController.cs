@@ -5,10 +5,10 @@ using IntelliSurgery.Enums;
 using IntelliSurgery.Global;
 using IntelliSurgery.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using static IntelliSurgery.Enums.OperationTheatreEnums;
 
 namespace IntelliSurgery.Controllers
 {
@@ -23,10 +23,11 @@ namespace IntelliSurgery.Controllers
         private readonly ISurgeryTypeRepository surgeryTypeRepository;
         private readonly ITheatreRepository theatreRepository;
         private readonly ISpecialityRepository specialityRepository;
+        private readonly IConfiguration configuration;
 
         public AppointmentApiController(IAppointmentRepository appointmentRepository, IPatientRepository patientRepository,
             ISurgeonRepository surgeonRepository, ISurgeryTypeRepository surgeryRepository, ISurgeryTypeRepository surgeryTypeRepository,
-            ITheatreRepository theatreRepository, ISpecialityRepository specialityRepository)
+            ITheatreRepository theatreRepository, ISpecialityRepository specialityRepository ,IConfiguration configuration)
         {
 
             this.appointmentRepository = appointmentRepository;
@@ -36,6 +37,7 @@ namespace IntelliSurgery.Controllers
             this.surgeryTypeRepository = surgeryTypeRepository;
             this.theatreRepository = theatreRepository;
             this.specialityRepository = specialityRepository;
+            this.configuration = configuration;
         }
 
         [HttpPost] 
@@ -70,7 +72,10 @@ namespace IntelliSurgery.Controllers
                 Gender = (Gender)patientDTO.Gender,
                 Weight = patientDTO.Weight,
                 Name = patientDTO.Name,
-                Height = patientDTO.Height
+                Height = patientDTO.Height,
+                BMI = (float)(patientDTO.Weight / Math.Pow(patientDTO.Height, 2)),
+                //Diseases = 
+                ASA_Status = patientDTO.ASA_Status
             };
             newPatient = await patientRepository.CreatePatient(newPatient);
             return Json(new {success= true, data = newPatient.Id });
@@ -81,7 +86,8 @@ namespace IntelliSurgery.Controllers
             Patient updatePatient = new Patient()
             {
                 Weight = patientDTO.Weight,
-                Height = patientDTO.Height
+                Height = patientDTO.Height,
+                BMI = (float)(patientDTO.Weight / Math.Pow(patientDTO.Height, 2))
             };
             updatePatient = await patientRepository.UpdatePatient(updatePatient);
             return Json(new { success = true, data = updatePatient.Id });
@@ -90,7 +96,7 @@ namespace IntelliSurgery.Controllers
         [HttpPost]
         public async Task<IActionResult> AddAppointment(AppointmentDTO appointmentDTO) {
 
-            PythonScript pythonScript = new PythonScript();
+            PythonScript pythonScript = new PythonScript(configuration);
 
             Patient patient = await patientRepository.GetPatientById(appointmentDTO.PatientId);
             SurgeryType surgerytype = await surgeryRepository.GetSurgeryTypeById(appointmentDTO.SurgeryType);
@@ -101,9 +107,13 @@ namespace IntelliSurgery.Controllers
             //create appointment object
             Appointment appointment = new Appointment() {
                 Patient = patient,
+                PatientId = patient.Id,
                 Surgeon = surgeon,
+                SurgeonId = surgeon.Id,
                 SurgeryType = surgerytype,
+                SurgeryTypeId = surgerytype.Id,
                 TheatreType = theatreType,
+                TheatreTypeId = theatreType.Id,
                 AnesthesiaType = (AnesthesiaType)appointmentDTO.AnesthesiaType,
                 PriorityLevel = (PriorityLevel)appointmentDTO.PriorityLevel,
                 PredictedTimeDuration = predictedTime,

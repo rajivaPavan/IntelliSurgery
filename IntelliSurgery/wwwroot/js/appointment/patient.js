@@ -37,7 +37,7 @@ function setPatientDetails(patientDetails) {
 
 function getPatientDetails() {
     var name = $("#patient_name").val();
-    var dateOfBirth = $("#birthday").val(formatDateTime());
+    var dateOfBirth = $("#birthday").val();
     var gender = $("input:radio.gender:checked").val();
     var weight = $("#weight").val();
     var height = $("#height").val();

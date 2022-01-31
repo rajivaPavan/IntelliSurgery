@@ -1,6 +1,5 @@
 ﻿using Itenso.TimePeriod;
 using System.Collections.Generic;
-using static IntelliSurgery.Enums.OperationTheatreEnums;
 
 namespace IntelliSurgery.Models
 {

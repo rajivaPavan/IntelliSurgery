@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using static IntelliSurgery.Enums.OperationTheatreEnums;
 
 namespace IntelliSurgery.Models
 {

@@ -36,15 +36,21 @@ namespace IntelliSurgery.DbOperations
             modelBuilder.Entity<Appointment>()
                 .HasIndex(x => x.Status);
             modelBuilder.Entity<Appointment>()
-                .HasIndex(x => x.TheatreType);
+               .HasIndex(x => x.SurgeonId);
             modelBuilder.Entity<Appointment>()
-                .HasIndex(x => new { x.ScheduledSurgery, x.Theatre});
+               .HasIndex(x => x.PatientId);
             modelBuilder.Entity<Appointment>()
-                .HasIndex(x => new { x.ScheduledSurgery, x.TheatreType });
+                .HasIndex(x => x.TheatreTypeId);
             modelBuilder.Entity<Appointment>()
-                .HasIndex(x => new { x.ScheduledSurgery, x.SurgeryType });
+                .HasIndex(x => x.ScheduledSurgeryId);
             modelBuilder.Entity<Appointment>()
-                .HasIndex(x => new { x.ScheduledSurgery, x.Surgeon });
+                .HasIndex(x => new { x.ScheduledSurgeryId, x.TheatreId });
+            modelBuilder.Entity<Appointment>()
+                .HasIndex(x => new { x.ScheduledSurgeryId, x.TheatreTypeId });
+            modelBuilder.Entity<Appointment>()
+                .HasIndex(x => new { x.ScheduledSurgeryId, x.SurgeryTypeId });
+            modelBuilder.Entity<Appointment>()
+                .HasIndex(x => new { x.ScheduledSurgeryId, x.SurgeonId });
             #endregion
 
         }

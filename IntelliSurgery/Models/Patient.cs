@@ -1,6 +1,7 @@
 ﻿using IntelliSurgery.DTOs;
 using IntelliSurgery.Enums;
 using System;
+using System.Collections.Generic;
 
 namespace IntelliSurgery.Models
 {
@@ -12,8 +13,9 @@ namespace IntelliSurgery.Models
         public Gender Gender { get; set; }
         public float Weight { get; set; }
         public float Height { get; set; }
+        public ASA_Status ASA_Status { get; set; }
+        public float BMI { get; set; }
+        public List<Disease> Diseases { get; set; }
          
     }
-
-
 }

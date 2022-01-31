@@ -85,7 +85,7 @@ async function initDropDownLists() {
         $('#anasthesia_type').append(new Option(a.name, a.id));
     });
     theatreTypes.forEach((t) => {
-        $('#or_theatre').append(new Option(t.name, t.id));
+        $('#theatreType').append(new Option(t.name, t.id));
     });
 
 }

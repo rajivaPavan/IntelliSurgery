@@ -2,7 +2,7 @@
     var appointment = {
         PatientId: patientId,
         SurgeryType: $("#surgery").val(),
-        TheatreType:0,
+        TheatreType:$("#theatreType").val(),
         SurgeonId: $("#surgeon").val(),
         IsAnesthesiaRequired: true, //
         AnesthesiaType: 0 /* $("#anasthesia_type").val()*/,
@@ -22,4 +22,5 @@ function clearAllAppointmentFields() {
     $("#surgery").val(-1);
     $("#surgeon").val(-1);
     $("#anasthesia_type").val(-1);
+    $("#theatreType").val(-1);
 }

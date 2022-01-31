@@ -15,10 +15,36 @@
         <div class="col-12 col-md-3 h-100">
             <div class="border border-dark">
                 <div class="col-12 my-2">
+                <h4>Appointments</h4>
+                </div>
+                <div class="col-12 my-2">
+                    <div class="">Filter by Theatre Type:</div>
+                    <select @*v-model=""*@ id="appointmentFilter" name="calendarFilter" 
+                            class="w-100 btn dropdown-toggle border border-dark">
+                        <option value="" selected>Choose...</option>
+                        @*<option v-for="option in " v-bind:value="option.value">
+                            {{ option.text }}
+                          </option>*@
+                    
+                    </select>
+                </div>
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-6 my-2">
+                            <button class="w-100 btn btn-info">View Table</button>
+                        </div>
+                        <div class="col-6 my-2">
+                            <button class="w-100 btn btn-primary">Create Schedule</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="my-2 border border-dark">
+                <div class="col-12 my-2">
                 <h4>Calendars</h4>
                 </div>
                 <div class="col-12 my-2">
-                    <div class="">Get Calendar By:</div>
+                    <div class="">Filter By:</div>
                     <select v-model="selectedFilter" id="calendarFilter" name="calendarFilter" 
                             class="w-100 btn dropdown-toggle border border-dark">
                         <option value="" selected>Choose...</option>
@@ -39,7 +65,7 @@
                     </select>
                 </div>
                 <div class="col-12 my-2">
-                    <button v-on:click="renderCalendar" class="mx-auto btn btn-primary">Get Calendar</button>
+                    <button v-on:click="renderCalendar" class="mx-auto btn btn-info">Get Calendar</button>
                 </div>
             </div>
             <div class="my-2 border border-dark" v-if="null != getSelectedEvent">

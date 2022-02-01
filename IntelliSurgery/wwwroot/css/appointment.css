@@ -83,7 +83,7 @@ fieldset {
     border: none;
 }
 
-legend {
+.legend {
     font-size: 1.4em;
     margin-bottom: 10px;
 }

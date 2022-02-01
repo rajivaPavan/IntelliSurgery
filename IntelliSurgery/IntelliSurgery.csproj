@@ -29,10 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="MLModels\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="wwwroot\css\admin.css" />
   </ItemGroup>
 

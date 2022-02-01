@@ -2,7 +2,7 @@ import pickle
 import sys
 
 
-file_path ="../Eai/model.pkl"
+file_path ="..\IntelliSurgery\MLModels\model.pkl"
 loaded_model = pickle.load(open(file_path, 'rb'))
 
 #Using the data passed to the file

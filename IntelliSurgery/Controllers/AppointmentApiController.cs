@@ -56,7 +56,7 @@ namespace IntelliSurgery.Controllers
                     Gender = (int)patient.Gender,
                     Height = patient.Height,
                     Weight = patient.Weight,
-                    Name = patient.Name
+                    name = patient.Name
                 };
             }
             
@@ -71,7 +71,7 @@ namespace IntelliSurgery.Controllers
                 DateOfBirth = patientDTO.DateOfBirth,
                 Gender = (Gender)patientDTO.Gender,
                 Weight = patientDTO.Weight,
-                Name = patientDTO.Name,
+                Name = patientDTO.name,
                 Height = patientDTO.Height,
                 BMI = (float)(patientDTO.Weight / Math.Pow(patientDTO.Height, 2)),
                 //Diseases = 

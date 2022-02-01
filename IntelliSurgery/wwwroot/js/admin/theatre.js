@@ -15,6 +15,7 @@ function getNewTheatre() {
 
 function clearNewTheatreField() {
     $('#theatre').val("");
+    $("#theatreList").val(-1);
 }
 
 function showNewTheatreDetails() {

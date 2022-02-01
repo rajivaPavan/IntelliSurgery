@@ -2,12 +2,15 @@ import pickle
 import sys
 
 
-file_path ="../MLModels/model.pkl"
-loaded_model = pickle.load(open(file_path, 'rb'))
+file_path = "C:\\Users\\pavan\\Documents\\After Alevel\\Projects\\IntelliSurgery\\IntelliSurgery\\Global\\MLModelRunner.py"
+loaded_model = []
+with open(file_path, 'rb') as f:
+    loaded_model = pickle.load(f)
+
 
 #Using the data passed to the file
-dataDictionary = sys.argv[1]
-
+#dataDictionary = sys.argv[1]
+dataDictionary = {"Age":37,"Gender":1,"ASA":0,"BMI":0.0,"Diseases":["Cancer","Cardiovascular"],"Complication":0,"SurgeryType":"Cardiovascular Surgery"}
 
 age = dataDictionary["Age"]
 gender = dataDictionary["Gender"]

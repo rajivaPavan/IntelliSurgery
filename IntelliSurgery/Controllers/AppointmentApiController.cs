@@ -56,7 +56,7 @@ namespace IntelliSurgery.Controllers
                     Gender = (int)patient.Gender,
                     Height = patient.Height,
                     Weight = patient.Weight,
-                    Name = patient.Name
+                    name = patient.Name
                 };
             }
             
@@ -71,7 +71,7 @@ namespace IntelliSurgery.Controllers
                 DateOfBirth = patientDTO.DateOfBirth,
                 Gender = (Gender)patientDTO.Gender,
                 Weight = patientDTO.Weight,
-                Name = patientDTO.Name,
+                Name = patientDTO.name,
                 Height = patientDTO.Height,
                 BMI = (float)(patientDTO.Weight / Math.Pow(patientDTO.Height, 2)),
                 //Diseases = 
@@ -101,10 +101,9 @@ namespace IntelliSurgery.Controllers
             Patient patient = await patientRepository.GetPatientById(appointmentDTO.PatientId);
             SurgeryType surgerytype = await surgeryRepository.GetSurgeryTypeById(appointmentDTO.SurgeryType);
             Surgeon surgeon = await surgeonRepository.GetSurgeonById(appointmentDTO.SurgeonId);
-
-            PatientMedicalData timePredictionDTO = new PatientMedicalData(patient);
-            TimeSpan predictedTime = pythonScript.PredictTime(timePredictionDTO);
             TheatreType theatreType = await theatreRepository.GetTheatreType(TheatreTypeQueryLogic.ById(appointmentDTO.TheatreType));
+
+
 
             //create appointment object
             Appointment appointment = new Appointment() {
@@ -116,19 +115,24 @@ namespace IntelliSurgery.Controllers
                 SurgeryTypeId = surgerytype.Id,
                 TheatreType = theatreType,
                 TheatreTypeId = theatreType.Id,
+                ComplicationPossibility = false /*appointmentDTO.Complication*/,
                 AnesthesiaType = (AnesthesiaType)appointmentDTO.AnesthesiaType,
                 PriorityLevel = (PriorityLevel)appointmentDTO.PriorityLevel,
-                PredictedTimeDuration = predictedTime,
                 Status = Status.Pending,
                 DateAdded = DateTime.Now,
                 Priority = null
             };
-            
+
+            PatientMedicalData timePredictionDTO = new PatientMedicalData(patient, appointment);
+            TimeSpan predictedTime = pythonScript.PredictTime(timePredictionDTO);
+
+            appointment.SystemPredictedDuration = predictedTime;
+
             //save appointment in database
             await appointmentRepository.CreateAppointment(appointment);
 
             //return predicted Time
-            return Json(new { success = true, data = appointment.PredictedTimeDuration }) ;
+            return Json(new { success = true, data = appointment.SystemPredictedDuration }) ;
         }
 
         //called on page load

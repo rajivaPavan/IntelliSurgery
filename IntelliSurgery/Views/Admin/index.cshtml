@@ -1,444 +1,369 @@
 ﻿@{
     ViewBag.Title = "Admin";
 }
-
 @section Styles{
     <link href="~/css/admin.css" rel="stylesheet"/>
-}
+    <link href="~/lib/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet"/>
 
-<div class="row">
-    <img src="~/assets/images/IntelliSurgeryAdmin.png" class="col-md-12 img-responsive" />
-</div>
-    <div class="row">
-      
-        <div class="col-md-6">
-            <div class="shadow p-0 mb-5 bg-transparent rounded">
-                <div class="form_class">
+}   
 
-
-                    <fieldset>
-
-                        <legend><span class="number">1</span> Speciality </legend>
-                        <h6>Enter the Speciality:</h6>
-                        <div class="form-row">
-
-                            <div class="col-12 col-md-8">
-                                <label for="speciality" class="sr-only">Name</label>
-                                <input type="text" class="form-control" id="speciality">
-
+<div id="admin-main">
+   <div class="row justify-content-center">
+      <img src="~/assets/images/IntelliSurgeryAdmin.png" class="col-sm-3 h-25 img-responsive" />
+   </div>
+   <div class="row">
+      <div class="col-md-6">
+         <div class="shadow p-0 mb-5 bg-transparent rounded">
+            <div class="form_class">
+               <fieldset>
+                  <legend><span class="number">1</span> Speciality </legend>
+                  <h6>Enter the Speciality:</h6>
+                  <div class="form-row">
+                     <div class="col-12 col-md-8">
+                        <label for="speciality" class="sr-only">Name</label>
+                        <input type="text" class="form-control" id="speciality">
+                     </div>
+                     <div class="col-6 col-md-2">
+                        <button v-on:click="specialityAddClick" id="add-speciality-btn" type="submit" 
+                        class="btn btn-primary w-100 form-control">Add</button>
+                     </div>
+                     <div class="col-6 col-md-2">
+                        <button class="btn btn-primary w-100 form-control" data-toggle="collapse" href="#speciality-list" role="button" 
+                           aria-expanded="false" aria-controls="specialityList">List</button>
+                     </div>
+                  </div>
+                  <div class="col-12">
+                     <div class="collapse multi-collapse" id="speciality-list">
+                        <div class="card card-body mt-3" >
+                            <div class="row">
+                               <div v-for="s in getNewSpecialities"
+                                    class="col">
+                                    <div class="px-2 bg-primary rounded-pill mb-1">
+                                        <div class="d-flex justify-content-around">
+                                            <span class="text-center text-white">{{s.name}}</span>
+                                            <span class="text-white text-end ml-auto"><i class="fas fa-times"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-6 col-md-2">
-                                <button id="add-speciality-btn" type="submit" class="btn btn-primary w-100 form-control">Add</button>
-                            </div>
-                           
-                            <div class="col-6 col-md-2">
-                                <button class="btn btn-primary w-100 form-control" data-toggle="collapse" href="#speciality-list" role="button" 
-                                        aria-expanded="false" aria-controls="specialitylist">List</button>
-                                  
-                             </div>
                         </div>
-                        
-                        <div class="col-12">
-                            <div class="collapse multi-collapse" id="speciality-list">                          
-                                  <div class="card card-body mt-3" id="specialitylist" >
-                                      @*Added Specialities:*@
-                                  </div>
-                             </div>
-                        </div>
-                    </fieldset>
-                </div>
+                     </div>
+                  </div>
+               </fieldset>
             </div>
-
-
+         </div>
       </div>
-
-
-
-
-        <div class="col-md-6">
-            <div class="shadow p-0 mb-5 bg-transparent rounded">
-                <div class="form_class">
-
-                    <fieldset>
-
-                        <legend><span class="number">2</span> Surgeon </legend>
-
-                        <h6> Speciality: </h6>
-
-                        <div class="form-row">
-                            <div class="col-6 col-md-5">
-
-
-                                <label for="surgeon_speciality" class="sr-only">Speciality :</label>
-                                <select id="surgeon_speciality" name="user_surgeon" class="btn btn-info dropdown-toggle">
-                                    <option selected>Choose...</option>
-
-                                    <option value="Spec_1"> Orthopedic Surgeon </option>
-                                    <option value="Spec_2"> Cardiovascular Surgeon </option>
-                                    <option value="Spec_3"> Gynaecologist </option>
-
-                                </select>
-
-
-                            </div>
-                            <div class="col-6 col-md-3">
-                                <label for="inlineFormInputName2" class="sr-only">Name</label>
-                                <input type="text" class="form-control" id="inlineFormInputName2">
-
-                            </div>
-
-                            <div class="col-6 col-md-2">
-                               <button id="add-speciality-btn" type="submit" class="btn btn-primary w-100 form-control">Add</button>
-                            </div>
-                            <div class="col-6 col-md-2">
-                               
-                                
-                                    <p>
-                                        <a class="btn btn-primary w-100 form-control" data-toggle="collapse" href="#surgeon-list" role="button" aria-expanded="false" aria-controls="surgeonlist">List</a>
-
-                                    </p>
-                                    </div>
-                                    <div class="col-12">
-                                    <div class="collapse multi-collapse" id="surgeon-list">
-                                     
-                                         <div class="card card-body mt-3" id="surgeonlist" >
-                                            @*Anim pariatur cliche reprehenderit,*@
-                                        </div>
-                                       
-                                    
-                                    </div>
-                                    </div>
-                             
-                            </div>
-                      
-
-
-                    </fieldset>
-                      </div>
-                </div>
-            </div>
-
-        </div>
-    
-    <div class="row">
-    <div class="col-md-6">
-        <div class="shadow p-0 mb-5 bg-white rounded">
+      <div class="col-md-6">
+         <div class="shadow p-0 mb-5 bg-transparent rounded">
             <div class="form_class">
-
-
-                <fieldset>
-
-                    <legend><span class="number">3</span> Surgeries </legend>
-                    <h6>Enter the Surgery :</h6>
-                    <div class="form-row">
-                       
-                        <div class="col- 12 col-md-8">
-                            <label for="surgery" class="sr-only">Name</label>
-                            <input type="text" class="form-control" id="surgery">
-
-                        </div>
-
-                        <div class="col-6 col-md-2">
-                            <button id="add-surgery-btn" type="submit" class="btn btn-primary w-100 form-control">Add</button>
-                        </div>
-
-                        <div class="col-6 col-md-2">
-
-                         
-                                <p>
-                                    <a class="btn btn-primary w-100 form-control" data-toggle="collapse" href="#surgery-list" role="button" aria-expanded="false" aria-controls="surgerylist">List</a>
-
-                                </p>
-                                </div>
-                               </div>
-                               <div class="col-12">
-                                <div class="collapse multi-collapse" id="surgery-list">
-                                     <div class="card card-body mt-3" id="surgerylist" >
-                                        @*Anim pariatur cliche reprehenderit,*@
+               <fieldset>
+                  <legend><span class="number">2</span> Surgeon </legend>
+                  <h6> Speciality: </h6>
+                  <div class="form-row">
+                     <div class="col-6 col-md-5">
+                        <label for="surgeon_speciality" class="sr-only">Speciality :</label>
+                        <select id="surgeon_speciality" name="user_surgeon" class="btn btn-info dropdown-toggle">
+                           <option selected>Choose...</option>
+                           <option value="Spec_1"> Orthopedic Surgeon </option>
+                           <option value="Spec_2"> Cardiovascular Surgeon </option>
+                           <option value="Spec_3"> Gynaecologist </option>
+                        </select>
+                     </div>
+                     <div class="col-6 col-md-3">
+                        <label for="inlineFormInputName2" class="sr-only">Name</label>
+                        <input type="text" class="form-control" id="inlineFormInputName2">
+                     </div>
+                     <div class="col-6 col-md-2">
+                        <button id="add-speciality-btn" type="submit" class="btn btn-primary w-100 form-control">Add</button>
+                     </div>
+                     <div class="col-6 col-md-2">
+                        <p>
+                           <a class="btn btn-primary w-100 form-control" data-toggle="collapse" href="#surgeon-list" role="button" aria-expanded="false" aria-controls="surgeonlist">List</a>
+                        </p>
+                     </div>
+                     <div class="col-12">
+                        <div class="collapse multi-collapse" id="surgeon-list">
+                           <div class="card card-body mt-3" id="surgeonlist" >
+                              <div class="row">
+                               <div v-for="s in getNewSurgeons"
+                                    class="col">
+                                    <div class="px-2 bg-primary rounded-pill mb-1">
+                                        <div class="d-flex justify-content-around">
+                                            <span class="text-center text-white">{{s.name}}</span>
+                                            <span class="text-white text-end ml-auto"><i class="fas fa-times"></i></span>
+                                        </div>
                                     </div>
                                 </div>
-
-                          
+                            </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </fieldset>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-6">
+         <div class="shadow p-0 mb-5 bg-white rounded">
+            <div class="form_class">
+               <fieldset>
+                  <legend><span class="number">3</span> Surgeries </legend>
+                  <h6>Enter the Surgery :</h6>
+                  <div class="form-row">
+                     <div class="col- 12 col-md-8">
+                        <label for="surgery" class="sr-only">Name</label>
+                        <input type="text" class="form-control" id="surgery">
+                     </div>
+                     <div class="col-6 col-md-2">
+                        <button id="add-surgery-btn" type="submit" class="btn btn-primary w-100 form-control">Add</button>
+                     </div>
+                     <div class="col-6 col-md-2">
+                        <p>
+                           <a class="btn btn-primary w-100 form-control" data-toggle="collapse" href="#surgery-list" role="button" aria-expanded="false" aria-controls="surgerylist">List</a>
+                        </p>
+                     </div>
+                  </div>
+                  <div class="col-12">
+                     <div class="collapse multi-collapse" id="surgery-list">
+                        <div class="card card-body mt-3" id="surgerylist" >
+                           @*Anim pariatur cliche reprehenderit,*@
+                        </div>
+                     </div>
+                  </div>
+               </fieldset>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-6">
+         <div class="shadow p-0 mb-5 bg-white rounded">
+            <div class="form_class">
+               <fieldset>
+                  <legend><span class="number">4</span> Operating Theater Types </legend>
+                  <h6>Enter the Operating Theater type :</h6>
+                  <div class="form-row">
+                     <div class="col-12 col-md-8">
+                        <label for="inlineFormInputName2" class="sr-only">Name</label>
+                        <input type="text" class="form-control" id="inlineFormInputName2">
+                     </div>
+                     <div class="col-6 col-md-2">
+                        <button type="submit" class="btn btn-primary w- 100 form-control">Add</button>
+                     </div>
+                     <div class="col-6 col-md-2">
+                        <p>
+                           <a class="btn btn-primary w-100" data-toggle="collapse" href="#theatretype-list" role="button" aria-expanded="false" aria-controls="theatertypelist">List</a>
+                        </p>
+                     </div>
+                     <div class="col-12">
+                        <div class="collapse multi-collapse" id="theatretype-list">
+                           <div class="card card-body mt-3" id="theatertypelist">
+                              @*Anim pariatur cliche reprehenderit,*@
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </fieldset>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-6">
+         <div class="shadow p-0 mb-5 bg-transparent rounded">
+            <div class="form_class">
+               <fieldset>
+                  <legend><span class="number">5</span> Operating Theaters </legend>
+                  <h6> Theater Type: </h6>
+                  <div class="form-row">
+                     <div class="col-6 col-md-3">
+                        <label for="theatre_type_data" class="sr-only">Theatre Type :</label>
+                        <select id="theatre_type_data" name="user_surgeon" class="btn btn-info dropdown-toggle">
+                           <option selected>Choose...</option>
+                           @*
+                           <option value="Spec_1"> OR Type 1 </option>
+                           <option value="Spec_2"> OR Type 2 </option>
+                           <option value="Spec_3"> OR Type 3 </option>
+                           *@
+                        </select>
+                     </div>
+                     <div class="col-6 col-md-5">
+                        <label for="inlineFormInputName2" class="sr-only">Name</label>
+                        <input type="text" class="form-control" id="inlineFormInputName2">
+                     </div>
+                     <div class="col-6 col-md-2">
+                        <button type="submit" class="btn btn-primary w-100 form-control">Add</button>
+                     </div>
+                     <div class="col-6 col-md-2">
+                        <p>
+                           <a class="btn btn-primary w-100" data-toggle="collapse" href="#theatre-list" role="button" aria-expanded="false" aria-controls="theatrelist">List</a>
+                        </p>
+                     </div>
+                     <div class="col-12">
+                        <div class="collapse multi-collapse" id="theatre-list">
+                           <div class="card card-body" id="theatrelist">
+                              Anim pariatur cliche reprehenderit
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </fieldset>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-6">
+         <div class="shadow p-0 mb-5 bg-transparent rounded">
+            <div class="form_class">
+               <fieldset>
+                  <legend><span class="number">6</span> Operating Theaters for Surgeries </legend>
+                  <h6> Surgery: </h6>
+                  <div class="form-row">
+                     <div class="col-6 col-md-5">
+                        <label for="surgery-type-data" class="sr-only">Surgery:</label>
+                        <select id="surgery-type-data" name="user_surgeon" class="btn btn-info dropdown-toggle">
+                           <option selected>Choose...</option>
+                           <option value="Surgery_1"> Cardiovascular Surgery </option>
+                           <option value="Surgery_2"> Orthopedic surgery </option>
+                           <option value="Surgery_3">Neurosurgery </option>
+                        </select>
+                     </div>
+                     <div class="col-6 col-md-3">
+                        <div class="form-check">
+                           <input class="form-check-input" type="checkbox" value="" id="ORtype_1">
+                           <label class="form-check-label" for="ORtype_1">
+                           OR Type 1
+                           </label>
+                        </div>
+                        <div class="form-check">
+                           <input class="form-check-input" type="checkbox" value="" id="ORtype_2">
+                           <label class="form-check-label" for="ORtype_2">
+                           OR Type 2
+                           </label>
+                        </div>
+                        <div class="form-check">
+                           <input class="form-check-input" type="checkbox" value="" id="ORtype_3">
+                           <label class="form-check-label" for="ORtype_3">
+                           OR Type 3
+                           </label>
+                        </div>
+                     </div>
+                     <div class="col-6 col-md-2">
+                        <button id="add-surgery-type-theatre-btn"type="submit" class="btn btn-primary w-100 form-control">Add</button>
+                     </div>
+                     <div class="col-6 col-md-2">
+                        <p>
+                           <a class="btn btn-primary w-100" data-toggle="collapse" href="#ORforSurgeries-list" role="button" aria-expanded="false" aria-controls="ORforSurgerieslist">List</a>
+                        </p>
+                     </div>
+                     <div class="col-12">
+                        <div class="collapse multi-collapse" id="ORforSurgeries-list">
+                           <div class="card card-body mt-3" id="ORforSurgerieslist">
+                              Anim pariatur cliche reprehenderit
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </fieldset>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="row">
+      <div class="col-md-6">
+         <div class="shadow p-0 mb-5 bg-transparent rounded">
+            <div class="form_class">
+               <fieldset>
+                  <legend><span class="number">7</span> Working Hours </legend>
+                  <div class="row">
+                     <div class="col-12 col-md-6">
+                        <div class="d-flex form-group align-content-center">
+                            <h6 class="my-auto"> Surgeon: </h6>
+                            <select id="surgeon" name="user_surgeon" class="ml-2 btn btn-info dropdown-toggle w-100">
+                               <option selected hidden>Choose...</option>
+                            </select>
+                        </div>
+                     </div>
+                     <div class="col-12 col-md-6">
+                        <div class=" d-flex form-group">
+                            <h6 class="my-auto"> Theatre: </h6>
+                            <select id="theatre" name="theatre" class="ml-2 btn btn-info dropdown-toggle w-100">
+                               <option selected hidden>Choose...</option>
+                            </select>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-12 col-md-6">
+                         <div class="d-flex form-group">
+                            <h6 class="my-auto">Start time:</h6>
+                            <div class="ml-2 input-group date" id="start-time" data-target-input="nearest">
+                                <input type="text" class="form-control datetimepicker-input" data-target="#start-time"/>
+                                <div class="input-group-append" data-target="#start-time" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fas fa-clock"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+                     <div class="col-12 col-md-6">
+                         <div class="d-flex form-group">
+                            <h6 class="my-auto">End time:</h6>
+                            <div class="ml-2 input-group date" id="end-time" data-target-input="nearest">
+                                <input type="text" class="form-control datetimepicker-input" data-target="#end-time"/>
+                                <div class="input-group-append" data-target="#end-time" data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fas fa-clock"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
                      
-
-                    </div>
-                </fieldset>
-        </div>
-        </div>
-
-    </div>
-   
-
-    <div class="col-md-6">
-        <div class="shadow p-0 mb-5 bg-white rounded">
-            <div class="form_class">
-
-
-                <fieldset>
-
-                    <legend><span class="number">4</span> Operating Theater Types </legend>
-                    <h6>Enter the Operating Theater type :</h6>
-                    <div class="form-row">
-                       
-                        <div class="col-12 col-md-8">
-                            <label for="inlineFormInputName2" class="sr-only">Name</label>
-                            <input type="text" class="form-control" id="inlineFormInputName2">
-
-                        </div>
-
-                        <div class="col-6 col-md-2">
-                            <button type="submit" class="btn btn-primary w- 100 form-control">Add</button>
-                        </div>
-
-                        <div class="col-6 col-md-2">
-
-                            
-                                <p>
-                                    <a class="btn btn-primary w-100" data-toggle="collapse" href="#theatretype-list" role="button" aria-expanded="false" aria-controls="theatertypelist">List</a>
-
-                                </p>
-                                </div>
-                                <div class="col-12">
-                                <div class="collapse multi-collapse" id="theatretype-list">
-                                    <div class="card card-body mt-3" id="theatertypelist">
-                                        @*Anim pariatur cliche reprehenderit,*@
-                                    </div>
-                                </div>
-
-                            </div>
-                        
-
-                    </div>
-                </fieldset>
-        </div>
-        </div>
-
-    </div>
-     </div>
-     <div class="row"> 
-         <div class="col-md-6">
-            <div class="shadow p-0 mb-5 bg-transparent rounded">
-                <div class="form_class">
-
-                    <fieldset>
-
-                        <legend><span class="number">5</span> Operating Theaters </legend>
-
-                        <h6> Theater Type: </h6>
-
-                        <div class="form-row">
-                            <div class="col-6 col-md-3">
-
-
-                                <label for="theatre_type_data" class="sr-only">Theatre Type :</label>
-                                <select id="theatre_type_data" name="user_surgeon" class="btn btn-info dropdown-toggle">
-                                    <option selected>Choose...</option>
-
-                                    @*<option value="Spec_1"> OR Type 1 </option>
-                                    <option value="Spec_2"> OR Type 2 </option>
-                                    <option value="Spec_3"> OR Type 3 </option>*@
-
-                                </select>
-
-
-                            </div>
-                            <div class="col-6 col-md-5">
-                                <label for="inlineFormInputName2" class="sr-only">Name</label>
-                                <input type="text" class="form-control" id="inlineFormInputName2">
-
-                            </div>
-
-                            <div class="col-6 col-md-2">
-                                <button type="submit" class="btn btn-primary w-100 form-control">Add</button>
-                            </div>
-                            <div class="col-6 col-md-2">
-
-                                
+                  </div>
+                  <div class="row">
+                         <div class="col-12">
+                             <div class="row justify-content-end">
+                                 <div class="col-6 col-md-2">
+                                    <button type="submit" class="btn btn-primary w-100 form-control">Add</button>
+                                 </div>
+                                 <div class="col-6 col-md-2">
                                     <p>
-                                        <a class="btn btn-primary w-100" data-toggle="collapse" href="#theatre-list" role="button" aria-expanded="false" aria-controls="theatrelist">List</a>
-
+                                       <a class="btn btn-primary w-100" data-toggle="collapse" 
+                                        href="#surgeon-list" role="button" aria-expanded="false" aria-controls="surgeonlist">List</a>
                                     </p>
-                                     </div>
-                                    <div class="col-12">
-                                    <div class="collapse multi-collapse" id="theatre-list">
-                                      
-                                        <div class="card card-body" id="theatrelist">
-                                            Anim pariatur cliche reprehenderit
-                                        </div>
-                                       
-                                    
-                                    </div>
-                                </div>
-                           
-                        </div>
-
-
-                    </fieldset>
-                </div>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="col-12">
+                            <div class="collapse multi-collapse" id="surgeon-list">
+                               <div class="card card-body mt-3" id="surgeonlist">
+                                  Anim pariatur cliche reprehenderit
+                               </div>
+                            </div>
+                         </div>
+                     </div>
+               </fieldset>
             </div>
-            </div>
-            <div class="col-md-6">
-            <div class="shadow p-0 mb-5 bg-transparent rounded">
-                <div class="form_class">
+         </div>
+      </div>
+   </div>
+</div>
 
-                    <fieldset>
-
-                        <legend><span class="number">6</span> Operating Theaters for Surgeries </legend>
-
-                        <h6> Surgery: </h6>
-
-                        <div class="form-row">
-                            <div class="col-6 col-md-5">
-
-
-                                <label for="surgery-type-data" class="sr-only">Surgery:</label>
-                                <select id="surgery-type-data" name="user_surgeon" class="btn btn-info dropdown-toggle">
-                                    <option selected>Choose...</option>
-
-                                    <option value="Surgery_1"> Cardiovascular Surgery </option>
-                                    <option value="Surgery_2"> Orthopedic surgery </option>
-                                    <option value="Surgery_3">Neurosurgery </option>
-
-                                </select>
-
-
-                            </div>
-                            <div class="col-6 col-md-3">
-                                <div class="form-check">
-                                       <input class="form-check-input" type="checkbox" value="" id="ORtype_1">
-                                     <label class="form-check-label" for="ORtype_1">
-                                                        OR Type 1
-                                                  </label>
-                                    </div>
-                                    <div class="form-check">
-                                      <input class="form-check-input" type="checkbox" value="" id="ORtype_2">
-                                      <label class="form-check-label" for="ORtype_2">
-                                        OR Type 2
-                                      </label>
-                                    </div>
-                                    <div class="form-check">
-                                      <input class="form-check-input" type="checkbox" value="" id="ORtype_3">
-                                      <label class="form-check-label" for="ORtype_3">
-                                        OR Type 3
-                                      </label>
-                                    </div>
-                            </div>
-
-                            <div class="col-6 col-md-2">
-                                <button id="add-surgery-type-theatre-btn"type="submit" class="btn btn-primary w-100 form-control">Add</button>
-                            </div>
-                            <div class="col-6 col-md-2">
-
-                               
-                                    <p>
-                                        <a class="btn btn-primary w-100" data-toggle="collapse" href="#ORforSurgeries-list" role="button" aria-expanded="false" aria-controls="ORforSurgerieslist">List</a>
-
-                                    </p>
-                                     </div>
-                                     <div class="col-12">
-                                    <div class="collapse multi-collapse" id="ORforSurgeries-list">
-                                      
-                                           
-                                        <div class="card card-body mt-3" id="ORforSurgerieslist">
-                                            Anim pariatur cliche reprehenderit
-                                        </div>
-                                 
-                                    
-                                    </div>
-                                </div>
-                           
-                        </div>
-
-
-                    </fieldset>
-                      </div>
-                </div>
-
-            </div>
-           </div>
-           <div class="row">
-               <div class="col-md-6">
-            <div class="shadow p-0 mb-5 bg-transparent rounded">
-                <div class="form_class">
-
-                    <fieldset>
-
-                        <legend><span class="number">7</span> Working Hours </legend>
-
-                        <h6> Surgeon: </h6>
-
-                        <div class="form-row">
-                            <div class="col-6 col-md-4">
-
-
-                                <label for="surgeon" class="sr-only">Surgeon:</label>
-                                <select id="surgeon" name="user_surgeon" class="btn btn-info dropdown-toggle">
-                                    <option selected>Choose...</option>
-
-                                    <option value="Surgeon_1"> Dr. Pitiwaduge </option>
-                                    <option value="Surgeon_2"> Dr. Ellawela </option>
-                                    <option value="Surgeon_3"> Dr. Perera </option>
-
-                                </select>
-
-
-                            </div>
-                            <div class="col-6 col-md-4">
-                                <div class="well">
-                                      <div id="datetimepicker2" class="input-append">
-                                        <input data-format="MM/dd/yyyy HH:mm:ss PP" type="text">
-                                        <span class="add-on">
-                                          <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-                                          </i>
-                                        </span>
-                                      </div>
-                                    </div>
-                                    <script type="text/javascript">
-                                      $(function() {
-                                        $('#datetimepicker2').datetimepicker({
-                                          language: 'en',
-                                          pick12HourFormat: true
-                                        });
-                                      });
-                                    </script>
-                            </div>
-
-                            <div class="col-6 col-md-2">
-                                <button type="submit" class="btn btn-primary w-100 form-control">Add</button>
-                            </div>
-                            <div class="col-6 col-md-2">
-                                
-                                
-                                    <p>
-                                        <a class="btn btn-primary w-100" data-toggle="collapse" href="#surgeon-list" role="button" aria-expanded="false" aria-controls="surgeonlist">List</a>
-
-                                    </p>
-                                     </div>
-                                    <div class="col-12">
-                                    
-                                    <div class="collapse multi-collapse" id="surgeon-list">
-                                     
-                                        <div class="card card-body mt-3" id="surgeonlist">
-                                            Anim pariatur cliche reprehenderit
-                                        </div>
-                                       
-                                    
-                                    </div>
-                                    </div>
-                               
-                            </div>
-                      
-
-
-                    </fieldset>
-                      </div>
-                </div>
-            </div>
-           </div>
 
 @section Scripts{
-    <script src="~/js/admin/requests.js"></script>
+    <script src="~/lib/moment.js/moment.min.js"></script>
+    <script src="~/lib/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="~/lib/vue/dist/vue.global.js"></script>
+@*    <script src="~/js/admin/requests.js"></script>
     <script src="~/js/admin/speciality.js"></script>
-    <script src="~/js/admin/surgeries.js"></script>
-    <script src="~/js/admin/admin-main.js"></script>
+    <script src="~/js/admin/surgeries.js"></script>*@
+
+    <script src="~/js/admin/admin-vue-app.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#start-time').datetimepicker({
+                format: 'LT'
+            });
+            $('#end-time').datetimepicker({
+                format: 'LT'
+            });
+        });
+   </script>
 }

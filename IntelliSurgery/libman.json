@@ -20,6 +20,15 @@
       "provider": "unpkg",
       "library": "vue@3.2.19",
       "destination": "wwwroot/lib/vue/"
+    },
+    {
+      "library": "tempusdominus-bootstrap-4@5.39.0",
+      "destination": "wwwroot/lib/tempusdominus-bootstrap-4/"
     }
-  ]
+  ,
+{
+  "library": "moment.js@2.29.1",
+  "destination": "wwwroot/lib/moment.js/"
+}
+]
 }

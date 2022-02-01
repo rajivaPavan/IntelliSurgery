@@ -12,8 +12,9 @@ namespace IntelliSurgery.DTOs
         public int ASA { get; set; }
         public float BMI { get; set; }
         public List<string> Diseases { get; set; }
-
-        public PatientMedicalData(Patient patient)
+        public int Complication { get; set; }
+        public string SurgeryType { get; set; }
+        public PatientMedicalData(Patient patient, Appointment appointment)
         {
             Age = DateTime.Now.Subtract(patient.DateOfBirth).Days/365;
             Gender = (int)patient.Gender;
@@ -28,6 +29,8 @@ namespace IntelliSurgery.DTOs
                 Diseases = new List<string>();
             }
 
+            Complication = appointment.ComplicationPossibility ? 1 : 0 ;
+            SurgeryType = appointment.SurgeryType.Name;
         }
 
         private static string DiseaseToString(Disease disease)

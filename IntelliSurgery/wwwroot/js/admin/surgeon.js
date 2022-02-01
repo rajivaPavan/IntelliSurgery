@@ -13,8 +13,9 @@ function getNewSurgeon() {
     surgeonInput.push(theatre);
 }
 
-function clearNewTSurgeonField() {
+function clearNewSurgeonField() {
     $('#surgeon').val("");
+    $("#surgeonlist").val(-1);
 }
 
 function showNewSurgeonDetails() {
@@ -22,5 +23,10 @@ function showNewSurgeonDetails() {
     var res = '  ' + message;
     surgeonDisplay.push(res);
     $('#surgeonlist').text(surgeonDisplay);
+}
+
+function clearNewSurgeonField() {
+    $('#surgeon').val("");
+    $("#surgeonlist").val(-1);
 }
 

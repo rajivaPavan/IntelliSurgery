@@ -26,10 +26,6 @@ namespace IntelliSurgery.Global
             //stirng myPythonApp = @"..........."
             string myPythonApp = configuration.GetValue<string>("PythonProgramPath");
 
-            // dummy parameters to send Python script 
-            int Gender = 1;
-            int ASA = 0;
-            int Status = 0;
 
             //json string to be sent to Python script
             string patientDataJson = JsonConvert.SerializeObject(patientMedicalData);
@@ -44,7 +40,7 @@ namespace IntelliSurgery.Global
             // start python app with 3 arguments  
             // 1st arguments is pointer to itself,  
             // 2nd and 3rd are actual arguments we want to send 
-            myProcessStartInfo.Arguments = myPythonApp + " " + Gender + " " + ASA + " " + Status;
+            myProcessStartInfo.Arguments = myPythonApp + " " + patientDataJson;
 
             Process myProcess = new Process();
             // assign start information to  the process 
@@ -58,8 +54,8 @@ namespace IntelliSurgery.Global
             // in order to avoid deadlock we will read output first 
             // and then wait for process terminate: 
             StreamReader myStreamReader = myProcess.StandardOutput;
-            string myString = myStreamReader.ReadLine();
-            Console.WriteLine(myString);
+            string modelOutput = myStreamReader.ReadLine();
+
 
             /*if you need to read multiple lines, you might use: 
                 string myString = myStreamReader.ReadToEnd() */
@@ -68,10 +64,10 @@ namespace IntelliSurgery.Global
             myProcess.WaitForExit();
             myProcess.Close();
 
-            // write the output we got from python app 
-            Console.WriteLine("Value received from script: " + myString);
-
-            return TimeSpan.Zero;
+            double predictedTimeDouble = double.Parse(modelOutput);
+            
+            TimeSpan predictedTime = TimeSpan.FromHours(predictedTimeDouble);
+            return predictedTime;
 
         }
 

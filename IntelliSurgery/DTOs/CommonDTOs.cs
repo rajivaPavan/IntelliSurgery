@@ -14,7 +14,6 @@ namespace IntelliSurgery.DTOs
         public List<TheatreDTO> Theatres { get; set; }
         public List<SurgeryTypeTheatresDTO> SurgeryTypeTheatres { get; set; }
 
-        //theatre available time
         //surgeon working hours
     }
 

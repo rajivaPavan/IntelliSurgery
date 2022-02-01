@@ -39,7 +39,7 @@ namespace IntelliSurgery.Global
             //filter appointments that can be done in the theatertype
             List<Appointment> appointments = await appointmentRepository.GetAppointments(AppointmentQueryLogic.ByTheatreType(theatreType));
 
-            //get appointments of the following week
+            //get incomplete appointments
             appointments = appointments.Where(a => a.Status != Status.Completed).ToList();
 
             //get list of surgeons allocated to the above appointments
@@ -51,7 +51,7 @@ namespace IntelliSurgery.Global
             appointments = await PrioritizeAppointments(appointments);
 
             //calculate time blocks
-            List<WorkingBlock> workingBlocks = CalculateTimeBlocks();
+            List<WorkingBlock> workingBlocks = CalculateTimeBlocks(surgeons,theatres);
 
             //allocate time for surgeries within the time blocks
             workingBlocks = await AllocateSurgeriesToBlocks(workingBlocks, appointments);
@@ -68,12 +68,12 @@ namespace IntelliSurgery.Global
                 appointments = await appointmentRepository.GetAppointments(
                     AppointmentQueryLogic.ByPriorityLevel((PriorityLevel)level));
 
-                List<TimeSpan> timeSpans = appointments.Select(a => a.PredictedTimeDuration).ToList();
+                List<TimeSpan> timeSpans = appointments.Select(a => a.SystemPredictedDuration).ToList();
                 float avgTime = CalculateAverage(timeSpans);
 
                 foreach(Appointment appointment in appointments)
                 {
-                    appointment.Priority = (float)appointment.PriorityLevel + appointment.PredictedTimeDuration.Ticks/avgTime;
+                    appointment.Priority = (float)appointment.PriorityLevel + appointment.SystemPredictedDuration.Ticks/avgTime;
                 }
 
                 appointments = await appointmentRepository.UpdateAppointments(appointments);
@@ -89,14 +89,15 @@ namespace IntelliSurgery.Global
             return (float)averageTicks;
         }
 
-        private List<WorkingBlock> CalculateTimeBlocks()
+        private List<WorkingBlock> CalculateTimeBlocks(List<Surgeon> surgeons, List<Theatre> theatres)
         {
             List<WorkingBlock> workingBlocks = new List<WorkingBlock>();
-            ////
-            //////
-            ///// IMPLEMENT
-            //////
             /////
+            /////
+            ///// IMPLEMENT
+            /////
+            /////
+            WorkingBlock workingBlock = new WorkingBlock();
             return workingBlocks;
         }
 
@@ -121,7 +122,7 @@ namespace IntelliSurgery.Global
                 WorkingBlock bestBlock = null;
 
                 currentAppointment = appointments.ElementAt(i);
-                surgeryDuration = GetFinalSurgeryDuration(currentAppointment.PredictedTimeDuration);
+                surgeryDuration = GetFinalSurgeryDuration(currentAppointment.SystemPredictedDuration);
 
                 for (int j = 0; j < numOfBlocks; j++)
                 {
@@ -163,6 +164,9 @@ namespace IntelliSurgery.Global
 
                     //add scheduled surgery to working block
                     bestBlock.AllocatedSurgeries.Add(currentAppointment.ScheduledSurgery);
+
+                    //update best working block
+                    workingBlocks[bestBlockIndex] = bestBlock;
                 }
                 else
                 {
@@ -171,8 +175,7 @@ namespace IntelliSurgery.Global
                     currentAppointment = await appointmentRepository.UpdateAppointment(currentAppointment);
                 }
 
-                //update best working block
-                workingBlocks[bestBlockIndex] = bestBlock;
+                
             }
             return workingBlocks;
         }

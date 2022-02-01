@@ -11,6 +11,7 @@ namespace IntelliSurgery.DTOs
         public int TheatreType { get; set; }    
         public int SurgeonId { get; set; }
         public bool IsAnesthesiaRequired { get; set; }
+        public bool Complication { get; set; }
         public int AnesthesiaType { get; set; }
         public int PriorityLevel { get; set; }
     }

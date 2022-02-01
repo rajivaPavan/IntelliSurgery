@@ -26,10 +26,6 @@ namespace IntelliSurgery.Global
             //stirng myPythonApp = @"..........."
             string myPythonApp = configuration.GetValue<string>("PythonProgramPath");
 
-            // dummy parameters to send Python script 
-            int Gender = 1;
-            int ASA = 0;
-            int Status = 0;
 
             //json string to be sent to Python script
             string patientDataJson = JsonConvert.SerializeObject(patientMedicalData);
@@ -44,7 +40,7 @@ namespace IntelliSurgery.Global
             // start python app with 3 arguments  
             // 1st arguments is pointer to itself,  
             // 2nd and 3rd are actual arguments we want to send 
-            myProcessStartInfo.Arguments = myPythonApp + " " + Gender + " " + ASA + " " + Status;
+            myProcessStartInfo.Arguments = myPythonApp + " " + patientDataJson;
 
             Process myProcess = new Process();
             // assign start information to  the process 

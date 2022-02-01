@@ -1,15 +1,17 @@
 ﻿@{
     ViewBag.Title = "Admin";
 }
-
 @section Styles{
-    <link href="~/css/admin.css" rel="stylesheet"/>
-    <link href="~/lib/bootstrap/dist/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-}
 
-@*<div class="row">
-    <img src="~/assets/images/IntelliSurgeryAdmin.png" class="col-3 img-responsive" />
-</div>*@
+    <link href="~/css/admin.css" rel="stylesheet"/>
+}   
+
+
+<div class="row">
+    
+    <img src="~/assets/images/IntelliSurgeryAdmin.png" class="col-sm-12 h-25 img-responsive" />
+ 
+</div>
     <div class="row">
         <div class="col-md-6">
             <div class="shadow p-0 mb-5 bg-transparent rounded">
@@ -357,7 +359,7 @@
                         <h6> Surgeon: </h6>
 
                         <div class="form-row">
-                            <div class="col-6 col-md-3">
+                            <div class="col-5 col-md-3">
 
 
                                 <label for="surgeon" class="sr-only">Surgeon:</label>
@@ -372,26 +374,11 @@
 
 
                             </div>
-                            <div class="col-6 col-md-5">
-                                <div class="well">
-                                      <div id="datetimepicker2" class="input-append">
-                                        <input data-format="MM/dd/yyyy HH:mm:ss PP" type="text">
-                                        <span class="add-on">
-                                          <i data-time-icon="icon-time" data-date-icon="icon-calendar">
-                                          </i>
-                                        </span>
-                                      </div>
-                                    </div>
-                                    <script type="text/javascript">
-                                      $(function() {
-                                        $('#datetimepicker2').datetimepicker({
-                                          language: 'en',
-                                          pick12HourFormat: true
-                                        });
-                                      });
-                                    </script>
-                            </div>
-
+                            <div class="col-7 col-md-5">
+                               <label for="daytime" class="sr-only"> Date and Time </label>
+                                      <input type="datetime-local" id="daytime" name="date-time" class="form-control">
+                                      
+</div>
                             <div class="col-6 col-md-2">
                                 <button type="submit" class="btn btn-primary w-100 form-control">Add</button>
                             </div>

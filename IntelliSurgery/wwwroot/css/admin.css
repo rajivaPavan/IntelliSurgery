@@ -60,6 +60,8 @@ label {
     display: block;
     margin-bottom: 8px;
 }
+
+
 @media screen and (min-width: 480px) {
     form_class {
         max-width: 480px;

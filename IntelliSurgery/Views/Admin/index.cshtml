@@ -115,91 +115,64 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-6">
-            <div class="shadow p-0 mb-5 bg-white rounded">
-                <div class="form_class">
-
-
-                    <fieldset>
-
-                        <legend><span class="number">3</span> Surgeries </legend>
-                        <h6>Enter the Surgery :</h6>
-                        <div class="form-row">
-                       
-                            <div class="col- 12 col-md-8">
-                                <label for="surgery" class="sr-only">Name</label>
-                                <input type="text" class="form-control" id="surgery">
-
-                            </div>
-
-                            <div class="col-6 col-md-2">
-                                <button id="add-surgery-btn" type="submit" class="btn btn-primary w-100 form-control">Add</button>
-                            </div>
-
-                            <div class="col-6 col-md-2">
-
-                         
-                                    <p>
-                                        <a class="btn btn-primary w-100 form-control" data-toggle="collapse" href="#surgery-list" role="button" aria-expanded="false" aria-controls="surgerylist">List</a>
-
-                                    </p>
-                                    </div>
-                                   </div>
-                                   <div class="col-12">
-                                    <div class="collapse multi-collapse" id="surgery-list">
-                                         <div class="card card-body mt-3" id="surgerylist" >
-                                            @*Anim pariatur cliche reprehenderit,*@
-                                        </div>
-                                    </div>
-
-                          
-                     
-
-                        </div>
-                    </fieldset>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="shadow p-0 mb-5 bg-white rounded">
-            <div class="form_class">
-
-
+       <div class="col-md-6">
+          <div class="shadow p-0 mb-5 bg-white rounded">
+             <div class="form_class">
                 <fieldset>
-
-                    <legend><span class="number">4</span> Operating Theater Types </legend>
-                    <h6>Enter the Operating Theater type :</h6>
-                    <div class="form-row">
-                       
-                        <div class="col-12 col-md-8">
-                            <label for="inlineFormInputName2" class="sr-only">Name</label>
-                            <input type="text" class="form-control" id="inlineFormInputName2">
-
-                        </div>
-
-                        <div class="col-6 col-md-2">
-                            <button type="submit" class="btn btn-primary w- 100 form-control">Add</button>
-                        </div>
-
-                        <div class="col-6 col-md-2">
-
-                            
-                                <p>
-                                    <a class="btn btn-primary w-100" data-toggle="collapse" href="#theatretype-list" role="button" aria-expanded="false" aria-controls="theatertypelist">List</a>
-
-                                </p>
-                                </div>
-                                <div class="col-12">
-                                <div class="collapse multi-collapse" id="theatretype-list">
-                                    <div class="card card-body mt-3" id="theatertypelist">
-                                        @*Anim pariatur cliche reprehenderit,*@
-                                    </div>
-                                </div>
-
+                   <legend><span class="number">3</span> Surgeries </legend>
+                   <h6>Enter the Surgery :</h6>
+                   <div class="form-row">
+                      <div class="col- 12 col-md-8">
+                         <label for="surgery" class="sr-only">Name</label>
+                         <input type="text" class="form-control" id="surgery">
+                      </div>
+                      <div class="col-6 col-md-2">
+                         <button id="add-surgery-btn" type="submit" class="btn btn-primary w-100 form-control">Add</button>
+                      </div>
+                      <div class="col-6 col-md-2">
+                         <p>
+                            <a class="btn btn-primary w-100 form-control" data-toggle="collapse" href="#surgery-list" role="button" aria-expanded="false" aria-controls="surgerylist">List</a>
+                         </p>
+                      </div>
+                   </div>
+                   <div class="col-12">
+                      <div class="collapse multi-collapse" id="surgery-list">
+                         <div class="card card-body mt-3" id="surgerylist" >
+                            @*Anim pariatur cliche reprehenderit,*@
+                         </div>
+                      </div>
+                   </div>
+                </fieldset>
+             </div>
+          </div>
+       </div>
+       <div class="col-md-6">
+          <div class="shadow p-0 mb-5 bg-white rounded">
+             <div class="form_class">
+                <fieldset>
+                   <legend><span class="number">4</span> Operating Theater Types </legend>
+                   <h6>Enter the Operating Theater type :</h6>
+                   <div class="form-row">
+                      <div class="col-12 col-md-8">
+                         <label for="inlineFormInputName2" class="sr-only">Name</label>
+                         <input type="text" class="form-control" id="inlineFormInputName2">
+                      </div>
+                      <div class="col-6 col-md-2">
+                         <button type="submit" class="btn btn-primary w- 100 form-control">Add</button>
+                      </div>
+                      <div class="col-6 col-md-2">
+                         <p>
+                            <a class="btn btn-primary w-100" data-toggle="collapse" href="#theatretype-list" role="button" aria-expanded="false" aria-controls="theatertypelist">List</a>
+                         </p>
+                      </div>
+                      <div class="col-12">
+                         <div class="collapse multi-collapse" id="theatretype-list">
+                            <div class="card card-body mt-3" id="theatertypelist">
+                               @*Anim pariatur cliche reprehenderit,*@
                             </div>
-                        
-
-                    </div>
+                         </div>
+                      </div>
+                   </div>
                 </fieldset>
         </div>
         </div>
@@ -417,5 +390,5 @@
     <script src="~/js/admin/speciality.js"></script>
     <script src="~/js/admin/surgeries.js"></script>
     <script src="~/js/admin/admin-main.js"></script>
-    <script src="~/lib~/lib/bootstrap/js/bootstrap-datetimepicker.min.css"></script>
+    <script src="~/lib/bootstrap-datetime-picker/js/bootstrap-datetimepicker.min.js"></script>
 }

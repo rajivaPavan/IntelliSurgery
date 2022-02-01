@@ -31,6 +31,9 @@
                             </span>
                         </div>
                     </div>
+                    <div class="scrollbar scrollbar-info">
+                        <div class="force-overflow">
+
                     <div class="row">
                         <div class="col-md-12">
                             <label for="patient_name">Name:</label>
@@ -71,8 +74,84 @@
                             <input type="text" class="form-control" id="height" placeholder="cm">
                             <h6 id="heightCheck" style="color: red;" >**Height is missing</h6>
                         </div>
-                    </div>
+                        <div class="col-md-5">
+                            <label for="asatype" class="form-label"> ASA Type:</label>
+                            <input type="text" class="form-control" id="asatype" >
+                            
+                        </div>
 
+                        <div class="col-md-12">
+                            <h7> Diseases:</h7>
+
+                           
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check">
+                                       <input class="form-check-input" type="checkbox" value="" id="disease_1">
+                                     <label class="form-check-label" for="disease_1">
+                                                       Disease 1
+                                                  </label>
+                                    </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check">
+                                       <input class="form-check-input" type="checkbox" value="" id="disease_2">
+                                     <label class="form-check-label" for="disease_2">
+                                                       Disease 2
+                                                  </label>
+                                    </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check">
+                                       <input class="form-check-input" type="checkbox" value="" id="disease_3">
+                                     <label class="form-check-label" for="disease_3">
+                                                       Disease 3
+                                                  </label>
+                                    </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check">
+                                       <input class="form-check-input" type="checkbox" value="" id="disease_4">
+                                     <label class="form-check-label" for="disease_4">
+                                                       Disease 4
+                                                  </label>
+                                    </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check">
+                                       <input class="form-check-input" type="checkbox" value="" id="disease_5">
+                                     <label class="form-check-label" for="disease_5">
+                                                       Disease 5
+                                                  </label>
+                                    </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check">
+                                       <input class="form-check-input" type="checkbox" value="" id="disease_6">
+                                     <label class="form-check-label" for="disease_6">
+                                                       Disease 6
+                                                  </label>
+                                    </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check">
+                                       <input class="form-check-input" type="checkbox" value="" id="disease_7">
+                                     <label class="form-check-label" for="disease_7">
+                                                       Disease 7
+                                                  </label>
+                                    </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check">
+                                       <input class="form-check-input" type="checkbox" value="" id="disease_8">
+                                     <label class="form-check-label" for="disease_8">
+                                                       Disease 8
+                                                  </label>
+                                    </div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
                     <button id="add-patient-btn" class="btn btn-info" type="submit">Add Patient</button>
                     <button id="update-patient-btn" class="btn btn-primary" type="submit" style="display:none;">Update Patient</button>
                     
@@ -87,7 +166,12 @@
 
                 <fieldset>
 
-                    <div class="legend"><span class="number bg-info">3</span> Surgery Requirements</div>
+                    <div class="col-12 legend">
+                        <div class="row"><span class="number bg-info">3</span> Surgery Requirements
+                            <span class="ml-auto"><i class="fas fa-eraser"></i>
+                            </span>
+                        </div>
+                    </div>
 
                     <label for="surgery">Surgery:</label>
                     <select id="surgery" name="user_surgery">

@@ -69,8 +69,8 @@
                             <div class="col-6 col-md-4">
 
 
-                                <label for="surgeon" class="sr-only">Speciality :</label>
-                                <select id="surgeon" name="user_surgeon" class="btn btn-info dropdown-toggle">
+                                <label for="surgeon_speciality" class="sr-only">Speciality :</label>
+                                <select id="surgeon_speciality" name="user_surgeon" class="btn btn-info dropdown-toggle">
                                     <option selected>Choose...</option>
 
                                     <option value="Spec_1"> Orthopedic Surgeon </option>
@@ -197,9 +197,9 @@
                                     <a class="btn btn-primary" data-toggle="collapse" href="#ORtypelist" role="button" aria-expanded="false" aria-controls="ORtypelist">List</a>
 
                                 </p>
-                                <div class="collapse multi-collapse" id="ORtypelist">
+                                <div class="collapse multi-collapse" id="theatretypelist">
                                     <div class="card card-body">
-                                        Anim pariatur cliche reprehenderit,
+                                        @*Anim pariatur cliche reprehenderit,*@
                                     </div>
                                 </div>
 
@@ -228,13 +228,13 @@
                             <div class="col-6 col-md-4">
 
 
-                                <label for="surgeon" class="sr-only">Thetaer Type :</label>
-                                <select id="surgeon" name="user_surgeon" class="btn btn-info dropdown-toggle">
+                                <label for="theatre_type_data" class="sr-only">Theatre Type :</label>
+                                <select id="theatre_type_data" name="user_surgeon" class="btn btn-info dropdown-toggle">
                                     <option selected>Choose...</option>
 
-                                    <option value="Spec_1"> OR Type 1 </option>
+                                    @*<option value="Spec_1"> OR Type 1 </option>
                                     <option value="Spec_2"> OR Type 2 </option>
-                                    <option value="Spec_3"> OR Type 3 </option>
+                                    <option value="Spec_3"> OR Type 3 </option>*@
 
                                 </select>
 
@@ -257,7 +257,7 @@
 
                                     </p>
                                     
-                                    <div class="collapse multi-collapse" id="ORlist">
+                                    <div class="collapse multi-collapse" id="theatrelist">
                                       
                                         <div class="card card-body">
                                             Anim pariatur cliche reprehenderit
@@ -288,8 +288,8 @@
                             <div class="col-md-5">
 
 
-                                <label for="surgeon" class="sr-only">Surgery:</label>
-                                <select id="surgeon" name="user_surgeon" class="btn btn-info dropdown-toggle">
+                                <label for="surgery-type-data" class="sr-only">Surgery:</label>
+                                <select id="surgery-type-data" name="user_surgeon" class="btn btn-info dropdown-toggle">
                                     <option selected>Choose...</option>
 
                                     <option value="Surgery_1"> Cardiovascular Surgery </option>
@@ -322,7 +322,7 @@
                             </div>
 
                             <div class="col-md-1">
-                                <button type="submit" class="btn btn-primary mb-2" class="form-control">Add</button>
+                                <button id="add-surgery-type-theatre-btn"type="submit" class="btn btn-primary mb-2" class="form-control">Add</button>
                             </div>
                             <div class="col-md-3">
 

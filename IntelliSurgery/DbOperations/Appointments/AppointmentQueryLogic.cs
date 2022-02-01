@@ -2,7 +2,6 @@
 using IntelliSurgery.Models;
 using System;
 using System.Linq.Expressions;
-using static IntelliSurgery.Enums.OperationTheatreEnums;
 
 namespace IntelliSurgery.DbOperations.Appointments
 {

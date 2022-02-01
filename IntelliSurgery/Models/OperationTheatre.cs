@@ -1,6 +1,5 @@
 ﻿using Itenso.TimePeriod;
 using System.Collections.Generic;
-using static IntelliSurgery.Enums.OperationTheatreEnums;
 
 namespace IntelliSurgery.Models
 {
@@ -17,6 +16,7 @@ namespace IntelliSurgery.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public List<SurgeryType> SurgeryTypesConducted { get; set; }
     }
     public class TheaterAvailablePeriod : TimeRange
     {

@@ -3,6 +3,7 @@ using System;
 using IntelliSurgery.DbOperations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,29 +11,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IntelliSurgery.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220131184706_AppointmentCompositeIndexes")]
+    partial class AppointmentCompositeIndexes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "6.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
-
-            modelBuilder.Entity("DiseasePatient", b =>
-                {
-                    b.Property<int>("DiseasesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PatientsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("DiseasesId", "PatientsId");
-
-                    b.HasIndex("PatientsId");
-
-                    b.ToTable("DiseasePatient");
-                });
 
             modelBuilder.Entity("IntelliSurgery.Models.Appointment", b =>
                 {
@@ -58,7 +45,7 @@ namespace IntelliSurgery.Migrations
                     b.Property<int>("PriorityLevel")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ScheduledSurgeryId")
+                    b.Property<int>("ScheduledSurgeryId")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
@@ -70,7 +57,7 @@ namespace IntelliSurgery.Migrations
                     b.Property<int>("SurgeryTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TheatreId")
+                    b.Property<int>("TheatreId")
                         .HasColumnType("int");
 
                     b.Property<int>("TheatreTypeId")
@@ -109,31 +96,11 @@ namespace IntelliSurgery.Migrations
                     b.ToTable("Appointments");
                 });
 
-            modelBuilder.Entity("IntelliSurgery.Models.Disease", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("DiseaseEnum")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Disease");
-                });
-
             modelBuilder.Entity("IntelliSurgery.Models.Patient", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    b.Property<int>("ASA_Status")
-                        .HasColumnType("int");
-
-                    b.Property<float>("BMI")
-                        .HasColumnType("float");
 
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime(6)");
@@ -390,21 +357,6 @@ namespace IntelliSurgery.Migrations
                     b.ToTable("SurgeryTypeTheatreType");
                 });
 
-            modelBuilder.Entity("DiseasePatient", b =>
-                {
-                    b.HasOne("IntelliSurgery.Models.Disease", null)
-                        .WithMany()
-                        .HasForeignKey("DiseasesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("IntelliSurgery.Models.Patient", null)
-                        .WithMany()
-                        .HasForeignKey("PatientsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("IntelliSurgery.Models.Appointment", b =>
                 {
                     b.HasOne("IntelliSurgery.Models.Patient", "Patient")
@@ -415,7 +367,9 @@ namespace IntelliSurgery.Migrations
 
                     b.HasOne("IntelliSurgery.Models.ScheduledSurgery", "ScheduledSurgery")
                         .WithMany()
-                        .HasForeignKey("ScheduledSurgeryId");
+                        .HasForeignKey("ScheduledSurgeryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("IntelliSurgery.Models.Surgeon", "Surgeon")
                         .WithMany()
@@ -431,7 +385,9 @@ namespace IntelliSurgery.Migrations
 
                     b.HasOne("IntelliSurgery.Models.Theatre", "Theatre")
                         .WithMany("ScheduledAppointments")
-                        .HasForeignKey("TheatreId");
+                        .HasForeignKey("TheatreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("IntelliSurgery.Models.TheatreType", "TheatreType")
                         .WithMany()

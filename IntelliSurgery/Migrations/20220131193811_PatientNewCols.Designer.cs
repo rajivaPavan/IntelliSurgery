@@ -3,6 +3,7 @@ using System;
 using IntelliSurgery.DbOperations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IntelliSurgery.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220131193811_PatientNewCols")]
+    partial class PatientNewCols
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,7 +60,7 @@ namespace IntelliSurgery.Migrations
                     b.Property<int>("PriorityLevel")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ScheduledSurgeryId")
+                    b.Property<int>("ScheduledSurgeryId")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
@@ -70,7 +72,7 @@ namespace IntelliSurgery.Migrations
                     b.Property<int>("SurgeryTypeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TheatreId")
+                    b.Property<int>("TheatreId")
                         .HasColumnType("int");
 
                     b.Property<int>("TheatreTypeId")
@@ -415,7 +417,9 @@ namespace IntelliSurgery.Migrations
 
                     b.HasOne("IntelliSurgery.Models.ScheduledSurgery", "ScheduledSurgery")
                         .WithMany()
-                        .HasForeignKey("ScheduledSurgeryId");
+                        .HasForeignKey("ScheduledSurgeryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("IntelliSurgery.Models.Surgeon", "Surgeon")
                         .WithMany()
@@ -431,7 +435,9 @@ namespace IntelliSurgery.Migrations
 
                     b.HasOne("IntelliSurgery.Models.Theatre", "Theatre")
                         .WithMany("ScheduledAppointments")
-                        .HasForeignKey("TheatreId");
+                        .HasForeignKey("TheatreId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("IntelliSurgery.Models.TheatreType", "TheatreType")
                         .WithMany()

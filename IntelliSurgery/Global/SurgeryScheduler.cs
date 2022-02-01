@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Itenso.TimePeriod;
-using static IntelliSurgery.Enums.OperationTheatreEnums;
 using IntelliSurgery.DbOperations.Theatres;
 using IntelliSurgery.DbOperations.WorkingBlocks;
 
@@ -156,7 +155,8 @@ namespace IntelliSurgery.Global
                     };
                     currentAppointment.ScheduledSurgery.SurgeryEvent.SetTimeRange(surgeryTimeRange);
 
-                   
+                    //set theatre for the appointment
+                    currentAppointment.Theatre = bestBlock.Theatre;
 
                     //update appointmentRepo
                     currentAppointment = await appointmentRepository.UpdateAppointment(currentAppointment);

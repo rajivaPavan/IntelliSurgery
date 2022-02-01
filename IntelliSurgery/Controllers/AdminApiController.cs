@@ -76,26 +76,24 @@ namespace IntelliSurgery.Controllers
             return Json(new { success = true });
         }
 
-        
+
         [NonAction]
         private async Task AddSurgeryTypeTheatres(List<SurgeryTypeTheatresDTO> surgeryTypeTheatres)
         {
-            List<SurgeryTypeSurgeryTheatre> surgeryTypeSurgeryTheatres = new List<SurgeryTypeSurgeryTheatre>();
-            foreach(var s in surgeryTypeTheatres)
+            List<SurgeryType> surgeryTypes = new List<SurgeryType>();
+            foreach (var s in surgeryTypeTheatres)
             {
                 SurgeryType surgeryType = await surgeryTypeRepository.GetSurgeryTypeById(s.SurgeryTypeId);
                 List<TheatreType> theatreTypes = new List<TheatreType>();
-                foreach(var tId in s.TheatreIds)
+                foreach (var tId in s.TheatreIds)
                 {
                     theatreTypes.Add(await theatreRepository.GetTheatreType(t => t.Id == tId));
                 }
-                surgeryTypeSurgeryTheatres.Add(new SurgeryTypeSurgeryTheatre() { 
-                    SurgeryType = surgeryType,
-                    SuitableTheatreTypes = theatreTypes
-                });
+                surgeryType.SuitableTheatreTypes = theatreTypes;
+                surgeryTypes.Add(surgeryType);
             }
 
-            surgeryTypeSurgeryTheatres = await surgeryTypeRepository.AddMappings(surgeryTypeSurgeryTheatres);
+            surgeryTypes = await surgeryTypeRepository.UpdateSurgeryTypes(surgeryTypes);
         }
 
         [NonAction]

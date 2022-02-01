@@ -2,16 +2,11 @@ using IntelliSurgery.DbOperations;
 using IntelliSurgery.Global;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using React.AspNet;
-using JavaScriptEngineSwitcher.V8;
 using System;
-using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
 using IntelliSurgery.DbOperations.Theatres;
 using IntelliSurgery.DbOperations.WorkingBlocks;
 

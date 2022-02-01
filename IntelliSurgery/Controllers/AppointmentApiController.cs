@@ -101,7 +101,9 @@ namespace IntelliSurgery.Controllers
             Patient patient = await patientRepository.GetPatientById(appointmentDTO.PatientId);
             SurgeryType surgerytype = await surgeryRepository.GetSurgeryTypeById(appointmentDTO.SurgeryType);
             Surgeon surgeon = await surgeonRepository.GetSurgeonById(appointmentDTO.SurgeonId);
-            TimeSpan predictedTime = pythonScript.PredictTime();
+
+            PatientMedicalData timePredictionDTO = new PatientMedicalData(patient);
+            TimeSpan predictedTime = pythonScript.PredictTime(timePredictionDTO);
             TheatreType theatreType = await theatreRepository.GetTheatreType(TheatreTypeQueryLogic.ById(appointmentDTO.TheatreType));
 
             //create appointment object

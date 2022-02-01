@@ -2,6 +2,8 @@
 using System.IO;
 using System.Diagnostics;
 using Microsoft.Extensions.Configuration;
+using IntelliSurgery.DTOs;
+using Newtonsoft.Json;
 
 namespace IntelliSurgery.Global
 {
@@ -14,7 +16,7 @@ namespace IntelliSurgery.Global
             this.configuration = configuration;
         }
 
-        public TimeSpan PredictTime()
+        public TimeSpan PredictTime(PatientMedicalData patientMedicalData)
         {
             // full path of python interpreter
             //stirng python = @"..........."
@@ -28,6 +30,9 @@ namespace IntelliSurgery.Global
             int Gender = 1;
             int ASA = 0;
             int Status = 0;
+
+            //json string to be sent to Python script
+            string patientDataJson = JsonConvert.SerializeObject(patientMedicalData);
 
             // Create new process start info 
             ProcessStartInfo myProcessStartInfo = new ProcessStartInfo(python);

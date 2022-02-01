@@ -54,8 +54,8 @@ namespace IntelliSurgery.Global
             // in order to avoid deadlock we will read output first 
             // and then wait for process terminate: 
             StreamReader myStreamReader = myProcess.StandardOutput;
-            string myString = myStreamReader.ReadLine();
-            Console.WriteLine(myString);
+            string modelOutput = myStreamReader.ReadLine();
+
 
             /*if you need to read multiple lines, you might use: 
                 string myString = myStreamReader.ReadToEnd() */
@@ -64,10 +64,10 @@ namespace IntelliSurgery.Global
             myProcess.WaitForExit();
             myProcess.Close();
 
-            // write the output we got from python app 
-            Console.WriteLine("Value received from script: " + myString);
-
-            return TimeSpan.Zero;
+            double predictedTimeDouble = double.Parse(modelOutput);
+            
+            TimeSpan predictedTime = TimeSpan.FromHours(predictedTimeDouble);
+            return predictedTime;
 
         }
 

@@ -8,7 +8,7 @@ namespace IntelliSurgery.Models
         public int Id { get; set; } 
         public TheatreType TheatreType { get; set; }
         public string Name { get; set; }
-        public List<TheaterAvailablePeriod> TheaterAvailablePeriods { get; set; }
+        //public List<TheaterAvailablePeriod> TheaterAvailablePeriods { get; set; }
         public List<Appointment> ScheduledAppointments { get; set; }
     }
 

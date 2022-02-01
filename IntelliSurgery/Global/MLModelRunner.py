@@ -2,7 +2,7 @@ import pickle
 import sys
 
 
-file_path ="..\IntelliSurgery\MLModels\model.pkl"
+file_path ="../MLModels/model.pkl"
 loaded_model = pickle.load(open(file_path, 'rb'))
 
 #Using the data passed to the file
@@ -56,7 +56,7 @@ machineLearningModelInput = [[age,asa,gender,bmi,cancer,cardiovascular,dementia,
 def predictTheTime(modelInput):
     "This function is used to predict the time for the given surgery"
     predictedOutput = loaded_model.predict(modelInput)
-    print(modelInput, predictedOutput)
+    #print(modelInput, predictedOutput)
     return predictedOutput;
 
 print(predictTheTime(machineLearningModelInput))

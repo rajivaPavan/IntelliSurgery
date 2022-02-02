@@ -1,7 +1,7 @@
 import pickle
 import sys
 import json
-
+import re
 
 file_path = "C:\\Users\\pavan\\Documents\\After Alevel\\Projects\\IntelliSurgery\\IntelliSurgery\\MLModels\\model.pkl"
 loaded_model = []
@@ -11,7 +11,10 @@ with open(file_path, 'rb') as f:
 
 #Using the data passed to the file
 inputData = str(sys.argv[1])
-print(inputData)
+
+#adds the missing double quoutes to the keys
+inputData = re.sub("(\w+):", r'"\1":',  inputData)
+
 dataDictionary = json.loads(inputData)
 
 #dataDictionary = {"Age":37,"Gender":1,"ASA":0,"BMI":0.0,"Diseases":["Cancer","Cardiovascular"],"Complication":0,"SurgeryType":"Cardiovascular Surgery"}

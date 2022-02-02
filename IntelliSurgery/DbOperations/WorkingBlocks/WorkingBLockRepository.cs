@@ -1,7 +1,11 @@
 ﻿using IntelliSurgery.Global;
 using IntelliSurgery.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace IntelliSurgery.DbOperations.WorkingBlocks
@@ -9,10 +13,12 @@ namespace IntelliSurgery.DbOperations.WorkingBlocks
     public class WorkingBLockRepository : IWorkingBlockRepository
     {
         private readonly AppDbContext context;
+        private readonly IIncludableQueryable<WorkingBlock, Theatre> readWorkingBlocks;
 
         public WorkingBLockRepository(AppDbContext context)
         {
             this.context = context;
+            this.readWorkingBlocks = context.WorkingBlocks.Include(w => w.Surgeon).Include(w => w.Theatre);
         }
 
         public async Task<WorkingBlock> AddWorkingBlock(WorkingBlock workingBlock)
@@ -31,7 +37,12 @@ namespace IntelliSurgery.DbOperations.WorkingBlocks
 
         public async Task<List<WorkingBlock>> GetAllWorkBlocks()
         {
-            return await context.WorkingBlocks.ToListAsync();
+            return await readWorkingBlocks.ToListAsync();
+        }
+
+        public async Task<List<WorkingBlock>> GetWorkBlocks(Expression<Func<WorkingBlock, bool>> expression)
+        {
+            return await readWorkingBlocks.Where(expression).ToListAsync();
         }
     }
 }

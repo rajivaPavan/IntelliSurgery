@@ -40,7 +40,7 @@ namespace IntelliSurgery.Global
             //appointments = await PrioritizeAppointments(appointments);
 
             //create time blocks
-            List<WorkingBlock> workingBlocks = await workingBlockRepository.GetWorkBlocks(surgeon);
+            List<WorkingBlock> workingBlocks = await workingBlockRepository.GetWorkBlocks(w => w.SurgeonId == surgeon.Id);
 
             //allocate time for surgeries within the time blocks
             workingBlocks = await AllocateSurgeriesToBlocks(workingBlocks, appointments);

@@ -24,26 +24,29 @@ function clearAllAppointmentFields() {
     $("#anasthesia_type").val(-1);
     $("#theatreType").val(-1);
 }
+/*
+//Validate id
+$('#idCheck').hide();
+let idError = true;
 
-//I have commented these 3 functions bevause their names have been used for other functions in another file
+$('#patient_id').keyup(function () {
+    validateId();
+});
 
-//async function validatePatient() {
-    
-//    return patientId;
-//}
+function validateId() {
+    let idValue = $('#patient_id').val();
 
-//async function addPatient() {
-    
+    if (idValue.length == '') {
+        $('#idCheck').show();
+        idError = false;
+        return false;
+    }
+    else {
+        $('#idCheck').hide();
+    }
+}
 
-//    return patientId;
-//}
-
-//async function updatePatient() {
-
-//    return patientId;
-//}
-
-// Validate patient name
+//Validate name
 $('#patientNameCheck').hide();
 let patientNameError = true;
 
@@ -120,6 +123,7 @@ function validateHeight() {
         $('#heightCheck').hide();             
     }
 }
+*/
 
 /*
 //check weather gender radio button is selected or not
@@ -163,7 +167,7 @@ function validateAnastheasist() {
 */
 
 //check weather surgery is selected or not
-$('#surgeryCheck').hide();
+/*$('#surgeryCheck').hide();
 let surgeryError = true;
 
 $('#surgery').keyup(function () {
@@ -237,4 +241,41 @@ function validateOr_theatre() {
     else {
         $('#or_theatreCheck').hide();
     }
-}
+}*/
+/*
+//check clicking validate button
+$("validate-patient-btn").click(function () {
+    if (idError === true) {
+        //alert("Patient validated successfully");
+        return true;
+    } else {
+        alert("Please enter patient id correctly");
+        return false;
+    }
+}       
+    })
+
+//check clicking add patient button
+$("add-patient-btn").click(function () {
+    if (patientNameError === true && weightError === true && heightError === true) {
+        //alert("Patient details added successfully");
+        return true;
+    } else {
+        alert("Please enter patient details correctly");
+        return false;
+    }
+
+})
+
+//check clicking add appointment button
+$("add-appointment-btn").click(function () {
+    if (surgeonError === true && surgeryError === true && anasthesia_typeError === true && or_theatreError === true) {
+        //alert("Surgery requirements added successfully");
+        return true;
+    } else {
+        alert("Please fill the patient details correctly");
+        return false;
+    }
+
+})
+*/

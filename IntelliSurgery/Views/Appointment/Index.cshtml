@@ -20,14 +20,21 @@
                             <div class="col-2 pr-0 my-auto">
                                 <label for="patient_id" class="mr-sm-2">Patient ID:</label>
                             </div>
-
+                            
                             <div class="col-5 pr-0 my-auto">
                                 <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" id="patient_id" required>
                             </div>
+                            
                             <div class="col-5 my-auto">
                                 <button class="btn btn-info h-100" id="validate-patient-btn">Validate Patient</button>
                             </div>
                         </div>
+                        <h6 id="idCheck" style="color: red;" >**ID is missing</h6>
+
+                    @*<label for="patient_id" class="mr-sm-2">Patient ID:</label>
+                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" id="patient_id" required>
+                    
+                    <button type="submit" class="btn btn-info" id="validate-patient-btn">Validate Patient</button>*@
                 </fieldset>
            
             
@@ -38,25 +45,26 @@
                             </span>
                         </div>
                     </div>
-                    <div class="scrollbar scrollbar-info">
+                    @*<div class="scrollbar scrollbar-info">*@
                         <div class="force-overflow">
 
                     <div class="row">
                         <div class="col-md-12">
                             <label for="patient_name">Name:</label>
                             <input type="text" class="form-control mb-2 mr-sm-2" id="patient_name" name="patient_name">
-                            <h6 id="patientNameCheck" style="color: red;" >**Patient name is missing</h6>
+                            <h6 id="patientNameCheck" style="color: red;" >**Name is missing</h6>
                         </div>
 
                         <div class="col-md-7">
                              <label for="birthday">Birthday:</label>
                              <input type="date" id="birthday" name="birthday" class="form-control mb-2 mr-sm-2">
+                             <h6 id="birthdayCheck" style="color: red;" >**wrong input</h6>
                         </div>
 
                         <div class="col-md-5">
                             <label>Gender:</label>
                             <div class="form-check">
-                                <input class="form-check-input gender" type="radio" value="1" id="gender_male" name="gender" checked>
+                                <input class="form-check-input gender" type="radio" value="1" id="gender_male" name="gender">
                                 <label class="form-check-label" for="gender_male">
                                     Male
                                 </label>                        
@@ -67,7 +75,7 @@
                                     Female
                                 </label>
                             </div>
-                            @*<h6 id="genderCheck" style="color: red;" >**Select gender</h6>*@
+                            <h6 id="genderCheck" style="color: red;" >**Select gender</h6>
                         </div>
 
                         <div class="col-md-6">
@@ -88,7 +96,7 @@
                                 </div>
                                 <div class="col-2">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" value="1" id="status1" name="asa" checked>
+                                        <input class="form-check-input" type="radio" value="1" id="status1" name="asa">
                                         <label class="form-check-label" for="status1">
                                             I
                                         </label>                        
@@ -110,6 +118,7 @@
                                         </label>
                                     </div>
                                 </div>
+                                <h6 id="asaCheck" style="color: red;" >**Select ASA status</h6>
                                 <div class="col-3"></div>
                             </div>
                             
@@ -123,27 +132,23 @@
                         <div class="col-md-4">
                             <div class="form-check">
                                      <input class="form-check-input" type="checkbox" value="" id="disease_1">
-                                     <label class="form-check-label" for="disease_1">
-                                                       Disease 1
-                                                  </label>
-                                    </div>
+                                     <label class="form-check-label" for="disease_1">Disease 1</label>
+                                     
+                                     </div>
                         </div>
                         
                         </div>
                     </div>
-                    </div>
+                    @*</div>*@
                     <button id="add-patient-btn" class="btn btn-info" type="submit">Add Patient</button>
                     <button id="update-patient-btn" class="btn btn-primary" type="submit" style="display:none;">Update Patient</button>
                     
                 </fieldset>
-                
-
             </div>
         </div>
         <div class="col-lg-5">
             <div class="form_class border border-dark shadow">
                                 <h1> Appointment </h1>
-
                 <fieldset>
 
                     <div class="col-12 legend">
@@ -156,41 +161,69 @@
                     <label for="surgery">Surgery:</label>
                     <select id="surgery" name="user_surgery">
                         <option value="-1" selected hidden>Choose...</option>
+                        @*<option selected>Choose...</option>*@
+                        <option value="surgery_1">Gastrointestinal surgery</option>
+                        <option value="surgery_2">Orthopedic surgery</option>
+                        <option value="surgery_3">Cardiovascular Surgery</option>
+                        <option value="surgery_4">Gynaecology</option>
+                        <option value="surgery_5">Neurosurgery</option>
+                        <option value="surgery_6">Ophthalmology</option>
+                        <option value="surgery_7">Oral and Maxillofacial Surgery</option>
+                        <option value="surgery_8">Otolaryngology</option>
+                        <option value="surgery_9">Thoracic</option>
+                        <option value="surgery_10">Urology</option>
                     </select>
                     <h6 id="surgeryCheck" style="color: red;" >**Choose a surgery type</h6>
 
                     <label for="surgeon">Surgeon:</label>
                     <select id="surgeon" name="user_surgeon">
                         <option value="-1" selected hidden>Choose...</option>
-                        
+                        @*<option selected>Choose...</option>*@
+                        <optgroup label="Orthopedic Surgeon">
+                            <option value="doctor_1"> Dr. Indika Ellawala </option>
+                            <option value="doctor_2"> Dr. Asela Gunawardana </option>
+                            <option value="doctor_3"> Dr. Pavan Pitiwaduge </option>
+                        </optgroup>
+                        <optgroup label="Cardiovascular Surgeon">
+                            <option value="doctor_4">Dr. Suveen Ellawela</option>
+                            <option value="doctor_5">Dr. Kasun </option>
+                            <option value="doctor_6">Dr. Happy</option>
+                        </optgroup>
+                        <optgroup label="Gynaecologist">
+                            <option value="doctor_7r">Dr. Tharushi</option>
+                            <option value="doctor_8">Dr. Dosthara Honda Hitha</option>
+                        </optgroup>
                         
                     </select>
                     <h6 id="surgeonCheck" style="color: red;" >**Choose a surgeon</h6>
                     <label> Anastheasists: </label>
                     <div class="form-check">
-                        <input type="radio" class="form-check-input" id="required" name="anastheasist" value="Required" checked>
+                        <input type="radio" class="form-check-input" id="required" name="anastheasist" value="Required">
                         <label class="form-check-label" for="required">Required</label>
                     </div>
                     <div class="form-check mb-2">
                         <input type="radio" class="form-check-input" id="not_required" name="anastheasist" value="Not Required">
                         <label class="form-check-label" for="not_required">Not Required</label>
                     </div>
-                    
+                    <h6 id="anastheasistCheck" style="color: red;" >**Choose an option</h6>
                     <label for="anasthesia_type">Anesthesia Type:</label>
                     <select id="anasthesia_type" name="user_anas_type">
                         <option value="-1" selected hidden>Choose...</option>
+                        <option value="type_1">A</option>
+                        <option value="type_2">B</option>
+                        <option value="type_3">C</option>
                     </select>
                     <h6 id="anasthesia_typeCheck" style="color: red;" >**Choose an anasthesia type</h6>
                     
-                    <label for="or_theatre">Theatre Type:</label>
+                    @*<label for="or_theatre">Theatre Type:</label>
                     <select id="theatreType" name="user_or">
                         <option value="-1" selected hidden>Choose...</option>
                     </select>
-                    <h6 id="or_theatreCheck" style="color: red;" >**Choose an operating theatre</h6>
+                    <h6 id="or_theatreCheck" style="color: red;" >**Choose an operating theatre</h6>*@
 
                     <label>Importance:</label>
                     <div class="col-12 mb-5">
-                        <div class="row ">
+                        @*<div class="row ">
                             <div class="form-check col-2">
                                 <input class="form-check-input priority" type="radio" value="2" id="importance_high" name="importance">
                                 <label class="form-check-label" for="importance_high">
@@ -209,15 +242,33 @@
                                     Low
                                 </label>
                             </div>
-                        </div>
+                        </div>*@
+                        <div class="form-check col-2">
+                        <input class="form-check-input priority" type="radio" value="2" id="importance_high" name="importance">
+                        <label class="form-check-label" for="importance_high">
+                            High
+                        </label>
+                    </div>
+                    <div class="form-check col-2">
+                        <input class="form-check-input priority" type="radio" value="1" id="importance_medium" name="importance">
+                        <label class="form-check-label" for="importance_medium" >
+                            Medium
+                        </label>
+                    </div>
+                    <div class="form-check col-2">
+                           <input class="form-check-input priority" type="radio" value="0" id="importance_low" name="importance">
+                            <label class="form-check-label" for="importance_low">
+                                Low
+                            </label>
+                    </div>
+                    <h6 id="importanceCheck" style="color: red;" >**Choose an option</h6>
+                    <br />
+                    <button id="add-appointment-btn" class="btn btn-info" type="submit">Add Appointment</button>
+                    
                     </div>
                     
-
-                    <button id="add-appointment-btn" class="btn btn-info" type="submit">Add Appointment</button>
-
+                    </div>
                 </fieldset>
-
-
             </div>
         </div>
     </div>
@@ -225,6 +276,7 @@
 
 @section Scripts{
     <script src="~/js/appointment/appointment-requests.js"></script>
+    <script src="~/js/appointment/appointment-validations.js"></script>
     <script src="~/js/appointment/patient.js"></script>
     <script src="~/js/appointment/appointment.js"></script>
     <script src="~/js/appointment/appointment-main.js"></script>

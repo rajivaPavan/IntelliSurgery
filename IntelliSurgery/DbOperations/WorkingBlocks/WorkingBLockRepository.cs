@@ -29,7 +29,7 @@ namespace IntelliSurgery.DbOperations.WorkingBlocks
             return blocks;
         }
 
-        public async Task<List<WorkingBlock>> GetWorkBlocks()
+        public async Task<List<WorkingBlock>> GetAllWorkBlocks()
         {
             return await context.WorkingBlocks.ToListAsync();
         }

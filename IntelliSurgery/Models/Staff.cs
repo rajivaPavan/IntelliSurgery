@@ -24,7 +24,8 @@ namespace IntelliSurgery.Models
             return new SurgeonDTO()
             {
                 Id = this.Id,
-                Name = this.Name
+                Name = this.Name,
+                Speciality = this.Speciality
             };
         }
     }

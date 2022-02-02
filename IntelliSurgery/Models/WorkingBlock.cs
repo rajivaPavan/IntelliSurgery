@@ -16,4 +16,12 @@ namespace IntelliSurgery.Models
         public List<ScheduledSurgery> AllocatedSurgeries { get; set; }
 
     }
+
+    public class WorkBlockDTO
+    {
+        public int SurgeonId { get; set; }
+        public int TheatreId { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
+    }
 }

@@ -13,6 +13,7 @@ namespace IntelliSurgery.DTOs
         public List<TheatreType> TheatreTypes { get; set; } 
         public List<TheatreDTO> Theatres { get; set; }
         public List<SurgeryTypeTheatresDTO> SurgeryTypeTheatres { get; set; }
+        public List<Surgeon> SurgeonSchedules { get; internal set; }
 
         //surgeon working hours
     }
@@ -27,14 +28,14 @@ namespace IntelliSurgery.DTOs
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int TheatreTypeId { get; set; }
+        public TheatreType TheatreType { get; set; }
     }
 
     public class SurgeonDTO
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int SpecialityId { get; set; }
+        public Speciality Speciality { get; set; }
     }
 
     public class AnesthesiaDTO

@@ -149,9 +149,14 @@ namespace IntelliSurgery.Controllers
                 anesthesias.Add(new AnesthesiaDTO(item));
             }
 
+            List<SurgeonDTO> surgeonDTOs = new List<SurgeonDTO>();
+            foreach (var s in surgeons) {
+                surgeonDTOs.Add(s.getDTO());
+            }
+
             DropDownListsDTO dropDownLists = new DropDownListsDTO() { 
                 SurgeryTypes = surgeryTypes, 
-                Surgeons = surgeons,
+                Surgeons = surgeonDTOs,
                 TheatreTypes = theatreTypes,
                 Anesthesias = anesthesias,
                 Specialities =specialities
@@ -159,14 +164,5 @@ namespace IntelliSurgery.Controllers
 
             return Json(new { success = true, data = dropDownLists});
         }
-
-        //on patientload
-        //allergies, diseases
-        //public async Task<IActionResult> GetPatientHistory(PatientDTO patientDto)
-        //{
-        //    //find patient and read patient allergies and dieseases
-        //    //write a class for patient history
-        //    //create a patient history object and send that as data
-        //}
     }
 }

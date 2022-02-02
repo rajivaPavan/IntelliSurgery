@@ -1,11 +1,11 @@
-﻿
-var emptyHospitalData = {
+﻿const emptyHospitalData = {
     specialities: [],
     surgeons: [],
     surgeryTypes: [],
     theatreTypes: [],
     theatres: [],
-    surgeryTypeTheatres: []
+    surgeryTypeTheatres: [],
+    surgeonSchedules:[]
 };
 
 calendarApp = Vue.createApp({
@@ -17,6 +17,7 @@ calendarApp = Vue.createApp({
         };
     },
     computed: {
+        //getPrevData
         getPrevSpecialities() {
             return this.prevData.specialities;
         },
@@ -35,6 +36,10 @@ calendarApp = Vue.createApp({
         getPrevSurgeryTypeTheatres() {
             return this.prevData.surgeryTypeTheatres;
         },
+        getPrevSchedules() {
+
+        },
+        //getNewData
         getNewSpecialities() {
             return this.hospitalData.specialities;
         },
@@ -52,9 +57,13 @@ calendarApp = Vue.createApp({
         },
         getNewSurgeryTypeTheatres() {
             return this.hospitalData.surgeryTypeTheatres;
+        },
+        getNewSchedules() {
+
         }
     },
     methods: {
+        //speciality
         specialityAddClick() {
             var newSpeciality = $('#speciality').val();
             if (newSpeciality != "") {
@@ -72,6 +81,11 @@ calendarApp = Vue.createApp({
         specialityRemoveClick(s) {
             removeElementFromArray(s, this.hospitalData.specialities);
         },
+        async saveSpecialities() {
+
+        },
+
+        //surgeon
         surgeonAddClick() {
             var newSurgeon = $('#surgeon').val();
             var specialityId = $("#specialityList :selected").val();
@@ -91,6 +105,11 @@ calendarApp = Vue.createApp({
         surgeonRemoveClick(s) {
             removeElementFromArray(s, this.hospitalData.surgeons);
         },
+        async saveSurgeons() {
+
+        },
+
+        // surgeryType
         surgeryTypeAddClick() {
             var newSurgery = $('#surgery').val();
             if (newSurgery != "") {
@@ -108,6 +127,10 @@ calendarApp = Vue.createApp({
         surgeryTypeRemoveClick(s) {
             removeElementFromArray(s, this.hospitalData.surgeryTypes);
         },
+        async saveSurgeryTypes() {
+
+        },
+        //theatreType
         theatreTypeAddClick() {
             var newTheatreType = $('#theatre-type').val();
             if (newTheatreType != "") {
@@ -125,6 +148,10 @@ calendarApp = Vue.createApp({
         theatreTypeRemoveClick(s) {
             removeElementFromArray(s, this.hospitalData.theatreTypes);
         },
+        async saveTheatreTypes() {
+
+        },
+        //theatre
         theatreAddClick() {
             var newTheatre = $('#theatre').val();
             var selectedId = $("#theatreList :selected").val();
@@ -145,9 +172,14 @@ calendarApp = Vue.createApp({
         theatreRemoveClick(s) {
             removeElementFromArray(s, this.hospitalData.theatres);
         },
+        async saveTheatres() {
+
+        },
+        //surgery theatreTypes
         theatreTypesForSurgeryAddClick() {
 
         },
+
         deleteSurgeryTypeTheatresClick(s) {
             this.deleteData.surgeryTypeTheatres.push(s);
             removeElementFromArray(s, this.prevData.surgeryTypeTheatres);
@@ -155,6 +187,8 @@ calendarApp = Vue.createApp({
         surgeryTypeTheatresRemoveClick(s) {
             removeElementFromArray(s, this.hospitalData.surgeryTypeTheatres);
         },
+
+        //schedules
         workingHoursAddClick() {
 
         },
@@ -164,13 +198,6 @@ calendarApp = Vue.createApp({
         workingHoursRemoveClick(s) {
             
         },
-        async saveHospitalDataClick() {
-            var res = await saveHospitalDataRequest(this.hospitalData);
-            if (res != null) {
-                this.hospitalData = res;
-                this.deleteData = emptyHospitalData;
-            }
-        }
     }
 
 });

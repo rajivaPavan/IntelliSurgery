@@ -72,7 +72,7 @@
                         <input type="text" class="form-control" id="inlineFormInputName2">
                      </div>
                      <div class="col-6 col-md-2">
-                        <button id="add-speciality-btn" type="submit" class="btn btn-primary w-100 form-control">Add</button>
+                        <button v-on:click="surgeonAddClick" type="submit" class="btn btn-primary w-100 form-control">Add</button>
                      </div>
                      <div class="col-6 col-md-2">
                         <p>
@@ -124,7 +124,7 @@
                         <input type="text" class="form-control" id="surgery">
                      </div>
                      <div class="col-6 col-md-2">
-                        <button id="add-surgery-btn" type="submit" class="btn btn-primary w-100 form-control">Add</button>
+                        <button v-on:click="surgeryTypeAddClick" type="submit" class="btn btn-primary w-100 form-control">Add</button>
                      </div>
                      <div class="col-6 col-md-2">
                         <p>
@@ -174,7 +174,7 @@
                         <input type="text" class="form-control" id="inlineFormInputName2">
                      </div>
                      <div class="col-6 col-md-2">
-                        <button type="submit" class="btn btn-primary w- 100 form-control">Add</button>
+                        <button v-on:click="theatreTypeAddClick" type="submit" class="btn btn-primary w- 100 form-control">Add</button>
                      </div>
                      <div class="col-6 col-md-2">
                         <p>
@@ -233,7 +233,7 @@
                         <input type="text" class="form-control" id="inlineFormInputName2">
                      </div>
                      <div class="col-6 col-md-2">
-                        <button type="submit" class="btn btn-primary w-100 form-control">Add</button>
+                        <button v-on:click="theatreAddClick" type="submit" class="btn btn-primary w-100 form-control">Add</button>
                      </div>
                      <div class="col-6 col-md-2">
                         <p>
@@ -294,7 +294,7 @@
                         </div>
                      </div>
                      <div class="col-6 col-md-2">
-                        <button id="add-surgery-type-theatre-btn"type="submit" class="btn btn-primary w-100 form-control">Add</button>
+                        <button v-on:click="theatreTypesForSurgeryAddClick" type="submit" class="btn btn-primary w-100 form-control">Add</button>
                      </div>
                      <div class="col-6 col-md-2">
                         <p>
@@ -367,7 +367,7 @@
                          <div class="col-12">
                              <div class="row justify-content-end">
                                  <div class="col-6 col-md-2">
-                                    <button type="submit" class="btn btn-primary w-100 form-control">Add</button>
+                                    <button v-on:click="workingHoursAddClick" type="submit" class="btn btn-primary w-100 form-control">Add</button>
                                  </div>
                                  <div class="col-6 col-md-2">
                                     <p>
@@ -398,9 +398,6 @@
     <script src="~/lib/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
     <script src="~/lib/vue/dist/vue.global.js"></script>
     <script src="~/js/admin/admin-requests.js"></script>
-    @*<script src="~/js/admin/speciality.js"></script>
-    <script src="~/js/admin/surgeries.js"></script>*@
-
     <script src="~/js/admin/admin-vue-app.js"></script>
     <script type="text/javascript">
         $(function () {

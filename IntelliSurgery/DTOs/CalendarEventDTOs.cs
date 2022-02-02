@@ -50,6 +50,7 @@ namespace IntelliSurgery.DTOs
             Start = workingBlock.Start;
             End = workingBlock.End;
             ExtendedProps = workingBlock;
+            Display = "auto";
         }
 
         public WorkingBlock ExtendedProps { get; set; }

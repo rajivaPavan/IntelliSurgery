@@ -24,7 +24,7 @@ async function getFilterValuesRequest() {
 }
 
 async function getSurgeonAppointments(surgeonId) {
-    var res = await axios.get("/api/SurgeriesApi/GetTableData?surgeonId=" + surgeonId);
+    var res = await axios.post("/api/SurgeriesApi/GetTableData?surgeonId=" + surgeonId);
     
     var appointments = [];
     if (res.data.success == true) {
@@ -35,7 +35,7 @@ async function getSurgeonAppointments(surgeonId) {
 
 
 async function CreateScheduleRequest(surgeonId) {
-    var res = await axios.post("/api/CalendarApi/CreateSchedule?surgeonId=" + surgeonId);
+    var res = await axios.post("/api/SurgeriesApi/CreateSchedule?surgeonId=" + surgeonId);
     var IsCompleted = false;
     if (res.data.success == true) {
         IsCompleted = true;

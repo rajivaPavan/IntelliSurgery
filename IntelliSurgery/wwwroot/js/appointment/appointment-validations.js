@@ -7,7 +7,7 @@
     $('#surgeryCheck').hide();
     $('#surgeonCheck').hide();
     $('#anasthesia_typeCheck').hide();
-    $('#or_theatreCheck').hide();
+    //$('#or_theatreCheck').hide();
     $('#genderCheck').hide();
     $('#importanceCheck').hide();
     $('#anastheasistCheck').hide();
@@ -21,7 +21,7 @@
     var surgeryError = false;
     var surgeonError = false;
     var anasthesia_typeError = false;
-    var or_theatreError = false;
+    //var or_theatreError = false;
     var genderError = true;
     var importanceError = true;
     var anastheasistError = true;
@@ -59,9 +59,9 @@
         validateAnasthesia_type();
     });
 
-    $('#or_theatre').keyup(function () {
+    /*$('#or_theatre').keyup(function () {
         validateOr_theatre();
-    });
+    });*/
 
     function validateId() {                                       //validate patient ID
         var idInput = $('#patient_id').val();
@@ -189,7 +189,7 @@
             $('#anasthesia_typeCheck').hide();
         }
     }
-    function validateOr_theatre() {                                    //validat or theatre is choosed
+    /*function validateOr_theatre() {                                    //validat or theatre is choosed
         if ($('#or_theatre').val() == 'Choose...') {
             $('#or_theatreCheck').show();
             or_theatreError = true;
@@ -197,7 +197,7 @@
         else {
             $('#or_theatreCheck').hide();
         }
-    }
+    }*/
     function validateGender() {                                         //check weather gender radio button is selected or not
         var genderSelected = $('input[name=gender]:checked').val()
         if ((!($('#gender_male').prop('checked'))) && (!($('#gender_female').prop('checked')))) {

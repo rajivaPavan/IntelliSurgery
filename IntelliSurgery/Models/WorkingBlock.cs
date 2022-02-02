@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IntelliSurgery.Models
 {
-    public class WorkingBlock : TimeRange
+    public class WorkingBlock : Event
     {
         public int Id { get; set; }
         public Surgeon Surgeon { get; set; }

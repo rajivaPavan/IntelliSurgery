@@ -39,7 +39,7 @@ namespace IntelliSurgery.Global
             //prioritize appointments for the following week
             appointments = await PrioritizeAppointments(appointments);
 
-            //calculate time blocks
+            //create time blocks
             List<WorkingBlock> workingBlocks = CreateWorkingBlocks(surgeon);
 
             //allocate time for surgeries within the time blocks
@@ -52,7 +52,16 @@ namespace IntelliSurgery.Global
 
         private List<WorkingBlock> CreateWorkingBlocks(Surgeon surgeon)
         {
-            throw new NotImplementedException();
+            List<WorkingBlock> workingBlocks = new List<WorkingBlock>();
+            foreach(var s in surgeon.WorkingHours)
+            {
+                WorkingBlock workingBlock = new WorkingBlock() { Surgeon = surgeon, Theatre = s.Theatre };
+                TimeRange timeRange = new TimeRange() { Start = s.Start, End = s.End };
+                workingBlock.SetTimeRange(timeRange);
+                workingBlocks.Add(workingBlock);
+            }
+
+            return workingBlocks;
         }
 
         public async Task<List<Appointment>> PrioritizeAppointments(List<Appointment> appointments)

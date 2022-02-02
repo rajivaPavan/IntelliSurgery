@@ -29,5 +29,10 @@ namespace IntelliSurgery.DbOperations.Appointments
         {
             return a => a.Status != status;
         }
+
+        public static Expression<Func<Appointment, bool>> BySurgeon(Surgeon surgeon)
+        {
+            return a => a.SurgeonId != surgeon.Id;
+        }
     }
 }

@@ -1,16 +1,20 @@
 import pickle
 import sys
+import json
 
 
-file_path = "C:\\Users\\pavan\\Documents\\After Alevel\\Projects\\IntelliSurgery\\IntelliSurgery\\Global\\MLModelRunner.py"
+file_path = "C:\\Users\\pavan\\Documents\\After Alevel\\Projects\\IntelliSurgery\\IntelliSurgery\\MLModels\\model.pkl"
 loaded_model = []
 with open(file_path, 'rb') as f:
     loaded_model = pickle.load(f)
 
 
 #Using the data passed to the file
-#dataDictionary = sys.argv[1]
-dataDictionary = {"Age":37,"Gender":1,"ASA":0,"BMI":0.0,"Diseases":["Cancer","Cardiovascular"],"Complication":0,"SurgeryType":"Cardiovascular Surgery"}
+inputData = str(sys.argv[1])
+print(inputData)
+dataDictionary = json.loads(inputData)
+
+#dataDictionary = {"Age":37,"Gender":1,"ASA":0,"BMI":0.0,"Diseases":["Cancer","Cardiovascular"],"Complication":0,"SurgeryType":"Cardiovascular Surgery"}
 
 age = dataDictionary["Age"]
 gender = dataDictionary["Gender"]
@@ -48,7 +52,7 @@ else:
         elif item == "Osteoarthritis":
             osteoarthritis = 1
         elif item == "PyschologicalDisorder":
-            pyschologicalDisorder =1
+            pyschologicalDisorder = 1
         elif item == "Pulmonary":
             pulmonary = 1
         else:
@@ -60,6 +64,6 @@ def predictTheTime(modelInput):
     "This function is used to predict the time for the given surgery"
     predictedOutput = loaded_model.predict(modelInput)
     #print(modelInput, predictedOutput)
-    return predictedOutput;
+    return predictedOutput[0][0];
 
 print(predictTheTime(machineLearningModelInput))

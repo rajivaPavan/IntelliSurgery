@@ -100,6 +100,7 @@ namespace IntelliSurgery.Controllers
         public DateTime End { get; set; }
         public Appointment ExtendedProps { get; set; }
         public string Color { get; set; }
+        public string Display {get; set; }
 
         public static string GetPriorityColor(PriorityLevel priorityLevel)
         {

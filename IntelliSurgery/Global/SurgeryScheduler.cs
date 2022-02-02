@@ -30,35 +30,29 @@ namespace IntelliSurgery.Global
             this.workingBlockRepository = workingBlockRepository;
         }
 
-        public async Task CreateSchedule(TheatreType theatreType)
+        public async Task CreateSchedule(Surgeon surgeon)
         {
-           
-            //get list of theatres of theatreType
-            List<Theatre> theatres = await theatreRepository.GetTheatres(TheatreQueryLogic.ByTheatreType(theatreType));
-
-            //filter appointments that can be done in the theatertype
-            List<Appointment> appointments = await appointmentRepository.GetAppointments(AppointmentQueryLogic.ByTheatreType(theatreType));
-
+            List<Appointment> appointments = await appointmentRepository.GetAppointments(AppointmentQueryLogic.BySurgeon(surgeon));
             //get incomplete appointments
             appointments = appointments.Where(a => a.Status != Status.Completed).ToList();
-
-            //get list of surgeons allocated to the above appointments
-            List<Surgeon> surgeons = appointments.Select(a => a.Surgeon).Distinct().ToList();
-
-            //sort surgeons in descending order of total time of surgeries
 
             //prioritize appointments for the following week
             appointments = await PrioritizeAppointments(appointments);
 
             //calculate time blocks
-            List<WorkingBlock> workingBlocks = CalculateTimeBlocks(surgeons,theatres);
+            List<WorkingBlock> workingBlocks = CreateWorkingBlocks(surgeon);
 
             //allocate time for surgeries within the time blocks
             workingBlocks = await AllocateSurgeriesToBlocks(workingBlocks, appointments);
-            
+
             //add blocks to the database
             await workingBlockRepository.AddBlocks(workingBlocks);
 
+        }
+
+        private List<WorkingBlock> CreateWorkingBlocks(Surgeon surgeon)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<List<Appointment>> PrioritizeAppointments(List<Appointment> appointments)
@@ -87,18 +81,6 @@ namespace IntelliSurgery.Global
             IEnumerable<long> ticksPerTimeSpan = timeSpans.Select(t => t.Ticks);
             double averageTicks = ticksPerTimeSpan.Average();
             return (float)averageTicks;
-        }
-
-        private List<WorkingBlock> CalculateTimeBlocks(List<Surgeon> surgeons, List<Theatre> theatres)
-        {
-            List<WorkingBlock> workingBlocks = new List<WorkingBlock>();
-            /////
-            /////
-            ///// IMPLEMENT
-            /////
-            /////
-            WorkingBlock workingBlock = new WorkingBlock();
-            return workingBlocks;
         }
 
         private async Task<List<WorkingBlock>> AllocateSurgeriesToBlocks(List<WorkingBlock> workingBlocks, 
@@ -184,7 +166,40 @@ namespace IntelliSurgery.Global
         {
             return predictedTime.Add(prepTime).Add(cleanTime);
         }
-        
+
+
+        //public async Task CreateSchedule(TheatreType theatreType)
+        //{
+
+        //    //get list of theatres of theatreType
+        //    List<Theatre> theatres = await theatreRepository.GetTheatres(TheatreQueryLogic.ByTheatreType(theatreType));
+
+        //    //filter appointments that can be done in the theatertype
+        //    List<Appointment> appointments = await appointmentRepository.GetAppointments(AppointmentQueryLogic.ByTheatreType(theatreType));
+
+        //    //get incomplete appointments
+        //    appointments = appointments.Where(a => a.Status != Status.Completed).ToList();
+
+        //    //get list of surgeons allocated to the above appointments
+        //    List<Surgeon> surgeons = appointments.Select(a => a.Surgeon).Distinct().ToList();
+
+        //    //sort surgeons in descending order of total time of surgeries
+
+        //    //prioritize appointments for the following week
+        //    appointments = await PrioritizeAppointments(appointments);
+
+        //    //calculate time blocks
+        //    List<WorkingBlock> workingBlocks = CalculateTimeBlocks(surgeons, theatres);
+
+        //    //allocate time for surgeries within the time blocks
+        //    workingBlocks = await AllocateSurgeriesToBlocks(workingBlocks, appointments);
+
+        //    //add blocks to the database
+        //    await workingBlockRepository.AddBlocks(workingBlocks);
+
+        //}
+
+
 
     }
 

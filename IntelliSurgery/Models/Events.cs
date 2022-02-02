@@ -24,6 +24,8 @@ namespace IntelliSurgery.Models
     public class StaffWorkingPeriod : Event
     {
         public int Id { get; set; }
+        public Theatre Theatre { get; set; }
+
     }
     public class SurgeryEvent : Event
     {

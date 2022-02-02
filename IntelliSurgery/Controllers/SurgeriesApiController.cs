@@ -37,7 +37,7 @@ namespace IntelliSurgery.Controllers
         public async Task<IActionResult> CreateSchedule(int typeId)
         {
             TheatreType theatreType = await theatreRepository.GetTheatreType(TheatreTypeQueryLogic.ById(typeId));
-            await surgeryScheduler.CreateSchedule(theatreType);
+            //await surgeryScheduler.CreateSchedule(theatreType);
             return Json(new { success = true });
         }
 

@@ -6,7 +6,7 @@ namespace IntelliSurgery.Global
 {
     public interface ISurgeryScheduler
     {
-        Task CreateSchedule(TheatreType theatreType);
+        Task CreateSchedule(Surgeon surgeon);
         Task<List<Appointment>> PrioritizeAppointments(List<Appointment> appointments);
     }
 }

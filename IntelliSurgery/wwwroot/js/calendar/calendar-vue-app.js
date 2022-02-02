@@ -6,7 +6,9 @@
             fitlerValues: {},
             selectedFilter: "",
             selectedFilterValue: -1,
-            selectedEvent: null
+            selectedEvent: null,
+            selectedSurgeonId: -1,
+            surgeons:[]
         };
     },
     computed: {
@@ -33,6 +35,9 @@
         },
         getSelectedEvent() {
             return this.selectedEvent;
+        },
+        getSurgeons() {
+            return this.surgeons;
         }
 
     },
@@ -46,10 +51,18 @@
                     events = await getScheduledSurgeriesRequest(selectedFilter, selectedFilterValue);
                 }
                 initCalendar(events);
+                $("#appointments-table").hide();
+                $("#calendar").show();
                 this.selectedEvent = null;
 
             } else {
                 displaySweetAlert("Choose filters");
+            }
+        },
+        async renderAppoinmentsTable() {
+            var selectedSurgeonId = this.selectedSurgeonId;
+            if (selectedSurgeonId != -1) {
+
             }
         }
     }

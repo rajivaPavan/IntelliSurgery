@@ -18,13 +18,13 @@
                 <h4>Appointments</h4>
                 </div>
                 <div class="col-12 my-2">
-                    <div class="">Filter by Theatre Type:</div>
-                    <select @*v-model=""*@ id="appointmentFilter" name="calendarFilter" 
+                    <div class="">Filter by Surgeon:</div>
+                    <select v-model="selectedSurgeonId" id="appointmentFilter" name="surgeonFilter" 
                             class="w-100 btn dropdown-toggle border border-dark">
-                        <option value="" selected>Choose...</option>
-                        @*<option v-for="option in " v-bind:value="option.value">
-                            {{ option.text }}
-                          </option>*@
+                        <option value="-1" selected hidden>Choose...</option>
+                        <option v-for="option in getSurgeons" v-bind:value="option.id">
+                            {{ option.name }}
+                        </option>
                     
                     </select>
                 </div>
@@ -47,7 +47,7 @@
                     <div class="">Filter By:</div>
                     <select v-model="selectedFilter" id="calendarFilter" name="calendarFilter" 
                             class="w-100 btn dropdown-toggle border border-dark">
-                        <option value="" selected>Choose...</option>
+                        <option value="" selected hidden>Choose...</option>
                         <option v-for="option in filters" v-bind:value="option.value">
                             {{ option.text }}
                       </option>
@@ -58,7 +58,7 @@
                     <div class="">Select {{getSelectedFilterText}}:</div>
                     <select v-model="selectedFilterValue" class="w-100 btn dropdown-toggle border border-dark" 
                         id="filterValuesDropDown" disabled>
-                        <option value="-1" selected>Choose...</option>
+                        <option value="-1" selected hidden>Choose...</option>
                       <option v-for="option in getFilterValueOptions" v-bind:value="option.id">
                         {{ option.name }}
                       </option>
@@ -91,8 +91,9 @@
             
 
         </div>
-        <div class="col-12 col-md-9">
-            <div id="calendar"></div>
+        <div class="col-12 col-md-9 logo-bg" >
+            <div id="appointments-table" style="display:none;"></div>
+            <div id="calendar" style="display:none;"></div>
         </div>
     </div>
 </div>

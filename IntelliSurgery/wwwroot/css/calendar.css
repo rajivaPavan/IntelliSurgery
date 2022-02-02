@@ -22,3 +22,8 @@
     position: absolute;
     font-family: sans-serif;
 }
+
+.logo-bg{
+    background-image:url("../assets/images/IntelliSurgery.png");
+    background-size:cover;
+}

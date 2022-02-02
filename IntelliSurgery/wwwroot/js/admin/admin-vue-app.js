@@ -13,7 +13,8 @@ calendarApp = Vue.createApp({
         return {
             prevData: emptyHospitalData,
             hospitalData: emptyHospitalData,
-            deleteData: emptyHospitalData
+            deleteData: emptyHospitalData,
+            selectedWorkingBlock: null,
         };
     },
     computed: {
@@ -60,6 +61,11 @@ calendarApp = Vue.createApp({
         },
         getNewSchedules() {
 
+        },
+
+        //getWorkBlock
+        getSelectedWorkBlock() {
+            return this.selectedWorkBlock;
         }
     },
     methods: {

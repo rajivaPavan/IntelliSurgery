@@ -44,5 +44,16 @@ namespace IntelliSurgery.DbOperations.WorkingBlocks
         {
             return await readWorkingBlocks.Where(expression).ToListAsync();
         }
+
+        public async Task<WorkingBlock> GetWorkBlock(Expression<Func<WorkingBlock, bool>> expression)
+        {
+            return await readWorkingBlocks.FirstOrDefaultAsync(expression);
+        }
+
+        public async Task DeleteWorkBlock(WorkingBlock workingBlock)
+        {
+            context.WorkingBlocks.Remove(workingBlock);
+            await context.SaveChangesAsync();
+        }
     }
 }

@@ -84,5 +84,13 @@ namespace IntelliSurgery.Controllers
             
             return Json(new { success = true, data = surgeonCalendarDTO});
         }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteWorkBlock(int workingBlockId)
+        {
+            WorkingBlock workingBlock = await workingBlockRepository.GetWorkBlock(w => w.Id == workingBlockId);
+            await workingBlockRepository.DeleteWorkBlock(workingBlock);
+            return Json(new { success = true });
+        }
     }
 }

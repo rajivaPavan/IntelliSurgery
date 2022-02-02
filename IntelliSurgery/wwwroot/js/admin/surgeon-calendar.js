@@ -14,20 +14,19 @@
         eventClick: function (info) {
 
             var event = info.event;
-            var appointment = event.extendedProps;
+            var workingBlock = event.extendedProps;
 
             var selected = {
-                surgeon: appointment.surgeon.name,
-                patient: appointment.patient.name,
-                surgery: appointment.surgeryType.name,
-                priority: appointment.priorityLevel,
-                //theatre: appointment.theatre.name,
+                workingBlockId: workingBlock.id,
+                surgeon: workingBlock.surgeon.name,
+                theatre: workingBlock.theatre.name,
                 startTime: event.start,
                 endTime: event.end,
-                duration: event.duration
+                duration: event.duration,
+                eventId: event.id,
             };
 
-            calendarVueApp.selectedEvent = selected;
+            calendarVueApp.selectedWorkingBlock = selected;
         },
         eventTextColor: "#000",
         headerToolbar: {

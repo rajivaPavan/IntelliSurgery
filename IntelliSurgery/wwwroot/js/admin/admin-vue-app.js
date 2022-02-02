@@ -5,7 +5,7 @@
     theatreTypes: [],
     theatres: [],
     surgeryTypeTheatres: [],
-    surgeonSchedules:[]
+    surgeonSchedules: [],
 };
 
 calendarApp = Vue.createApp({
@@ -15,6 +15,12 @@ calendarApp = Vue.createApp({
             hospitalData: emptyHospitalData,
             deleteData: emptyHospitalData,
             selectedWorkingBlock: null,
+            selectedSurgeonId: -1,
+            selectedTheatreId: -1,
+            calendars: {},
+            fullCalendar: {},
+            startTime: "",
+            endTime: ""
         };
     },
     computed: {
@@ -204,6 +210,50 @@ calendarApp = Vue.createApp({
         workingHoursRemoveClick(s) {
             
         },
+        async renderCalendar() {
+            var selectedSurgeonId = this.selectedSurgeonId;
+            if (selectedSurgeonId != -1) {
+                //if surgeons calendar has been retrieved before
+                var calendarEvents = null;
+                if (this.calendars.hasOwnProperty(selectedSurgeonId)) {
+                    calendarEvents = this.calendars[selectedSurgeonId].events;
+                }
+                else {
+                    var surgeonCalendarDT0 = await getWorkingBlocksRequest(selectedSurgeonId);
+                    if (surgeonCalendarDT0 != null) {
+                        this.calendars[selectedSurgeonId] = surgeonCalendarDT0;
+                        calendarEvents = surgeonCalendarDT0.events;
+                    }
+                }
+                if (calendarEvents != null) {
+                    this.fullCalendar = initSurgeonCalendar(calendarEvents);
+                }
+            }
+        },
+        async addWorkingHoursClick() {
+            var selectedSurgeonId = this.selectedSurgeonId;
+            var selectedTheatreId = this.selectedTheatreId;
+            var startTime = $("#start-time").val();
+            var endTime = $("#end-time").val();
+            if (selectedSurgeonId != -1 && selectedTheatreId !=- 1 && startTime!="" && endTime != "") {
+                var workBlock = {
+                    start: startTime,
+                    end: endTime,
+                    surgeonId: selectedSurgeonId,
+                    theatreId: selectedTheatreId
+                }
+
+                var fullcalendarevent = await saveWorkingBlockRequest(workBlock);
+                if (fullcalendarevent != null) {
+                    this.calendars[selectedSurgeonId].events.push(fullcalendarevent);
+                    this.fullCalendar.addEvent(fullcalendarevent);
+                } else {
+                    alert("Time is overlapping with another block");
+                }
+
+                
+            }
+        }
     }
 
 });

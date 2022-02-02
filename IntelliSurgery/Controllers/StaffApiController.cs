@@ -5,6 +5,7 @@ using IntelliSurgery.DTOs;
 using IntelliSurgery.Models;
 using Itenso.TimePeriod;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -30,7 +31,10 @@ namespace IntelliSurgery.Controllers
         public async Task<IActionResult> SaveWorkingBlock(WorkBlockDTO workBlockDTO)
         {
             Surgeon surgeon = await surgeonRepository.GetSurgeonById(workBlockDTO.SurgeonId);
-            TimeRange timeRange = new TimeRange() { Start = workBlockDTO.Start, End = workBlockDTO.End };
+            TimeRange timeRange = new TimeRange() { 
+                Start = DateTime.Parse(workBlockDTO.Start), 
+                End = DateTime.Parse(workBlockDTO.End)
+            };
 
             //VALIDATE whether timerange overlaps with any other block
             //if overlap occurs return json success = false

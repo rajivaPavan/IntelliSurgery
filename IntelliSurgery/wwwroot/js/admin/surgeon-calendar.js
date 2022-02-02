@@ -1,6 +1,6 @@
-﻿function initCalendar(calendarEvents) {
+﻿function initSurgeonCalendar(calendarEvents) {
 
-    var calendarEl = document.getElementById('calendar');
+    var calendarEl = document.getElementById('surgeon-calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'timeGridWeek',
@@ -38,5 +38,7 @@
     });
 
     calendar.render();
+
+    return calendar;
 
 }

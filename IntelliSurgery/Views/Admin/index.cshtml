@@ -2,11 +2,15 @@
     ViewBag.Title = "Admin";
 }
 @section Styles{
-    <link href="~/css/admin.css" rel="stylesheet"/>
-    <link href="~/lib/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet"/>
+    <environment include="development">
+        <link href="~/lib/fullcalendar/main.css" rel="stylesheet" />
+        <script src="~/lib/fullcalendar/main.js"></script>
+        <link href="~/lib/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet"/>
 
+    </environment>
+    <link href="~/css/admin.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
 }   
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
 <div id="admin-main">
     <div class="row">
         <div class="col-2">
@@ -105,7 +109,7 @@
 
         <div class="col-10">
 
-            <div class="shadow p-0 mb-5 bg-transparent rounded">
+            <div class="shadow p-0 mb-5 bg-transparent rounded" hidden>
 
                 <div class="form_class border border-info">
                     <fieldset>
@@ -146,7 +150,7 @@
 
 
 
-            <div class="shadow p-0 mb-5 bg-transparent rounded">
+            <div class="shadow p-0 mb-5 bg-transparent rounded" hidden>
                 <div class="form_class border border-info">
                     <fieldset>
                         <legend><span class="number">2</span> Surgeon </legend>
@@ -208,7 +212,7 @@
 
 
 
-            <div class="shadow p-0 mb-5 bg-white rounded">
+            <div class="shadow p-0 mb-5 bg-white rounded" hidden>
                 <div class="form_class border border-info">
                     <fieldset>
                         <legend><span class="number">3</span> Surgeries </legend>
@@ -260,7 +264,7 @@
             </div>
 
 
-            <div class="shadow p-0 mb-5 bg-white rounded">
+            <div class="shadow p-0 mb-5 bg-white rounded" hidden>
                 <div class="form_class border border-info">
                     <fieldset>
                         <legend><span class="number">4</span> Operating Theater Types </legend>
@@ -310,7 +314,7 @@
 
 
 
-            <div class="shadow p-0 mb-5 bg-transparent rounded">
+            <div class="shadow p-0 mb-5 bg-transparent rounded" hidden>
                 <div class="form_class border border-info">
                     <fieldset>
                         <legend><span class="number">5</span> Operating Theaters </legend>
@@ -370,7 +374,7 @@
             </div>
 
 
-            <div class="shadow p-0 mb-5 bg-transparent rounded">
+            <div class="shadow p-0 mb-5 bg-transparent rounded" hidden>
                 <div class="form_class border border-info">
                     <fieldset>
                         <legend><span class="number">6</span> Operating Theaters for Surgeries </legend>
@@ -427,17 +431,19 @@
                             <div class="col-12 col-md-6">
                                 <div class="d-flex form-group align-content-center">
                                     <h6 class="my-auto"> Surgeon: </h6>
-                                    <select id="" name="" class="ml-2 btn btn-info dropdown-toggle w-100">
-                                <option value="-1" selected hidden>Choose...</option>
-                             </select>
+                                    <select v-on:change="renderCalendar" v-model="selectedSurgeonId" class="ml-2 btn btn-info dropdown-toggle w-100">
+                                        <option value="-1" selected hidden>Choose...</option>
+                                        <option v-for="option in getPrevSurgeons" v-bind:value="option.id">{{option.name}}</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class=" d-flex form-group">
                                     <h6 class="my-auto"> Theatre: </h6>
-                                    <select id="" name="" class="ml-2 btn btn-info dropdown-toggle w-100">
-                                <option value="-1" selected hidden>Choose...</option>
-                             </select>
+                                    <select v-model="selectedTheatreId" class="ml-2 btn btn-info dropdown-toggle w-100">
+                                        <option value="-1" selected hidden>Choose...</option>
+                                        <option v-for="option in getPrevTheatres" v-bind:value="option.id">{{option.name}}</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -445,8 +451,8 @@
                             <div class="col-12 col-md-6">
                                 <div class="d-flex form-group">
                                     <h6 class="my-auto">Start time:</h6>
-                                    <div class="ml-2 input-group date" id="start-time" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" data-target="#start-time" />
+                                    <div class="ml-2 input-group date" data-target-input="nearest">
+                                        <input v-model="startTime" id="start-time" type="text" class="form-control datetimepicker-input" data-target="#start-time" />
                                         <div class="input-group-append" data-target="#start-time" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fas fa-clock"></i></div>
                                         </div>
@@ -456,8 +462,8 @@
                             <div class="col-12 col-md-6">
                                 <div class="d-flex form-group">
                                     <h6 class="my-auto">End time:</h6>
-                                    <div class="ml-2 input-group date" id="end-time" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" data-target="#end-time" />
+                                    <div class="ml-2 input-group date" data-target-input="nearest">
+                                        <input v-model="endTime" id="end-time" type="text" class="form-control datetimepicker-input" data-target="#end-time" />
                                         <div class="input-group-append" data-target="#end-time" data-toggle="datetimepicker">
                                             <div class="input-group-text"><i class="fas fa-clock"></i></div>
                                         </div>
@@ -469,26 +475,15 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="row justify-content-end">
-                                    <div class="col-6 col-md-2">
-                                        <button v-on:click="workingHoursAddClick" type="submit" class="btn btn-primary w-100 form-control">Add</button>
-                                    </div>
-                                    <div class="col-6 col-md-2">
-                                        <p>
-                                            <a class="btn btn-primary w-100" data-toggle="collapse" href="#surgeon-list" role="button" aria-expanded="false" aria-controls="surgeonlist">List</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="collapse multi-collapse" id="surgeon-list">
-                                    <div class="card card-body mt-3" id="surgeonlist">
-                                        Anim pariatur cliche reprehenderit
+                                    <div class="col-6">
+                                        <button v-on:click="addWorkingHoursClick" type="submit" class="btn btn-primary w-100 form-control">Add</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </fieldset>
                 </div>
+                <div class="my-2" id="surgeon-calendar"></div>
             </div>
 
 
@@ -501,15 +496,29 @@
     <script src="~/lib/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
     <script src="~/lib/vue/dist/vue.global.js"></script>
     <script src="~/js/admin/admin-requests.js"></script>
+    <script src="~/js/admin/surgeon-calendar.js"></script>
     <script src="~/js/admin/admin-vue-app.js"></script>
     <script type="text/javascript">
         $(function () {
             $('#start-time').datetimepicker({
-                format: 'LT'
+                icons: {
+                    time: "fas fa-clock"
+                },
+                sideBySide:true
             });
             $('#end-time').datetimepicker({
-                format: 'LT'
+                icons: {
+                    time: "fas fa-clock"
+                },
+                useCurrent:false,
+                sideBySide:true
             });
-        });
+            $("#start-time").on("change.datetimepicker", function (e) {
+                $('#end-time').datetimepicker('minDate', e.date);
+            });
+            $("#end-time").on("change.datetimepicker", function (e) {
+                $('#start-time').datetimepicker('maxDate', e.date);
+            });
+            });
    </script>
 }

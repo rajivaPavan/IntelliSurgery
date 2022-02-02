@@ -1,0 +1,26 @@
+﻿@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+
+body,
+button {
+    font-family: "Inter", sans-serif;
+}
+
+:root {
+    /*--offcanvas-width: 270px;*/
+}
+
+.sidebar-nav {
+    /*width: var(--offcanvas-width);
+    height: 500px;*/
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+}
+
+    .sidebar-link .right-icon {
+        display: inline-flex;
+    }
+
+    

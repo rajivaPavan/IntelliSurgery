@@ -1,4 +1,5 @@
-﻿*,
+﻿@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+*,
 *:before,
 *:after {
     -moz-box-sizing: border-box;
@@ -10,7 +11,9 @@ body {
     font-family: 'Nunito', sans-serif;
     color: #384047;
     background-color: #F1F1F1;
-   padding: 20px 20px;
+  
+    background-image: url(../assets/images/IntelliSurgeryAdmin.png);
+    
 }
 
 h1 {
@@ -62,6 +65,14 @@ label {
     display: block;
     margin-bottom: 8px;
 }
+.sidebar-link {
+    display: flex;
+    align-items: center;
+}
+
+    .sidebar-link .right-icon {
+        display: inline-flex;
+    }
 
 
 @media screen and (min-width: 480px) {

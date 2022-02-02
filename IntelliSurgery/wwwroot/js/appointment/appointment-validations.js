@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    $("#idCheck").hide();
+    $("#idCheck").hide();                           //first all the h6 tags are hidden
     $("#patientNameCheck").hide();   //<span class="error_name" id="patientNameCheck"></span>
     $("#weightCheck").hide();
     $("#heightCheck").hide();
@@ -11,8 +11,9 @@
     $('#genderCheck').hide();
     $('#importanceCheck').hide();
     $('#anastheasistCheck').hide();
+    $("#asaCheck").hide();
 
-    var idError = false;
+    var idError = false;                                    //first all errors are set to false
     var patientNameError = false;
     var weightError = false;
     var heightError = false;
@@ -24,6 +25,7 @@
     var genderError = true;
     var importanceError = true;
     var anastheasistError = true;
+    var asaError = false;
 
     $('#patient_id').keyup(function () {
         validateId();
@@ -67,11 +69,11 @@
             $("#idCheck").show();
             patientNameError = true;
         }
-        else if (idInput.match(/^[0-9]+$/)) {
+        else if (idInput.match(/^[0-9]+$/)) {                      //only digits(0-9) will be allowed as the id input
             $("#idCheck").hide();
         }
         else {
-            $("#idCheck").html("**Should contain only numeric characters");
+            $("#idCheck").html("**ID should contain only digits");
             $("#idCheck").show();
             idError = true;
         }
@@ -228,6 +230,17 @@
         }
         else {
             $('#anastheasistCheck').hide();
+        }
+    }
+    function validateAsaStatus() {                                     //check weather ASA status radio button is selected or not
+        var statusSelected = $('input[name=asa]:checked').val()
+        if ((!($('#status1').prop('checked'))) && (!($('#status2').prop('checked'))) && (!($('#status3').prop('checked')))) {
+            $('#AsaCheck').show();
+            asaError = true;
+            return false;
+        }
+        else {
+            $('#AsaCheck').hide();
         }
     }
 })

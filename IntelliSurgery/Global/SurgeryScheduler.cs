@@ -37,7 +37,7 @@ namespace IntelliSurgery.Global
             appointments = appointments.Where(a => a.Status != Status.Completed).ToList();
 
             //prioritize appointments for the following week
-            appointments = await PrioritizeAppointments(appointments);
+            //appointments = await PrioritizeAppointments(appointments);
 
             //create time blocks
             List<WorkingBlock> workingBlocks = CreateWorkingBlocks(surgeon);
@@ -66,21 +66,21 @@ namespace IntelliSurgery.Global
 
         public async Task<List<Appointment>> PrioritizeAppointments(List<Appointment> appointments)
         {
-            foreach (int level in Enum.GetValues(typeof(PriorityLevel)))
-            {
-                appointments = await appointmentRepository.GetAppointments(
-                    AppointmentQueryLogic.ByPriorityLevel((PriorityLevel)level));
+            //foreach (int level in Enum.GetValues(typeof(PriorityLevel)))
+            //{
+            //    appointments = await appointments.GetAppointments(
+            //        AppointmentQueryLogic.ByPriorityLevel((PriorityLevel)level));
 
-                List<TimeSpan> timeSpans = appointments.Select(a => a.SystemPredictedDuration).ToList();
-                float avgTime = CalculateAverage(timeSpans);
+            //    List<TimeSpan> timeSpans = appointments.Select(a => a.SystemPredictedDuration).ToList();
+            //    float avgTime = CalculateAverage(timeSpans);
 
-                foreach(Appointment appointment in appointments)
-                {
-                    appointment.Priority = (float)appointment.PriorityLevel + appointment.SystemPredictedDuration.Ticks/avgTime;
-                }
+            //    foreach(Appointment appointment in appointments)
+            //    {
+            //        appointment.Priority = (float)appointment.PriorityLevel + appointment.SystemPredictedDuration.Ticks/avgTime;
+            //    }
 
-                appointments = await appointmentRepository.UpdateAppointments(appointments);
-            }
+            //    appointments = await appointmentRepository.UpdateAppointments(appointments);
+            //}
 
             return appointments;
         }

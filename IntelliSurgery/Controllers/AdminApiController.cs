@@ -78,9 +78,9 @@ namespace IntelliSurgery.Controllers
 
             hospitalData = new HospitalDataDTO()
             {
-                Specialities = await specialityRepository.GetAllSpecialities(),
-                SurgeryTypes = await surgeryTypeRepository.GetAllSurgeryTypes(),
-                TheatreTypes = await theatreRepository.GetAllTheatreTypes(),
+                Specialities = specialities,
+                SurgeryTypes = surgeryTypes,
+                TheatreTypes = theatreTypes,
                 Theatres = theatreDTOs,
                 Surgeons = surgeonDTOs
             };

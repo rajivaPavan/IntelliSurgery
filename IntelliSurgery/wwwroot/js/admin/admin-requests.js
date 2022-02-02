@@ -56,7 +56,8 @@ async function saveHospitalDataRequest(hospitalData) {
 
     //sending the data to the backend
     var res = axios.post("/api/AdminApi/SaveHospitalData", hospitalData);
-
-    //nothing meaningful to do with variable res here so just end the function
-    return;
+    if (res.data.success == true) {
+        return res.data.data;
+    }
+    return null;
 }

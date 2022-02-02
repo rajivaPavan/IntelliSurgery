@@ -1,6 +1,7 @@
 ﻿using IntelliSurgery.DTOs;
 using IntelliSurgery.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,29 +13,33 @@ namespace IntelliSurgery.DbOperations.Theatres
     public class TheatreRepository : ITheatreRepository
     {
         private readonly AppDbContext context;
+        private IIncludableQueryable<TheatreType, List<SurgeryType>> readTheatreTypes;
+        private IIncludableQueryable<Theatre, TheatreType> readTheatres;
 
         public TheatreRepository(AppDbContext context)
         {
             this.context = context;
+            this.readTheatreTypes = context.TheatreTypes.Include(t => t.SurgeryTypesConducted);
+            this.readTheatres = context.Theatres.Include(t => t.TheatreType);
         }
         public async Task<TheatreType> GetTheatreType(Expression<Func<TheatreType,bool>> expression)
         {
-            return await context.TheatreTypes.FirstOrDefaultAsync(expression);
+            return await readTheatreTypes.FirstOrDefaultAsync(expression);
         }
 
         public async Task<List<Theatre>> GetTheatres(Expression<Func<Theatre, bool>> expression)
         {
-            return await context.Theatres.Where(expression).ToListAsync();
+            return await readTheatres.Where(expression).ToListAsync();
         }
 
         public async Task<Theatre> GetTheatre(Expression<Func<Theatre, bool>> expression)
         {
-            return await context.Theatres.FirstOrDefaultAsync(expression);
+            return await readTheatres.FirstOrDefaultAsync(expression);
         }
 
         public async Task<List<TheatreType>> GetAllTheatreTypes()
         {
-            return await context.TheatreTypes.ToListAsync();
+            return await readTheatreTypes.ToListAsync();
         }
 
         public async Task<List<Theatre>> AddTheatres(List<Theatre> theatres)
@@ -53,7 +58,7 @@ namespace IntelliSurgery.DbOperations.Theatres
 
         public async Task<List<Theatre>> GetAllTheatres()
         {
-            return await context.Theatres.ToListAsync();
+            return await readTheatres.ToListAsync();
         }
 
     }

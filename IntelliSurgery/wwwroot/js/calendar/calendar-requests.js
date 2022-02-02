@@ -22,3 +22,23 @@ async function getFilterValuesRequest() {
     }
     return filterVals;
 }
+
+async function getSurgeonAppointments(surgeonId) {
+    var res = await axios.get("/api/SurgeriesApi/GetTableData?surgeonId=" + surgeonId);
+    
+    var appointments = [];
+    if (res.data.success == true) {
+        appointments = res.data.data;
+    }
+    return appointments;
+}
+
+
+async function CreateScheduleRequest(surgeonId) {
+    var res = await axios.post("/api/CalendarApi/CreateSchedule?surgeonId=" + surgeonId);
+    var IsCompleted = false;
+    if (res.data.success == true) {
+        IsCompleted = true;
+    }
+    return IsCompleted;
+}

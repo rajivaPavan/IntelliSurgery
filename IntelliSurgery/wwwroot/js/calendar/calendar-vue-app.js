@@ -8,7 +8,8 @@
             selectedFilterValue: -1,
             selectedEvent: null,
             selectedSurgeonId: -1,
-            surgeons:[]
+            surgeons: [],
+            tableData:[]
         };
     },
     computed: {
@@ -38,6 +39,9 @@
         },
         getSurgeons() {
             return this.surgeons;
+        },
+        getTableData() {
+            return this.tableData;
         }
 
     },
@@ -62,7 +66,16 @@
         async renderAppoinmentsTable() {
             var selectedSurgeonId = this.selectedSurgeonId;
             if (selectedSurgeonId != -1) {
-
+                var appointments = await getSurgeonAppointments(selectedSurgeonId);
+                this.tableData = appointments;
+                $("#calendar").hide();
+                $("#appointments-table").show();
+            }
+        },
+        async createSchedule() {
+            var selectedSurgeonId = this.selectedSurgeonId;
+            if (selectedSurgeonId != -1) {
+                await CreateScheduleRequest(selectedSurgeonId);
             }
         }
     }

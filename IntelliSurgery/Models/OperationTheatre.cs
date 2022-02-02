@@ -1,4 +1,6 @@
-﻿using Itenso.TimePeriod;
+﻿using IntelliSurgery.DTOs;
+using Itenso.TimePeriod;
+using System;
 using System.Collections.Generic;
 
 namespace IntelliSurgery.Models
@@ -10,6 +12,16 @@ namespace IntelliSurgery.Models
         public string Name { get; set; }
         //public List<TheaterAvailablePeriod> TheaterAvailablePeriods { get; set; }
         public List<Appointment> ScheduledAppointments { get; set; }
+
+        public TheatreDTO getDTO()
+        {
+            return new TheatreDTO()
+            {
+                Id = this.Id,
+                Name = this.Name,
+                TheatreTypeId = this.TheatreType.Id
+            };
+        }
     }
 
     public class TheatreType

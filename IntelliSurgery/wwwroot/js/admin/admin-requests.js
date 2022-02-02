@@ -35,6 +35,14 @@ async function initDropDownLists() {
 
 }
 
+async function getHospitalDataRequest() {
+    var res = await axios.get("/api/AdminApi/GetHospitalData");
+    if (res.data.success == true) {
+        return res.data.data;
+    }
+    return null;
+}
+
 async function saveHospitalDataRequest(hospitalData) {
     // hospitalData parameter show look like the follow object
     // {

@@ -11,8 +11,9 @@ var emptyHospitalData = {
 calendarApp = Vue.createApp({
     data() {
         return {
-            prevHospitalData: emptyHospitalData,
-            hospitalData: emptyHospitalData
+            prevData: emptyHospitalData,
+            hospitalData: emptyHospitalData,
+            deleteHospitalData: {}
         };
     },
     computed: {
@@ -45,6 +46,9 @@ calendarApp = Vue.createApp({
                 this.hospitalData.specialities.push(speciality);
                 clearNewSpecialityField();
             }
+        },
+        specialityRemoveClick(s) {
+            
         },
         surgeonAddClick() {
             var newSurgeon = $('#surgeon').val();
@@ -119,3 +123,12 @@ function clearNewSurgeryField() {
 function clearNewSpecialityField() {
     $('#speciality').val("");
 }
+
+$(document).ready(async () => {
+
+    var prevData = await getHospitalDataRequest();
+    if (prevData != null) {
+        calendarVueApp.prevData = prevData;
+    }
+
+});

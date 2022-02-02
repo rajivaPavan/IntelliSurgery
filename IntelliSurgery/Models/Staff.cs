@@ -1,4 +1,6 @@
-﻿using Itenso.TimePeriod;
+﻿using IntelliSurgery.DTOs;
+using Itenso.TimePeriod;
+using System;
 using System.Collections.Generic;
 
 namespace IntelliSurgery.Models
@@ -16,7 +18,15 @@ namespace IntelliSurgery.Models
     public class Surgeon : SurgeryStaff
     {
         public Speciality Speciality { get; set; }
-        
+
+        public SurgeonDTO getDTO()
+        {
+            return new SurgeonDTO()
+            {
+                Id = this.Id,
+                Name = this.Name
+            };
+        }
     }
 
     public class Nurse : SurgeryStaff

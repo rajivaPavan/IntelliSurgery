@@ -34,22 +34,14 @@ namespace IntelliSurgery.Controllers
             List<Theatre> theatres = await theatreRepository.GetAllTheatres();
             foreach (var theatre in theatres)
             {
-                theatreDTOs.Add(new TheatreDTO() { 
-                    Id = theatre.Id,
-                    Name = theatre.Name,
-                    TheatreTypeId = theatre.TheatreType.Id
-                });
+                theatreDTOs.Add(theatre.getDTO());
             }
 
             List<SurgeonDTO> surgeonDTOs = new List<SurgeonDTO>();
             List<Surgeon>  surgeons = await surgeonRepository.GetAllSurgeons();
             foreach (var surgeon in surgeons)
             {
-                surgeonDTOs.Add(new SurgeonDTO()
-                {
-                    Id = surgeon.Id,
-                    Name = surgeon.Name
-                });
+                surgeonDTOs.Add(surgeon.getDTO());
             }
 
             HospitalDataDTO hospitalData = new HospitalDataDTO()
@@ -66,19 +58,39 @@ namespace IntelliSurgery.Controllers
         [HttpPost]
         public async Task<IActionResult> SaveHospitalDate(HospitalDataDTO hospitalData)
         {
-            await AddSpecialities(hospitalData.Specialities);
-            await AddSurgeons(hospitalData.Surgeons);
-            await AddSurgeryTypes(hospitalData.SurgeryTypes);
-            await AddTheatreTypes(hospitalData.TheatreTypes);
-            await AddTheatres(hospitalData.Theatres);
-            await AddSurgeryTypeTheatres(hospitalData.SurgeryTypeTheatres);
+            List<Speciality> specialities = await AddSpecialities(hospitalData.Specialities);
+            List<Surgeon> surgeons = await AddSurgeons(hospitalData.Surgeons);
+            List<SurgeryType> surgeryTypes = await AddSurgeryTypes(hospitalData.SurgeryTypes);
+            List<TheatreType> theatreTypes = await AddTheatreTypes(hospitalData.TheatreTypes);
+            List<Theatre> theatres = await AddTheatres(hospitalData.Theatres);
 
-            return Json(new { success = true });
+            List<TheatreDTO> theatreDTOs = new List<TheatreDTO>();
+            foreach (var theatre in theatres)
+            {
+                theatreDTOs.Add(theatre.getDTO());
+            }
+
+            List<SurgeonDTO> surgeonDTOs = new List<SurgeonDTO>();
+            foreach (var surgeon in surgeons)
+            {
+                surgeonDTOs.Add(surgeon.getDTO());
+            }
+
+            hospitalData = new HospitalDataDTO()
+            {
+                Specialities = await specialityRepository.GetAllSpecialities(),
+                SurgeryTypes = await surgeryTypeRepository.GetAllSurgeryTypes(),
+                TheatreTypes = await theatreRepository.GetAllTheatreTypes(),
+                Theatres = theatreDTOs,
+                Surgeons = surgeonDTOs
+            };
+
+            return Json(new { success = true, data= hospitalData });
         }
 
 
         [NonAction]
-        private async Task AddSurgeryTypeTheatres(List<SurgeryTypeTheatresDTO> surgeryTypeTheatres)
+        private async Task<List<SurgeryType>> AddSurgeryTypeTheatres(List<SurgeryTypeTheatresDTO> surgeryTypeTheatres)
         {
             List<SurgeryType> surgeryTypes = new List<SurgeryType>();
             foreach (var s in surgeryTypeTheatres)
@@ -94,6 +106,7 @@ namespace IntelliSurgery.Controllers
             }
 
             surgeryTypes = await surgeryTypeRepository.UpdateSurgeryTypes(surgeryTypes);
+            return surgeryTypes;
         }
 
         [NonAction]

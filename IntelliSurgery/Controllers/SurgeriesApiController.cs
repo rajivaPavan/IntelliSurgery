@@ -12,18 +12,16 @@ namespace IntelliSurgery.Controllers
     [Route("api/[controller]/[action]")]
     public class SurgeriesApiController : Controller
     {
-        private readonly ISurgeryRepository surgeryRepository;
         private readonly IAppointmentRepository appointmentRepository;
         private readonly ISurgeryScheduler surgeryScheduler;
-        private ITheatreRepository theatreRepository;
+        private readonly ISurgeonRepository surgeonRepository;
 
-        public SurgeriesApiController(ISurgeryRepository surgeryRepository, IAppointmentRepository appointmentRepository,
-            ISurgeryScheduler surgeryScheduler, ITheatreRepository theatreRepository)
+        public SurgeriesApiController(IAppointmentRepository appointmentRepository,
+            ISurgeryScheduler surgeryScheduler, ISurgeonRepository surgeonRepository)
         {
-            this.surgeryRepository = surgeryRepository;
             this.appointmentRepository = appointmentRepository;
             this.surgeryScheduler = surgeryScheduler;
-            this.theatreRepository = theatreRepository;
+            this.surgeonRepository = surgeonRepository;
         }
 
         [HttpGet]
@@ -34,10 +32,10 @@ namespace IntelliSurgery.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateSchedule(int typeId)
+        public async Task<IActionResult> CreateSchedule(int surgeonId)
         {
-            TheatreType theatreType = await theatreRepository.GetTheatreType(TheatreTypeQueryLogic.ById(typeId));
-            //await surgeryScheduler.CreateSchedule(theatreType);
+            Surgeon surgeon = await surgeonRepository.GetSurgeonById(surgeonId);
+            await surgeryScheduler.CreateSchedule(surgeon);
             return Json(new { success = true });
         }
 

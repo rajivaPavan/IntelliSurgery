@@ -63,10 +63,8 @@
                      <div class="col-6 col-md-5">
                         <label for="surgeon_speciality" class="sr-only">Speciality :</label>
                         <select id="surgeon_speciality" name="user_surgeon" class="btn btn-info dropdown-toggle">
-                           <option selected>Choose...</option>
-                           <option value="Spec_1"> Orthopedic Surgeon </option>
-                           <option value="Spec_2"> Cardiovascular Surgeon </option>
-                           <option value="Spec_3"> Gynaecologist </option>
+                           <option value="-1" selected hidden>Choose...</option>
+                           <option v-for="opt in prevData.specialities" value="opt.id"> {{opt.name}} </option>
                         </select>
                      </div>
                      <div class="col-6 col-md-3">
@@ -85,16 +83,25 @@
                         <div class="collapse multi-collapse" id="surgeon-list">
                            <div class="card card-body mt-3" id="surgeonlist" >
                               <div class="row">
-                               <div v-for="s in getNewSurgeons"
-                                    class="col">
-                                    <div class="px-2 bg-primary rounded-pill mb-1">
-                                        <div class="d-flex justify-content-around">
-                                            <span class="text-center text-white">{{s.name}}</span>
-                                            <span class="text-white text-end ml-auto"><i class="fas fa-times"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                 <div v-for="s in prevData.surgeons"
+                                      class="col">
+                                      <div class="px-2 bg-primary rounded-pill mb-1">
+                                          <div class="d-flex justify-content-around">
+                                              <span class="text-center text-white">{{s.name}}</span>
+                                              <span class="text-white text-end ml-auto"><i class="fas fa-times"></i></span>
+                                          </div>
+                                      </div>
+                                 </div>
+                                 <div v-for="s in getNewSurgeons"
+                                      class="col">
+                                      <div class="px-2 bg-primary rounded-pill mb-1">
+                                          <div class="d-flex justify-content-around">
+                                              <span class="text-center text-white">{{s.name}}</span>
+                                              <span class="text-white text-end ml-auto"><i class="fas fa-times"></i></span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
                            </div>
                         </div>
                      </div>
@@ -128,7 +135,26 @@
                   <div class="col-12">
                      <div class="collapse multi-collapse" id="surgery-list">
                         <div class="card card-body mt-3" id="surgerylist" >
-                           @*Anim pariatur cliche reprehenderit,*@
+                           <div class="row">
+                                 <div v-for="s in prevData.surgeryTypes"
+                                      class="col">
+                                      <div class="px-2 bg-primary rounded-pill mb-1">
+                                          <div class="d-flex justify-content-around">
+                                              <span class="text-center text-white">{{s.name}}</span>
+                                              <span class="text-white text-end ml-auto"><i class="fas fa-times"></i></span>
+                                          </div>
+                                      </div>
+                                 </div>
+                                 <div v-for="s in getNewSurgeryTypes"
+                                      class="col">
+                                      <div class="px-2 bg-primary rounded-pill mb-1">
+                                          <div class="d-flex justify-content-around">
+                                              <span class="text-center text-white">{{s.name}}</span>
+                                              <span class="text-white text-end ml-auto"><i class="fas fa-times"></i></span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
                         </div>
                      </div>
                   </div>
@@ -158,7 +184,26 @@
                      <div class="col-12">
                         <div class="collapse multi-collapse" id="theatretype-list">
                            <div class="card card-body mt-3" id="theatertypelist">
-                              @*Anim pariatur cliche reprehenderit,*@
+                              <div class="row">
+                                 <div v-for="s in prevData.surgeryTypes"
+                                      class="col">
+                                      <div class="px-2 bg-primary rounded-pill mb-1">
+                                          <div class="d-flex justify-content-around">
+                                              <span class="text-center text-white">{{s.name}}</span>
+                                              <span class="text-white text-end ml-auto"><i class="fas fa-times"></i></span>
+                                          </div>
+                                      </div>
+                                 </div>
+                                 <div v-for="s in getNewSurgeryTypes"
+                                      class="col">
+                                      <div class="px-2 bg-primary rounded-pill mb-1">
+                                          <div class="d-flex justify-content-around">
+                                              <span class="text-center text-white">{{s.name}}</span>
+                                              <span class="text-white text-end ml-auto"><i class="fas fa-times"></i></span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
                            </div>
                         </div>
                      </div>
@@ -179,12 +224,8 @@
                      <div class="col-6 col-md-3">
                         <label for="theatre_type_data" class="sr-only">Theatre Type :</label>
                         <select id="theatre_type_data" name="user_surgeon" class="btn btn-info dropdown-toggle">
-                           <option selected>Choose...</option>
-                           @*
-                           <option value="Spec_1"> OR Type 1 </option>
-                           <option value="Spec_2"> OR Type 2 </option>
-                           <option value="Spec_3"> OR Type 3 </option>
-                           *@
+                           <option value="-1" selected hidden>Choose...</option>
+                           <option v-for="t in prevData.theatreTypes" value="t.id"> {{t.name}} </option>
                         </select>
                      </div>
                      <div class="col-6 col-md-5">
@@ -202,7 +243,26 @@
                      <div class="col-12">
                         <div class="collapse multi-collapse" id="theatre-list">
                            <div class="card card-body" id="theatrelist">
-                              Anim pariatur cliche reprehenderit
+                              <div class="row">
+                                 <div v-for="s in prevData.theatres"
+                                      class="col">
+                                      <div class="px-2 bg-primary rounded-pill mb-1">
+                                          <div class="d-flex justify-content-around">
+                                              <span class="text-center text-white">{{s.name}}</span>
+                                              <span class="text-white text-end ml-auto"><i class="fas fa-times"></i></span>
+                                          </div>
+                                      </div>
+                                 </div>
+                                 <div v-for="s in getNewTheatres"
+                                      class="col">
+                                      <div class="px-2 bg-primary rounded-pill mb-1">
+                                          <div class="d-flex justify-content-around">
+                                              <span class="text-center text-white">{{s.name}}</span>
+                                              <span class="text-white text-end ml-auto"><i class="fas fa-times"></i></span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
                            </div>
                         </div>
                      </div>
@@ -220,30 +280,16 @@
                   <div class="form-row">
                      <div class="col-6 col-md-5">
                         <label for="surgery-type-data" class="sr-only">Surgery:</label>
-                        <select id="surgery-type-data" name="user_surgeon" class="btn btn-info dropdown-toggle">
-                           <option selected>Choose...</option>
-                           <option value="Surgery_1"> Cardiovascular Surgery </option>
-                           <option value="Surgery_2"> Orthopedic surgery </option>
-                           <option value="Surgery_3">Neurosurgery </option>
+                        <select id="surgery-type-data" class="btn btn-info dropdown-toggle">
+                           <option value="-1" selected hidden>Choose...</option>
+                           <option v-for="t in prevData.surgeryType" value="t.id"> {{t.name}} </option>
                         </select>
                      </div>
                      <div class="col-6 col-md-3">
-                        <div class="form-check">
-                           <input class="form-check-input" type="checkbox" value="" id="ORtype_1">
+                        <div v-for="t in prevData.theatreTypes" class="form-check">
+                           <input class="form-check-input" type="checkbox" value="t.id">
                            <label class="form-check-label" for="ORtype_1">
-                           OR Type 1
-                           </label>
-                        </div>
-                        <div class="form-check">
-                           <input class="form-check-input" type="checkbox" value="" id="ORtype_2">
-                           <label class="form-check-label" for="ORtype_2">
-                           OR Type 2
-                           </label>
-                        </div>
-                        <div class="form-check">
-                           <input class="form-check-input" type="checkbox" value="" id="ORtype_3">
-                           <label class="form-check-label" for="ORtype_3">
-                           OR Type 3
+                            {{t.name}}
                            </label>
                         </div>
                      </div>
@@ -258,7 +304,7 @@
                      <div class="col-12">
                         <div class="collapse multi-collapse" id="ORforSurgeries-list">
                            <div class="card card-body mt-3" id="ORforSurgerieslist">
-                              Anim pariatur cliche reprehenderit
+                              wasd
                            </div>
                         </div>
                      </div>
@@ -278,16 +324,16 @@
                      <div class="col-12 col-md-6">
                         <div class="d-flex form-group align-content-center">
                             <h6 class="my-auto"> Surgeon: </h6>
-                            <select id="surgeon" name="user_surgeon" class="ml-2 btn btn-info dropdown-toggle w-100">
-                               <option selected hidden>Choose...</option>
+                            <select id="" name="" class="ml-2 btn btn-info dropdown-toggle w-100">
+                               <option value="-1" selected hidden>Choose...</option>
                             </select>
                         </div>
                      </div>
                      <div class="col-12 col-md-6">
                         <div class=" d-flex form-group">
                             <h6 class="my-auto"> Theatre: </h6>
-                            <select id="theatre" name="theatre" class="ml-2 btn btn-info dropdown-toggle w-100">
-                               <option selected hidden>Choose...</option>
+                            <select id="" name="" class="ml-2 btn btn-info dropdown-toggle w-100">
+                               <option value="-1" selected hidden>Choose...</option>
                             </select>
                         </div>
                      </div>
@@ -351,8 +397,8 @@
     <script src="~/lib/moment.js/moment.min.js"></script>
     <script src="~/lib/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
     <script src="~/lib/vue/dist/vue.global.js"></script>
-@*    <script src="~/js/admin/requests.js"></script>
-    <script src="~/js/admin/speciality.js"></script>
+    <script src="~/js/admin/admin-requests.js"></script>
+    @*<script src="~/js/admin/speciality.js"></script>
     <script src="~/js/admin/surgeries.js"></script>*@
 
     <script src="~/js/admin/admin-vue-app.js"></script>

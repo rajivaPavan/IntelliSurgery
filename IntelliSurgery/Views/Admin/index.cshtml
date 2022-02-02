@@ -11,15 +11,17 @@
    <div class="row justify-content-center">
       <img src="~/assets/images/IntelliSurgeryAdmin.png" class="col-sm-3 h-25 img-responsive" />
    </div>
-   <div class="row">
+   
+   <div class="row ">
       <div class="col-md-6">
-         <div class="shadow p-0 mb-2 bg-transparent rounded">
-            <div class="form_class">
+         <div class="shadow p-0 mb-5 bg-transparent rounded">
+             
+            <div class="form_class border border-info">
                <fieldset>
                   <legend><span class="number">1</span> Speciality </legend>
-                  <h6>Enter the Speciality:</h6>
+                  <h6 class="mb-4 mt-2">Enter the Speciality:</h6>
                   <div class="form-row">
-                     <div class="col-12 col-md-8">
+                     <div class="col-12 col-md-8 mb-2">
                         <label for="speciality" class="sr-only">Name</label>
                         <input type="text" class="form-control" id="speciality">
                      </div>
@@ -50,24 +52,31 @@
                      </div>
                   </div>
                </fieldset>
-            </div>
+             </div>
+           
          </div>
       </div>
+      
       <div class="col-md-6">
-         <div class="shadow p-0 mb-2 bg-transparent rounded">
-            <div class="form_class">
+         <div class="shadow p-0 mb-5 bg-transparent rounded">
+            <div class="form_class border border-info">
                <fieldset>
                   <legend><span class="number">2</span> Surgeon </legend>
-                  <h6> Speciality: </h6>
-                  <div class="form-row">
-                     <div class="col-6 col-md-5">
-                        <label for="surgeon_speciality" class="sr-only">Speciality :</label>
-                        <select id="surgeon_speciality" name="user_surgeon" class="btn btn-info dropdown-toggle">
+                  <div class="row">
+                      <div class="col-12 col-md-6">
+                <div class="d-flex form-group align-content-center">
+                            <h6 class="my-auto"> Speciality: </h6>
+                            <label for="surgeon_speciality" class="sr-only">Speciality :</label>
+                        <select id="surgeon_speciality" name="user_surgeon" class="ml-2 btn btn-info dropdown-toggle w-100">
                            <option value="-1" selected hidden>Choose...</option>
                            <option v-for="opt in prevData.specialities" value="opt.id"> {{opt.name}} </option>
                         </select>
-                     </div>
-                     <div class="col-6 col-md-3">
+                        </div>
+                        </div>
+                        </div>
+                  <div class="form-row">
+                     
+                     <div class="col-12 col-md-8 mb-2">
                         <label for="inlineFormInputName2" class="sr-only">Name</label>
                         <input type="text" class="form-control" id="inlineFormInputName2">
                      </div>
@@ -113,13 +122,17 @@
    </div>
    <div class="row">
       <div class="col-md-6">
-         <div class="shadow p-0 mb-2 bg-white rounded">
-            <div class="form_class">
+         <div class="shadow p-0 mb-5 bg-white rounded">
+            <div class="form_class border border-info" >
                <fieldset>
                   <legend><span class="number">3</span> Surgeries </legend>
+                  <div class="row">
+                      <div class="col-12 col-md-6">
                   <h6>Enter the Surgery :</h6>
+                  </div>
+                  </div>
                   <div class="form-row">
-                     <div class="col- 12 col-md-8">
+                     <div class="col- 12 col-md-8 mb-2">
                         <label for="surgery" class="sr-only">Name</label>
                         <input type="text" class="form-control" id="surgery">
                      </div>
@@ -163,13 +176,13 @@
          </div>
       </div>
       <div class="col-md-6">
-         <div class="shadow p-0 mb-2 bg-white rounded">
-            <div class="form_class">
+         <div class="shadow p-0 mb-5 bg-white rounded">
+            <div class="form_class border border-info" >
                <fieldset>
                   <legend><span class="number">4</span> Operating Theater Types </legend>
                   <h6>Enter the Operating Theater type :</h6>
                   <div class="form-row">
-                     <div class="col-12 col-md-8">
+                     <div class="col-12 col-md-8 mb-2">
                         <label for="inlineFormInputName2" class="sr-only">Name</label>
                         <input type="text" class="form-control" id="inlineFormInputName2">
                      </div>
@@ -215,20 +228,25 @@
    </div>
    <div class="row">
       <div class="col-md-6">
-         <div class="shadow p-0 mb-2 bg-transparent rounded">
-            <div class="form_class">
+         <div class="shadow p-0 mb-5 bg-transparent rounded">
+            <div class="form_class border border-info" >
                <fieldset>
                   <legend><span class="number">5</span> Operating Theaters </legend>
-                  <h6> Theater Type: </h6>
-                  <div class="form-row">
-                     <div class="col-6 col-md-3">
-                        <label for="theatre_type_data" class="sr-only">Theatre Type :</label>
-                        <select id="theatre_type_data" name="user_surgeon" class="btn btn-info dropdown-toggle">
+                  <div class="row">
+                      <div class="col-12 col-md-6">
+                  <div class="d-flex form-group align-content-center">
+                            <h6 class="my-auto"> Theater Type: </h6>
+                            <label for="theatre_type_data" class="sr-only">Theatre Type :</label>
+                        <select id="theatre_type_data" name="user_surgeon" class="ml-2 btn btn-info dropdown-toggle w-100">
                            <option value="-1" selected hidden>Choose...</option>
                            <option v-for="t in prevData.theatreTypes" value="t.id"> {{t.name}} </option>
                         </select>
-                     </div>
-                     <div class="col-6 col-md-5">
+                            </div>
+                            </div>
+                            </div>
+                  <div class="form-row">
+                  
+                     <div class="col-12 col-md-8 mb-2">
                         <label for="inlineFormInputName2" class="sr-only">Name</label>
                         <input type="text" class="form-control" id="inlineFormInputName2">
                      </div>
@@ -242,7 +260,7 @@
                      </div>
                      <div class="col-12">
                         <div class="collapse multi-collapse" id="theatre-list">
-                           <div class="card card-body" id="theatrelist">
+                           <div class="card card-body" id="theatrelist" style="height:100px;">
                               <div class="row">
                                  <div v-for="s in prevData.theatres"
                                       class="col">
@@ -272,20 +290,25 @@
          </div>
       </div>
       <div class="col-md-6">
-         <div class="shadow p-0 mb-2 bg-transparent rounded">
-            <div class="form_class">
+         <div class="shadow p-0 mb-5 bg-transparent rounded">
+            <div class="form_class border border-info">
                <fieldset>
                   <legend><span class="number">6</span> Operating Theaters for Surgeries </legend>
-                  <h6> Surgery: </h6>
-                  <div class="form-row">
-                     <div class="col-6 col-md-5">
-                        <label for="surgery-type-data" class="sr-only">Surgery:</label>
-                        <select id="surgery-type-data" class="btn btn-info dropdown-toggle">
+                  <div class="row">
+                      <div class="col-12 col-md-6">
+                  <div class="d-flex form-group align-content-center">
+                            <h6 class="my-auto"> Surgery: </h6>
+                            <label for="surgery-type-data" class="sr-only">Surgery:</label>
+                        <select id="surgery-type-data" class="ml-2 btn btn-info dropdown-toggle w-100">
                            <option value="-1" selected hidden>Choose...</option>
                            <option v-for="t in prevData.surgeryType" value="t.id"> {{t.name}} </option>
                         </select>
-                     </div>
-                     <div class="col-6 col-md-3">
+                        </div>
+                        </div>
+                        </div>
+                  <div class="form-row">
+                     
+                     <div class="col-12 col-md-8">
                         <div v-for="t in prevData.theatreTypes" class="form-check">
                            <input class="form-check-input" type="checkbox" value="t.id">
                            <label class="form-check-label" for="ORtype_1">
@@ -301,7 +324,7 @@
                            <a class="btn btn-primary w-100" data-toggle="collapse" href="#ORforSurgeries-list" role="button" aria-expanded="false" aria-controls="ORforSurgerieslist">List</a>
                         </p>
                      </div>
-                     <div class="col-12">
+                     <div class="col-12" style="height:100px;">
                         <div class="collapse multi-collapse" id="ORforSurgeries-list">
                            <div class="card card-body mt-3" id="ORforSurgerieslist">
                               wasd
@@ -314,10 +337,10 @@
          </div>
       </div>
    </div>
-   <div class="row">
+   <div class="row h-100">
       <div class="col-md-6">
-         <div class="shadow p-0 mb-2 bg-transparent rounded">
-            <div class="form_class">
+         <div class="shadow p-0 mb-5 bg-transparent rounded">
+            <div class="form_class border border-info">
                <fieldset>
                   <legend><span class="number">7</span> Working Hours </legend>
                   <div class="row">

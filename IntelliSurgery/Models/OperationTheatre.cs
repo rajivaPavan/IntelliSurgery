@@ -10,8 +10,6 @@ namespace IntelliSurgery.Models
         public int Id { get; set; } 
         public TheatreType TheatreType { get; set; }
         public string Name { get; set; }
-        //public List<TheaterAvailablePeriod> TheaterAvailablePeriods { get; set; }
-        public List<Appointment> ScheduledAppointments { get; set; }
 
         public TheatreDTO getDTO()
         {
@@ -19,7 +17,7 @@ namespace IntelliSurgery.Models
             {
                 Id = this.Id,
                 Name = this.Name,
-                TheatreTypeId = this.TheatreType.Id
+                TheatreType = this.TheatreType
             };
         }
     }

@@ -9,6 +9,7 @@ namespace IntelliSurgery.DbOperations.WorkingBlocks
     {
         Task<WorkingBlock> AddWorkingBlock(WorkingBlock workingBlock);
         Task<List<WorkingBlock>> AddBlocks(List<WorkingBlock> blocks);
-        Task<List<WorkingBlock>> GetWorkBlocks();
+        Task<List<WorkingBlock>> GetAllWorkBlocks();
+        Task<List<WorkingBlock>> GetWorkBlocks(Surgeon surgeon);
     }
 }

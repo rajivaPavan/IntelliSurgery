@@ -19,7 +19,7 @@ namespace IntelliSurgery.DTOs
     public class DropDownListsDTO
     {
         public List<SurgeryType> SurgeryTypes{ get; set; }
-        public List<Surgeon> Surgeons { get; set; }
+        public List<SurgeonDTO> Surgeons { get; set; }
         public List<TheatreType> TheatreTypes{ get; set; }
         public List<AnesthesiaDTO> Anesthesias { get; set; }
         public List<Speciality> Specialities { get; set; }

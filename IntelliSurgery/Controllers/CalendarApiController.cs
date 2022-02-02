@@ -27,7 +27,7 @@ namespace IntelliSurgery.Controllers
         [HttpGet]
         public async Task<IActionResult> GetScheduledSurgeries(string filter, int filterValue)
         {
-            List<FullCalendarEvent> fullCalendarEvents = new List<FullCalendarEvent>();
+            List<AppointmentCalendarEvent> fullCalendarEvents = new List<AppointmentCalendarEvent>();
             List<Appointment> scheduledAppointments = new List<Appointment>();
 
             if (filter == "theatres")
@@ -50,77 +50,47 @@ namespace IntelliSurgery.Controllers
 
             foreach (var appointment in scheduledAppointments)
             {
-                fullCalendarEvents.Add(new FullCalendarEvent() { 
+                fullCalendarEvents.Add(new AppointmentCalendarEvent() { 
                     Id = filter+filterValue.ToString()+appointment.Id.ToString(),
                     Title = appointment.Patient.Name + " : "+appointment.SurgeryType.Name,
                     Start = appointment.ScheduledSurgery.SurgeryEvent.Start,
                     End = appointment.ScheduledSurgery.SurgeryEvent.End,
                     ExtendedProps = appointment,
-                    Color = FullCalendarEvent.GetPriorityColor(appointment.PriorityLevel)
+                    Color = AppointmentCalendarEvent.GetPriorityColor(appointment.PriorityLevel)
                 });
             }
             //hardcoded values
-            fullCalendarEvents.Add(new FullCalendarEvent()
+            fullCalendarEvents.Add(new AppointmentCalendarEvent()
             {
                 Id = "surgeons-1-1",
                 Title = "Patient Name: Surgery",
                 Start = DateTime.Now,
                 End = DateTime.Now.Add(new TimeSpan(1,0,0)),
                 ExtendedProps = await appointmentRepository.GetAppointment(a => a.Id==1),
-                Color = FullCalendarEvent.GetPriorityColor(PriorityLevel.Low)
+                Color = AppointmentCalendarEvent.GetPriorityColor(PriorityLevel.Low)
             });
-            fullCalendarEvents.Add(new FullCalendarEvent()
+            fullCalendarEvents.Add(new AppointmentCalendarEvent()
             {
                 Id = "surgeons-2-2",
                 Title = "Patient Name: Surgery",
                 Start = DateTime.Now.Add(new TimeSpan(1, 0, 0)),
                 End = DateTime.Now.Add(new TimeSpan(2, 0, 0)),
                 ExtendedProps = await appointmentRepository.GetAppointment(a => a.Id == 2),
-                Color = FullCalendarEvent.GetPriorityColor(PriorityLevel.High)
+                Color = AppointmentCalendarEvent.GetPriorityColor(PriorityLevel.High)
             });
-            fullCalendarEvents.Add(new FullCalendarEvent()
+            fullCalendarEvents.Add(new AppointmentCalendarEvent()
             {
                 Id = "surgeons-1-3",
                 Title = "Patient Name: Surgery",
                 Start = DateTime.Now.Add(new TimeSpan(2, 20, 0)),
                 End = DateTime.Now.Add(new TimeSpan(3, 0, 0)),
                 ExtendedProps = await appointmentRepository.GetAppointment(a => a.Id == 3),
-                Color = FullCalendarEvent.GetPriorityColor(PriorityLevel.Medium)
+                Color = AppointmentCalendarEvent.GetPriorityColor(PriorityLevel.Medium)
             });
 
             return Json(new { success = true, data = fullCalendarEvents });
         }
     }
 
-    public class FullCalendarEvent
-    {
-        public string Id { get; set; }
-        public string Title { get; set; }
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
-        public Appointment ExtendedProps { get; set; }
-        public string Color { get; set; }
-        public string Display {get; set; }
-
-        public static string GetPriorityColor(PriorityLevel priorityLevel)
-        {
-            string highColor = "#ff8f8f";
-            string lowColor = "#94ff8f";
-            string mediumColor = "#ffe18f";
-            string color;
-            if(priorityLevel == PriorityLevel.Low)
-            {
-                color = lowColor;
-            }
-            else if(priorityLevel == PriorityLevel.Medium)
-            {
-                color = mediumColor;
-            }
-            else 
-            {
-                color = highColor;
-            }
-            return color;
-        }
-    }
+    
 }

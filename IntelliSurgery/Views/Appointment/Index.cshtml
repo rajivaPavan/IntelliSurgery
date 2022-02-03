@@ -12,7 +12,7 @@
         </div>
         <div class="col-lg-5">
             <div class="form_class border border-dark">
-                                <h1> Patient </h1>
+                <h1> Patient </h1>
 
                 <fieldset>
                     <div class="legend"><span class="number bg-info">1</span> Validate Patient </div>
@@ -39,101 +39,132 @@
                             </span>
                         </div>
                     </div>
-                    @*<div class="scrollbar scrollbar-info">*@
-                        <div class="force-overflow">
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label for="patient_name">Name:</label>
-                            <input type="text" class="form-control mb-2 mr-sm-2" id="patient_name" name="patient_name">
-                            <h6 id="patientNameCheck" class="myerror" >**Name is missing</h6>
-                        </div>
-
-                        <div class="col-md-7">
-                             <label for="birthday">Birthday:</label>
-                             <input type="date" id="birthday" name="birthday" class="form-control mb-2 mr-sm-2">
-                             <h6 id="birthdayCheck" class="myerror" >**wrong input</h6>
-                        </div>
-
-                        <div class="col-md-5">
-                            <label>Gender:</label>
-                            <div class="form-check">
-                                <input class="form-check-input gender" type="radio" value="1" id="gender_male" name="gender">
-                                <label class="form-check-label" for="gender_male">
-                                    Male
-                                </label>                        
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input gender" type="radio" value="2" id="gender_female" name="gender">
-                                <label class="form-check-label" for="gender_female">
-                                    Female
-                                </label>
-                            </div>
-                            <h6 id="genderCheck" class="myerror" >**Select gender</h6>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="weight" class="form-label">Weight:</label>
-                            <input type="text" class="form-control" id="weight" placeholder="kg">
-                            <h6 id="weightCheck" class="myerror" >**Weight is missing</h6>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="height" class="form-label">Height:</label>
-                            <input type="text" class="form-control" id="height" placeholder="cm">
-                            <h6 id="heightCheck" class="myerror" >**Height is missing</h6>
-                        </div>
-                        <div class="col-12 my-1">
-                            <div class="row">
-                                <div class="col-3 pr-0">
-                                    <label for="asatype" class="form-label"> ASA Status:</label>
+                    <div class="">
+                        <div class="mb-2 row scrollbar scrollbar-info">
+                                <div class="col-md-12">
+                                    <label for="patient_name">Name:</label>
+                                    <input type="text" class="form-control mb-2 mr-sm-2" id="patient_name" name="patient_name">
+                                    <h6 id="patientNameCheck" class="myerror" >**Name is missing</h6>
                                 </div>
-                                <div class="col-2">
+
+                                <div class="col-md-7">
+                                     <label for="birthday">Birthday:</label>
+                                     <input type="date" id="birthday" name="birthday" class="form-control mb-2 mr-sm-2">
+                                     <h6 id="birthdayCheck" class="myerror" >**wrong input</h6>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <label>Gender:</label>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" value="1" id="status1" name="asa">
-                                        <label class="form-check-label" for="status1">
-                                            I
+                                        <input class="form-check-input gender" type="radio" value="1" id="gender_male" name="gender">
+                                        <label class="form-check-label" for="gender_male">
+                                            Male
                                         </label>                        
                                     </div>
-                                </div>
-                                <div class="col-2">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" value="2" id="status2" name="asa">
-                                        <label class="form-check-label" for="status2">
-                                            II
+                                        <input class="form-check-input gender" type="radio" value="2" id="gender_female" name="gender">
+                                        <label class="form-check-label" for="gender_female">
+                                            Female
                                         </label>
                                     </div>
+                                    <h6 id="genderCheck" class="myerror" >**Select gender</h6>
                                 </div>
-                                <div class="col-2">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" value="2" id="status3" name="asa">
-                                        <label class="form-check-label" for="status3">
-                                            III
-                                        </label>
-                                    </div>
-                                </div>
-                                <h6 id="asaCheck" class="myerror" >**Select ASA status</h6>
-                                <div class="col-3"></div>
-                            </div>
-                            
-                        </div>
 
-                        <div class="col-md-12">
-                            @*<h7> Diseases:</h7>*@
-                            <label for="diseases" class="form-label"> Diseases:</label>
-                           
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-check">
-                                     <input class="form-check-input" type="checkbox" value="" id="disease_1">
-                                     <label class="form-check-label" for="disease_1">Disease 1</label>
-                         
-                                     </div>
-                        </div>
-                        
+                                <div class="col-md-6">
+                                    <label for="weight" class="form-label">Weight:</label>
+                                    <input type="text" class="form-control" id="weight" placeholder="kg">
+                                    <h6 id="weightCheck" class="myerror" >**Weight is missing</h6>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="height" class="form-label">Height:</label>
+                                    <input type="text" class="form-control" id="height" placeholder="cm">
+                                    <h6 id="heightCheck" class="myerror" >**Height is missing</h6>
+                                </div>
+                                <div class="col-12 my-1">
+                                    <div class="row">
+                                        <div class="col-3 pr-0">
+                                            <label for="asatype" class="form-label"> ASA Status:</label>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" value="1" id="status1" name="asa">
+                                                <label class="form-check-label" for="status1">
+                                                    I
+                                                </label>                        
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" value="2" id="status2" name="asa">
+                                                <label class="form-check-label" for="status2">
+                                                    II
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" value="2" id="status3" name="asa">
+                                                <label class="form-check-label" for="status3">
+                                                    III
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <h6 id="asaCheck" class="myerror" >**Select ASA status</h6>
+                                        <div class="col-3"></div>
+                                    </div>
+                            
+                                </div>
+
+                                <div class="col-md-12">
+                                    @*<h7> Diseases:</h7>*@
+                                    <label for="diseases" class="form-label"> Diseases:</label>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                         <input class="form-check-input" type="checkbox" value="" id="disease_1">
+                                         <label class="form-check-label" for="disease_1">Disease 1</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                         <input class="form-check-input" type="checkbox" value="" id="disease_1">
+                                         <label class="form-check-label" for="disease_1">Disease 1</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                         <input class="form-check-input" type="checkbox" value="" id="disease_1">
+                                         <label class="form-check-label" for="disease_1">Disease 1</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                         <input class="form-check-input" type="checkbox" value="" id="disease_1">
+                                         <label class="form-check-label" for="disease_1">Disease 1</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                         <input class="form-check-input" type="checkbox" value="" id="disease_1">
+                                         <label class="form-check-label" for="disease_1">Disease 1</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                         <input class="form-check-input" type="checkbox" value="" id="disease_1">
+                                         <label class="form-check-label" for="disease_1">Disease 1</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                         <input class="form-check-input" type="checkbox" value="" id="disease_1">
+                                         <label class="form-check-label" for="disease_1">Disease 1</label>
+                                    </div>
+                                </div>
                         </div>
                     </div>
-                    @*</div>*@
                     <button id="add-patient-btn" class="btn btn-info mb-0 mb-1" type="submit">Add Patient</button>
                     <button id="update-patient-btn" class="btn btn-primary mb-0" type="submit" style="display:none;">Update Patient</button>
                     

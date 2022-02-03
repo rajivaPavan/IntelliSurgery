@@ -52,15 +52,17 @@
 
     function validateId() {                                       //validate patient ID
         var idInput = $('#patient_id').val();
+        var isSuccess = true;
         if (idInput == '') {
             $("#idCheck").show();
-            idError = true;
+            isSuccess = false;
         }
         else if (!(idInput.match(/^[0-9]+$/))) {                          //only digits(0-9) will be allowed as the id input
             $("#idCheck").text($("#idCheck").html("**ID should contain only digits"));          //if code gives wrong input ,return false
             $("#idCheck").show();
-            idError = true;
+            isSuccess = false;
         }
+        return isSuccess;
     }
 
     function validatePatientName() {                                //validate patient name
@@ -187,27 +189,8 @@
         }
     }
 
-    $("validate-patient-btn").click(function () {
-        if (validateId()) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Patient validated successfully',
-                showConfirmButton: false,                   //if false given,no need to press ok button
-                timer: 1500
-            });
-            return true;
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Please retry',
-                showConfirmButton: true;
-            });
-            return false;
-        }
-    });
-
     $("add-patient-btn").click(function () {
-        if (patientNameError === false && weightError === false && heightError === false && birthdayError = false && genderError = false && asaError = false && diseasesError = false) {
+        if (patientNameError === false && weightError === false && heightError === false && birthdayError == false && genderError == false && asaError == false && diseasesError == false) {
             Swal.fire({
                 icon: 'success',
                 title: 'Patient added successfully',

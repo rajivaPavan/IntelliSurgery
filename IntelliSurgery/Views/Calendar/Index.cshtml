@@ -73,13 +73,13 @@
                     <h4>Appointment Details</h4>
                 </div>
                 <div class="col-12">
-                    <div class="my-2">Surgeon : {{getSelectedEvent.surgeon}} </div>
+                    <div class="my-2">Surgeon : {{getSelectedEvent.surgeon}}</div>
                     <div class="my-2">Patient : {{getSelectedEvent.patient}}</div>
                     <div class="my-2">Surgery : {{getSelectedEvent.surgery}}</div>
                     <div class="my-2">Theatre : {{getSelectedEvent.theatre}}</div>
                     <div class="my-2">Start Time : {{getSelectedEvent.startTime}}</div>
                     <div class="my-2">Duration : {{getSelectedEvent.duration}}</div>
-                    <div class="my-2">EndTime : {{getSelectedEvent.endTime}}</div>
+                    <div class="my-2">End Time : {{getSelectedEvent.endTime}}</div>
 
                     <div class="my-2">Priority : 
                         <span v-if="getSelectedEvent.priority == 0" class="text-success">Low</span>
@@ -92,22 +92,43 @@
         <div class="col-12 col-md-9 logo-bg " id="right-side" >
             <div id="appointments-table" style="display:none;">
                 <div class="table table-bordered">
-                    <div></div>
+                    <div>
+                        <table class="table">
+                            <thead class="thead-light">
+                               <tr>
+                                  <th scope="col">Appointment Id</th>
+                                  <th scope="col">PatientId</th>
+                                  <th scope="col">Patient</th>
+                                  <th scope="col">SurgeonId</th>
+                                  <th scope="col">Surgeon</th>
+                                  <th scope="col">SurgeryTypeId</th>
+                                  <th scope="col">SurgeryType</th>
+                                  <th scope="col">Handle</th>
+                                  <th scope="col">ApproximateProcedureDate</th>
+                                  <th scope="col">ComplicationPossibility</th>
+                                  <th scope="col">TheatreTypeId</th>
+                                  <th scope="col">TheatreType</th>
+                                  <th scope="col">TheatreId</th>
+                                  <th scope="col">Theatre</th>
+                                  <th scope="col">PriorityLevel</th>
+                                  <th scope="col">Priority</th>
+                                  <th scope="col">AnesthesiaType</th>
+                                  <th scope="col">SystemPredictedDuration</th>
+                                  <th scope="col">SurgeonsPredictedDuration</th>
+                                  <th scope="col">Status</th>
+                                  <th scope="col">DateAdded</th>
+                                  <th scope="col">ScheduledSurgeryId</th>
+                                  <th scope="col">ScheduledSurger</th>
+                              </tr>
+                         </thead>
+                      </table>
+                    </div>
                 </div>
             </div>
             <div id="calendar" style="display:none;"></div>
         </div>
     </div>
 </div>
-
-@*<div id="deleteEventModal">             
-      <h2>Event</h2>
-
-      <p id="eventText"></p>
-
-      <button id="deleteButton">Delete</button>
-      <button id="closeButton">Close</button>
-</div>*@
 
 @section Scripts{
     <script defer src="~/lib/vue/dist/vue.global.js"></script>

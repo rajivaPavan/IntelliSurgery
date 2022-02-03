@@ -9,11 +9,6 @@ body {
     color: #384047;
     background-color: #F1F1F1;
 }
-#logo {
-    background: url("../assets/images/IntelliSurgery.png") no-repeat;
-    background-size: contain;
-    background-position: center;
-}
 
 #fpassword {
     display: block;

@@ -7,13 +7,24 @@
 }
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-6">
-            <img src="../assets/images/IntelliSurgery.png" />
+        <div class="row">
+             <div class="col-lg-6" id="logo">
+             <div class="col-lg-6">
+                    <div class="form_class border border-dark">
+                        <h1 id="login">Login</h1><br />
+                        <label for="name">Username</label>
+                        <input type="text" class="form-control mb-2 mr-sm-2" id="name" name="user_name">
+                        <label for="name">Password</label>
+                        <input type="text" class="form-control mb-2 mr-sm-2" id="name" name="password">
+                        <button class="btn btn-info h-100" id="submit-btn">Submit</button><br />
+                        <span id="fpassword">Forgot Password?</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-6">
-
-        </div>
-
-    </div>
 </div>
+
+
+@section Scripts{
+
+}

@@ -1,17 +1,50 @@
 ﻿//event listeners
-$("#validate-patient-btn").click(async () => {
+$("#validate-patient-btn").click(async () => {   
     if (validateId()) {
         global.patientId = await validatePatient();
     }
 })
 
-$("#add-patient-btn").click(async () => {
+$("#add-patient-btn").click(async () => {    
     global.patientId = await addPatient();
 });
 
 $("#update-patient-btn").click(async () => {
     global.patientId = await updatePatient();
 });
+async function validatePatient() {
+
+}
+
+async function addPatient() {
+    if (validatePatientName() && validateWeight() && validateHeight() && validateBirthday() && validateGender() && validateAsaStatus() && validateDisease()) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Patient added successfully',
+            showConfirmButton: false,                   //if false given,no need to press ok button
+            timer: 1500
+        });
+        return true;
+    } else {
+        displaySweetAlert("Please try again !");
+        return false;
+    }
+}
+
+async function updatePatient() {
+    if (validatePatientName() && validateWeight() && validateHeight() && validateBirthday() && validateGender() && validateAsaStatus() && validateDisease()) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Patient updated successfully',
+            showConfirmButton: false,                   //if false given,no need to press ok button
+            timer: 1500
+        });
+        return true;
+    } else {
+        displaySweetAlert("Please try again !");
+        return false;
+    }
+}
 
 $("#add-appointment-btn").click(async () => {
     if (global.patientId != NULL_ENTITY_ID) {

@@ -174,6 +174,7 @@ calendarApp = Vue.createApp({
                 this.prevData.surgeryTypes = res;
             }
         },
+
         //theatreType
         theatreTypeAddClick() {
             var newTheatreType = $('#theatre-type').val();
@@ -193,8 +194,17 @@ calendarApp = Vue.createApp({
             removeElementFromArray(s, this.hospitalData.theatreTypes);
         },
         async saveTheatreTypes() {
-
+            var data = {
+                theatreTypes: this.hospitalData.theatreTypes,
+                deleteTheatreTypes: this.deleteData.theatreTypes
+            }
+            var res = await saveTheatreTypesRequest(data);
+            if (res != null) {
+                this.hospitalData.theatreTypes = [];
+                this.prevData.theatreTypes = res;
+            }
         },
+
         //theatre
         theatreAddClick() {
             var newTheatre = $('#theatre').val();
@@ -217,13 +227,21 @@ calendarApp = Vue.createApp({
             removeElementFromArray(s, this.hospitalData.theatres);
         },
         async saveTheatres() {
-
+            var data = {
+                theatres: this.hospitalData.theatres,
+                deleteTheatres: this.deleteData.theatres
+            }
+            var res = await saveTheatresRequest(data);
+            if (res != null) {
+                this.hospitalData.theatres = [];
+                this.prevData.theatres = res;
+            }
         },
+
         //surgery theatreTypes
         theatreTypesForSurgeryAddClick() {
 
         },
-
         deleteSurgeryTypeTheatresClick(s) {
             this.deleteData.surgeryTypeTheatres.push(s);
             removeElementFromArray(s, this.prevData.surgeryTypeTheatres);
@@ -344,20 +362,6 @@ function clearNewSpecialityField() {
     $('#speciality').val("");
 }
 
-function removeElementFromArray(el, arr) {
-    var index = arr.indexOf(el);
-    if (index != -1) {
-        arr.splice(index, 1);
-    }
-    return index;
-}
-
-function removeElementAtIndex(elementIndex, arr) {
-    if (elementIndex != -1) {
-        arr.splice(elementIndex, 1);
-    }
-    return arr;
-}
 
 $(document).ready(async () => {
 

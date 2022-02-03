@@ -7,9 +7,8 @@ function initCalendar(calendarEvents) {
         initialView: 'timeGridWeek',
         themeSystem: "bootstrap",
         views: {
-            dayGridMonth: { // name of view
+            dayGridMonth: { 
                 titleFormat: { year: 'numeric', month: '2-digit', day: '2-digit' }
-                // other view-specific options here
             }
         },
         height:"90vh",
@@ -35,25 +34,11 @@ function initCalendar(calendarEvents) {
         headerToolbar: {
             left: 'prev,next today',
             center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay'// will normally be on the right. if RTL, will be on the left
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
         },
         events: calendarEvents
-        });
-        calendar.render();
+    });
 
+    calendar.render();
 
 }
-
-
-/* remove event code (need to create buttons)
-
-var event = calendar.getEventById('1');  //Will return an Event Object if found, and null otherwise.
-event.remove();
----------------------------------------------------
-add event code (manually-if needed)
-
-calendar.addEvent(event[, source]);
--------------------------------------------------------
-get event code
-
-calendar.getEvents()  //This method will return an array of Event Objects that FullCalendar has stored in client-side memory.*/

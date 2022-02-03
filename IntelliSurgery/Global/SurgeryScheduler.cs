@@ -49,42 +49,6 @@ namespace IntelliSurgery.Global
             await workingBlockRepository.UpdateWorkingBlocks(workingBlocks);
 
         }
-
-        //private List<WorkingBlock> CreateWorkingBlocks(Surgeon surgeon)
-        //{
-        //    List<WorkingBlock> workingBlocks = new List<WorkingBlock>();
-        //    foreach(var s in surgeon.WorkingHours)
-        //    {
-        //        WorkingBlock workingBlock = new WorkingBlock() { Surgeon = surgeon, Theatre = s.Theatre };
-        //        TimeRange timeRange = new TimeRange() { Start = s.Start, End = s.End };
-        //        workingBlock.SetTimeRange(timeRange);
-        //        workingBlocks.Add(workingBlock);
-        //    }
-
-        //    return workingBlocks;
-        //}
-
-        public async Task<List<Appointment>> PrioritizeAppointments(List<Appointment> appointments)
-        {
-            //foreach (int level in Enum.GetValues(typeof(PriorityLevel)))
-            //{
-            //    appointments = await appointments.GetAppointments(
-            //        AppointmentQueryLogic.ByPriorityLevel((PriorityLevel)level));
-
-            //    List<TimeSpan> timeSpans = appointments.Select(a => a.SystemPredictedDuration).ToList();
-            //    float avgTime = CalculateAverage(timeSpans);
-
-            //    foreach(Appointment appointment in appointments)
-            //    {
-            //        appointment.Priority = (float)appointment.PriorityLevel + appointment.SystemPredictedDuration.Ticks/avgTime;
-            //    }
-
-            //    appointments = await appointmentRepository.UpdateAppointments(appointments);
-            //}
-
-            return appointments;
-        }
-
         private float CalculateAverage(IEnumerable<TimeSpan> timeSpans)
         {
             IEnumerable<long> ticksPerTimeSpan = timeSpans.Select(t => t.Ticks);
@@ -184,6 +148,11 @@ namespace IntelliSurgery.Global
             return predictedTime.Add(prepTime).Add(cleanTime);
         }
 
+        public Task<List<Appointment>> PrioritizeAppointments(List<Appointment> appointments)
+        {
+            throw new NotImplementedException();
+        }
+
 
         //public async Task CreateSchedule(TheatreType theatreType)
         //{
@@ -214,6 +183,42 @@ namespace IntelliSurgery.Global
         //    //add blocks to the database
         //    await workingBlockRepository.AddBlocks(workingBlocks);
 
+        //}
+
+
+        //private List<WorkingBlock> CreateWorkingBlocks(Surgeon surgeon)
+        //{
+        //    List<WorkingBlock> workingBlocks = new List<WorkingBlock>();
+        //    foreach(var s in surgeon.WorkingHours)
+        //    {
+        //        WorkingBlock workingBlock = new WorkingBlock() { Surgeon = surgeon, Theatre = s.Theatre };
+        //        TimeRange timeRange = new TimeRange() { Start = s.Start, End = s.End };
+        //        workingBlock.SetTimeRange(timeRange);
+        //        workingBlocks.Add(workingBlock);
+        //    }
+
+        //    return workingBlocks;
+        //}
+
+        //public async Task<List<Appointment>> PrioritizeAppointments(List<Appointment> appointments)
+        //{
+        //    //foreach (int level in Enum.GetValues(typeof(PriorityLevel)))
+        //    //{
+        //    //    appointments = await appointments.GetAppointments(
+        //    //        AppointmentQueryLogic.ByPriorityLevel((PriorityLevel)level));
+
+        //    //    List<TimeSpan> timeSpans = appointments.Select(a => a.SystemPredictedDuration).ToList();
+        //    //    float avgTime = CalculateAverage(timeSpans);
+
+        //    //    foreach(Appointment appointment in appointments)
+        //    //    {
+        //    //        appointment.Priority = (float)appointment.PriorityLevel + appointment.SystemPredictedDuration.Ticks/avgTime;
+        //    //    }
+
+        //    //    appointments = await appointmentRepository.UpdateAppointments(appointments);
+        //    //}
+
+        //    return appointments;
         //}
 
 

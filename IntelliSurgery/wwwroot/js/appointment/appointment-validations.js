@@ -124,7 +124,7 @@
     function validateAnastheasist() {                                   
         if ($('#not_required').prop('checked')) {
             var anastheasistSelected = $('input[name=anastheasist]:checked').val();
-            //disable anasthesia type combo:$("#ddlList option[value='jquery']").attr("disabled","disabled");
+            //disable anasthesia type combo:$("#ddlList option[value='jquery']").prop("disabled",true);
         }
         else {
             validateAnasthesia_type()

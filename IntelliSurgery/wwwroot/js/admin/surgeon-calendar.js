@@ -27,6 +27,8 @@
             };
 
             calendarVueApp.selectedWorkingBlock = selected;
+
+            sweetAlertBlockDetails(selected);
         },
         eventTextColor: "#000",
         headerToolbar: {
@@ -41,4 +43,22 @@
 
     return calendar;
 
+}
+
+function sweetAlertBlockDetails(block) {
+    Swal.fire({
+        title: '<strong>Working block</strong>',
+        html: "<div>Surgeon: " + block.surgeon + "</div>" +
+            "<div>Theatre: " + block.theatre + "</div>" +
+            "<div>Start of shift:  " + block.startTime + "</div>" +
+            "<div>End of shift: " + block.endTime + "</div>",
+        showCloseButton: true,
+        focusConfirm: false,
+        confirmButtonText: 'Delete'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            calendarVueApp.tryDeleteSelectedBlock+=1; //just to change the value, so that the watch function runs
+        }
+    })
+    
 }

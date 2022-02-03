@@ -93,8 +93,12 @@ namespace IntelliSurgery.Controllers
         public async Task<IActionResult> DeleteWorkBlock(int workingBlockId)
         {
             WorkingBlock workingBlock = await workingBlockRepository.GetWorkBlock(w => w.Id == workingBlockId);
-            await workingBlockRepository.DeleteWorkBlock(workingBlock);
-            return Json(new { success = true });
+            if(workingBlock.AllocatedSurgeries != null || workingBlock.AllocatedSurgeries.Count != 0)
+            {
+                await workingBlockRepository.DeleteWorkBlock(workingBlock);
+                return Json(new { success = true });
+            }
+            return Json(new { success = false });
         }
     }
 }

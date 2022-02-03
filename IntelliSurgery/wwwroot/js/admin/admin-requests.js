@@ -29,3 +29,8 @@ async function saveWorkingBlockRequest(block){
     }
     return null;
 }
+
+async function deleteWorkingBlockRequest(blockId) {
+    var res = await axios.post("/api/StaffApi/DeleteWorkBlock?workingBlockId=" + blockId);
+    return res.data.success;
+}

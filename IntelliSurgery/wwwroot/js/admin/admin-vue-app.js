@@ -20,8 +20,49 @@ calendarApp = Vue.createApp({
             calendars: {},
             fullCalendar: {},
             startTime: "",
-            endTime: ""
+            endTime: "",
+            tryDeleteSelectedBlock : 0
         };
+    },
+    watch: {
+        tryDeleteSelectedBlock: async function () {
+            var selectedBlock = this.selectedWorkingBlock;
+            if (selectedBlock != null) {
+
+                var isSuccess = await deleteWorkingBlockRequest(selectedBlock.workingBlockId);
+                if (isSuccess == true) {
+                    var calendarEvents = this.calendars[this.selectedSurgeonId].events;
+
+                    //find event from calendar events array in data
+                    var blockIndex = -1;
+                    for (var i = 0; i < calendarEvents.length; i++) {
+                        if (calendarEvents[i].id == selectedBlock.eventId) {
+                            blockIndex = i;
+                            break;
+                        }
+                    }
+
+                    if (blockIndex != -1) {
+                        calendarEvents = removeElementAtIndex(blockIndex, calendarEvents);
+                    }
+
+                    this.calendars[this.selectedSurgeonId].events = calendarEvents;
+
+                    //remove event from full calendar
+                    var event = this.fullCalendar.getEventById(selectedBlock.eventId);
+                    event.remove();
+                }
+                else {
+                    Swal.fire(
+                        'Deleted!',
+                        "Cannot remove the block, as surgeries have been asigned already.",
+                        'error'
+                    )
+                }
+
+
+            }
+        }
     },
     computed: {
         //getPrevData
@@ -72,7 +113,9 @@ calendarApp = Vue.createApp({
         //getWorkBlock
         getSelectedWorkBlock() {
             return this.selectedWorkBlock;
-        }
+        },
+
+        
     },
     methods: {
         //speciality
@@ -247,13 +290,28 @@ calendarApp = Vue.createApp({
                 if (fullcalendarevent != null) {
                     this.calendars[selectedSurgeonId].events.push(fullcalendarevent);
                     this.fullCalendar.addEvent(fullcalendarevent);
+
+                    //reset fields
+                    this.selectedTheatreId = -1;
+                    this.startTime = "";
+                    this.endTime = "";
+
                 } else {
-                    alert("Time is overlapping with another block");
+                    Swal.fire(
+                        'Unsuccessful!',
+                        "Time is overlapping with another block",
+                        'warning'
+                    )
                 }
+
 
                 
             }
+        },
+        async removeWorkingHoursClick() {
+            
         }
+
     }
 
 });
@@ -280,6 +338,13 @@ function removeElementFromArray(el, arr) {
         arr.splice(index, 1);
     }
     return index;
+}
+
+function removeElementAtIndex(elementIndex, arr) {
+    if (elementIndex != -1) {
+        arr.splice(elementIndex, 1);
+    }
+    return arr;
 }
 
 $(document).ready(async () => {

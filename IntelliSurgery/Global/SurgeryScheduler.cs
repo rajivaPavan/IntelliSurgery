@@ -50,19 +50,19 @@ namespace IntelliSurgery.Global
 
         }
 
-        private List<WorkingBlock> CreateWorkingBlocks(Surgeon surgeon)
-        {
-            List<WorkingBlock> workingBlocks = new List<WorkingBlock>();
-            foreach(var s in surgeon.WorkingHours)
-            {
-                WorkingBlock workingBlock = new WorkingBlock() { Surgeon = surgeon, Theatre = s.Theatre };
-                TimeRange timeRange = new TimeRange() { Start = s.Start, End = s.End };
-                workingBlock.SetTimeRange(timeRange);
-                workingBlocks.Add(workingBlock);
-            }
+        //private List<WorkingBlock> CreateWorkingBlocks(Surgeon surgeon)
+        //{
+        //    List<WorkingBlock> workingBlocks = new List<WorkingBlock>();
+        //    foreach(var s in surgeon.WorkingHours)
+        //    {
+        //        WorkingBlock workingBlock = new WorkingBlock() { Surgeon = surgeon, Theatre = s.Theatre };
+        //        TimeRange timeRange = new TimeRange() { Start = s.Start, End = s.End };
+        //        workingBlock.SetTimeRange(timeRange);
+        //        workingBlocks.Add(workingBlock);
+        //    }
 
-            return workingBlocks;
-        }
+        //    return workingBlocks;
+        //}
 
         public async Task<List<Appointment>> PrioritizeAppointments(List<Appointment> appointments)
         {

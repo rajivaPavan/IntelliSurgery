@@ -8,6 +8,7 @@ body {
     font-family: 'Nunito', sans-serif;
     color: #384047;
     background-color: #F1F1F1;
+    overflow:hidden;
 }
 #logo {
     background: url("../assets/images/IntelliSurgery.png") no-repeat;
@@ -20,6 +21,7 @@ body {
     padding: 20px 20px;
     background: #f4f7f8;
     border-radius: 8px;
+    height: 88vh;
 }
 .form-inline {
     display: flex;
@@ -94,10 +96,10 @@ label {
     margin-bottom: 8px;
 }
 
-    label.light {
-        font-weight: 300;
-        display: inline;
-    }
+label.light {
+    font-weight: 300;
+    display: inline;
+}
 
 .number {
     background-color: #e3f2fd;
@@ -115,18 +117,18 @@ label {
 }
 .scrollbar {
     /*float: left;*/
-    height: 300px;
+    height: 45vh;
     /*width: 65px;*/
     background: #f4f7f8;
     overflow-y: scroll;
     overflow-x: hidden;
-    margin-bottom: 20px;
     width: auto;
 }
 
 .force-overflow {
     min-height: 300px;
 }
+
 .scrollbar-info::-webkit-scrollbar {
     width: 6px;
     background-color: #F5F5F5;

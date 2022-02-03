@@ -1,6 +1,8 @@
 ﻿//event listeners
 $("#validate-patient-btn").click(async () => {
-    global.patientId = await validatePatient();
+    if (validateId()) {
+        global.patientId = await validatePatient();
+    }
 })
 
 $("#add-patient-btn").click(async () => {

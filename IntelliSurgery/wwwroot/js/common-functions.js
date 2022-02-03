@@ -1,5 +1,4 @@
-﻿
-function displaySweetAlert(message) {
+﻿function displaySweetAlert(message) {
     Swal.fire({
         icon: "error",
         text: message
@@ -18,4 +17,19 @@ async function axiosPostWithData(url,data) {
         return res.data.data;
     }
     return null;
+}
+
+function removeElementFromArray(el, arr) {
+    var index = arr.indexOf(el);
+    if (index != -1) {
+        arr.splice(index, 1);
+    }
+    return index;
+}
+
+function removeElementAtIndex(elementIndex, arr) {
+    if (elementIndex != -1) {
+        arr.splice(elementIndex, 1);
+    }
+    return arr;
 }

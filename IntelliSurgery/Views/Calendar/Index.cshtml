@@ -73,13 +73,13 @@
                     <h4>Appointment Details</h4>
                 </div>
                 <div class="col-12">
-                    <div class="my-2">Surgeon : {{getSelectedEvent.surgeon}} </div>
+                    <div class="my-2">Surgeon : {{getSelectedEvent.surgeon}}</div>
                     <div class="my-2">Patient : {{getSelectedEvent.patient}}</div>
                     <div class="my-2">Surgery : {{getSelectedEvent.surgery}}</div>
                     <div class="my-2">Theatre : {{getSelectedEvent.theatre}}</div>
                     <div class="my-2">Start Time : {{getSelectedEvent.startTime}}</div>
                     <div class="my-2">Duration : {{getSelectedEvent.duration}}</div>
-                    <div class="my-2">EndTime : {{getSelectedEvent.endTime}}</div>
+                    <div class="my-2">End Time : {{getSelectedEvent.endTime}}</div>
 
                     <div class="my-2">Priority : 
                         <span v-if="getSelectedEvent.priority == 0" class="text-success">Low</span>
@@ -99,15 +99,6 @@
         </div>
     </div>
 </div>
-
-@*<div id="deleteEventModal">             
-      <h2>Event</h2>
-
-      <p id="eventText"></p>
-
-      <button id="deleteButton">Delete</button>
-      <button id="closeButton">Close</button>
-</div>*@
 
 @section Scripts{
     <script defer src="~/lib/vue/dist/vue.global.js"></script>

@@ -50,15 +50,7 @@
             var selectedFilter = this.selectedFilter;
             var selectedFilterValue = this.selectedFilterValue;
             if (selectedFilter != "" && selectedFilterValue != -1) {
-                var events = getCalendarEvents(selectedFilter, selectedFilterValue);
-                if (events == null) {
-                    events = await getScheduledSurgeriesRequest(selectedFilter, selectedFilterValue);
-                }
-                initCalendar(events);
-                $("#appointments-table").hide();
-                $("#calendar").show();
-                this.selectedEvent = null;
-
+                await this.showCalendar(selectedFilter, selectedFilterValue);
             } else {
                 displaySweetAlert("Choose filters");
             }
@@ -75,8 +67,26 @@
         async createSchedule() {
             var selectedSurgeonId = this.selectedSurgeonId;
             if (selectedSurgeonId != -1) {
-                await CreateScheduleRequest(selectedSurgeonId);
+                var isComplete = await CreateScheduleRequest(selectedSurgeonId);
+                if (isComplete == true) {
+                    Swal.fire(
+                        'Successful!',
+                        "Schedule created",
+                        'success'
+                    );
+                    await this.showCalendar("surgeons", selectedSurgeonId);
+                }
             }
+        },
+        async showCalendar(selectedFilter, selectedFilterValue) {
+            var events = getCalendarEvents(selectedFilter, selectedFilterValue);
+            if (events == null) {
+                events = await getScheduledSurgeriesRequest(selectedFilter, selectedFilterValue);
+            }
+            initCalendar(events);
+            $("#appointments-table").hide();
+            $("#calendar").show();
+            this.selectedEvent = null;
         }
     }
 

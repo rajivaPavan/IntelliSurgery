@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace IntelliSurgery.DbOperations.WorkingBlocks
 {
-    public class WorkingBLockRepository : IWorkingBlockRepository
+    public class WorkingBlockRepository : IWorkingBlockRepository
     {
         private readonly AppDbContext context;
         private readonly IIncludableQueryable<WorkingBlock, Theatre> readWorkingBlocks;
 
-        public WorkingBLockRepository(AppDbContext context)
+        public WorkingBlockRepository(AppDbContext context)
         {
             this.context = context;
             this.readWorkingBlocks = context.WorkingBlocks.Include(w => w.AllocatedSurgeries).Include(w => w.Surgeon).Include(w => w.Theatre);
@@ -28,7 +28,7 @@ namespace IntelliSurgery.DbOperations.WorkingBlocks
             return workingBlock;
         }
 
-        public async Task<List<WorkingBlock>> AddBlocks(List<WorkingBlock> blocks)
+        public async Task<List<WorkingBlock>> AddWorkingBlocks(List<WorkingBlock> blocks)
         {
             await context.WorkingBlocks.AddRangeAsync(blocks);
             await context.SaveChangesAsync();
@@ -54,6 +54,13 @@ namespace IntelliSurgery.DbOperations.WorkingBlocks
         {
             context.WorkingBlocks.Remove(workingBlock);
             await context.SaveChangesAsync();
+        }
+
+        public async Task<List<WorkingBlock>> UpdateWorkingBlocks(List<WorkingBlock> workingBlocks)
+        {
+            context.WorkingBlocks.UpdateRange(workingBlocks);
+            await context.SaveChangesAsync();
+            return workingBlocks;
         }
     }
 }

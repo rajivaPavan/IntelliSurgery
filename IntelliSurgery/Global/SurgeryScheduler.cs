@@ -46,7 +46,7 @@ namespace IntelliSurgery.Global
             workingBlocks = await AllocateSurgeriesToBlocks(workingBlocks, appointments);
 
             //add blocks to the database
-            await workingBlockRepository.AddBlocks(workingBlocks);
+            await workingBlockRepository.UpdateWorkingBlocks(workingBlocks);
 
         }
 

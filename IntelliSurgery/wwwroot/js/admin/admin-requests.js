@@ -7,11 +7,7 @@
 }
 
 async function saveHospitalDataRequest(hospitalData) {
-    var res = await axios.post("/api/AdminApi/SaveHospitalData", hospitalData);
-    if (res.data.success == true) {
-        return res.data.data;
-    }
-    return null;
+    return await axiosPostWithData("/api/AdminApi/SaveHospitalData", hospitalData);
 }
 
 async function getWorkingBlocksRequest(surgeonId) {
@@ -22,15 +18,27 @@ async function getWorkingBlocksRequest(surgeonId) {
     return null;
 }
 
-async function saveWorkingBlockRequest(block){
-    var res = await axios.post("/api/StaffApi/SaveWorkingBlock", block);
-    if (res.data.success == true) {
-        return res.data.data;
-    }
-    return null;
+async function saveWorkingBlockRequest(block) {
+    return await axiosPostWithData("/api/StaffApi/SaveWorkingBlock", block);
 }
 
 async function deleteWorkingBlockRequest(blockId) {
     var res = await axios.post("/api/StaffApi/DeleteWorkBlock?workingBlockId=" + blockId);
     return res.data.success;
+}
+
+async function saveSpecialitiesRequest(hospitalData) {
+    return await axiosPostWithData("/api/AdminApi/SaveSpecialities", hospitalData);
+}
+async function saveSurgeonsRequest(hospitalData) {
+    return await axiosPostWithData("/api/AdminApi/SaveSurgeons", hospitalData);
+}
+async function saveSurgeryTypesRequest(hospitalData) {
+    return await axiosPostWithData("/api/AdminApi/SaveSurgeryTypes", hospitalData);
+}
+async function saveTheatreTypesRequest(hospitalData) {
+    return await axiosPostWithData("/api/AdminApi/SaveTheatreTypes", hospitalData);
+}
+async function saveTheatresRequest(hospitalData) {
+    return await axiosPostWithData("/api/AdminApi/SaveTheatres", hospitalData);
 }

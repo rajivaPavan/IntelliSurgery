@@ -15,7 +15,41 @@ async function addAppointment(patientId) {
     var predictedTime = null;
     var appointment = getAppointmentDetails(patientId);
     predictedTime = await addAppointmentRequest(appointment);
-    return predictedTime;
+
+    var durationInputValue = ""
+
+    Swal.fire({
+        title: 'Predicted Time Duration',
+        text: predictedTime,
+        icon: 'success',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Accept',
+        cancelButtonText: 'Override'
+    }).then(async (result) => {
+        if (!result.isConfirmed) {
+
+            const { value: newTimeDuration } = await Swal.fire({
+                title: 'Enter new time duration',
+                input: 'text',
+                inputPlaceholder: "hours : minutes",
+                showCancelButton: true,
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'Time duration should be in the format \"hours:minutes\"'
+                    }
+                }
+            })
+        }
+    })
+
+    if (newTimeDuration != "") {
+
+    }
+
+    
+    return;
 }
 
 function clearAllAppointmentFields() {

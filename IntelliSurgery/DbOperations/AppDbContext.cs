@@ -1,11 +1,12 @@
 ﻿
 using IntelliSurgery.Global;
 using IntelliSurgery.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace IntelliSurgery.DbOperations
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options)
             : base(options)
@@ -25,6 +26,8 @@ namespace IntelliSurgery.DbOperations
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             #region appointmentIndexes
             modelBuilder.Entity<Appointment>()
                 .HasIndex(x => x.DateAdded);

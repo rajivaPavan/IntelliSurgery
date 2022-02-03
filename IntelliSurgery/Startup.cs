@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using IntelliSurgery.DbOperations.Theatres;
 using IntelliSurgery.DbOperations.WorkingBlocks;
+using Microsoft.AspNetCore.Identity;
 
 namespace IntelliSurgery
 {
@@ -32,6 +33,12 @@ namespace IntelliSurgery
 
             services.AddDbContextPool<AppDbContext>(
                options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+            }).AddEntityFrameworkStores<AppDbContext>();
 
             //add repository
             services.AddScoped<ICalendarRepository, CalendarRepository>();
@@ -73,7 +80,7 @@ namespace IntelliSurgery
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Appointment}/{action=Index}/{id?}");
+                    pattern: "{controller=Account}/{action=Login}/{id?}");
             });
         }
     }

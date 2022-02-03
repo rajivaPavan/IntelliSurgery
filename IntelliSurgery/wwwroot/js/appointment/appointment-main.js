@@ -15,11 +15,7 @@ $("#update-patient-btn").click(async () => {
 
 $("#add-appointment-btn").click(async () => {
     if (global.patientId != NULL_ENTITY_ID) {
-        var predictedTime = await addAppointment(global.patientId);
-        Swal.fire({
-            icon: "success",
-            text: "Appointment added. Predicted Time duration for surgery is " + predictedTime
-        });
+        await addAppointment(global.patientId);
         resetForms();
         
     } else {

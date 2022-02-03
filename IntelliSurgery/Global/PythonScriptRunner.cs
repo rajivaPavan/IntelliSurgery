@@ -29,6 +29,15 @@ namespace IntelliSurgery.Global
 
             //json string to be sent to Python script
             string patientDataJson = JsonConvert.SerializeObject(patientMedicalData);
+            dynamic jsonData = JsonConvert.DeserializeObject<dynamic>(patientDataJson);
+            int Age = jsonData.Age;
+            int Gender = jsonData.Gender;
+            int ASA = jsonData.ASA;
+            double BMI = jsonData.BMI;
+            int Complication = jsonData.Complication;
+            string Surgerytype = jsonData.Surgerytype;
+            //list Diseases = jsonData.Diseases;
+            Console.WriteLine(BMI);
             Console.WriteLine(patientDataJson);
             // Create new process start info 
             ProcessStartInfo myProcessStartInfo = new ProcessStartInfo(python);
@@ -38,7 +47,7 @@ namespace IntelliSurgery.Global
             myProcessStartInfo.RedirectStandardOutput = true;
 
             // 1st arguments is pointer to itself
-            myProcessStartInfo.Arguments = myPythonApp + " " + patientDataJson;
+            myProcessStartInfo.Arguments = myPythonApp + " " + Age + " " + Gender + " " + ASA + " " + BMI + " " + Complication + " " + Surgerytype;
 
             Process myProcess = new Process();
             // assign start information to  the process 
@@ -72,5 +81,5 @@ namespace IntelliSurgery.Global
 
     }
 
-    
+
 }

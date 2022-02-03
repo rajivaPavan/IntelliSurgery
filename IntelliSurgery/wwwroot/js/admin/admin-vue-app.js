@@ -26,42 +26,7 @@ calendarApp = Vue.createApp({
     },
     watch: {
         tryDeleteSelectedBlock: async function () {
-            var selectedBlock = this.selectedWorkingBlock;
-            if (selectedBlock != null) {
-
-                var isSuccess = await deleteWorkingBlockRequest(selectedBlock.workingBlockId);
-                if (isSuccess == true) {
-                    var calendarEvents = this.calendars[this.selectedSurgeonId].events;
-
-                    //find event from calendar events array in data
-                    var blockIndex = -1;
-                    for (var i = 0; i < calendarEvents.length; i++) {
-                        if (calendarEvents[i].id == selectedBlock.eventId) {
-                            blockIndex = i;
-                            break;
-                        }
-                    }
-
-                    if (blockIndex != -1) {
-                        calendarEvents = removeElementAtIndex(blockIndex, calendarEvents);
-                    }
-
-                    this.calendars[this.selectedSurgeonId].events = calendarEvents;
-
-                    //remove event from full calendar
-                    var event = this.fullCalendar.getEventById(selectedBlock.eventId);
-                    event.remove();
-                }
-                else {
-                    Swal.fire(
-                        'Deleted!',
-                        "Cannot remove the block, as surgeries have been asigned already.",
-                        'error'
-                    )
-                }
-
-
-            }
+            await removeWorkingHours();
         }
     },
     computed: {
@@ -243,16 +208,7 @@ calendarApp = Vue.createApp({
             removeElementFromArray(s, this.hospitalData.surgeryTypeTheatres);
         },
 
-        //schedules
-        workingHoursAddClick() {
-
-        },
-        deleteWorkingHoursClick(s) {
-            
-        },
-        workingHoursRemoveClick(s) {
-            
-        },
+        //working hours
         async renderCalendar() {
             var selectedSurgeonId = this.selectedSurgeonId;
             if (selectedSurgeonId != -1) {
@@ -308,8 +264,43 @@ calendarApp = Vue.createApp({
                 
             }
         },
-        async removeWorkingHoursClick() {
-            
+        async removeWorkingHours() {
+            var selectedBlock = this.selectedWorkingBlock;
+            if (selectedBlock != null) {
+
+                var isSuccess = await deleteWorkingBlockRequest(selectedBlock.workingBlockId);
+                if (isSuccess == true) {
+                    var calendarEvents = this.calendars[this.selectedSurgeonId].events;
+
+                    //find event from calendar events array in data
+                    var blockIndex = -1;
+                    for (var i = 0; i < calendarEvents.length; i++) {
+                        if (calendarEvents[i].id == selectedBlock.eventId) {
+                            blockIndex = i;
+                            break;
+                        }
+                    }
+
+                    if (blockIndex != -1) {
+                        calendarEvents = removeElementAtIndex(blockIndex, calendarEvents);
+                    }
+
+                    this.calendars[this.selectedSurgeonId].events = calendarEvents;
+
+                    //remove event from full calendar
+                    var event = this.fullCalendar.getEventById(selectedBlock.eventId);
+                    event.remove();
+                }
+                else {
+                    Swal.fire(
+                        'Deleted!',
+                        "Cannot remove the block, as surgeries have been asigned already.",
+                        'error'
+                    )
+                }
+
+
+            }
         }
 
     }

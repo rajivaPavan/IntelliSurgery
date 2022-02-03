@@ -102,7 +102,15 @@ calendarApp = Vue.createApp({
             removeElementFromArray(s, this.hospitalData.specialities);
         },
         async saveSpecialities() {
-
+            var data = {
+                specialities: this.hospitalData.specialities,
+                deleteSpecialities: this.deleteData.specialities
+            }
+            var res = await saveSpecialitiesRequest(data);
+            if (res != null) {
+                this.hospitalData.specialities = [];
+                this.prevData.specialities = res;
+            }
         },
 
         //surgeon
@@ -126,7 +134,15 @@ calendarApp = Vue.createApp({
             removeElementFromArray(s, this.hospitalData.surgeons);
         },
         async saveSurgeons() {
-
+            var data = {
+                surgeons: this.hospitalData.surgeons,
+                deleteSurgeons: this.deleteData.surgeons
+            }
+            var res = await saveSurgeonsRequest(data);
+            if (res != null) {
+                this.hospitalData.surgeons = [];
+                this.prevData.surgeons = res;
+            }
         },
 
         // surgeryType
@@ -148,7 +164,15 @@ calendarApp = Vue.createApp({
             removeElementFromArray(s, this.hospitalData.surgeryTypes);
         },
         async saveSurgeryTypes() {
-
+            var data = {
+                surgeryTypes: this.hospitalData.surgeryTypes,
+                deleteSurgeryTypes: this.deleteData.surgeryTypes
+            }
+            var res = await saveSurgeryTypesRequest(data);
+            if (res != null) {
+                this.hospitalData.surgeryTypes = [];
+                this.prevData.surgeryTypes = res;
+            }
         },
         //theatreType
         theatreTypeAddClick() {
@@ -259,9 +283,6 @@ calendarApp = Vue.createApp({
                         'warning'
                     )
                 }
-
-
-                
             }
         },
         async removeWorkingHours() {

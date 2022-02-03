@@ -62,6 +62,7 @@
                 this.tableData = appointments;
                 $("#calendar").hide();
                 $("#appointments-table").show();
+                this.selectedEvent = null;
             }
         },
         async createSchedule() {
@@ -83,10 +84,10 @@
             if (events == null) {
                 events = await getScheduledSurgeriesRequest(selectedFilter, selectedFilterValue);
             }
-            initCalendar(events);
             $("#appointments-table").hide();
             $("#calendar").show();
             this.selectedEvent = null;
+            initCalendar(events);
         }
     }
 

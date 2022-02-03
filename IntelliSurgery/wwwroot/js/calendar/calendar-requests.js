@@ -1,6 +1,5 @@
 ﻿async function getScheduledSurgeriesRequest(filter, filterValue) {
     var res = await axios.get("/api/CalendarApi/GetScheduledSurgeries?filter="+filter+"&filterValue="+filterValue.toString());
-    var dto = {};
     var events = [];
     if (res.data.success == true) {
         events = res.data.data;

@@ -20,7 +20,7 @@ namespace IntelliSurgery.DbOperations
             this.context = context;
             readAppointments = context.Appointments.Include(a => a.TheatreType)
                                              .Include(a => a.Surgeon)
-                                             .Include(a => a.ScheduledSurgery)
+                                             .Include(a => a.ScheduledSurgery).ThenInclude(s => s.SurgeryEvent)
                                              .Include(a => a.SurgeryType)
                                              .Include(a => a.Theatre)
                                              .Include(a => a.Patient);

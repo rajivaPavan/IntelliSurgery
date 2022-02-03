@@ -1,9 +1,5 @@
 ﻿
 $(document).ready(async () => {
-    //init empty calendar
-    var noEvents = [];
-    initCalendar(noEvents);
-
 
     //init dropdowns
     var filters = initFilters();

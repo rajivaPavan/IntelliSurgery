@@ -7,11 +7,11 @@
             <link href="~/lib/fullcalendar/main.css" rel="stylesheet" />
             <script src="~/lib/fullcalendar/main.js"></script>
     </environment>
-    <link ref="stylesheet" href="~/css/calendar.css" />
+    <link href="~/css/calendar.css" rel="stylesheet">
 }
 
 <div class="col-12 pt-2 bg-light" id="calendar-main">
-    <div class="row">
+    <div class="row" style="height:94vh;">
         <div class="col-12 col-md-3 h-100">
             <div class="border border-dark">
                 <div class="col-12 my-2">
@@ -76,7 +76,7 @@
                     <div class="my-2">Surgeon : {{getSelectedEvent.surgeon}} </div>
                     <div class="my-2">Patient : {{getSelectedEvent.patient}}</div>
                     <div class="my-2">Surgery : {{getSelectedEvent.surgery}}</div>
-                    <div class="my-2">Theatre : </div>
+                    <div class="my-2">Theatre : {{getSelectedEvent.theatre}</div>
                     <div class="my-2">Start Time : {{getSelectedEvent.startTime}}</div>
                     <div class="my-2">Duration : {{getSelectedEvent.duration}}</div>
                     <div class="my-2">EndTime : {{getSelectedEvent.endTime}}</div>
@@ -88,11 +88,13 @@
                     </div>
                 </div>
             </div>
-            
-
         </div>
-        <div class="col-12 col-md-9 logo-bg" >
-            <div id="appointments-table" style="display:none;"></div>
+        <div class="col-12 col-md-9 logo-bg " id="right-side" >
+            <div id="appointments-table" style="display:none;">
+                <div class="table table-bordered">
+                    <div></div>
+                </div>
+            </div>
             <div id="calendar" style="display:none;"></div>
         </div>
     </div>

@@ -32,20 +32,20 @@ namespace IntelliSurgery.Controllers
 
             if (filter == "theatres")
             {
-                scheduledAppointments = await appointmentRepository.GetAppointments(a => a.ScheduledSurgery != null && a.Theatre.Id == filterValue);
+                scheduledAppointments = await appointmentRepository.GetAppointments(a => a.ScheduledSurgeryId != null && a.TheatreId == filterValue);
             }
             else if (filter == "surgeons")
             {
-                scheduledAppointments = await appointmentRepository.GetAppointments(a => a.ScheduledSurgery != null && a.Surgeon.Id == filterValue);
+                scheduledAppointments = await appointmentRepository.GetAppointments(a => a.ScheduledSurgeryId != null && a.SurgeonId == filterValue);
             }
             else if (filter == "theatreTypes")
             {
-                scheduledAppointments = await appointmentRepository.GetAppointments(a => a.ScheduledSurgery != null && a.TheatreType.Id == filterValue);
+                scheduledAppointments = await appointmentRepository.GetAppointments(a => a.ScheduledSurgeryId != null && a.TheatreTypeId == filterValue);
 
             }
             else if (filter == "surgeryTypes")
             {
-                scheduledAppointments = await appointmentRepository.GetAppointments(a => a.ScheduledSurgery != null && a.SurgeryType.Id == filterValue);
+                scheduledAppointments = await appointmentRepository.GetAppointments(a => a.ScheduledSurgeryId != null && a.SurgeryTypeId == filterValue);
             }
 
             foreach (var appointment in scheduledAppointments)
@@ -66,27 +66,10 @@ namespace IntelliSurgery.Controllers
                 Title = "Patient Name: Surgery",
                 Start = DateTime.Now,
                 End = DateTime.Now.Add(new TimeSpan(1,0,0)),
-                ExtendedProps = await appointmentRepository.GetAppointment(a => a.Id==1),
+                ExtendedProps = await appointmentRepository.GetAppointment(a => a.Id==27),
                 Color = AppointmentCalendarEvent.GetPriorityColor(PriorityLevel.Low)
             });
-            fullCalendarEvents.Add(new AppointmentCalendarEvent()
-            {
-                Id = "surgeons-2-2",
-                Title = "Patient Name: Surgery",
-                Start = DateTime.Now.Add(new TimeSpan(1, 0, 0)),
-                End = DateTime.Now.Add(new TimeSpan(2, 0, 0)),
-                ExtendedProps = await appointmentRepository.GetAppointment(a => a.Id == 2),
-                Color = AppointmentCalendarEvent.GetPriorityColor(PriorityLevel.High)
-            });
-            fullCalendarEvents.Add(new AppointmentCalendarEvent()
-            {
-                Id = "surgeons-1-3",
-                Title = "Patient Name: Surgery",
-                Start = DateTime.Now.Add(new TimeSpan(2, 20, 0)),
-                End = DateTime.Now.Add(new TimeSpan(3, 0, 0)),
-                ExtendedProps = await appointmentRepository.GetAppointment(a => a.Id == 3),
-                Color = AppointmentCalendarEvent.GetPriorityColor(PriorityLevel.Medium)
-            });
+            
 
             return Json(new { success = true, data = fullCalendarEvents });
         }

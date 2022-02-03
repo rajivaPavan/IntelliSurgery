@@ -145,10 +145,18 @@ namespace IntelliSurgery.Global
                         Start = bestBlock.End.Subtract(bestBlock.RemainingTime),
                         Duration = surgeryDuration
                     };
-                    currentAppointment.ScheduledSurgery.SurgeryEvent.SetTimeRange(surgeryTimeRange);
+
+                    //add scheduled surgery to database and add to current appointment
+                    SurgeryEvent surgeryEvent = new SurgeryEvent();
+                    surgeryEvent.SetTimeRange(surgeryTimeRange);
+
+                    ScheduledSurgery scheduledSurgery = await surgeryRepository.AddSurgery(new ScheduledSurgery() { SurgeryEvent = surgeryEvent});
+                    currentAppointment.ScheduledSurgery = scheduledSurgery;
+                    currentAppointment.ScheduledSurgeryId = scheduledSurgery.Id;
 
                     //set theatre for the appointment
                     currentAppointment.Theatre = bestBlock.Theatre;
+                    currentAppointment.TheatreId = bestBlock.TheatreId;
 
                     //update appointmentRepo
                     currentAppointment = await appointmentRepository.UpdateAppointment(currentAppointment);

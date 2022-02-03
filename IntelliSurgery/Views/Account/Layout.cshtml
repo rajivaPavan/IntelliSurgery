@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <environment include="development">
+            <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+            <link href="~/lib/fontawesome/css/all.css" rel="stylesheet" />
+    </environment>
+    <environment exclude="development">
+        <link href='https://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+    </environment>
+    @RenderSection("Styles", required:false)
+</head>
+<body>
+        @RenderBody()
+        @RenderSection("Scripts", required:false)
+</body>
+</html>

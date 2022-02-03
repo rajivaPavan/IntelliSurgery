@@ -1,1 +1,37 @@
-﻿
+﻿@model LoginViewModel
+
+@{
+    Layout = "~/Views/Account/Layout.cshtml";
+    ViewBag.Title = "Login";
+}
+
+@section Styles{
+    <link href="~/css/login.css" rel="stylesheet"/>
+}
+
+<div class="container-fluid">
+        <div class="row" style="height:100vh;">
+             <div class="col-lg-col-6 m-auto" id="logo">
+                <img class="" src="~/assets/images/IntelliSurgery.png">
+            </div>
+            <div class="col-lg-6 justify-content-center my-auto">
+                <form asp-action="Login" asp-controller="Account">
+                    <div class="form_class border border-dark">
+                        <h1 id="login">Welcome</h1><br />
+                        <label for="name">Username</label>
+                        <input asp-for="UserName" type="text" class="form-control mb-2 mr-sm-2" id="name" name="user_name">
+                        <label >Password</label>
+                        <input asp-for="Password" class="form-control mb-2 mr-sm-2" id="pw" name="password">
+                        <label for="rememberMe">Remember Me</label>
+                        <input asp-for="RememberMe" class="form-control mb-2 mr-sm-2" id="rememberMe" name="rememberMe">
+                        <button class="btn btn-info h-100" type="submit" id="submit-btn">Login</button><br />
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>
+
+
+@section Scripts{
+
+}

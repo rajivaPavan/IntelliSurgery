@@ -43,8 +43,4 @@
     <PackageReference Include="TimePeriodLibrary.NET" Version="2.1.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Admin\" />
-  </ItemGroup>
-
 </Project>

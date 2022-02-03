@@ -148,6 +148,11 @@ namespace IntelliSurgery.Global
             return predictedTime.Add(prepTime).Add(cleanTime);
         }
 
+        public Task<List<Appointment>> PrioritizeAppointments(List<Appointment> appointments)
+        {
+            throw new NotImplementedException();
+        }
+
 
         //public async Task CreateSchedule(TheatreType theatreType)
         //{

@@ -24,10 +24,10 @@ namespace IntelliSurgery.Controllers
             this.surgeonRepository = surgeonRepository;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetTableData()
+        [HttpPost]
+        public async Task<IActionResult> GetTableData(int surgeonId)
         {
-            List<Appointment> appointments = await appointmentRepository.GetAllAppointments();
+            List<Appointment> appointments = await appointmentRepository.GetAppointments(a => a.SurgeonId == surgeonId);
             return Json(new { success = true, data = appointments });
         }
 

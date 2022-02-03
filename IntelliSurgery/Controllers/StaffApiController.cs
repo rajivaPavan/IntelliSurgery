@@ -5,6 +5,7 @@ using IntelliSurgery.DTOs;
 using IntelliSurgery.Models;
 using Itenso.TimePeriod;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -30,15 +31,35 @@ namespace IntelliSurgery.Controllers
         public async Task<IActionResult> SaveWorkingBlock(WorkBlockDTO workBlockDTO)
         {
             Surgeon surgeon = await surgeonRepository.GetSurgeonById(workBlockDTO.SurgeonId);
-            TimeRange timeRange = new TimeRange() { Start = workBlockDTO.Start, End = workBlockDTO.End };
+            TimeRange timeRange = new TimeRange() { 
+                Start = DateTime.Parse(workBlockDTO.Start), 
+                End = DateTime.Parse(workBlockDTO.End)
+            };
+
             //VALIDATE whether timerange overlaps with any other block
             //if overlap occurs return json success = false
 
+            //get blocks that are on the day of the timerange
+            List<WorkingBlock> checkBlocks = await workingBlockRepository.GetWorkBlocks(
+                w => w.Start.Date == timeRange.Start.Date || w.End.Date == timeRange.End.Date);
+
+            foreach(var block in checkBlocks)
+            {
+                if (timeRange.OverlapsWith(block.GetTimeRange()))
+                {
+                    return Json(new { success = false });
+                }
+            }
 
             //else proceed to create and save the block
             Theatre theatre = await theatreRepository.GetTheatre(TheatreQueryLogic.ById(workBlockDTO.TheatreId));
 
-            WorkingBlock workingBlock = new WorkingBlock() { Surgeon = surgeon, Theatre = theatre};
+            WorkingBlock workingBlock = new WorkingBlock() { 
+                SurgeonId = surgeon.Id,
+                Surgeon = surgeon, 
+                TheatreId = theatre.Id,
+                Theatre = theatre
+            };
             workingBlock.SetTimeRange(timeRange);
             workingBlock.RemainingTime = timeRange.Duration;
             
@@ -53,7 +74,7 @@ namespace IntelliSurgery.Controllers
         public async Task<IActionResult> GetWorkingBlocks(int surgeonId)
         {
             Surgeon surgeon = await surgeonRepository.GetSurgeonById(surgeonId);
-            List<WorkingBlock> workingBlocks = await workingBlockRepository.GetWorkBlocks(surgeon);
+            List<WorkingBlock> workingBlocks = await workingBlockRepository.GetWorkBlocks(w => w.Surgeon.Id == surgeon.Id);
             List<SurgeonCalendarEvent> events = new List<SurgeonCalendarEvent>();
             foreach (WorkingBlock workingBlock in workingBlocks)
             {
@@ -66,6 +87,18 @@ namespace IntelliSurgery.Controllers
             };
             
             return Json(new { success = true, data = surgeonCalendarDTO});
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteWorkBlock(int workingBlockId)
+        {
+            WorkingBlock workingBlock = await workingBlockRepository.GetWorkBlock(w => w.Id == workingBlockId);
+            if(workingBlock.AllocatedSurgeries != null || workingBlock.AllocatedSurgeries.Count != 0)
+            {
+                await workingBlockRepository.DeleteWorkBlock(workingBlock);
+                return Json(new { success = true });
+            }
+            return Json(new { success = false });
         }
     }
 }

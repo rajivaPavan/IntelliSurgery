@@ -5,7 +5,7 @@
     theatreTypes: [],
     theatres: [],
     surgeryTypeTheatres: [],
-    surgeonSchedules:[]
+    surgeonSchedules: [],
 };
 
 calendarApp = Vue.createApp({
@@ -13,8 +13,21 @@ calendarApp = Vue.createApp({
         return {
             prevData: emptyHospitalData,
             hospitalData: emptyHospitalData,
-            deleteData: emptyHospitalData
+            deleteData: emptyHospitalData,
+            selectedWorkingBlock: null,
+            selectedSurgeonId: -1,
+            selectedTheatreId: -1,
+            calendars: {},
+            fullCalendar: {},
+            startTime: "",
+            endTime: "",
+            tryDeleteSelectedBlock : 0
         };
+    },
+    watch: {
+        tryDeleteSelectedBlock: async function () {
+            await removeWorkingHours();
+        }
     },
     computed: {
         //getPrevData
@@ -60,7 +73,14 @@ calendarApp = Vue.createApp({
         },
         getNewSchedules() {
 
-        }
+        },
+
+        //getWorkBlock
+        getSelectedWorkBlock() {
+            return this.selectedWorkBlock;
+        },
+
+        
     },
     methods: {
         //speciality
@@ -188,16 +208,101 @@ calendarApp = Vue.createApp({
             removeElementFromArray(s, this.hospitalData.surgeryTypeTheatres);
         },
 
-        //schedules
-        workingHoursAddClick() {
+        //working hours
+        async renderCalendar() {
+            var selectedSurgeonId = this.selectedSurgeonId;
+            if (selectedSurgeonId != -1) {
+                //if surgeons calendar has been retrieved before
+                var calendarEvents = null;
+                if (this.calendars.hasOwnProperty(selectedSurgeonId)) {
+                    calendarEvents = this.calendars[selectedSurgeonId].events;
+                }
+                else {
+                    var surgeonCalendarDT0 = await getWorkingBlocksRequest(selectedSurgeonId);
+                    if (surgeonCalendarDT0 != null) {
+                        this.calendars[selectedSurgeonId] = surgeonCalendarDT0;
+                        calendarEvents = surgeonCalendarDT0.events;
+                    }
+                }
+                if (calendarEvents != null) {
+                    this.fullCalendar = initSurgeonCalendar(calendarEvents);
+                }
+            }
+        },
+        async addWorkingHoursClick() {
+            var selectedSurgeonId = this.selectedSurgeonId;
+            var selectedTheatreId = this.selectedTheatreId;
+            var startTime = $("#start-time").val();
+            var endTime = $("#end-time").val();
+            if (selectedSurgeonId != -1 && selectedTheatreId !=- 1 && startTime!="" && endTime != "") {
+                var workBlock = {
+                    start: startTime,
+                    end: endTime,
+                    surgeonId: selectedSurgeonId,
+                    theatreId: selectedTheatreId
+                }
 
+                var fullcalendarevent = await saveWorkingBlockRequest(workBlock);
+                if (fullcalendarevent != null) {
+                    this.calendars[selectedSurgeonId].events.push(fullcalendarevent);
+                    this.fullCalendar.addEvent(fullcalendarevent);
+
+                    //reset fields
+                    this.selectedTheatreId = -1;
+                    this.startTime = "";
+                    this.endTime = "";
+
+                } else {
+                    Swal.fire(
+                        'Unsuccessful!',
+                        "Time is overlapping with another block",
+                        'warning'
+                    )
+                }
+
+
+                
+            }
         },
-        deleteWorkingHoursClick(s) {
-            
-        },
-        workingHoursRemoveClick(s) {
-            
-        },
+        async removeWorkingHours() {
+            var selectedBlock = this.selectedWorkingBlock;
+            if (selectedBlock != null) {
+
+                var isSuccess = await deleteWorkingBlockRequest(selectedBlock.workingBlockId);
+                if (isSuccess == true) {
+                    var calendarEvents = this.calendars[this.selectedSurgeonId].events;
+
+                    //find event from calendar events array in data
+                    var blockIndex = -1;
+                    for (var i = 0; i < calendarEvents.length; i++) {
+                        if (calendarEvents[i].id == selectedBlock.eventId) {
+                            blockIndex = i;
+                            break;
+                        }
+                    }
+
+                    if (blockIndex != -1) {
+                        calendarEvents = removeElementAtIndex(blockIndex, calendarEvents);
+                    }
+
+                    this.calendars[this.selectedSurgeonId].events = calendarEvents;
+
+                    //remove event from full calendar
+                    var event = this.fullCalendar.getEventById(selectedBlock.eventId);
+                    event.remove();
+                }
+                else {
+                    Swal.fire(
+                        'Deleted!',
+                        "Cannot remove the block, as surgeries have been asigned already.",
+                        'error'
+                    )
+                }
+
+
+            }
+        }
+
     }
 
 });
@@ -224,6 +329,13 @@ function removeElementFromArray(el, arr) {
         arr.splice(index, 1);
     }
     return index;
+}
+
+function removeElementAtIndex(elementIndex, arr) {
+    if (elementIndex != -1) {
+        arr.splice(elementIndex, 1);
+    }
+    return arr;
 }
 
 $(document).ready(async () => {

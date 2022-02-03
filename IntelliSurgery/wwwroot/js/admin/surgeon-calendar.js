@@ -1,6 +1,6 @@
-﻿function initCalendar(calendarEvents) {
+﻿function initSurgeonCalendar(calendarEvents) {
 
-    var calendarEl = document.getElementById('calendar');
+    var calendarEl = document.getElementById('surgeon-calendar');
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'timeGridWeek',
@@ -14,20 +14,21 @@
         eventClick: function (info) {
 
             var event = info.event;
-            var appointment = event.extendedProps;
+            var workingBlock = event.extendedProps;
 
             var selected = {
-                surgeon: appointment.surgeon.name,
-                patient: appointment.patient.name,
-                surgery: appointment.surgeryType.name,
-                priority: appointment.priorityLevel,
-                //theatre: appointment.theatre.name,
+                workingBlockId: workingBlock.id,
+                surgeon: workingBlock.surgeon.name,
+                theatre: workingBlock.theatre.name,
                 startTime: event.start,
                 endTime: event.end,
-                duration: event.duration
+                duration: event.duration,
+                eventId: event.id,
             };
 
-            calendarVueApp.selectedEvent = selected;
+            calendarVueApp.selectedWorkingBlock = selected;
+
+            sweetAlertBlockDetails(selected);
         },
         eventTextColor: "#000",
         headerToolbar: {
@@ -40,4 +41,24 @@
 
     calendar.render();
 
+    return calendar;
+
+}
+
+function sweetAlertBlockDetails(block) {
+    Swal.fire({
+        title: '<strong>Working block</strong>',
+        html: "<div>Surgeon: " + block.surgeon + "</div>" +
+            "<div>Theatre: " + block.theatre + "</div>" +
+            "<div>Start of shift:  " + block.startTime + "</div>" +
+            "<div>End of shift: " + block.endTime + "</div>",
+        showCloseButton: true,
+        focusConfirm: false,
+        confirmButtonText: 'Delete'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            calendarVueApp.tryDeleteSelectedBlock+=1; //just to change the value, so that the watch function runs
+        }
+    })
+    
 }

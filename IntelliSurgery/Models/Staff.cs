@@ -12,7 +12,6 @@ namespace IntelliSurgery.Models
     }
     public class SurgeryStaff : Staff
     {
-        public List<StaffWorkingPeriod> WorkingHours { get; set; }
     }
 
     public class Surgeon : SurgeryStaff

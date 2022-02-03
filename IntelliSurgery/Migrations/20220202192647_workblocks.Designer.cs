@@ -3,6 +3,7 @@ using System;
 using IntelliSurgery.DbOperations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace IntelliSurgery.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220202192647_workblocks")]
+    partial class workblocks
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -197,6 +199,36 @@ namespace IntelliSurgery.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Specialities");
+                });
+
+            modelBuilder.Entity("IntelliSurgery.Models.StaffWorkingPeriod", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<TimeSpan>("Duration")
+                        .HasColumnType("time(6)");
+
+                    b.Property<DateTime>("End")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("Start")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("SurgeonId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TheatreId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SurgeonId");
+
+                    b.HasIndex("TheatreId");
+
+                    b.ToTable("StaffWorkingPeriod");
                 });
 
             modelBuilder.Entity("IntelliSurgery.Models.Surgeon", b =>
@@ -408,6 +440,19 @@ namespace IntelliSurgery.Migrations
                     b.Navigation("SurgeryEvent");
                 });
 
+            modelBuilder.Entity("IntelliSurgery.Models.StaffWorkingPeriod", b =>
+                {
+                    b.HasOne("IntelliSurgery.Models.Surgeon", null)
+                        .WithMany("WorkingHours")
+                        .HasForeignKey("SurgeonId");
+
+                    b.HasOne("IntelliSurgery.Models.Theatre", "Theatre")
+                        .WithMany()
+                        .HasForeignKey("TheatreId");
+
+                    b.Navigation("Theatre");
+                });
+
             modelBuilder.Entity("IntelliSurgery.Models.Surgeon", b =>
                 {
                     b.HasOne("IntelliSurgery.Models.Speciality", "Speciality")
@@ -458,6 +503,11 @@ namespace IntelliSurgery.Migrations
                         .HasForeignKey("SurgeryTypesConductedId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("IntelliSurgery.Models.Surgeon", b =>
+                {
+                    b.Navigation("WorkingHours");
                 });
 
             modelBuilder.Entity("IntelliSurgery.Models.WorkingBlock", b =>

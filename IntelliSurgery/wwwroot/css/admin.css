@@ -68,8 +68,11 @@ label {
 .sidebar-link {
     display: flex;
     align-items: center;
+  
 }
-
+.navbar-nav {
+    color: #454545;
+}
     .sidebar-link .right-icon {
         display: inline-flex;
     }

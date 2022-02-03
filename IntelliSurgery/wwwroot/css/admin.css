@@ -65,6 +65,9 @@ label {
     display: block;
     margin-bottom: 8px;
 }
+.offcanvas{
+   position:sticky;
+}
 .sidebar-link {
     display: flex;
     align-items: center;
@@ -74,6 +77,10 @@ label {
         display: inline-flex;
     }
 
+.full-height{
+    height: 94vh;
+    overflow:hidden;
+}
 
 @media screen and (min-width: 480px) {
     form_class {

@@ -77,6 +77,10 @@ label {
         display: inline-flex;
     }
 
+.full-height{
+    height: 94vh;
+    overflow:hidden;
+}
 
 @media screen and (min-width: 480px) {
     form_class {

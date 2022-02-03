@@ -59,17 +59,6 @@ namespace IntelliSurgery.Controllers
                     Color = AppointmentCalendarEvent.GetPriorityColor(appointment.PriorityLevel)
                 });
             }
-            //hardcoded values
-            fullCalendarEvents.Add(new AppointmentCalendarEvent()
-            {
-                Id = "surgeons-1-1",
-                Title = "Patient Name: Surgery",
-                Start = DateTime.Now,
-                End = DateTime.Now.Add(new TimeSpan(1,0,0)),
-                ExtendedProps = await appointmentRepository.GetAppointment(a => a.Id==27),
-                Color = AppointmentCalendarEvent.GetPriorityColor(PriorityLevel.Low)
-            });
-            
 
             return Json(new { success = true, data = fullCalendarEvents });
         }

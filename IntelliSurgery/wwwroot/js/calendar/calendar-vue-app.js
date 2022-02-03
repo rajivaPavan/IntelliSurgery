@@ -117,7 +117,6 @@ function initCalendarsObj(filters, filterValues) {
         })
 
     })
-    console.log(calendars);
     return calendars;
 }
 

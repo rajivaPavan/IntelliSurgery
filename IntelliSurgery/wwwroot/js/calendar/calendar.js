@@ -26,7 +26,7 @@ function initCalendar(calendarEvents) {
                 theatre: appointment.theatre.name,
                 startTime: event.start,
                 endTime: event.end,
-                duration: event.duration
+                duration: appointment.scheduledSurgery.surgeryEvent.durationDescription
             };
 
             calendarVueApp.selectedEvent = selected;

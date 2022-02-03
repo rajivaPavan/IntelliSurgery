@@ -1,79 +1,65 @@
 ﻿$(document).ready(function () {
-    /*$("#idCheck").hide();                           //first all the h6 tags are hidden
-    $("#patientNameCheck").hide();   
-    $("#weightCheck").hide();
-    $("#heightCheck").hide();
-    $("#birthdayCheck").hide();
-    $('#genderCheck').hide();
-    $('#surgeryCheck').hide();
-    $('#surgeonCheck').hide();
-    $('#anasthesia_typeCheck').hide();
-    $('#anasthesia_requireCheck').hide();
-    //$('#or_theatreCheck').hide();
-    $('#importanceCheck').hide();
-    $('#anastheasistCheck').hide();
-    $("#asaCheck").hide();
-    $("#diseasesCheck").hide();*/
-
-    var idError = false;                                    //first all errors are set to false
+    var idError = false;
     var patientNameError = false;
+    var birthdayError = false;
+    var genderError = false;
     var weightError = false;
     var heightError = false;
-    var birthdayError = false;
+    var asaError = false;
+    var diseasesError = false;
     var surgeryError = false;
     var surgeonError = false;
+    var anastheasistError = false;
     var anasthesia_typeError = false;
-    //var or_theatreError = false;
-    var genderError = true;
-    var importanceError = true;
-    var anastheasistError = true;
-    var asaError = false;
+    var or_theatreError = false;
+    var importanceError = false;
 
-    $('#patient_id').keyup(function () {                 //---------------------------------->keyup() wenuwata change balanna
+    $('#patient_id').change(function () {                 
         validateId();
     });
 
-    $('#patient_name').blur(function (e) {                       //$('#patient_name').keyup(function () {
+    $('#patient_name').change(function () {                 
         validatePatientName();
     });
 
-    $('#weight').keyup(function () {
-        validateWeight();
-    });
-
-    $('#height').keyup(function () {
-        validateHeight();
-    });
-
-    $('#birthday').keyup(function () {
+    $('#birthday').change(function () {
         validateBirthday();
     });
 
-    $('#surgery').keyup(function () {
+    $('#weight').change(function () {
+        validateWeight();
+    });
+
+    $('#height').change(function () {
+        validateHeight();
+    });   
+
+    $('#surgery').change(function () {
         validateSurgery();
     });
 
-    $('#surgeon').keyup(function () {
+    $('#surgeon').change(function () {
         validateSurgeon();
     });
 
-    $('#anasthesia_type').keyupt(function () {
+    $('#anasthesia_type').change(function () {
         validateAnasthesia_type();
     });
 
-    $('#or_theatre').keyup(function () {
+    $('#or_theatre').change(function () {
         validateOr_theatre();
     });
 
     function validateId() {                                       //validate patient ID
         var idInput = $('#patient_id').val();
-        if (!((idInput.match(/^[0-9]+$/) || (idInput == ''))) {                          //only digits(0-9) will be allowed as the id input            
-            $("#idCheck").html("**ID should contain only digits");
+        if (idInput == '') {
             $("#idCheck").show();
             idError = true;
         }
-        else {
-            $("#idCheck").hide();
+        else if (!(idInput.match(/^[0-9]+$/))) {                          //only digits(0-9) will be allowed as the id input
+            $("#idCheck").text($("#idCheck").html("**ID should contain only digits"));          //if code gives wrong input ,return false
+            $("#idCheck").show();
+            idError = true;
         }
     }
 
@@ -84,27 +70,25 @@
             $("#patientNameCheck").show();
             patientNameError = true;
         }
-        else {
-            $("#patientNameCheck").hide();
-        }
     }
 
-    function validateWeight() {                                      //validate patient weight
+    function validateWeight() {                                     //validate patient weight
+        
         let weightInput = $('#weight').val();
-
+        $("#weightCheck").css("display", "");
         if (weightInput.length == '') {
-            $('#weightCheck').show();
+            //$('#weightCheck').show();                                                  //$("#weight").css("display", "");
+            //document.getElementById("weight").style.display = "block";                //document.getElementById("weight").style.display = null;
+                                                                                                        //$('weight').show();   //$('.myerror').css('display','none');
             weightError = true;
         }
-        else if (/^\d+\.\d+$|^\d+$/.test(weightInput)) {                       //allow integers & floats
-            $('#weightCheck').hide();
-        }
-        else {
+        else if (!(/^\d+\.\d+$|^\d+$/.test(weightInput))) {                       //allow integers & floats      
             $('#weightCheck').html('**Invalid weight-should be numeric');
             $('#weightCheck').show();
             weightError = true;
         }
     }
+
     function validateHeight() {                                      //validate patient height
         let heightInput = $('#height').val();
 
@@ -112,10 +96,7 @@
             $('#heightCheck').show();
             heightError = true;
         }
-        else if (/^\d+\.\d+$|^\d+$/.test(heightInput)) {                            //allow integers & floats
-            $('#heightCheck').hide();
-        }
-        else {
+        else if (!(/^\d+\.\d+$|^\d+$/.test(heightInput))) {                            //allow only integers & floats
             $('#heightCheck').html('**Invalid height-should be numeric');
             $('#heightCheck').show();
             heightError = true;
@@ -123,90 +104,64 @@
     }
 
     function validateBirthday() {
-        $('.check').on('click', function (e) {
-            e.preventDefault();
-            $('.field input').each(function (index, value) {
-                if ($(this).is('[type="date"]')) {
-                    $('#birthdayCheck').hide();
-                }
-                else {
-                    $('#birthdayCheck').show();
-                    birthdayError = true;
-                }
-            })
-        })
+        let birthdayInput = $('#birthday').val();
+
+        if (birthdayInput.length == '') {
+            $('#birthdaytCheck').show();
+            birthdaytError = true;
+        }
     }
 
-    function validateGender() {                                         //validate patient gender
+    function validateGender() {                                         //validate patient gender radio is checked
         if ((!($('#gender_male').prop('checked'))) && (!($('#gender_female').prop('checked')))) {
             $('#genderCheck').show();
             genderError = true;
         }
-        else {
-            $('#genderCheck').hide();
-        }
+    }
 
-    }
-    function validateAnastheasist() {                                   //validate anastheasist is choosed
-        if ((!($('#required').prop('checked'))) && (!($('#not_required').prop('checked')))) {
-            $('#anastheasistCheck').show();
-            anastheasistError = true;
+    function validateAnastheasist() {                                   
+        if ($('#not_required').prop('checked')) {
+            var anastheasistSelected = $('input[name=anastheasist]:checked').val();
+            //disable anasthesia type combo:$("#ddlList option[value='jquery']").attr("disabled","disabled");
         }
         else {
-            $('#anastheasistCheck').hide();
+            validateAnasthesia_type()
         }
     }
+
     function validateSurgery() {                                    //validate surgery combo is choosed
-        if ($('#surgery').val() == 'Choose...') {
+        if ($('#surgery').text() == '') {
             $('#surgeryCheck').show();
             surgeryError = true;
-            return false;
-        }
-        else {
-            $('#surgeryCheck').hide();
         }
     }
+
     function validateSurgeon() {                                    //validate surgeon combo is choosed
-        if ($('#surgeon').val() == 'Choose...') {
+        if ($('#surgeon').text() == '') {
             $('#surgeonCheck').show();
             surgeryError = true;
         }
-        else {
-            $('#surgeonCheck').hide();    
-        }
     }
-    function validateAnasthesia_type() {                               //validate anasthesia type combo is choosed
-        validateAnastheasist();
-        if ($('#anasthesia_type').val() == 'Choose...') {
+
+    function validateAnasthesia_type() {                               //validate anasthesia type combo is choosed-this function has called inside validateAnastheasist()
+        if ($('#anasthesia_type').text() == '') {
             $('#anasthesia_typeCheck').show();
             anasthesia_typeError = true;
         }
-        else {
-            $('#anasthesia_typeCheck').hide();
-        }
     }
+
     function validateOr_theatre() {                                    //validat or theatre combo is choosed
-        if ($('#or_theatre').val() == 'Choose...') {
+        if ($('#or_theatre').text() == '') {
             $('#or_theatreCheck').show();
             or_theatreError = true;
         }
-        else {
-            $('#or_theatreCheck').hide();
-        }
     }
-    function validateGender() {                                       //check weather gender radio button is selected or not
-        var idInput = $('#patient_id').val();
-        if (idInput == "") {
-            $("#idCheck").show();
-            idError = true;
-        }
-        var genderSelected = $('input[name=gender]:checked').val()
+
+    function validateGender() {                                       
+        var genderSelected = $('input[name=gender]:checked').val()                  //check weather gender radio button is selected or not
         if ((!($('#gender_male').prop('checked'))) && (!($('#gender_female').prop('checked')))) {
             $('#genderCheck').show();
             genderError = true;
-        }
-        else {
-            $('#genderCheck').hide();
         }
     }
 
@@ -215,16 +170,10 @@
         if ((!($('#importance_high').prop('checked'))) && (!($('#importance_medium').prop('checked'))) && (!($('#importance_low').prop('checked')))) {
             $('#importanceCheck').show();
             importanceError = true;
-            return false;
-        }
-        else {
-            $('#importanceCheck').hide();
         }
     }
 
-    function validateAnastheasist() {                                      //check weather anastheasists radio button is selected or not
-        var anastheasistSelected = $('input[name=anastheasist]:checked').val();
-    }
+    
     //disable combo box item by using it's value : $("#ddlList option[value='jquery']").attr("disabled", "disabled");
     //disable combo box item by using it's text : $('#ddlList option:contains("HTML")').attr("disabled", "disabled");
     //$('#surgeon select').prop('disabled', true);
@@ -236,45 +185,55 @@
             asaError = true;
             return false;
         }
-        else {
-            $('#AsaCheck').hide();
-        }
     }
-})
-    /*$("validate-patient-btn").click(function () {
-        if (idError === false) {
-            //alert("Patient validated successfully");
+
+    $("validate-patient-btn").click(function () {
+        if (validateId()) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Patient validated successfully',
+                showConfirmButton: false,                   //if false given,no need to press ok button
+                timer: 1500
+            });
             return true;
         } else {
-            alert("Please enter patient id correctly");
+            Swal.fire({
+                icon: 'error',
+                title: 'Please retry',
+                showConfirmButton: true;
+            });
             return false;
         }
-    }       
-    })
+    });
 
     $("add-patient-btn").click(function () {
-        var nameInput = $("patient_name").val();
-        if (nameInput == "") {
-            $("#patientNameCheck").show();
-            patientNameError = true;
-        }
-        if (patientNameError === false && weightError === false && heightError === false) {
-            //alert("Patient details added successfully");
+        if (patientNameError === false && weightError === false && heightError === false && birthdayError = false && genderError = false && asaError = false && diseasesError = false) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Patient added successfully',
+                showConfirmButton: false,                   //if false given,no need to press ok button
+                timer: 1500
+            });
             return true;
         } else {
-            alert("Please enter patient details correctly");
+            displaySweetAlert("Please try again !");
             return false;
         }
 
-    })
+    });
 
     $("add-appointment-btn").click(function () {
-        if (surgeonError === false && surgeryError === false && anasthesia_typeError === false && or_theatreError === false) {
-            //alert("Surgery requirements added successfully");
+        if (surgeonError === false && surgeryError === false && anasthesia_typeError === false && or_theatreError === false && importanceError === false) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Surgery requirements added successfully',
+                showConfirmButton: false,                   //if false given,no need to press ok button
+                timer: 1500
+            });
             return true;
         } else {
-            alert("Please fill the patient details correctly");
+            displaySweetAlert("Please try again !");
             return false;
         }
-
-    })*/
+    });
+});

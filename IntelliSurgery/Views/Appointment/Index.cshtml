@@ -29,7 +29,7 @@
                                 <button class="btn btn-info h-100" id="validate-patient-btn">Validate Patient</button>
                             </div>
                         </div>
-                        <h6 id="idCheck" class="myerror" >**ID is missing</h6>
+                        <h6 id="idCheck" class="myerror">**ID is missing</h6>
                 </fieldset>
            
                 <fieldset>
@@ -119,15 +119,15 @@
                         </div>
 
                         <div class="col-md-12">
-                            <h7> Diseases:</h7>
-
+                            @*<h7> Diseases:</h7>*@
+                            <label for="diseases" class="form-label"> Diseases:</label>
                            
                         </div>
                         <div class="col-md-4">
                             <div class="form-check">
                                      <input class="form-check-input" type="checkbox" value="" id="disease_1">
                                      <label class="form-check-label" for="disease_1">Disease 1</label>
-                                     
+                         
                                      </div>
                         </div>
                         
@@ -182,6 +182,7 @@
                     <select disable id="anasthesia_type" name="user_anas_type">
                         <option value="-1" selected hidden>Choose...</option>
                     </select>
+                    <h6 id="anasthesia_typeCheck" class="myerror" >**Choose an anasthesia type</h6>
                     
                     <label for="or_theatre">Theatre Type:</label>
                     <select id="theatreType" name="user_or">
@@ -227,5 +228,6 @@
     <script src="~/js/appointment/appointment-validations.js"></script>
     <script src="~/js/appointment/patient.js"></script>
     <script src="~/js/appointment/appointment.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="~/js/appointment/appointment-main.js"></script>
 }

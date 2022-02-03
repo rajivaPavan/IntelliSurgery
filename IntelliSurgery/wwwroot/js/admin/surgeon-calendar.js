@@ -54,7 +54,8 @@ function sweetAlertBlockDetails(block) {
             "<div>End of shift: " + block.endTime + "</div>",
         showCloseButton: true,
         focusConfirm: false,
-        confirmButtonText: 'Delete'
+        confirmButtonText: 'Delete <i class="fas fa-trash"></i>',
+        confirmButtonColor: '#d33'
     }).then((result) => {
         if (result.isConfirmed) {
             calendarVueApp.tryDeleteSelectedBlock+=1; //just to change the value, so that the watch function runs

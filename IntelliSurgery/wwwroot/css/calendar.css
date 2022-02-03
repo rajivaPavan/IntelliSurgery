@@ -5,9 +5,12 @@
     font-size: 14px;
 }
 
+body {
+    overflow: hidden;
+}
+
 #calendar {
     max-width: 1100px;
-    margin: 40px auto;
 }
 #deleteEventModal {
     display: none;
@@ -24,6 +27,18 @@
 }
 
 .logo-bg{
-    background-image:url("../assets/images/IntelliSurgery.png");
-    background-size:cover;
+    background:url("../assets/images/IntelliSurgery.png") no-repeat;
+    background-position:center;
+}
+
+#calendar-main{
+    height : 94vh;
+    overflow: hidden;
+}
+
+#right-side {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    max-height: max-content;
+    overflow-y: auto;
 }

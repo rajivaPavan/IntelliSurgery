@@ -12,6 +12,7 @@ function initCalendar(calendarEvents) {
                 // other view-specific options here
             }
         },
+        height:"90vh",
         eventClick: function (info) {
 
             var event = info.event;
@@ -22,10 +23,10 @@ function initCalendar(calendarEvents) {
                 patient: appointment.patient.name,
                 surgery: appointment.surgeryType.name,
                 priority: appointment.priorityLevel,
-                //theatre: appointment.theatre.name,
+                theatre: appointment.theatre.name,
                 startTime: event.start,
                 endTime: event.end,
-                duration: event.duration
+                duration: appointment.scheduledSurgery.surgeryEvent.durationDescription
             };
 
             calendarVueApp.selectedEvent = selected;

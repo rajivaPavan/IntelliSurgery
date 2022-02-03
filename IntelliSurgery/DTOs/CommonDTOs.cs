@@ -12,6 +12,11 @@ namespace IntelliSurgery.DTOs
         public List<SurgeryType> SurgeryTypes { get; set; }
         public List<TheatreType> TheatreTypes { get; set; } 
         public List<TheatreDTO> Theatres { get; set; }
+        public List<Speciality> DeleteSpecialities { get; set; }
+        public List<SurgeonDTO> DeleteSurgeons { get; set; }
+        public List<SurgeryType> DeleteSurgeryTypes { get; set; }
+        public List<TheatreType> DeleteTheatreTypes { get; set; }
+        public List<TheatreDTO> DeleteTheatres { get; set; }
         public List<SurgeryTypeTheatresDTO> SurgeryTypeTheatres { get; set; }
         public List<Surgeon> SurgeonSchedules { get; internal set; }
 

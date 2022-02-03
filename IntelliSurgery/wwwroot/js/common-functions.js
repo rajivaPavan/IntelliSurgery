@@ -12,3 +12,10 @@ function formatDateTime(datetime) {
     return date;
 }
 
+async function axiosPostWithData(url,data) {
+    var res = await axios.post(url, data);
+    if (res.data.success == true) {
+        return res.data.data;
+    }
+    return null;
+}

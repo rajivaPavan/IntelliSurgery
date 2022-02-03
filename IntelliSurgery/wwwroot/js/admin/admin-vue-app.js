@@ -26,7 +26,7 @@ calendarApp = Vue.createApp({
     },
     watch: {
         tryDeleteSelectedBlock: async function () {
-            await removeWorkingHours();
+            await this.removeWorkingHours();
         }
     },
     computed: {

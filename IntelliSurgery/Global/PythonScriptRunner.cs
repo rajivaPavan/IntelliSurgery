@@ -18,27 +18,23 @@ namespace IntelliSurgery.Global
 
         public TimeSpan PredictTime(PatientMedicalData patientMedicalData)
         {
-            // full path of python interpreter
-            //stirng python = @"..........."
             string python = configuration.GetValue<string>("PythonPath");
-
-            // python app to call 
-            //stirng myPythonApp = @"..........."
             string myPythonApp = configuration.GetValue<string>("PythonProgramPath");
+            string modelFilePath = configuration.GetValue<string>("ModelsFilePath");
 
+            int Age = patientMedicalData.Age;
+            int Gender = patientMedicalData.Gender;
+            int ASA = patientMedicalData.ASA;
+            double BMI = patientMedicalData.BMI;
+            int Complication = patientMedicalData.Complication;
+            string Surgerytype = patientMedicalData.SurgeryType;
 
-            //json string to be sent to Python script
-            string patientDataJson = JsonConvert.SerializeObject(patientMedicalData);
-            dynamic jsonData = JsonConvert.DeserializeObject<dynamic>(patientDataJson);
-            int Age = jsonData.Age;
-            int Gender = jsonData.Gender;
-            int ASA = jsonData.ASA;
-            double BMI = jsonData.BMI;
-            int Complication = jsonData.Complication;
-            string Surgerytype = jsonData.Surgerytype;
-            //list Diseases = jsonData.Diseases;
-            Console.WriteLine(BMI);
-            Console.WriteLine(patientDataJson);
+            string DiseasesList = "";
+            foreach (string s in patientMedicalData.Diseases)
+            {
+                DiseasesList += s + ",";
+            }
+            
             // Create new process start info 
             ProcessStartInfo myProcessStartInfo = new ProcessStartInfo(python);
 
@@ -47,13 +43,14 @@ namespace IntelliSurgery.Global
             myProcessStartInfo.RedirectStandardOutput = true;
 
             // 1st arguments is pointer to itself
-            myProcessStartInfo.Arguments = myPythonApp + " " + Age + " " + Gender + " " + ASA + " " + BMI + " " + Complication + " " + Surgerytype;
+            myProcessStartInfo.Arguments = myPythonApp + " " + Age + " " + Gender + " " 
+                                           + ASA + " " + BMI + " " + Complication + " " 
+                                           + Surgerytype + " "+ DiseasesList+" "+modelFilePath;
 
             Process myProcess = new Process();
             // assign start information to  the process 
             myProcess.StartInfo = myProcessStartInfo;
 
-            //Console.WriteLine("Calling Python script with arguments {0} and {1}", x, y);
             // start the process 
             myProcess.Start();
 
@@ -66,16 +63,16 @@ namespace IntelliSurgery.Global
 
             //if you need to read multiple lines, you might use: 
             //string myString = myStreamReader.ReadToEnd();
-            //Console.WriteLine(myString);
 
             // wait exit signal from the app we called and then close it. 
             myProcess.WaitForExit();
             myProcess.Close();
+            Console.WriteLine(modelOutput);
 
-            //double predictedTimeDouble = double.Parse(modelOutput);
+            double predictedTimeDouble = double.Parse(modelOutput);
 
-            //TimeSpan predictedTime = TimeSpan.FromHours(predictedTimeDouble);
-            return TimeSpan.FromMinutes(30.0);
+            TimeSpan predictedTime = TimeSpan.FromHours(predictedTimeDouble);
+            return predictedTime;
 
         }
 

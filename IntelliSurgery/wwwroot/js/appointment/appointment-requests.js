@@ -57,12 +57,15 @@ async function addAppointmentRequest(appointment) {
     //};
 
     var predicatedTime = null;
+    var appointmentId = -1;
 
     var res = await axios.post("/api/AppointmentApi/AddAppointment",appointment);
     if (res.data.success == true) {
         predicatedTime = res.data.data;
+        appointmentId = res.data.appointmentId
+        
     }
-    return predicatedTime;
+    return {appointmentId : appointmentId, predicatedTime: predicatedTime};
 }
 
 async function getDropDownListsRequest() {
@@ -79,4 +82,11 @@ async function getDropDownListsRequest() {
     return dropDownLists;
 }
 
-
+async function overrideTimeDurationRequest(aId, time) {
+    var res = await axios.post("/api/AppointmentApi/OverrideTimeDuration?appointmentId=" + aId + "&timeDuration=" + time);
+    var isSuccess = false;
+    if (res.data.success == true) {
+        isSuccess = true;
+    }
+    return isSuccess;
+}

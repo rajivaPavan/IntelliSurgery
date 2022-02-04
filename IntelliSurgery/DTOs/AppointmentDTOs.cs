@@ -51,6 +51,7 @@ namespace IntelliSurgery.DTOs
             Theatre = appointment.Theatre;
             SurgeryType = appointment.SurgeryType;
             PriorityLevel = appointment.PriorityLevel.ToString();
+
             ApproximateProcedureDate = "";
             if(appointment.ApproximateProcedureDate != null)
             {
@@ -58,14 +59,9 @@ namespace IntelliSurgery.DTOs
                 ApproximateProcedureDate = approximateProcedureDate.ToString("yyyy/MM/dd");
             }
             AnesthesiaType = appointment.AnesthesiaType.ToString();
-            SystemPredictedDuration = FormatTime(appointment.SystemPredictedDuration);
-            SurgeonsPredictedDuration = "";
-            if (appointment.SurgeonsPredictedDuration != null)
-            {
-                TimeSpan t = (TimeSpan)appointment.SurgeonsPredictedDuration;
-                
-                SurgeonsPredictedDuration = FormatTime(t);
-            }
+
+            SystemPredictedDuration = FormatNullTime(appointment.SystemPredictedDuration);
+            SurgeonsPredictedDuration = FormatNullTime(appointment.SurgeonsPredictedDuration);
             Status = appointment.Status.ToString();
             DateAdded = appointment.DateAdded.ToString("yyyy/MM/dd");
             ComplicationPossibility = appointment.ComplicationPossibility ? "Yes" : "No";
@@ -73,6 +69,16 @@ namespace IntelliSurgery.DTOs
             StartTime = appointment.ScheduledSurgery != null ? appointment.ScheduledSurgery.SurgeryEvent.Start.ToString("g") : string.Empty;
             EndTime = appointment.ScheduledSurgery != null ? appointment.ScheduledSurgery.SurgeryEvent.End.ToString("g") : string.Empty;
             Duration = appointment.ScheduledSurgery != null ? appointment.ScheduledSurgery.SurgeryEvent.DurationDescription : string.Empty;
+            
+        }
+        private string FormatNullTime(TimeSpan? t)
+        {
+            string res = "";
+            if(t != null)
+            {
+                res = FormatTime((TimeSpan)t);
+            }
+            return res;
             
         }
 

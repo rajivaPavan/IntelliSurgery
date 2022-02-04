@@ -20,9 +20,8 @@ namespace IntelliSurgery.Models
         public int? TheatreId { get; set; }
         public Theatre Theatre { get; set; }
         public PriorityLevel PriorityLevel { get; set; }
-        public float? Priority { get; set; }
         public AnesthesiaType AnesthesiaType { get; set; }
-        public TimeSpan SystemPredictedDuration { get; set; }
+        public TimeSpan? SystemPredictedDuration { get; set; }
         public TimeSpan? SurgeonsPredictedDuration { get; set; }
         public Status Status { get; set; }
         public DateTime DateAdded { get; set; }

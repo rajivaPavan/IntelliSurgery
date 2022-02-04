@@ -42,10 +42,34 @@
         },
         getTableData() {
             return this.tableData;
-        }
+        },
+        
 
     },
     methods: {
+        setSelectedEvent(appointment) {
+            const NA = "Not assigned";
+            var selected = {
+                surgeon: appointment.surgeon.name,
+                patient: appointment.patient.name,
+                surgery: appointment.surgeryType.name,
+                priority: appointment.priorityLevel,
+                status : appointment.status,
+                theatre: appointment.theatre != null ? appointment.theatre.name : NA,
+                startTime: appointment.startTime ? appointment.startTime : NA,
+                endTime: appointment.endTime ? appointment.endTime : NA,
+                duration: appointment.duration ? appointment.duration : NA
+            };
+
+            this.selectedEvent = selected;
+            $("#appointment-box").show();
+        },
+        getName(object) {
+            if (object != null) {
+                return object.name;
+            }
+            return "NA";
+        },
         async renderCalendar() {
             var selectedFilter = this.selectedFilter;
             var selectedFilterValue = this.selectedFilterValue;
@@ -62,7 +86,7 @@
                 this.tableData = appointments;
                 $("#calendar").hide();
                 $("#appointments-table").show();
-                this.selectedEvent = null;
+                $("#appointment-box").hide();
             }
         },
         async createSchedule() {
@@ -86,7 +110,7 @@
             }
             $("#appointments-table").hide();
             $("#calendar").show();
-            this.selectedEvent = null;
+            $("#appointment-box").hide();
             initCalendar(events);
         }
     }

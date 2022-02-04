@@ -103,8 +103,6 @@ namespace IntelliSurgery.Controllers
             Surgeon surgeon = await surgeonRepository.GetSurgeonById(appointmentDTO.SurgeonId);
             TheatreType theatreType = await theatreRepository.GetTheatreType(TheatreTypeQueryLogic.ById(appointmentDTO.TheatreType));
 
-
-
             //create appointment object
             Appointment appointment = new Appointment() {
                 Patient = patient,
@@ -120,7 +118,6 @@ namespace IntelliSurgery.Controllers
                 PriorityLevel = (PriorityLevel)appointmentDTO.PriorityLevel,
                 Status = Status.Pending,
                 DateAdded = DateTime.Now,
-                Priority = null
             };
 
             PatientMedicalData timePredictionDTO = new PatientMedicalData(patient, appointment);
@@ -129,10 +126,10 @@ namespace IntelliSurgery.Controllers
             appointment.SystemPredictedDuration = predictedTime;
 
             //save appointment in database
-            await appointmentRepository.CreateAppointment(appointment);
+            appointment = await appointmentRepository.CreateAppointment(appointment);
 
             //return predicted Time
-            return Json(new { success = true, data = appointment.SystemPredictedDuration }) ;
+            return Json(new { success = true, data = appointment.SystemPredictedDuration, appointmentId = appointment.Id }) ;
         }
 
         //called on page load
@@ -163,6 +160,15 @@ namespace IntelliSurgery.Controllers
             };
 
             return Json(new { success = true, data = dropDownLists});
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> OverrideTimeDuration(int appointmentId, string timeDuration)
+        {
+            Appointment appointment = await appointmentRepository.GetAppointment(a => a.Id == appointmentId);
+            appointment.SurgeonsPredictedDuration = TimeSpan.Parse(timeDuration);
+            await appointmentRepository.UpdateAppointment(appointment);
+            return Json(new { success = true });
         }
     }
 }

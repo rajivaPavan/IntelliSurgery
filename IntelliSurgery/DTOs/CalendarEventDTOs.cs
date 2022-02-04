@@ -7,6 +7,20 @@ namespace IntelliSurgery.DTOs
 {
     public class FullCalendarEvent
     {
+        public FullCalendarEvent()
+        {
+
+        }
+
+        public FullCalendarEvent(WorkingBlock workingBlock)
+        {
+            Id = workingBlock.Id.ToString();
+            Title = workingBlock.Theatre.Name;
+            Start = workingBlock.Start;
+            End = workingBlock.End;
+            Display = "auto";
+        }
+
         public string Id { get; set; }
         public string Title { get; set; }
         public DateTime Start { get; set; }
@@ -18,8 +32,24 @@ namespace IntelliSurgery.DTOs
     }
     public class AppointmentCalendarEvent : FullCalendarEvent
     {
-        public Appointment ExtendedProps { get; set; }
-        public static string GetPriorityColor(PriorityLevel priorityLevel)
+        public AppointmentExtendedProp ExtendedProps { get; set; }
+
+        public AppointmentCalendarEvent(Appointment appointment)
+        {
+            Title = appointment.Patient.Name + " : " + appointment.SurgeryType.Name;
+            Start = appointment.ScheduledSurgery.SurgeryEvent.Start;
+            End = appointment.ScheduledSurgery.SurgeryEvent.End;
+            ExtendedProps = new AppointmentExtendedProp(appointment);
+            Color = GetPriorityColor(appointment.PriorityLevel);
+            Display = "auto";
+        }
+
+        public AppointmentCalendarEvent(WorkingBlock workingBlock) : base(workingBlock)
+        {
+            Display = "background";
+        }
+
+        private static string GetPriorityColor(PriorityLevel priorityLevel)
         {
             string highColor = "#ff8f8f";
             string lowColor = "#94ff8f";
@@ -43,14 +73,9 @@ namespace IntelliSurgery.DTOs
 
     public class SurgeonCalendarEvent : FullCalendarEvent
     {
-        public SurgeonCalendarEvent(WorkingBlock workingBlock)
+        public SurgeonCalendarEvent(WorkingBlock workingBlock) : base(workingBlock)
         {
-            Id = workingBlock.Id.ToString();
-            Title = workingBlock.Theatre.Name;
-            Start = workingBlock.Start;
-            End = workingBlock.End;
             ExtendedProps = workingBlock;
-            Display = "auto";
         }
 
         public WorkingBlock ExtendedProps { get; set; }

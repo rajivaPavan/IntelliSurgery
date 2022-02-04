@@ -54,7 +54,6 @@ function getPatientDetails() {
 }
 
 async function validatePatient() {
-
     //validation
     var patientId = $("#patient_id").val();
 

@@ -16,9 +16,9 @@ function initCalendar(calendarEvents) {
 
             var event = info.event;
             var appointment = event.extendedProps;
-
+            
             if (event.display != "background") {
-                calendarVueApp.setSelectedEvent(appointment);
+                calendarVueApp.setSelectedEvent(appointment, event.id);
             }
 
         },

@@ -34,6 +34,7 @@ namespace IntelliSurgery.DTOs
         public new string AnesthesiaType { get; set; }
         public new string SystemPredictedDuration { get; set; }
         public new string SurgeonsPredictedDuration { get; set; }
+        public int StatusValue { get; set; }
         public new string Status { get; set; }
         public new string DateAdded { get; set; }
         public string StartTime { get; set; }
@@ -52,6 +53,7 @@ namespace IntelliSurgery.DTOs
             SurgeryType = appointment.SurgeryType;
             PriorityLevel = appointment.PriorityLevel.ToString();
 
+
             ApproximateProcedureDate = "";
             if(appointment.ApproximateProcedureDate != null)
             {
@@ -63,6 +65,7 @@ namespace IntelliSurgery.DTOs
             SystemPredictedDuration = FormatNullTime(appointment.SystemPredictedDuration);
             SurgeonsPredictedDuration = FormatNullTime(appointment.SurgeonsPredictedDuration);
             Status = appointment.Status.ToString();
+            StatusValue = (int)appointment.Status;
             DateAdded = appointment.DateAdded.ToString("yyyy/MM/dd");
             ComplicationPossibility = appointment.ComplicationPossibility ? "Yes" : "No";
 
@@ -71,7 +74,7 @@ namespace IntelliSurgery.DTOs
             Duration = appointment.ScheduledSurgery != null ? appointment.ScheduledSurgery.SurgeryEvent.DurationDescription : string.Empty;
             
         }
-        private string FormatNullTime(TimeSpan? t)
+        private static string FormatNullTime(TimeSpan? t)
         {
             string res = "";
             if(t != null)
@@ -82,7 +85,7 @@ namespace IntelliSurgery.DTOs
             
         }
 
-        private string FormatTime(TimeSpan t)
+        private static string FormatTime(TimeSpan t)
         {
             string td = "";
             td = t.Hours == 0 ? td : t.Hours.ToString() + " hours ";

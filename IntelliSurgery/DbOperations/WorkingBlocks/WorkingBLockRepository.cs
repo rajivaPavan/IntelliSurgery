@@ -62,5 +62,12 @@ namespace IntelliSurgery.DbOperations.WorkingBlocks
             await context.SaveChangesAsync();
             return workingBlocks;
         }
+
+        public async Task<WorkingBlock> UpdateWorkingBlock(WorkingBlock workingBlock)
+        {
+            context.WorkingBlocks.Update(workingBlock);
+            await context.SaveChangesAsync();
+            return workingBlock;
+        }
     }
 }

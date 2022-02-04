@@ -16,5 +16,6 @@ namespace IntelliSurgery.DbOperations.WorkingBlocks
         Task<WorkingBlock> GetWorkBlock(Expression<Func<WorkingBlock, bool>> expression);
         Task DeleteWorkBlock(WorkingBlock workingBlock);
         Task<List<WorkingBlock>> UpdateWorkingBlocks(List<WorkingBlock> workingBlocks);
+        Task<WorkingBlock> UpdateWorkingBlock(WorkingBlock workingBlock);
     }
 }

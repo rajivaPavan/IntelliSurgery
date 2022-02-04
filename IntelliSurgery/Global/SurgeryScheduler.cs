@@ -66,7 +66,7 @@ namespace IntelliSurgery.Global
             int numOfAppointments = appointments.Count;
 
             TimeSpan blockDuration;
-            TimeSpan surgeryDuration;
+            TimeSpan finalSurgeryDuration;
             Appointment currentAppointment;
             WorkingBlock currentBlock;
 
@@ -77,8 +77,8 @@ namespace IntelliSurgery.Global
 
                 currentAppointment = appointments.ElementAt(i);
 
-                surgeryDuration = GetFinalSurgeryDuration(currentAppointment);
-                if (surgeryDuration == TimeSpan.Zero)
+                finalSurgeryDuration = GetFinalSurgeryDuration(currentAppointment);
+                if (finalSurgeryDuration == TimeSpan.Zero)
                 {
                     //if neither the system nor surgeon has suggested a time duration, skip the appointment
                     continue;
@@ -90,7 +90,7 @@ namespace IntelliSurgery.Global
                     blockDuration = currentBlock.RemainingTime;
 
                     //find the best block index for the current appointment
-                    if (blockDuration >= surgeryDuration)
+                    if (blockDuration >= finalSurgeryDuration)
                     {
                         if (bestBlock == null || bestBlock.RemainingTime > blockDuration)
                         {
@@ -106,20 +106,25 @@ namespace IntelliSurgery.Global
                     currentAppointment.Status = Status.Scheduled;
 
                     //reduce remaining time in block
-                    bestBlock.RemainingTime = bestBlock.RemainingTime.Subtract(surgeryDuration);
+                    bestBlock.RemainingTime = bestBlock.RemainingTime.Subtract(finalSurgeryDuration);
 
                     //set appointment surgery duration with preparation and cleanging time
                     TimeRange surgeryTimeRange = new TimeRange()
                     {
                         Start = bestBlock.End.Subtract(bestBlock.RemainingTime),
-                        Duration = surgeryDuration
+                        Duration = finalSurgeryDuration
                     };
 
                     //add scheduled surgery to database and add to current appointment
                     SurgeryEvent surgeryEvent = new SurgeryEvent();
                     surgeryEvent.SetTimeRange(surgeryTimeRange);
 
-                    ScheduledSurgery scheduledSurgery = await surgeryRepository.AddSurgery(new ScheduledSurgery() { SurgeryEvent = surgeryEvent});
+                    ScheduledSurgery scheduledSurgery = await surgeryRepository.AddSurgery(
+                            new ScheduledSurgery() { 
+                                SurgeryEvent = surgeryEvent,
+                                WorkingBlockId = bestBlock.Id,
+                            }
+                        );
                     currentAppointment.ScheduledSurgery = scheduledSurgery;
                     currentAppointment.ScheduledSurgeryId = scheduledSurgery.Id;
 
@@ -135,12 +140,6 @@ namespace IntelliSurgery.Global
 
                     //update best working block
                     workingBlocks[bestBlockIndex] = bestBlock;
-                }
-                else
-                {
-                    //set unscheduled appointment status to InWaitingList
-                    currentAppointment.Status = Status.InWaitingList;
-                    await appointmentRepository.UpdateAppointment(currentAppointment);
                 }
 
                 

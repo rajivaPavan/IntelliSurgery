@@ -55,6 +55,8 @@ namespace IntelliSurgery.DbOperations
 
             #region workingBlockIndexes
             modelBuilder.Entity<WorkingBlock>()
+                .HasIndex(x => x.SurgeonId);
+            modelBuilder.Entity<WorkingBlock>()
                 .HasIndex(x => new { x.SurgeonId , x.Start});
             #endregion
 

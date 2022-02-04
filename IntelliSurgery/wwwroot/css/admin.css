@@ -12,8 +12,7 @@ body {
     color: #384047;
     background-color: #F1F1F1;
     overflow: hidden;
-  
-    background-image: url(../assets/images/IntelliSurgeryAdmin.png);
+    /*background-image: url("../assets/images/IntelliSurgeryAdmin.png");*/
     
 }
 
@@ -69,9 +68,13 @@ label {
 .offcanvas-body{
    
    overflow: hidden;
+   
 }
-.navbar-nav{
+.navbar-nav {
     overflow: hidden;
+    
+    padding: 5px;
+    margin-left: 3px;
 }
 .sidebar-link {
     display: flex;
@@ -86,15 +89,21 @@ label {
     height: 94vh;
    
 }
+.nav-pills .nav-link.active {
+    background-color: lightblue;
+    
+}
 .scrollbar {
     /*float: left;*/
     height: 94vh;
     padding: 20px 20px;
-    background: #f4f7f8;
+    background: #F1F1F1;
     overflow-y: scroll;
     overflow-x: hidden;
     margin-bottom: 20px;
-    background-image: url(../assets/images/IntelliSurgeryAdmin.png);
+    /*background-image: url(../assets/images/IntelliSurgery.png);*/
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .force-overflow {

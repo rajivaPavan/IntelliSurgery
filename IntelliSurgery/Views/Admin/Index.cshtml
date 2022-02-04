@@ -20,21 +20,23 @@
         <div class="col-3">
             <div class="offcanvas offcanvas-start bg-info" id="sidebar">
                 <div class="offcanvas-body p-0 full-height">
-                    <nav class="navbar-dark">
+                    <nav class="navbar-light">
+                        <div class="navbar-nav">
                         <div class="nav nav-pills flex-column" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 
+                         
 
-                                <a href="#v-pills-dash" class="nav-link px-1" id="v-pills-dashboard" data-toggle="pill" role="tab" aria-controls="v-piils-dashboard-tab" aria-selected="true">
+                                
                                     <div class="py-4">
                                         <span class="ml-auto p-2"><i class="bi bi-speedometer2"></i>
                             </span>
                                         <span><b>Dashboard </b></span>
                                     </div>
-                                </a>
+                               
 
-                                <a class="nav-link px-1" href="#v-pills-speciality" id="v-pills-speciality-tab" data-toggle="pill" role="tab" aria-controls="v-piils-speciality" aria-selected="false">
+                                <a class="nav-link px-1 " href="#v-pills-speciality" id="v-pills-speciality-tab" data-toggle="pill" role="tab" aria-controls="v-piils-speciality" aria-selected="false">
                                     <div class="py-2">
-                                        <span class="ml-auto p-2"><i class="bi bi-clipboard-check"></i>
+                                        <span class="ml-auto p-2"><i class="fas fa-file-medical"></i>
                             </span>
                                         <span>Speciality</span>
                                     </div>
@@ -44,7 +46,7 @@
 
                                 <a class="nav-link px-1" href="#v-pills-surgeon" id="v-pills-surgeon-tab" data-toggle="pill" role="tab" aria-controls="v-piils-surgeon" aria-selected="false">
                                     <div class="py-2">
-                                        <span class="ml-auto p-2"><i class="bi bi-person-check-fill"></i>
+                                        <span class="ml-auto p-2"><i class="fas fa-user-md"></i>
                             </span>
                                         <span>Surgeon</span>
                                     </div>
@@ -54,7 +56,7 @@
 
                                 <a class="nav-link px-1" href="#v-pills-surgeries" id="v-pills-surgeries-tab" data-toggle="pill" role="tab" aria-controls="v-piils-surgeries" aria-selected="false">
                                     <div class="py-2">
-                                        <span class="ml-auto p-2"><i class="bi bi-layout-text-sidebar-reverse"></i>
+                                        <span class="ml-auto p-2"><i class="fas fa-file-medical-alt"></i>
                             </span>
                                         <span>Surgeries</span>
 
@@ -64,7 +66,7 @@
 
                                 <a class="nav-link px-1" href="#v-pills-OTtypes" id="v-pills-OTtypes-tab" data-toggle="pill" role="tab" aria-controls="v-piils-OTtypes" aria-selected="false">
                                     <div class="py-2">
-                                        <span class="ml-auto p-2"><i class="bi bi-ui-checks-grid"></i>
+                                        <span class="ml-auto p-2"><i class="fas fa-hospital-user"></i>
                             </span>
                                         <span>Operating Theater Types</span>
                                     </div>
@@ -73,7 +75,7 @@
 
                                 <a class="nav-link px-1" href="#v-pills-theaters" id="v-pills-theaters-tab" data-toggle="pill" role="tab" aria-controls="v-piils-theaters" aria-selected="false">
                                     <div class="py-2">
-                                        <span class="ml-auto p-2"><i class="bi bi-columns-gap"></i>
+                                        <span class="ml-auto p-2"><i class="fas fa-clinic-medical"></i>
                             </span>
                                         <span>Operating Theaters</span>
                                     </div>
@@ -83,7 +85,7 @@
 
                                 <a class="nav-link px-1" href="#v-pills-OTforsurgeries" id="v-pills-OTforsurgeries-tab" data-toggle="pill" role="tab" aria-controls="v-piils-OTforsurgeries" aria-selected="false">
                                     <div class="py-2">
-                                        <span class="ml-auto p-2"><i class="bi bi-diagram-3-fill"></i>
+                                        <span class="ml-auto p-2"><i class="fas fa-diagnoses"></i>
                             </span>
                                         <span>Operating Theaters for Surgeries</span>
                                     </div>
@@ -91,14 +93,14 @@
 
                                 <a class="nav-link px-1" href="#v-pills-workinghours" id="v-pills-workinghours-tab" data-toggle="pill" role="tab" aria-controls="v-piils-workinghours" aria-selected="false">
                                     <div class="py-2">
-                                        <span class="ml-auto p-2"><i class="bi bi-calendar3"></i>
+                                        <span class="ml-auto p-2"><i class="fas fa-user-nurse"></i>
                                                                                         </span>
                                         <span>Working Hours</span>
                                     </div>
                                 </a>
 
-                         
-                        </div>
+                         </div>
+                       </div>
                     </nav>
                 </div>
             </div>
@@ -109,7 +111,11 @@
                 <div class="force-overflow">*@
 
                     <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                            <img src="~/assets/images/adminpage.png" class= "col-md-8 col-md-offset-4" />
+                        </div>
                         <div class="tab-pane fade" id="v-pills-speciality" role="tabpanel" aria-labelledby="v-pills-speciality-tab">
+                            
                             <div class="shadow p-0 mb-5 bg-transparent rounded">
 
                                 <div class="form_class border border-info">
@@ -125,10 +131,10 @@
                                                 <button v-on:click="specialityAddClick" id="add-speciality-btn" type="submit" class="btn btn-primary w-100 form-control">Add</button>
                                             </div>
                                             <div class="col-6 col-md-2">
-                                                <button class="btn btn-primary w-100 form-control" data-toggle="collapse" href="#speciality-list" role="button" aria-expanded="false" aria-controls="specialityList">List</button>
+                                                <button v-on:click="specialitySaveClick" id="save-speciality-btn" type="submit" class="btn btn-primary w-100 form-control">Save</button>
                                             </div>
                                         </div>
-                                        <div class="col-12">
+                                        @*<div class="col-12">
                                             <div class="collapse multi-collapse" id="speciality-list">
                                                 <div class="card card-body mt-3">
                                                     <div class="row">
@@ -143,11 +149,28 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>*@
                                     </fieldset>
                                 </div>
 
                             </div>
+                        
+
+                            <div class="row">
+                                            <table class="table table-hover table-dark">
+                                                  <thead>
+                                                    <tr>
+                                                      <th colspan="2">Speciality List</th>                                                   
+                                                    </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    <tr>
+                                                      <th scope="row">1</th>
+                                                      <td>Cardiologist</td>                                                     
+                                                    </tr>
+                                                    </tbody>
+                                                    </table>
+                           </div>
                         </div>
 
                         <div class="tab-pane fade" id="v-pills-surgeon" role="tabpanel" aria-labelledby="v-pills-surgeon-tab">
@@ -177,11 +200,9 @@
                                                 <button v-on:click="surgeonAddClick" type="submit" class="btn btn-primary w-100 form-control">Add</button>
                                             </div>
                                             <div class="col-6 col-md-2">
-                                                <p>
-                                                    <a class="btn btn-primary w-100 form-control" data-toggle="collapse" href="#surgeon-list" role="button" aria-expanded="false" aria-controls="surgeonlist">List</a>
-                                                </p>
+                                                <button v-on:click="surgeonSaveClick" type="submit" class="btn btn-primary w-100 form-control">Save</button>
                                             </div>
-                                            <div class="col-12">
+                                            @*<div class="col-12">
                                                 <div class="collapse multi-collapse" id="surgeon-list">
                                                     <div class="card card-body mt-3" id="surgeonlist">
                                                         <div class="row">
@@ -204,11 +225,28 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>*@
                                         </div>
                                     </fieldset>
                                 </div>
                             </div>
+                            <div class="row">
+                                            <table class="table table-hover table-dark">
+                                                  <thead>
+                                                    <tr>
+                                                      <th scope="col">Speciality</th>
+                                                      <th scope="col">Surgeon</th>  
+                                                    </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    <tr>
+                                                      <th scope="row">Cardiologist</th>
+                                                      <td>Dr.Pavan</td> 
+                                                      
+                                                    </tr>
+                                                    </tbody>
+                                                    </table>
+                           </div>
                         </div>
 
 
@@ -231,12 +269,10 @@
                                                 <button v-on:click="surgeryTypeAddClick" type="submit" class="btn btn-primary w-100 form-control">Add</button>
                                             </div>
                                             <div class="col-6 col-md-2">
-                                                <p>
-                                                    <a class="btn btn-primary w-100 form-control" data-toggle="collapse" href="#surgery-list" role="button" aria-expanded="false" aria-controls="surgerylist">List</a>
-                                                </p>
+                                                <button v-on:click="surgeryTypeSaveClick" type="submit" class="btn btn-primary w-100 form-control">Save</button>
                                             </div>
                                         </div>
-                                        <div class="col-12">
+                                        @*<div class="col-12">
                                             <div class="collapse multi-collapse" id="surgery-list">
                                                 <div class="card card-body mt-3" id="surgerylist">
                                                     <div class="row">
@@ -259,10 +295,25 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div>*@
                                     </fieldset>
                                 </div>
                             </div>
+                            <div class="row">
+                                            <table class="table table-hover table-dark">
+                                                  <thead>
+                                                    <tr>
+                                                      <th colspan="2">Surgery</th>                                                   
+                                                    </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    <tr>
+                                                      <th scope="row">1</th>
+                                                      <td>Cardiac Surgery</td>                                                     
+                                                    </tr>
+                                                    </tbody>
+                                                    </table>
+                           </div>
                         </div>
                         <div class="tab-pane fade" id="v-pills-OTtypes" role="tabpanel" aria-labelledby="v-pills-OTtypes-tab">
                             <div class="shadow p-0 mb-5 bg-white rounded">
@@ -279,11 +330,9 @@
                                                 <button v-on:click="theatreTypeAddClick" type="submit" class="btn btn-primary w- 100 form-control">Add</button>
                                             </div>
                                             <div class="col-6 col-md-2">
-                                                <p>
-                                                    <a class="btn btn-primary w-100" data-toggle="collapse" href="#theatretype-list" role="button" aria-expanded="false" aria-controls="theatertypelist">List</a>
-                                                </p>
+                                                <button v-on:click="theatreTypeSaveClick" type="submit" class="btn btn-primary w- 100 form-control">Save</button>
                                             </div>
-                                            <div class="col-12">
+                                            @*<div class="col-12">
                                                 <div class="collapse multi-collapse" id="theatretype-list">
                                                     <div class="card card-body mt-3" id="theatertypelist">
                                                         <div class="row">
@@ -306,11 +355,26 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>*@
                                         </div>
                                     </fieldset>
                                 </div>
                             </div>
+                            <div class="row">
+                                            <table class="table table-hover table-dark">
+                                                  <thead>
+                                                    <tr>
+                                                      <th colspan="2">Operating Theater Type</th>                                                   
+                                                    </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    <tr>
+                                                      <th scope="row">1</th>
+                                                      <td>Type 1</td>                                                     
+                                                    </tr>
+                                                    </tbody>
+                                                    </table>
+                           </div>
                         </div>
 
 
@@ -341,11 +405,9 @@
                                                 <button v-on:click="theatreAddClick" type="submit" class="btn btn-primary w-100 form-control">Add</button>
                                             </div>
                                             <div class="col-6 col-md-2">
-                                                <p>
-                                                    <a class="btn btn-primary w-100" data-toggle="collapse" href="#theatre-list" role="button" aria-expanded="false" aria-controls="theatrelist">List</a>
-                                                </p>
+                                                <button v-on:click="theatreSaveClick" type="submit" class="btn btn-primary w-100 form-control">Save</button>
                                             </div>
-                                            <div class="col-12">
+                                            @*<div class="col-12">
                                                 <div class="collapse multi-collapse" id="theatre-list">
                                                     <div class="card card-body" id="theatrelist" style="height:100px;">
                                                         <div class="row">
@@ -368,11 +430,28 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>*@
                                         </div>
                                     </fieldset>
                                 </div>
                             </div>
+                            <div class="row">
+                                            <table class="table table-hover table-dark">
+                                                  <thead>
+                                                    <tr>
+                                                      <th scope="col">Operating Theater Type</th>
+                                                      <th scope="col">Theater Number</th>  
+                                                    </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    <tr>
+                                                      <th scope="row">Type 1</th>
+                                                      <td>Theater 3</td> 
+                                                      
+                                                    </tr>
+                                                    </tbody>
+                                                    </table>
+                           </div>
                         </div>
                         <div class="tab-pane fade" id="v-pills-OTforsurgeries" role="tabpanel" aria-labelledby="v-pills-OTforsugeries-tab">
                             <div class="shadow p-0 mb-5 bg-transparent rounded">
@@ -405,22 +484,37 @@
                                                 <button v-on:click="theatreTypesForSurgeryAddClick" type="submit" class="btn btn-primary w-100 form-control">Add</button>
                                             </div>
                                             <div class="col-6 col-md-2">
-                                                <p>
-                                                    <a class="btn btn-primary w-100" data-toggle="collapse" href="#ORforSurgeries-list" role="button" aria-expanded="false" aria-controls="ORforSurgerieslist">List</a>
-                                                </p>
+                                                <button v-on:click="theatreTypesForSurgerySaveClick" type="submit" class="btn btn-primary w-100 form-control">Save</button>
                                             </div>
-                                            <div class="col-12" style="height:100px;">
+                                            @*<div class="col-12" style="height:100px;">
                                                 <div class="collapse multi-collapse" id="ORforSurgeries-list">
                                                     <div class="card card-body mt-3" id="ORforSurgerieslist">
                                                         wasd
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>*@
                                         </div>
                                     </fieldset>
                                 </div>
                             </div>
-
+                            <div class="row">
+                                            <table class="table table-hover table-dark">
+                                                  <thead>
+                                                    <tr>
+                                                      <th scope="col">Surgery</th>
+                                                      <th scope="col"> Operating Theater type</th>
+                                                      
+                                                    </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    <tr>
+                                                      <th scope="row">Cardiac</th>
+                                                      <td>Cardiac OT</td> 
+                                                      
+                                                    </tr>
+                                                    </tbody>
+                                                    </table>
+                           </div>
                         </div>
 
                         <div class="tab-pane fade" id="v-pills-workinghours" role="tabpanel" aria-labelledby="v-pills-workinghours-tab">
@@ -492,7 +586,7 @@
             </div>
         </div>
     </div>
-</div>
+
 
 
 @section Scripts{

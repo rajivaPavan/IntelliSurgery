@@ -14,6 +14,7 @@ namespace IntelliSurgery.Models
     public class ScheduledSurgery : Surgery
     {
         public SurgeryEvent SurgeryEvent { get; set; }
+        public int? WorkingBlockId { get; set; }
     }
 
     

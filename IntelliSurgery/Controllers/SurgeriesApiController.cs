@@ -29,7 +29,7 @@ namespace IntelliSurgery.Controllers
         public async Task<IActionResult> GetTableData(int surgeonId)
         {
             List<Appointment> appointments = await appointmentRepository.GetAppointments(a => a.SurgeonId == surgeonId);
-            List< AppointmentExtendedProp> records = new List<AppointmentExtendedProp>();
+            List<AppointmentExtendedProp> records = new List<AppointmentExtendedProp>();
             foreach (Appointment appointment in appointments)
             {
                 records.Add(new AppointmentExtendedProp(appointment));

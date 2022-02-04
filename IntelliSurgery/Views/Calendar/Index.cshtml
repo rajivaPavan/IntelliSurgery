@@ -84,11 +84,11 @@
                     </div>
                 </div>
             </div>
-            <div class="my-2 border border-dark" style="display:none;" id="appointment-box">
+            <div class="my-2 border border-dark" v-if="getSelectedEvent != null" style="display:none;" id="appointment-box">
                 <div class="col-12 my-2">
                     <h4>Appointment Details</h4>
                 </div>
-                <div class="col-12 my-2" v-if="getSelectedEvent != null">
+                <div class="col-12 my-2" >
                     <div class="my-2">Surgeon : {{getSelectedEvent.surgeon}}</div>
                     <div class="my-2">Patient : {{getSelectedEvent.patient}}</div>
                     <div class="my-2">Surgery : {{getSelectedEvent.surgery}}</div>
@@ -106,10 +106,10 @@
                 <div class="col-12 my-2">
                     <div class='row justify-content-around'>
                         <!-- refer Status enum in ~/Enum/SurgeryEnums -->
-                        <div v-if="getSelectedEvent.statusValue == 5" v-on:click="setStatusTo(2)" 
-                            class="col"><button class="w-100 btn btn-warning">Interrupt</button></div>
-                        <div v-if="getSelectedEvent.statusValue < 3" v-on:click="setStatusTo(3)" 
-                            class="col"><button class="w-100 btn btn-danger">Cancel</button></div>
+                        <div v-if="getSelectedEvent.statusValue == 5" 
+                            class="col"><button  v-on:click="setStatusTo(2)" class="w-100 btn btn-warning">Interrupt</button></div>
+                        <div v-if="getSelectedEvent.statusValue < 3" 
+                            class="col"><button v-on:click="setStatusTo(3)"  class="w-100 btn btn-danger">Cancel</button></div>
                     </div>
                 </div>
             </div>

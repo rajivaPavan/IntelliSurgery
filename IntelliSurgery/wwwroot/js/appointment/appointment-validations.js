@@ -65,7 +65,7 @@ function validateId() {                                       //validate patient
 function validateName() {                                //validate patient name
     var nameInput = $('#patient_name').val();
     var isSuccess = true;
-    if (nameInput == '')) {                                //you matched an invalid character-(nameInput.match(/[^a-z ]/gi)
+    if (nameInput == '') {                                //you matched an invalid character-(nameInput.match(/[^a-z ]/gi)
         $("#nameCheck").show();
         isSuccess = false;
     }

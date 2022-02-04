@@ -25,7 +25,6 @@ namespace ENA_CLIENT_WEB_APP.Controllers
             this.signInManager = signInManager;
         }
 
-        [HttpPost]
         public IActionResult Logout()
         {
             //await signInManager.SignOutAsync();

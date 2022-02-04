@@ -6,10 +6,12 @@
         <link href="~/lib/fullcalendar/main.css" rel="stylesheet" />
         <script src="~/lib/fullcalendar/main.js"></script>
         <link href="~/lib/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet"/>
-
+        <link href="~/lib/bootstrap-icons/font/bootstrap-icons.scss" />
+    </environment>
+    <environment exclude="development">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
     </environment>
     <link href="~/css/admin.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
 }   
 <div id="admin-main">
     <div class="row">
@@ -486,7 +488,7 @@
             </div>
         </div>
     </div>
-</div>
+
 
 @section Scripts{
     <script src="~/lib/moment.js/moment.min.js"></script>

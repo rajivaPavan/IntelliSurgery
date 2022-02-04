@@ -14,14 +14,15 @@
 <div id="admin-main">
     <div class="row">
         <div class="col-3">
-            <div class="offcanvas offcanvas-start sidebar-nav bg-info" id="sidebar">
+            <div class="offcanvas offcanvas-start bg-info" id="sidebar">
                 <div class="offcanvas-body p-0 full-height">
                     <nav class="navbar-dark">
-                        <div class="navbar-nav">
+                        <div class="nav nav-pills flex-column" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 
                            <div class="col">
                                
-                                <a href="#" class="nav-link px-1 active">
+                                <a href="#v-pills-dash" class="nav-link px-1" id="v-pills-dashboard" data-toggle="pill" role="tab"
+                                aria-controls="v-piils-dashboard-tab" aria-selected="true">
                                     <div class="py-4">
                                    <span class="ml-auto p-2"><i class="bi bi-speedometer2"></i>
                             </span>
@@ -29,7 +30,7 @@
                                     </div>
                                 </a>
                           
-                                <a class="nav-link px-1 sidebar-link active" href="#layouts">
+                                <a class="nav-link px-1" href="#v-pills-speciality" id="v-pills-speciality-tab" data-toggle="pill" role="tab" aria-controls="v-piils-speciality" aria-selected="false" >
                                      <div class="py-2">
                                     <span class="ml-auto p-2"><i class="bi bi-clipboard-check"></i>
                             </span>
@@ -39,7 +40,8 @@
 
                                
                                 
-                                    <a class="nav-link px-1 sidebar-link active" href="#layouts">
+                                   <a class="nav-link px-1" href="#v-pills-surgeon" id="v-pills-surgeon-tab" data-toggle="pill" role="tab" 
+                                   aria-controls="v-piils-surgeon" aria-selected="false" >
                                          <div class="py-2">
                                         <span class="ml-auto p-2"><i class="bi bi-person-check-fill"></i>
                             </span>
@@ -49,7 +51,8 @@
 
                                     
                                     
-                                        <a class="nav-link px-1 sidebar-link active" href="#layouts">
+                                          <a class="nav-link px-1" href="#v-pills-surgeries" id="v-pills-surgeries-tab" data-toggle="pill" role="tab" 
+                                   aria-controls="v-piils-surgeries" aria-selected="false" >
                                              <div class="py-2">
                                               <span class="ml-auto p-2"><i class="bi bi-layout-text-sidebar-reverse"></i>
                             </span>
@@ -59,7 +62,8 @@
                                             </a>
                                         
                                        
-                                            <a class="nav-link px-1 sidebar-link active" href="#layouts">
+                                              <a class="nav-link px-1" href="#v-pills-OTtypes" id="v-pills-OTtypes-tab" data-toggle="pill" role="tab" 
+                                   aria-controls="v-piils-OTtypes" aria-selected="false" >
                                                  <div class="py-2">
                                                 <span class="ml-auto p-2"><i class="bi bi-ui-checks-grid"></i>
                             </span>
@@ -68,7 +72,8 @@
                                             </a>
 
                                             
-                                                <a class="nav-link px-1 sidebar-link active" href="#layouts">
+                                                  <a class="nav-link px-1" href="#v-pills-theaters" id="v-pills-theaters-tab" data-toggle="pill" role="tab" 
+                                   aria-controls="v-piils-theaters" aria-selected="false" >
                                                      <div class="py-2">
                                                     <span class="ml-auto p-2"><i class="bi bi-columns-gap"></i>
                             </span>
@@ -78,7 +83,8 @@
 
                                                 
                                             
-                                                    <a class="nav-link px-1 sidebar-link active" href="#layouts">
+                                                     <a class="nav-link px-1" href="#v-pills-OTforsurgeries" id="v-pills-OTforsurgeries-tab" data-toggle="pill" role="tab" 
+                                   aria-controls="v-piils-OTforsurgeries" aria-selected="false" >
                                                          <div class="py-2">
                                                          <span class="ml-auto p-2"><i class="bi bi-diagram-3-fill"></i>
                             </span>
@@ -86,7 +92,8 @@
 </div>
                                                     </a>
 
-                                                        <a class="nav-link px-1 sidebar-link active" href="#">
+                                                         <a class="nav-link px-1" href="#v-pills-workinghours" id="v-pills-workinghours-tab" data-toggle="pill" role="tab" 
+                                   aria-controls="v-piils-workinghours" aria-selected="false" >
                                                              <div class="py-2">
                                                                <span class="ml-auto p-2"><i class="bi bi-calendar3"></i>
                                                                                         </span>
@@ -104,8 +111,8 @@
          <div class="scrollbar scrollbar-info admin-img">
                         @*<div class="force-overflow">*@
 
-        
-
+        <div class="tab-content" id="v-pills-tabContent">
+            <div class="tab-pane fade" id="v-pills-speciality" role="tabpanel" aria-labelledby="v-pills-speciality-tab">
             <div class="shadow p-0 mb-5 bg-transparent rounded">
 
                 <div class="form_class border border-info">
@@ -144,9 +151,9 @@
                 </div>
 
             </div>
+        </div>
 
-
-
+<div class="tab-pane fade" id="v-pills-surgeon" role="tabpanel" aria-labelledby="v-pills-surgeon-tab">
             <div class="shadow p-0 mb-5 bg-transparent rounded">
                 <div class="form_class border border-info">
                     <fieldset>
@@ -205,11 +212,11 @@
                     </fieldset>
                 </div>
             </div>
+            </div>
 
 
-
-
-            <div class="shadow p-0 mb-5 bg-white rounded" hidden>
+            <div class="tab-pane fade" id="v-pills-surgeries" role="tabpanel" aria-labelledby="v-pills-surgeries-tab">
+            <div class="shadow p-0 mb-5 bg-white rounded" >
                 <div class="form_class border border-info">
                     <fieldset>
                         <legend><span class="number">3</span> Surgeries </legend>
@@ -259,9 +266,9 @@
                     </fieldset>
                 </div>
             </div>
-
-
-            <div class="shadow p-0 mb-5 bg-white rounded" hidden>
+          </div>
+          <div class="tab-pane fade" id="v-pills-OTtypes" role="tabpanel" aria-labelledby="v-pills-OTtypes-tab">
+            <div class="shadow p-0 mb-5 bg-white rounded" >
                 <div class="form_class border border-info">
                     <fieldset>
                         <legend><span class="number">4</span> Operating Theater Types </legend>
@@ -307,11 +314,11 @@
                     </fieldset>
                 </div>
             </div>
+           </div>
 
 
-
-
-            <div class="shadow p-0 mb-5 bg-transparent rounded" hidden>
+           <div class="tab-pane fade" id="v-pills-theaters" role="tabpanel" aria-labelledby="v-pills-theaters-tab">
+            <div class="shadow p-0 mb-5 bg-transparent rounded" >
                 <div class="form_class border border-info">
                     <fieldset>
                         <legend><span class="number">5</span> Operating Theaters </legend>
@@ -369,9 +376,9 @@
                     </fieldset>
                 </div>
             </div>
-
-
-            <div class="shadow p-0 mb-5 bg-transparent rounded" hidden>
+            </div>
+            <div class="tab-pane fade" id="v-pills-OTforsurgeries" role="tabpanel" aria-labelledby="v-pills-OTforsugeries-tab">
+            <div class="shadow p-0 mb-5 bg-transparent rounded">
                 <div class="form_class border border-info">
                     <fieldset>
                         <legend><span class="number">6</span> Operating Theaters for Surgeries </legend>
@@ -417,9 +424,9 @@
                 </div>
             </div>
 
+           </div>
 
-
-
+           <div class="tab-pane fade" id="v-pills-workinghours" role="tabpanel" aria-labelledby="v-pills-workinghours-tab">
             <div class="p-0 mb-5 bg-transparent rounded">
                 <div class="form_class border border-info" id="workingHoursBox">
                     <fieldset>
@@ -486,11 +493,13 @@
             </div>
         </div>
     </div>
-</div>
+    </div>
+    </div>
 
 @section Scripts{
     <script src="~/lib/moment.js/moment.min.js"></script>
     <script src="~/lib/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+  
     <script src="~/lib/vue/dist/vue.global.js"></script>
     <script src="~/js/admin/admin-requests.js"></script>
     <script src="~/js/admin/surgeon-calendar.js"></script>
@@ -518,4 +527,10 @@
             });
             });
    </script>
+  <script>
+      $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+  e.target // newly activated tab
+  e.relatedTarget // previous active tab
+})
+  </script>
 }

@@ -44,7 +44,7 @@
                                 <div class="col-md-12">
                                     <label for="patient_name">Name:</label>
                                     <input type="text" class="form-control mb-2 mr-sm-2" id="patient_name" name="patient_name">
-                                    <h6 id="patientNameCheck" class="myerror" >**Name is missing</h6>
+                                    <h6 id="nameCheck" class="myerror" >**Name is missing</h6>
                                 </div>
 
                                 <div class="col-md-7">
@@ -194,14 +194,14 @@
                     <label for="surgeon">Surgeon:</label>
                     <select id="surgeon" name="user_surgeon">
                         <option value="-1" selected hidden>Choose...</option>
-                        @*<option selected>Choose...</option>*@
-                       
+                        @*<option selected>Choose...</option>*@                      
                         
                     </select>
                     <h6 id="surgeonCheck" class="myerror" >**Choose a surgeon</h6>
+                    
                     <label> Anastheasists: </label>
                     <div class="form-check mb-2">
-                        <input type="radio" class="form-check-input" id="not_required" name="anastheasist" checked>
+                        <input type="radio" class="form-check-input" id="not_required" name="anastheasist">
                         <label class="form-check-label" for="not_required">Not Required</label>
                     </div>
                     <div class="form-check">
@@ -209,6 +209,7 @@
                         <label class="form-check-label" for="required">Required</label>
                     </div>
                     <h6 id="anastheasistCheck" class="myerror" >**Choose an option</h6>
+
                     <label for="anasthesia_type">Anesthesia Type:</label>
                     <select disable id="anasthesia_type" name="user_anas_type">
                         <option value="-1" selected hidden>Choose...</option>
@@ -219,7 +220,7 @@
                     <select id="theatreType" name="user_or">
                         <option value="-1" selected hidden>Choose...</option>
                     </select>
-                    <h6 id="or_theatreCheck" class="myerror" >**Choose an operating theatre</h6>
+                    <h6 id="theatreCheck" class="myerror" >**Choose an operating theatre</h6>
 
                     <label>Importance:</label>
                     <div class="col-12">

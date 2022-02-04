@@ -1,23 +1,24 @@
 ﻿//event listeners
 $("#validate-patient-btn").click(async () => {   
-    if (validateId()) {
-        global.patientId = await validatePatient();
+    if (validateId()) {                                         
+        global.patientId = await validatePatient();      //-----------------------------------id eka return karanne ?????
+        Swal.fire({
+            icon: 'success',
+            title: 'Patient validated successfully',
+            showConfirmButton: false,                   //if false given,no need to press ok button
+            timer: 1500
+        });
+        return true;
+    } else {
+        displaySweetAlert("Please try again !");
+        return false;
     }
 })
 
 $("#add-patient-btn").click(async () => {    
-    global.patientId = await addPatient();
-});
+    //global.patientId = await addPatient();
 
-$("#update-patient-btn").click(async () => {
-    global.patientId = await updatePatient();
-});
-async function validatePatient() {
-
-}
-
-async function addPatient() {
-    if (validatePatientName() && validateWeight() && validateHeight() && validateBirthday() && validateGender() && validateAsaStatus() && validateDisease()) {
+    if (!(nameError || weightError || heightError || birthdayError || genderError || asaError)) {
         Swal.fire({
             icon: 'success',
             title: 'Patient added successfully',
@@ -29,10 +30,12 @@ async function addPatient() {
         displaySweetAlert("Please try again !");
         return false;
     }
-}
+})
 
-async function updatePatient() {
-    if (validatePatientName() && validateWeight() && validateHeight() && validateBirthday() && validateGender() && validateAsaStatus() && validateDisease()) {
+$("#update-patient-btn").click(async () => {
+    //global.patientId = await updatePatient();
+
+    if (!(nameError || weightError || heightError || birthdayError || genderError || asaError)) {
         Swal.fire({
             icon: 'success',
             title: 'Patient updated successfully',
@@ -44,16 +47,32 @@ async function updatePatient() {
         displaySweetAlert("Please try again !");
         return false;
     }
-}
+})
 
-$("#add-appointment-btn").click(async () => {
-    if (global.patientId != NULL_ENTITY_ID) {
+$("#add-appointment-btn").click(async () => {       //----------------both validate button & add patient buttons 2 nma true return karala kiyala check karanne?????  
+    if (!(surgeonError || surgeryError || anastheasistError || anasthesia_typeError || theatreError || importanceError)) {
+        Swal.fire({
+            icon: 'success',
+            title: 'Surgery requirements added successfully',
+            showConfirmButton: false,                   //if false given,no need to press ok button
+            timer: 1500
+        });
         await addAppointment(global.patientId);
         resetForms();
-        
+
+        return true;
     } else {
-        displaySweetAlert("Validate and or Add a Patient first");
+        displaySweetAlert("Validate and or Add a Patient first !");
+        return false;
     }
+
+    //if (global.patientId != NULL_ENTITY_ID) {
+    //   await addAppointment(global.patientId);
+    //  resetForms();
+        
+    // } else {
+    //   displaySweetAlert("Validate and or Add a Patient first");
+    //}
 })
 
 function resetForms() {

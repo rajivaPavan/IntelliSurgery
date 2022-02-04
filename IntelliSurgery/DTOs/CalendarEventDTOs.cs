@@ -37,8 +37,11 @@ namespace IntelliSurgery.DTOs
         public AppointmentCalendarEvent(Appointment appointment)
         {
             Title = appointment.Patient.Name + " : " + appointment.SurgeryType.Name;
-            Start = appointment.ScheduledSurgery.SurgeryEvent.Start;
-            End = appointment.ScheduledSurgery.SurgeryEvent.End;
+            if(appointment.ScheduledSurgery != null)
+            {
+                Start = appointment.ScheduledSurgery.SurgeryEvent.Start;
+                End = appointment.ScheduledSurgery.SurgeryEvent.End;
+            }
             ExtendedProps = new AppointmentExtendedProp(appointment);
             Color = GetPriorityColor(appointment.PriorityLevel);
             Display = "auto";

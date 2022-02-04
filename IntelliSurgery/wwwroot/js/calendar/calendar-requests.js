@@ -45,7 +45,7 @@ async function CreateScheduleRequest(surgeonId) {
 
 async function updateAppointmentStatusRequest(appointmentId, newStatus) {
     var appointment = null;
-    var res = await axios.post("/api/CalendarApi/UpdateAppointmentStatus?appointmentId=" + appointmentId+"?newStatus="+newStatus);
+    var res = await axios.post("/api/CalendarApi/UpdateAppointmentStatus?appointmentId=" + appointmentId+"&newStatus="+newStatus);
     if (res.data.success == true) {
         appointment = res.data.data;
     }

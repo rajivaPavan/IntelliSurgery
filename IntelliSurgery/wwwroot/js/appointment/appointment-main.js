@@ -4,7 +4,7 @@ $("#validate-patient-btn").click(async () => {
     if ($('#patient_id').val() != '') {
         validateId();
         if (!(idError)) {
-            global.patientId = await validatePatient();
+           
             Swal.fire({
                 icon: 'success',
                 title: 'Patient Validated Successfully',
@@ -82,16 +82,9 @@ $("#update-patient-btn").click(async () => {
 
 $("#add-appointment-btn").click(async () => {       //----------------both validate button & add patient buttons 2 nma true return karala kiyala check karanne?????  
     if (global.patientId != NULL_ENTITY_ID) {
-        if (!(surgeonError || surgeryError || anastheasistError || anasthesia_typeError || theatreError || importanceError)) {
+        //if (!(surgeonError || surgeryError || anastheasistError || anasthesia_typeError || theatreError || importanceError)) {
             await addAppointment(global.patientId);
-            Swal.fire({
-                icon: 'success',
-                title: 'Surgery Requirements Added Successfully',
-                showConfirmButton: false,                   //if false given,no need to press ok button
-                timer: 1500
-            });
             resetForms();
-
             return true;
         }
         else {

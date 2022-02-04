@@ -17,11 +17,12 @@ namespace IntelliSurgery.Controllers
     public class CalendarApiController : Controller
     {
         private IAppointmentRepository appointmentRepository;
+        private readonly IWorkingBlockRepository workingBlockRepository;
 
-
-        public CalendarApiController(IAppointmentRepository appointmentRepository)
+        public CalendarApiController(IAppointmentRepository appointmentRepository,IWorkingBlockRepository workingBlockRepository)
         {
             this.appointmentRepository = appointmentRepository;
+            this.workingBlockRepository = workingBlockRepository;
         }
 
         [HttpGet]
@@ -37,6 +38,12 @@ namespace IntelliSurgery.Controllers
             else if (filter == "surgeons")
             {
                 scheduledAppointments = await appointmentRepository.GetAppointments(a => a.ScheduledSurgeryId != null && a.SurgeonId == filterValue);
+                List<WorkingBlock> workingBlocks = await workingBlockRepository.GetWorkBlocks(w => w.SurgeonId == filterValue);
+                foreach(WorkingBlock workingBlock in workingBlocks)
+                {
+                    fullCalendarEvents.Add(new AppointmentCalendarEvent(workingBlock));
+                }
+
             }
             else if (filter == "theatreTypes")
             {
@@ -50,14 +57,9 @@ namespace IntelliSurgery.Controllers
 
             foreach (var appointment in scheduledAppointments)
             {
-                fullCalendarEvents.Add(new AppointmentCalendarEvent() { 
-                    Id = filter+filterValue.ToString()+appointment.Id.ToString(),
-                    Title = appointment.Patient.Name + " : "+appointment.SurgeryType.Name,
-                    Start = appointment.ScheduledSurgery.SurgeryEvent.Start,
-                    End = appointment.ScheduledSurgery.SurgeryEvent.End,
-                    ExtendedProps = appointment,
-                    Color = AppointmentCalendarEvent.GetPriorityColor(appointment.PriorityLevel)
-                });
+                AppointmentCalendarEvent calendarEvent = new AppointmentCalendarEvent(appointment);
+                calendarEvent.Id = filter + filterValue.ToString() + appointment.Id.ToString();
+                fullCalendarEvents.Add(calendarEvent);
             }
 
             return Json(new { success = true, data = fullCalendarEvents });

@@ -220,34 +220,3 @@ function validateAnastheasist() {
         return isSuccess;
     }
 
-    //$("add-patient-btn").click(function () {
-    //    if (patientNameError === false && weightError === false && heightError === false && birthdayError == false && genderError == false && asaError == false && diseasesError == false) {
-    //        Swal.fire({
-    //            icon: 'success',
-    //            title: 'Patient added successfully',
-    //            showConfirmButton: false,                   //if false given,no need to press ok button
-    //            timer: 1500
-    //        });
-    //        return true;
-    //    } else {
-    //        displaySweetAlert("Please try again !");
-    //        return false;
-    //    }
-
-    //});
-
-    //$("add-appointment-btn").click(function () {
-    //    if (surgeonError === false && surgeryError === false && anasthesia_typeError === false && or_theatreError === false && importanceError === false) {
-    //        Swal.fire({
-    //            icon: 'success',
-    //            title: 'Surgery requirements added successfully',
-    //            showConfirmButton: false,                   //if false given,no need to press ok button
-    //            timer: 1500
-    //        });
-    //        return true;
-    //    } else {
-    //        displaySweetAlert("Please try again !");
-    //        return false;
-    //    }
-    //});
-

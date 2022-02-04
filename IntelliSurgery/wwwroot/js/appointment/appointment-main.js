@@ -1,58 +1,48 @@
 ﻿//event listeners
-$("#validate-patient-btn").click(async () => {   
+$("#validate-patient-btn").click(async () => {
+
     if (validateId()) {
         global.patientId = await validatePatient();
     }
 })
 
-$("#add-patient-btn").click(async () => {    
-    global.patientId = await addPatient();
-});
+$("#add-patient-btn").click(async () => {
 
-$("#update-patient-btn").click(async () => {
-    global.patientId = await updatePatient();
-});
-async function validatePatient() {
+    if (validatePatientName() && validateWeight() && validateHeight() && validateBirthday() && validateGender() && validateAsaStatus() ) {
 
-}
+        global.patientId = await addPatient();
 
-async function addPatient() {
-    if (validatePatientName() && validateWeight() && validateHeight() && validateBirthday() && validateGender() && validateAsaStatus() && validateDisease()) {
         Swal.fire({
             icon: 'success',
             title: 'Patient added successfully',
             showConfirmButton: false,                   //if false given,no need to press ok button
             timer: 1500
         });
-        return true;
-    } else {
-        displaySweetAlert("Please try again !");
-        return false;
-    }
-}
+    } 
+});
 
-async function updatePatient() {
-    if (validatePatientName() && validateWeight() && validateHeight() && validateBirthday() && validateGender() && validateAsaStatus() && validateDisease()) {
+$("#update-patient-btn").click(async () => {
+
+    if (validateWeight() && validateHeight() && validateAsaStatus()) {
+
+        global.patientId = await updatePatient();
+
         Swal.fire({
             icon: 'success',
             title: 'Patient updated successfully',
             showConfirmButton: false,                   //if false given,no need to press ok button
             timer: 1500
         });
-        return true;
-    } else {
-        displaySweetAlert("Please try again !");
-        return false;
     }
-}
+});
 
 $("#add-appointment-btn").click(async () => {
-    if (global.patientId != NULL_ENTITY_ID) {
-        await addAppointment(global.patientId);
-        resetForms();
-        
-    } else {
-        displaySweetAlert("Validate and or Add a Patient first");
+    if (surgeonError === false && surgeryError === false && anasthesia_typeError === false && or_theatreError === false && importanceError === false) {
+        if (global.patientId != NULL_ENTITY_ID) {
+            await addAppointment(global.patientId);
+            resetForms();
+
+        }
     }
 })
 

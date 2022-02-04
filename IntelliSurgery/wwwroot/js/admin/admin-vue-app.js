@@ -291,8 +291,8 @@ calendarApp = Vue.createApp({
 
                     //reset fields
                     this.selectedTheatreId = -1;
-                    this.startTime = "";
-                    this.endTime = "";
+                    this.startTime = null;
+                    this.endTime = null;
 
                 } else {
                     Swal.fire(

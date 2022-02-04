@@ -82,12 +82,12 @@ namespace IntelliSurgery.Global
                 for (int j = 0; j < numOfBlocks; j++)
                 {
                     currentBlock = workingBlocks[j];
-                    blockDuration = currentBlock.Duration;
+                    blockDuration = currentBlock.RemainingTime;
 
                     //find the best block index for the current appointment
                     if (blockDuration >= surgeryDuration)
                     {
-                        if (bestBlock == null || bestBlock.Duration > blockDuration)
+                        if (bestBlock == null || bestBlock.RemainingTime > blockDuration)
                         {
                             bestBlockIndex = j;
                             bestBlock = workingBlocks[bestBlockIndex];   

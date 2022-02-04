@@ -68,62 +68,73 @@
                     <button v-on:click="renderCalendar" class="mx-auto btn btn-info">Get Calendar</button>
                 </div>
             </div>
-            <div class="my-2 border border-dark" v-if="null != getSelectedEvent">
+            <div class="my-2 border border-dark" style="display:none;" id="appointment-box">
                 <div class="col-12 my-2">
                     <h4>Appointment Details</h4>
                 </div>
-                <div class="col-12">
+                <div class="col-12" v-if="getSelectedEvent != null">
                     <div class="my-2">Surgeon : {{getSelectedEvent.surgeon}}</div>
                     <div class="my-2">Patient : {{getSelectedEvent.patient}}</div>
                     <div class="my-2">Surgery : {{getSelectedEvent.surgery}}</div>
+                    <div class="my-2">Status : {{getSelectedEvent.status}}</div>
+                    <div class="my-2">Priority : 
+                        <span v-if="getSelectedEvent.priority == 'Low'" class="text-success">Low</span>
+                        <span v-else-if="getSelectedEvent.priority == 'Medium'" class="text-warning">Medium</span>
+                        <span v-else-if="getSelectedEvent.priority == 'High'" class="text-danger">High</span>
+                    </div>
                     <div class="my-2">Theatre : {{getSelectedEvent.theatre}}</div>
                     <div class="my-2">Start Time : {{getSelectedEvent.startTime}}</div>
                     <div class="my-2">Duration : {{getSelectedEvent.duration}}</div>
                     <div class="my-2">End Time : {{getSelectedEvent.endTime}}</div>
 
-                    <div class="my-2">Priority : 
-                        <span v-if="getSelectedEvent.priority == 0" class="text-success">Low</span>
-                        <span v-else-if="getSelectedEvent.priority == 1" class="text-warning">Medium</span>
-                        <span v-else-if="getSelectedEvent.priority == 2" class="text-danger">High</span>
-                    </div>
+                    
                 </div>
             </div>
         </div>
         <div class="col-12 col-md-9 logo-bg " id="right-side" >
             <div id="appointments-table" style="display:none;">
-                <div class="table table-bordered">
-                    <div>
-                        <table class="table">
-                            <thead class="thead-light">
+                    <div class="scrollbar-info" style="height:90vh; overflow-y:auto;">
+                        <table class="table table-bordered table-responsive scrollbar-info bg-light">
+                            <thead class="thead-dark">
                                <tr>
-                                  <th scope="col">Appointment Id</th>
-                                  <th scope="col">PatientId</th>
+                                  <th scope="col">#</th>
+                                  <th scope="col">Patient Id</th>
                                   <th scope="col">Patient</th>
-                                  <th scope="col">SurgeonId</th>
                                   <th scope="col">Surgeon</th>
-                                  <th scope="col">SurgeryTypeId</th>
                                   <th scope="col">SurgeryType</th>
-                                  <th scope="col">Handle</th>
-                                  <th scope="col">ApproximateProcedureDate</th>
-                                  <th scope="col">ComplicationPossibility</th>
-                                  <th scope="col">TheatreTypeId</th>
-                                  <th scope="col">TheatreType</th>
-                                  <th scope="col">TheatreId</th>
+                                  <th scope="col">Approximate Procedure Date</th>
+                                  <th scope="col">Complication Possibility</th>
+                                  <th scope="col">Theatre Type</th>
                                   <th scope="col">Theatre</th>
-                                  <th scope="col">PriorityLevel</th>
                                   <th scope="col">Priority</th>
-                                  <th scope="col">AnesthesiaType</th>
-                                  <th scope="col">SystemPredictedDuration</th>
-                                  <th scope="col">SurgeonsPredictedDuration</th>
+                                  <th scope="col">Anesthesia Type</th>
+                                  <th scope="col">System Predicted Duration</th>
+                                  <th scope="col">Surgeon Predicted Duration</th>
                                   <th scope="col">Status</th>
                                   <th scope="col">DateAdded</th>
-                                  <th scope="col">ScheduledSurgeryId</th>
-                                  <th scope="col">ScheduledSurger</th>
                               </tr>
                          </thead>
+                         <tbody class="tbody" id="table-body">
+                             <tr v-for="(a,i) in getTableData" v-on:click="setSelectedEvent(a)">
+                                <td scope="row">{{i+1}}</td>
+                                <td>{{a.patientId}}</td>
+                                <td>{{a.patient.name}}</td>
+                                <td>{{a.surgeon.name}}</td>
+                                <td>{{a.surgeryType.name}}</td>
+                                <td>{{a.approximateProcedureDate}}</td>
+                                <td>{{a.complicationPossibility}}</td>
+                                <td>{{a.theatreType.name}}</td>
+                                <td>{{getName(a.theatre)}}</td>
+                                <td>{{a.priorityLevel}}</td>
+                                <td>{{a.anethesiaType}}</td>
+                                <td>{{a.systemPredictedDuration}}</td>
+                                <td>{{a.surgeonPredictedDuration}}</td>
+                                <td>{{a.status}}</td>
+                                <td>{{a.dateAdded}}</td>
+                            </tr>
+                         </tbody>
                       </table>
                     </div>
-                </div>
             </div>
             <div id="calendar" style="display:none;"></div>
         </div>

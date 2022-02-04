@@ -55,9 +55,6 @@ namespace IntelliSurgery.Migrations
                     b.Property<int>("PatientId")
                         .HasColumnType("int");
 
-                    b.Property<float?>("Priority")
-                        .HasColumnType("float");
-
                     b.Property<int>("PriorityLevel")
                         .HasColumnType("int");
 
@@ -76,7 +73,7 @@ namespace IntelliSurgery.Migrations
                     b.Property<int>("SurgeryTypeId")
                         .HasColumnType("int");
 
-                    b.Property<TimeSpan>("SystemPredictedDuration")
+                    b.Property<TimeSpan?>("SystemPredictedDuration")
                         .HasColumnType("time(6)");
 
                     b.Property<int?>("TheatreId")
@@ -90,8 +87,6 @@ namespace IntelliSurgery.Migrations
                     b.HasIndex("DateAdded");
 
                     b.HasIndex("PatientId");
-
-                    b.HasIndex("Priority");
 
                     b.HasIndex("PriorityLevel");
 
@@ -314,6 +309,8 @@ namespace IntelliSurgery.Migrations
                     b.HasIndex("SurgeonId");
 
                     b.HasIndex("TheatreId");
+
+                    b.HasIndex("SurgeonId", "Start");
 
                     b.ToTable("WorkingBlocks");
                 });

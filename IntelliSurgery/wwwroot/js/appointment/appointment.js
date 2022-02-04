@@ -12,44 +12,61 @@
 }
 
 async function addAppointment(patientId) {
-    var predictedTime = null;
+
     var appointment = getAppointmentDetails(patientId);
-    predictedTime = await addAppointmentRequest(appointment);
+    var res = await addAppointmentRequest(appointment);
+    var predictedTime = res.predicatedTime;
+    var appointmentId = res.appointmentId;
+    if (appointmentId != -1 && predictedTime != null) {
 
-    var durationInputValue = ""
+        Swal.fire({
 
-    Swal.fire({
-        title: 'Predicted Time Duration',
-        text: predictedTime,
-        icon: 'success',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Accept',
-        cancelButtonText: 'Override'
-    }).then(async (result) => {
-        if (!result.isConfirmed) {
+            title: 'Predicted Time Duration',
+            text: predictedTime,
+            icon: 'success',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Accept',
+            cancelButtonText: 'Override'
 
-            const { value: newTimeDuration } = await Swal.fire({
-                title: 'Enter new time duration',
-                input: 'text',
-                inputPlaceholder: "hours : minutes",
-                showCancelButton: true,
-                inputValidator: (value) => {
-                    if (!value) {
-                        return 'Time duration should be in the format \"hours:minutes\"'
+        }).then(async (result) => {
+
+            if (!result.isConfirmed) {
+
+                const { value: inputVal } = await Swal.fire({
+                    title: 'Enter new time duration',
+                    input: 'text',
+                    inputPlaceholder: "hours : minutes",
+                    showCancelButton: true,
+                    inputValidator: (value) => {
+                        if (!value) {
+                            return 'Time duration should be in the format \"hours:minutes\"'
+                        }
+                    }
+                })
+
+                var newTimeDuration = inputVal;
+                if (newTimeDuration != "") {
+                    var isSuccess = await overrideTimeDurationRequest(appointmentId, newTimeDuration);
+                    if (isSuccess) {
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'Time overrided sucessfully'
+                        });
                     }
                 }
-            })
-        }
-    })
+            }
+        })
 
-    if (newTimeDuration != "") {
+        
 
+        
+
+
+    } else {
+        displaySweetAlert("Error occured. Appointment was not added.")
     }
-
-    
-    return;
 }
 
 function clearAllAppointmentFields() {

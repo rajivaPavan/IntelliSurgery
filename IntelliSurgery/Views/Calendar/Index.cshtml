@@ -11,22 +11,28 @@
 }
 
 <div class="col-12 pt-2 bg-light" id="calendar-main">
-    <div class="row" style="height:94vh;">
-        <div class="col-12 col-md-3 h-100">
+    <div class="row " style="height:94vh;">
+        <div class="col-12 col-md-3 scrollbar-info overflow-auto" style="height:91vh" >
             <div class="border border-dark">
                 <div class="col-12 my-2">
                 <h4>Appointments</h4>
                 </div>
                 <div class="col-12 my-2">
-                    <div class="">Filter by Surgeon:</div>
-                    <select v-model="selectedSurgeonId" id="appointmentFilter" name="surgeonFilter" 
-                            class="w-100 btn dropdown-toggle border border-dark">
-                        <option value="-1" selected hidden>Choose...</option>
-                        <option v-for="option in getSurgeons" v-bind:value="option.id">
-                            {{ option.name }}
-                        </option>
+                    <div class="row">
+                        <div class="col-3 pr-0 my-2">
+                            Filter by Surgeon:
+                        </div>
+                        <div class="col-9 my-2">
+                            <select v-model="selectedSurgeonId" id="appointmentFilter" name="surgeonFilter" 
+                                    class="w-100 btn dropdown-toggle border border-dark">
+                                <option value="-1" selected hidden>Choose...</option>
+                                <option v-for="option in getSurgeons" v-bind:value="option.id">
+                                    {{ option.name }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
                     
-                    </select>
                 </div>
                 <div class="col-12">
                     <div class="row">
@@ -43,87 +49,115 @@
                 <div class="col-12 my-2">
                 <h4>Calendars</h4>
                 </div>
-                <div class="col-12 my-2">
-                    <div class="">Filter By:</div>
-                    <select v-model="selectedFilter" id="calendarFilter" name="calendarFilter" 
-                            class="w-100 btn dropdown-toggle border border-dark">
-                        <option value="" selected hidden>Choose...</option>
-                        <option v-for="option in filters" v-bind:value="option.value">
-                            {{ option.text }}
-                      </option>
-                    
-                    </select>
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-3 pr-0 my-2">Filter By:</div>
+                        <div class="col-9 my-2">
+                            <select v-model="selectedFilter" id="calendarFilter" name="calendarFilter" 
+                                class="w-100 btn dropdown-toggle border border-dark">
+                            <option value="" selected hidden>Choose...</option>
+                            <option v-for="option in filters" v-bind:value="option.value">
+                                {{ option.text }}
+                          </option>
+                
+                        </select>
+                        </div>
+                    </div>
+                    <div class="row" style="display:none;" id="filterValuesSection"> 
+                        <div class="col-4 my-2 pr-0">{{getSelectedFilterText}}:</div>
+                        <div class="col-8 my-2">
+                            <select v-model="selectedFilterValue" class="w-100 btn dropdown-toggle border border-dark" 
+                                id="filterValuesDropDown">
+                                <option value="-1" selected hidden>Choose...</option>
+                              <option v-for="option in getFilterValueOptions" v-bind:value="option.id">
+                                {{ option.name }}
+                              </option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-12 my-2"> 
-                    <div class="">Select {{getSelectedFilterText}}:</div>
-                    <select v-model="selectedFilterValue" class="w-100 btn dropdown-toggle border border-dark" 
-                        id="filterValuesDropDown" disabled>
-                        <option value="-1" selected hidden>Choose...</option>
-                      <option v-for="option in getFilterValueOptions" v-bind:value="option.id">
-                        {{ option.name }}
-                      </option>
-                    </select>
-                </div>
                 <div class="col-12 my-2">
-                    <button v-on:click="renderCalendar" class="mx-auto btn btn-info">Get Calendar</button>
+                    <div class="row justify-content-end">
+                        <div class="px-2 mx-2">
+                            <button v-on:click="renderCalendar" class="btn btn-info">Get Calendar</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="my-2 border border-dark" v-if="null != getSelectedEvent">
+            <div class="my-2 border border-dark" style="display:none;" id="appointment-box">
                 <div class="col-12 my-2">
                     <h4>Appointment Details</h4>
                 </div>
-                <div class="col-12">
+                <div class="col-12 my-2" v-if="getSelectedEvent != null">
                     <div class="my-2">Surgeon : {{getSelectedEvent.surgeon}}</div>
                     <div class="my-2">Patient : {{getSelectedEvent.patient}}</div>
                     <div class="my-2">Surgery : {{getSelectedEvent.surgery}}</div>
+                    <div class="my-2">Status : {{getSelectedEvent.status}}</div>
+                    <div class="my-2">Priority : 
+                        <span v-if="getSelectedEvent.priority == 'Low'" class="text-success">Low</span>
+                        <span v-else-if="getSelectedEvent.priority == 'Medium'" class="text-warning">Medium</span>
+                        <span v-else-if="getSelectedEvent.priority == 'High'" class="text-danger">High</span>
+                    </div>
                     <div class="my-2">Theatre : {{getSelectedEvent.theatre}}</div>
                     <div class="my-2">Start Time : {{getSelectedEvent.startTime}}</div>
                     <div class="my-2">Duration : {{getSelectedEvent.duration}}</div>
                     <div class="my-2">End Time : {{getSelectedEvent.endTime}}</div>
-
-                    <div class="my-2">Priority : 
-                        <span v-if="getSelectedEvent.priority == 0" class="text-success">Low</span>
-                        <span v-else-if="getSelectedEvent.priority == 1" class="text-warning">Medium</span>
-                        <span v-else-if="getSelectedEvent.priority == 2" class="text-danger">High</span>
+                </div>
+                <div class="col-12 my-2">
+                    <div class='row justify-content-around'>
+                        <!-- refer Status enum in ~/Enum/SurgeryEnums -->
+                        <div v-if="getSelectedEvent.statusValue == 5" v-on:click="setStatusTo(2)" 
+                            class="col"><button class="w-100 btn btn-warning">Interrupt</button></div>
+                        <div v-if="getSelectedEvent.statusValue < 3" v-on:click="setStatusTo(3)" 
+                            class="col"><button class="w-100 btn btn-danger">Cancel</button></div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-12 col-md-9 logo-bg " id="right-side" >
             <div id="appointments-table" style="display:none;">
-                <div class="table table-bordered">
-                    <div>
-                        <table class="table">
-                            <thead class="thead-light">
+                    <div class="scrollbar-info" style="height:90vh; overflow-y:auto;">
+                        <table class="table table-bordered table-responsive scrollbar-info bg-light">
+                            <thead class="thead-dark">
                                <tr>
-                                  <th scope="col">Appointment Id</th>
-                                  <th scope="col">PatientId</th>
+                                  <th scope="col">#</th>
+                                  <th scope="col">Patient Id</th>
                                   <th scope="col">Patient</th>
-                                  <th scope="col">SurgeonId</th>
                                   <th scope="col">Surgeon</th>
-                                  <th scope="col">SurgeryTypeId</th>
                                   <th scope="col">SurgeryType</th>
-                                  <th scope="col">Handle</th>
-                                  <th scope="col">ApproximateProcedureDate</th>
-                                  <th scope="col">ComplicationPossibility</th>
-                                  <th scope="col">TheatreTypeId</th>
-                                  <th scope="col">TheatreType</th>
-                                  <th scope="col">TheatreId</th>
+                                  <th scope="col">Approximate Procedure Date</th>
+                                  <th scope="col">Complication Possibility</th>
+                                  <th scope="col">Theatre Type</th>
                                   <th scope="col">Theatre</th>
-                                  <th scope="col">PriorityLevel</th>
                                   <th scope="col">Priority</th>
-                                  <th scope="col">AnesthesiaType</th>
-                                  <th scope="col">SystemPredictedDuration</th>
-                                  <th scope="col">SurgeonsPredictedDuration</th>
+                                  <th scope="col">Anesthesia Type</th>
+                                  <th scope="col">System Predicted Duration</th>
+                                  <th scope="col">Surgeon Predicted Duration</th>
                                   <th scope="col">Status</th>
                                   <th scope="col">DateAdded</th>
-                                  <th scope="col">ScheduledSurgeryId</th>
-                                  <th scope="col">ScheduledSurger</th>
                               </tr>
                          </thead>
+                         <tbody class="tbody" id="table-body">
+                             <tr v-for="(a,i) in getTableData" v-on:click="setSelectedEvent(a,-1)">
+                                <td scope="row">{{i+1}}</td>
+                                <td>{{a.patientId}}</td>
+                                <td>{{a.patient.name}}</td>
+                                <td>{{a.surgeon.name}}</td>
+                                <td>{{a.surgeryType.name}}</td>
+                                <td>{{a.approximateProcedureDate}}</td>
+                                <td>{{a.complicationPossibility}}</td>
+                                <td>{{a.theatreType.name}}</td>
+                                <td>{{getName(a.theatre)}}</td>
+                                <td>{{a.priorityLevel}}</td>
+                                <td>{{a.anethesiaType}}</td>
+                                <td>{{a.systemPredictedDuration}}</td>
+                                <td>{{a.surgeonPredictedDuration}}</td>
+                                <td>{{a.status}}</td>
+                                <td>{{a.dateAdded}}</td>
+                            </tr>
+                         </tbody>
                       </table>
                     </div>
-                </div>
             </div>
             <div id="calendar" style="display:none;"></div>
         </div>

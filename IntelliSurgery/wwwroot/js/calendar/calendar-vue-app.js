@@ -9,17 +9,27 @@
             selectedEvent: null,
             selectedSurgeonId: -1,
             surgeons: [],
-            tableData:[]
+            tableData: [],
+            selectedCalendarEventId: -1
         };
+    },
+    watch: {
+        selectedFilter: function () {
+            this.selectedSurgeonId = -1;
+        },
+        selectedFilterValue: function () {
+            this.selectedSurgeonId = -1;
+        },
+        selectedSurgeonId: function () { hideAppointmentDetails(); }
     },
     computed: {
         getSelectedFilterText() {
-            var text = "a filter first";
+            var text = "Select filter first";
             if (this.selectedFilter == "") {
-                $("#filterValuesDropDown").prop("disabled", true);
+                $("#filterValuesSection").hide();
                 return text;
             }
-            $("#filterValuesDropDown").prop("disabled", false);
+            $("#filterValuesSection").show();
             var selectedF = this.filters.find((filter) => {
                 return filter.value == this.selectedFilter;
             });
@@ -42,10 +52,42 @@
         },
         getTableData() {
             return this.tableData;
-        }
+        },
+        
 
     },
     methods: {
+        
+        setSelectedEvent(appointment, calendarEventId) {
+
+            this.selectedCalendarEventId = calendarEventId;
+            
+
+            const NA = "Not assigned";
+            var selected = {
+                appointmentId : appointment.id,
+                surgeon: appointment.surgeon.name,
+                patient: appointment.patient.name,
+                surgery: appointment.surgeryType.name,
+                priority: appointment.priorityLevel,
+                status: appointment.status,
+                statusValue: appointment.statusValue,
+                theatre: appointment.theatre != null ? appointment.theatre.name : NA,
+                startTime: appointment.startTime ? appointment.startTime : NA,
+                endTime: appointment.endTime ? appointment.endTime : NA,
+                duration: appointment.duration ? appointment.duration : NA
+            };
+
+            this.selectedEvent = selected;
+            $("#appointment-box").show();
+
+        },
+        getName(object) {
+            if (object != null) {
+                return object.name;
+            }
+            return "NA";
+        },
         async renderCalendar() {
             var selectedFilter = this.selectedFilter;
             var selectedFilterValue = this.selectedFilterValue;
@@ -62,7 +104,7 @@
                 this.tableData = appointments;
                 $("#calendar").hide();
                 $("#appointments-table").show();
-                this.selectedEvent = null;
+                $("#appointment-box").hide();
             }
         },
         async createSchedule() {
@@ -86,8 +128,43 @@
             }
             $("#appointments-table").hide();
             $("#calendar").show();
-            this.selectedEvent = null;
+            $("#appointment-box").hide();
             initCalendar(events);
+        },
+        async setStatusTo(newStatus) {
+
+            var selectedEvent = this.selectedEvent;
+            var calendarEventId = this.selectedCalendarEventId;
+
+            //update backend
+            var appointmentId = selectedEvent.appointmentId;
+            var tableRecord = await updateAppointmentStatusRequest(appointmentId, newStatus); //write this function
+
+            //update tableData
+            this.tableData = updateTableData(this.tableData, tableRecord);
+
+            //update calendars obj if
+            if (calendarEventId != -1) {
+
+                var calendarEvent = await getCalendarEventRequest(appointmentId);
+                this.setSelectedEvent(calendarEvent);
+
+                //update all calendars in different filters
+                this.calendars = updateEventInAllCalendars(this.calendars, calendarEvent);
+
+                //get filters of the current calendar that has been loaded
+                var selectedFilter = "surgeons";
+                var selectedFilterValue = this.selectedSurgeonId;
+                if (this.selectedSurgeonId == -1) {
+                    selectedFilter = this.selectedFilter;
+                    selectedFilterValue = this.selectedFilterValue;
+                }
+                //get the events from the current calendar;
+                var updatedEvents = getCalendarEvents(selectedFilter, selectedFilterValue);
+
+                //re init fullcalendar by passing the necesary events;
+                initCalendar(updatedEvents);
+            }
         }
     }
 
@@ -129,4 +206,60 @@ function getCalendarEvents(searchFilter, searchFilterValue) {
     });
     events = entity.events;
     return events;
+}
+
+function hideAppointmentDetails() {
+    $("#appointment-box").hide();
+    this.selectedEvent = null;
+}
+
+function updateEventInAllCalendars(calendars, eventDTO) {
+    var events = [];
+    //surgeons
+    const SURGEONS = "surgeons";
+    events = getCalendarEvents(SURGEONS, eventDTO.surgeon.id);
+    events = updateCalendarEventsArray(events, eventDTO);
+    calendars[SURGEONS] = surgeonEvents;
+
+    //surgeryTypes
+    const SURGERY_TYPES = "surgeryTypes";
+    events = getCalendarEvents(SURGERY_TYPES, eventDTO.surgeryType.id);
+    calendars[SURGERY_TYPES] = updateCalendarEventsArray(events, eventDTO);
+
+    //theatreTypes
+    const THEATRE_TYPES = "theatreTypes";
+    events = getCalendarEvents(THEATRE_TYPES, eventDTO.theatreType.id);
+    calendars[THEATRE_TYPES] = updateCalendarEventsArray(events, eventDTO);
+
+    //theatres
+    const THEATRES = "theatres";
+    events = getCalendarEvents(THEATRES, eventDTO.theatre.id);
+    calendars[THEATRES] = updateCalendarEventsArray(events, eventDTO);
+
+    return calendars;
+}
+
+function updateTableData(tableData, record) {
+    tableData = updateArrayByElementId(tableData, record);
+    return tableData;
+}
+
+function updateArrayByElementId(arr, element) {
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i].id == element.id) {
+            arr[i] = element;
+            break;
+        }
+    }
+    return arr;
+}
+
+function updateCalendarEventsArray(arr, event) {
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i].id == event.id) {
+            arr[i].extendedProps = event.extendedProps;
+            break;
+        }
+    }
+    return arr;
 }

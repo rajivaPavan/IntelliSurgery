@@ -41,3 +41,22 @@ async function CreateScheduleRequest(surgeonId) {
     }
     return IsCompleted;
 }
+
+
+async function updateAppointmentStatusRequest(appointmentId, newStatus) {
+    var appointment = null;
+    var res = await axios.post("/api/CalendarApi/UpdateAppointmentStatus?appointmentId=" + appointmentId+"?newStatus="+newStatus);
+    if (res.data.success == true) {
+        appointment = res.data.data;
+    }
+    return appointment;
+}
+
+async function getCalendarEventRequest(appointmentId) {
+    var event = null;
+    var res = await axios.post("/api/CalendarApi/GetCalendarEvent?appointmentId=" + appointmentId );
+    if (res.data.success == true) {
+        event = res.data.data;
+    }
+    return event;
+}

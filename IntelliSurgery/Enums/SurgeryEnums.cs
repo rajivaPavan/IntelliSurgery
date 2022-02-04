@@ -18,12 +18,11 @@
 
     public enum Status
     {
+        Pending,
         Scheduled,
-        InWaitingList,
-        Ongoing,
         Interrupted,
         Cancelled,
         Completed,
-        Pending
+        Ongoing
     }
 }

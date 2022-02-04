@@ -16,19 +16,11 @@ function initCalendar(calendarEvents) {
 
             var event = info.event;
             var appointment = event.extendedProps;
+            
+            if (event.display != "background") {
+                calendarVueApp.setSelectedEvent(appointment, event.id);
+            }
 
-            var selected = {
-                surgeon: appointment.surgeon.name,
-                patient: appointment.patient.name,
-                surgery: appointment.surgeryType.name,
-                priority: appointment.priorityLevel,
-                theatre: appointment.theatre.name,
-                startTime: event.start,
-                endTime: event.end,
-                duration: appointment.scheduledSurgery.surgeryEvent.durationDescription
-            };
-
-            calendarVueApp.selectedEvent = selected;
         },
         eventTextColor: "#000",
         headerToolbar: {

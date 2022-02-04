@@ -8,5 +8,7 @@ namespace IntelliSurgery.DbOperations
     {
         Task<ScheduledSurgery> AddSurgery(ScheduledSurgery surgery);
         Task<List<ScheduledSurgery>> GetAllSurgeries();
+        Task DeleteScheduleSurgery(ScheduledSurgery delScheduledSurgery);
+        Task DeleteSurgeryEvent(SurgeryEvent delSurgeryEvent);
     }
 }

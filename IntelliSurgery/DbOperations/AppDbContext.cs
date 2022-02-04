@@ -20,6 +20,7 @@ namespace IntelliSurgery.DbOperations
         public DbSet<Surgeon> Surgeons { get; set;}
         public DbSet<SurgeryType> SurgeryTypes { get; set;}
         public DbSet<ScheduledSurgery> ScheduledSurgeries{ get; set; }
+        public DbSet<SurgeryEvent> SurgeryEvents { get; set; }
         public DbSet<Theatre> Theatres {get; set; }
         public DbSet<TheatreType> TheatreTypes { get; set;}
         public DbSet<WorkingBlock> WorkingBlocks { get; set; }
@@ -33,8 +34,6 @@ namespace IntelliSurgery.DbOperations
                 .HasIndex(x => x.DateAdded);
             modelBuilder.Entity<Appointment>()
                 .HasIndex(x => x.PriorityLevel);
-            modelBuilder.Entity<Appointment>()
-                .HasIndex(x => x.Priority);
             modelBuilder.Entity<Appointment>()
                 .HasIndex(x => x.Status);
             modelBuilder.Entity<Appointment>()
@@ -53,6 +52,13 @@ namespace IntelliSurgery.DbOperations
                 .HasIndex(x => new { x.ScheduledSurgeryId, x.SurgeryTypeId });
             modelBuilder.Entity<Appointment>()
                 .HasIndex(x => new { x.ScheduledSurgeryId, x.SurgeonId });
+            #endregion
+
+            #region workingBlockIndexes
+            modelBuilder.Entity<WorkingBlock>()
+                .HasIndex(x => x.SurgeonId);
+            modelBuilder.Entity<WorkingBlock>()
+                .HasIndex(x => new { x.SurgeonId , x.Start});
             #endregion
 
         }

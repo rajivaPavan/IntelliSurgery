@@ -28,7 +28,7 @@ namespace ENA_CLIENT_WEB_APP.Controllers
         [HttpPost]
         public async Task<IActionResult> Logout()
         {
-            await signInManager.SignOutAsync();
+            //await signInManager.SignOutAsync();
             return RedirectToAction("login", "account");
         }
 

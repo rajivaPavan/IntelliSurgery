@@ -1,521 +1,629 @@
-﻿@{
-    ViewBag.Title = "Admin";
-}
+﻿@{ 
+    ViewBag.Title = "Admin"; 
+} 
+
 @section Styles{
     <environment include="development">
         <link href="~/lib/fullcalendar/main.css" rel="stylesheet" />
         <script src="~/lib/fullcalendar/main.js"></script>
-        <link href="~/lib/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet"/>
-
+        <link href="~/lib/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+        <link href="~/lib/bootstrap-icons/font/bootstrap-icons.scss" />
     </environment>
-    <link href="~/css/admin.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
-}   
+    <environment exclude="development">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
+    </environment>
+    <link href="~/css/admin.css" rel="stylesheet" /> 
+}
+
 <div id="admin-main">
     <div class="row">
         <div class="col-3">
-            <div class="offcanvas offcanvas-start sidebar-nav bg-info" id="sidebar">
+            <div class="offcanvas offcanvas-start bg-info" id="sidebar">
                 <div class="offcanvas-body p-0 full-height">
-                    <nav class="navbar-dark">
+                    <nav class="navbar-light">
                         <div class="navbar-nav">
+                        <div class="nav nav-pills flex-column" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 
-                           <div class="col">
-                               
-                                <a href="#" class="nav-link px-1 active">
-                                    <div class="py-4">
-                                   <span class="ml-auto p-2"><i class="bi bi-speedometer2"></i>
-                            </span>
-                                    <span ><b>Dashboard </b></span>
-                                    </div>
-                                </a>
-                          
-                                <a class="nav-link px-1 sidebar-link active" href="#layouts">
-                                     <div class="py-2">
-                                    <span class="ml-auto p-2"><i class="bi bi-clipboard-check"></i>
-                            </span>
-                                    <span>Speciality</span>
-                                    </div>
-                                </a>
+                         
 
-                               
                                 
-                                    <a class="nav-link px-1 sidebar-link active" href="#layouts">
-                                         <div class="py-2">
-                                        <span class="ml-auto p-2"><i class="bi bi-person-check-fill"></i>
+                                    <div class="py-4">
+                                        <span class="ml-auto p-2"><i class="bi bi-speedometer2"></i>
+                            </span>
+                                        <span><b>Dashboard </b></span>
+                                    </div>
+                               
+
+                                <a class="nav-link px-1 " href="#v-pills-speciality" id="v-pills-speciality-tab" data-toggle="pill" role="tab" aria-controls="v-piils-speciality" aria-selected="false">
+                                    <div class="py-2">
+                                        <span class="ml-auto p-2"><i class="fas fa-file-medical"></i>
+                            </span>
+                                        <span>Speciality</span>
+                                    </div>
+                                </a>
+
+
+
+                                <a class="nav-link px-1" href="#v-pills-surgeon" id="v-pills-surgeon-tab" data-toggle="pill" role="tab" aria-controls="v-piils-surgeon" aria-selected="false">
+                                    <div class="py-2">
+                                        <span class="ml-auto p-2"><i class="fas fa-user-md"></i>
                             </span>
                                         <span>Surgeon</span>
-                                        </div>
-                                    </a>
+                                    </div>
+                                </a>
 
-                                    
-                                    
-                                        <a class="nav-link px-1 sidebar-link active" href="#layouts">
-                                             <div class="py-2">
-                                              <span class="ml-auto p-2"><i class="bi bi-layout-text-sidebar-reverse"></i>
+
+
+                                <a class="nav-link px-1" href="#v-pills-surgeries" id="v-pills-surgeries-tab" data-toggle="pill" role="tab" aria-controls="v-piils-surgeries" aria-selected="false">
+                                    <div class="py-2">
+                                        <span class="ml-auto p-2"><i class="fas fa-file-medical-alt"></i>
                             </span>
-                                            <span>Surgeries</span>
+                                        <span>Surgeries</span>
 
-                                      </div>
-                                            </a>
-                                        
-                                       
-                                            <a class="nav-link px-1 sidebar-link active" href="#layouts">
-                                                 <div class="py-2">
-                                                <span class="ml-auto p-2"><i class="bi bi-ui-checks-grid"></i>
+                                    </div>
+                                </a>
+
+
+                                <a class="nav-link px-1" href="#v-pills-OTtypes" id="v-pills-OTtypes-tab" data-toggle="pill" role="tab" aria-controls="v-piils-OTtypes" aria-selected="false">
+                                    <div class="py-2">
+                                        <span class="ml-auto p-2"><i class="fas fa-hospital-user"></i>
                             </span>
-                                                <span>Operating Theater Types</span>
-                                                </div>
-                                            </a>
+                                        <span>Operating Theater Types</span>
+                                    </div>
+                                </a>
 
-                                            
-                                                <a class="nav-link px-1 sidebar-link active" href="#layouts">
-                                                     <div class="py-2">
-                                                    <span class="ml-auto p-2"><i class="bi bi-columns-gap"></i>
+
+                                <a class="nav-link px-1" href="#v-pills-theaters" id="v-pills-theaters-tab" data-toggle="pill" role="tab" aria-controls="v-piils-theaters" aria-selected="false">
+                                    <div class="py-2">
+                                        <span class="ml-auto p-2"><i class="fas fa-clinic-medical"></i>
                             </span>
-                                                    <span>Operating Theaters</span>
-                                                    </div>
-                                                </a>
+                                        <span>Operating Theaters</span>
+                                    </div>
+                                </a>
 
-                                                
-                                            
-                                                    <a class="nav-link px-1 sidebar-link active" href="#layouts">
-                                                         <div class="py-2">
-                                                         <span class="ml-auto p-2"><i class="bi bi-diagram-3-fill"></i>
+
+
+                                <a class="nav-link px-1" href="#v-pills-OTforsurgeries" id="v-pills-OTforsurgeries-tab" data-toggle="pill" role="tab" aria-controls="v-piils-OTforsurgeries" aria-selected="false">
+                                    <div class="py-2">
+                                        <span class="ml-auto p-2"><i class="fas fa-diagnoses"></i>
                             </span>
-                                                        <span>Operating Theaters for Surgeries</span>
-</div>
-                                                    </a>
+                                        <span>Operating Theaters for Surgeries</span>
+                                    </div>
+                                </a>
 
-                                                        <a class="nav-link px-1 sidebar-link active" href="#">
-                                                             <div class="py-2">
-                                                               <span class="ml-auto p-2"><i class="bi bi-calendar3"></i>
+                                <a class="nav-link px-1" href="#v-pills-workinghours" id="v-pills-workinghours-tab" data-toggle="pill" role="tab" aria-controls="v-piils-workinghours" aria-selected="false">
+                                    <div class="py-2">
+                                        <span class="ml-auto p-2"><i class="fas fa-user-nurse"></i>
                                                                                         </span>
-                                                            <span>Working Hours</span>
-                                                            </div>
-                                                        </a>
+                                        <span>Working Hours</span>
+                                    </div>
+                                </a>
 
-                                      </div>                 
-                      </div>
+                         </div>
+                       </div>
                     </nav>
                 </div>
             </div>
         </div>
-        <div class="col-9 " >
-         <div class="scrollbar scrollbar-info admin-img">
-                        @*<div class="force-overflow">*@
+        <div class="col-9 ">
+            <div class="scrollbar scrollbar-info admin-img">
+                @*
+                <div class="force-overflow">*@
 
-        
-
-            <div class="shadow p-0 mb-5 bg-transparent rounded">
-
-                <div class="form_class border border-info">
-                    <fieldset>
-                        <legend><span class="number">1</span> Speciality </legend>
-                        <h6 class="mb-4 mt-2">Enter the Speciality:</h6>
-                        <div class="form-row">
-                            <div class="col-12 col-md-8 mb-2">
-                                <label for="speciality" class="sr-only">Name</label>
-                                <input type="text" class="form-control" id="speciality">
-                            </div>
-                            <div class="col-6 col-md-2">
-                                <button v-on:click="specialityAddClick" id="add-speciality-btn" type="submit" class="btn btn-primary w-100 form-control">Add</button>
-                            </div>
-                            <div class="col-6 col-md-2">
-                                <button class="btn btn-primary w-100 form-control" data-toggle="collapse" href="#speciality-list" role="button" aria-expanded="false" aria-controls="specialityList">List</button>
-                            </div>
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                            <img src="~/assets/images/adminpage.png" class= "col-md-8 col-md-offset-4" />
                         </div>
-                        <div class="col-12">
-                            <div class="collapse multi-collapse" id="speciality-list">
-                                <div class="card card-body mt-3">
-                                    <div class="row">
-                                        <div v-for="s in getNewSpecialities" class="col">
-                                            <div class="px-2 bg-primary rounded-pill mb-1">
-                                                <div class="d-flex justify-content-around">
-                                                    <span class="text-center text-white">{{s.name}}</span>
-                                                    <span class="text-white text-end ml-auto"><i class="fas fa-times"></i></span>
-                                                </div>
+                        <div class="tab-pane fade" id="v-pills-speciality" role="tabpanel" aria-labelledby="v-pills-speciality-tab">
+                            
+                            <div class="shadow p-0 mb-5 bg-transparent rounded">
+
+                                <div class="form_class border border-info">
+                                    <fieldset>
+                                        <legend><span class="number">1</span> Speciality </legend>
+                                        <h6 class="mb-4 mt-2">Enter the Speciality:</h6>
+                                        <div class="form-row">
+                                            <div class="col-12 col-md-8 mb-2">
+                                                <label for="speciality" class="sr-only">Name</label>
+                                                <input type="text" class="form-control" id="speciality">
+                                            </div>
+                                            <div class="col-6 col-md-2">
+                                                <button v-on:click="specialityAddClick" id="add-speciality-btn" type="submit" class="btn btn-primary w-100 form-control">Add</button>
+                                            </div>
+                                            <div class="col-6 col-md-2">
+                                                <button v-on:click="specialitySaveClick" id="save-speciality-btn" type="submit" class="btn btn-primary w-100 form-control">Save</button>
                                             </div>
                                         </div>
-                                    </div>
+                                        @*<div class="col-12">
+                                            <div class="collapse multi-collapse" id="speciality-list">
+                                                <div class="card card-body mt-3">
+                                                    <div class="row">
+                                                        <div v-for="s in getNewSpecialities" class="col">
+                                                            <div class="px-2 bg-primary rounded-pill mb-1">
+                                                                <div class="d-flex justify-content-around">
+                                                                    <span class="text-center text-white">{{s.name}}</span>
+                                                                    <span class="text-white text-end ml-auto"><i class="fas fa-times"></i></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>*@
+                                    </fieldset>
                                 </div>
+
                             </div>
+                        
+
+                            <div class="row">
+                                            <table class="table table-hover table-dark">
+                                                  <thead>
+                                                    <tr>
+                                                      <th colspan="2">Speciality List</th>                                                   
+                                                    </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    <tr>
+                                                      <th scope="row">1</th>
+                                                      <td>Cardiologist</td>                                                     
+                                                    </tr>
+                                                    </tbody>
+                                                    </table>
+                           </div>
                         </div>
-                    </fieldset>
-                </div>
 
-            </div>
-
-
-
-            <div class="shadow p-0 mb-5 bg-transparent rounded">
-                <div class="form_class border border-info">
-                    <fieldset>
-                        <legend><span class="number">2</span> Surgeon </legend>
-                        <div class="row">
-                            <div class="col-12 col-md-6">
-                                <div class="d-flex form-group align-content-center">
-                                    <h6 class="my-auto"> Speciality: </h6>
-                                    <label for="surgeon_speciality" class="sr-only">Speciality :</label>
-                                    <select id="surgeon_speciality" name="user_surgeon" class="ml-2 btn btn-info dropdown-toggle w-100">
+                        <div class="tab-pane fade" id="v-pills-surgeon" role="tabpanel" aria-labelledby="v-pills-surgeon-tab">
+                            <div class="shadow p-0 mb-5 bg-transparent rounded">
+                                <div class="form_class border border-info">
+                                    <fieldset>
+                                        <legend><span class="number">2</span> Surgeon </legend>
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                <div class="d-flex form-group align-content-center">
+                                                    <h6 class="my-auto"> Speciality: </h6>
+                                                    <label for="surgeon_speciality" class="sr-only">Speciality :</label>
+                                                    <select id="surgeon_speciality" name="user_surgeon" class="ml-2 btn btn-info dropdown-toggle w-100">
                             <option value="-1" selected hidden>Choose...</option>
                             <option v-for="opt in prevData.specialities" value="opt.id"> {{opt.name}} </option>
                          </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+
+                                            <div class="col-12 col-md-8 mb-2">
+                                                <label for="inlineFormInputName2" class="sr-only">Name</label>
+                                                <input type="text" class="form-control" id="inlineFormInputName2">
+                                            </div>
+                                            <div class="col-6 col-md-2">
+                                                <button v-on:click="surgeonAddClick" type="submit" class="btn btn-primary w-100 form-control">Add</button>
+                                            </div>
+                                            <div class="col-6 col-md-2">
+                                                <button v-on:click="surgeonSaveClick" type="submit" class="btn btn-primary w-100 form-control">Save</button>
+                                            </div>
+                                            @*<div class="col-12">
+                                                <div class="collapse multi-collapse" id="surgeon-list">
+                                                    <div class="card card-body mt-3" id="surgeonlist">
+                                                        <div class="row">
+                                                            <div v-for="s in prevData.surgeons" class="col">
+                                                                <div class="px-2 bg-primary rounded-pill mb-1">
+                                                                    <div class="d-flex justify-content-around">
+                                                                        <span class="text-center text-white">{{s.name}}</span>
+                                                                        <span class="text-white text-end ml-auto"><i class="fas fa-times"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div v-for="s in getNewSurgeons" class="col">
+                                                                <div class="px-2 bg-primary rounded-pill mb-1">
+                                                                    <div class="d-flex justify-content-around">
+                                                                        <span class="text-center text-white">{{s.name}}</span>
+                                                                        <span class="text-white text-end ml-auto"><i class="fas fa-times"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>*@
+                                        </div>
+                                    </fieldset>
                                 </div>
                             </div>
+                            <div class="row">
+                                            <table class="table table-hover table-dark">
+                                                  <thead>
+                                                    <tr>
+                                                      <th scope="col">Speciality</th>
+                                                      <th scope="col">Surgeon</th>  
+                                                    </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    <tr>
+                                                      <th scope="row">Cardiologist</th>
+                                                      <td>Dr.Pavan</td> 
+                                                      
+                                                    </tr>
+                                                    </tbody>
+                                                    </table>
+                           </div>
                         </div>
-                        <div class="form-row">
 
-                            <div class="col-12 col-md-8 mb-2">
-                                <label for="inlineFormInputName2" class="sr-only">Name</label>
-                                <input type="text" class="form-control" id="inlineFormInputName2">
-                            </div>
-                            <div class="col-6 col-md-2">
-                                <button v-on:click="surgeonAddClick" type="submit" class="btn btn-primary w-100 form-control">Add</button>
-                            </div>
-                            <div class="col-6 col-md-2">
-                                <p>
-                                    <a class="btn btn-primary w-100 form-control" data-toggle="collapse" href="#surgeon-list" role="button" aria-expanded="false" aria-controls="surgeonlist">List</a>
-                                </p>
-                            </div>
-                            <div class="col-12">
-                                <div class="collapse multi-collapse" id="surgeon-list">
-                                    <div class="card card-body mt-3" id="surgeonlist">
+
+                        <div class="tab-pane fade" id="v-pills-surgeries" role="tabpanel" aria-labelledby="v-pills-surgeries-tab">
+                            <div class="shadow p-0 mb-5 bg-white rounded">
+                                <div class="form_class border border-info">
+                                    <fieldset>
+                                        <legend><span class="number">3</span> Surgeries </legend>
                                         <div class="row">
-                                            <div v-for="s in prevData.surgeons" class="col">
-                                                <div class="px-2 bg-primary rounded-pill mb-1">
-                                                    <div class="d-flex justify-content-around">
-                                                        <span class="text-center text-white">{{s.name}}</span>
-                                                        <span class="text-white text-end ml-auto"><i class="fas fa-times"></i></span>
+                                            <div class="col-12 col-md-6">
+                                                <h6>Enter the Surgery :</h6>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col- 12 col-md-8 mb-2">
+                                                <label for="surgery" class="sr-only">Name</label>
+                                                <input type="text" class="form-control" id="surgery">
+                                            </div>
+                                            <div class="col-6 col-md-2">
+                                                <button v-on:click="surgeryTypeAddClick" type="submit" class="btn btn-primary w-100 form-control">Add</button>
+                                            </div>
+                                            <div class="col-6 col-md-2">
+                                                <button v-on:click="surgeryTypeSaveClick" type="submit" class="btn btn-primary w-100 form-control">Save</button>
+                                            </div>
+                                        </div>
+                                        @*<div class="col-12">
+                                            <div class="collapse multi-collapse" id="surgery-list">
+                                                <div class="card card-body mt-3" id="surgerylist">
+                                                    <div class="row">
+                                                        <div v-for="s in prevData.surgeryTypes" class="col">
+                                                            <div class="px-2 bg-primary rounded-pill mb-1">
+                                                                <div class="d-flex justify-content-around">
+                                                                    <span class="text-center text-white">{{s.name}}</span>
+                                                                    <span class="text-white text-end ml-auto"><i class="fas fa-times"></i></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div v-for="s in getNewSurgeryTypes" class="col">
+                                                            <div class="px-2 bg-primary rounded-pill mb-1">
+                                                                <div class="d-flex justify-content-around">
+                                                                    <span class="text-center text-white">{{s.name}}</span>
+                                                                    <span class="text-white text-end ml-auto"><i class="fas fa-times"></i></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div v-for="s in getNewSurgeons" class="col">
-                                                <div class="px-2 bg-primary rounded-pill mb-1">
-                                                    <div class="d-flex justify-content-around">
-                                                        <span class="text-center text-white">{{s.name}}</span>
-                                                        <span class="text-white text-end ml-auto"><i class="fas fa-times"></i></span>
+                                        </div>*@
+                                    </fieldset>
+                                </div>
+                            </div>
+                            <div class="row">
+                                            <table class="table table-hover table-dark">
+                                                  <thead>
+                                                    <tr>
+                                                      <th colspan="2">Surgery</th>                                                   
+                                                    </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    <tr>
+                                                      <th scope="row">1</th>
+                                                      <td>Cardiac Surgery</td>                                                     
+                                                    </tr>
+                                                    </tbody>
+                                                    </table>
+                           </div>
+                        </div>
+                        <div class="tab-pane fade" id="v-pills-OTtypes" role="tabpanel" aria-labelledby="v-pills-OTtypes-tab">
+                            <div class="shadow p-0 mb-5 bg-white rounded">
+                                <div class="form_class border border-info">
+                                    <fieldset>
+                                        <legend><span class="number">4</span> Operating Theater Types </legend>
+                                        <h6>Enter the Operating Theater type :</h6>
+                                        <div class="form-row">
+                                            <div class="col-12 col-md-8 mb-2">
+                                                <label for="inlineFormInputName2" class="sr-only">Name</label>
+                                                <input type="text" class="form-control" id="inlineFormInputName2">
+                                            </div>
+                                            <div class="col-6 col-md-2">
+                                                <button v-on:click="theatreTypeAddClick" type="submit" class="btn btn-primary w- 100 form-control">Add</button>
+                                            </div>
+                                            <div class="col-6 col-md-2">
+                                                <button v-on:click="theatreTypeSaveClick" type="submit" class="btn btn-primary w- 100 form-control">Save</button>
+                                            </div>
+                                            @*<div class="col-12">
+                                                <div class="collapse multi-collapse" id="theatretype-list">
+                                                    <div class="card card-body mt-3" id="theatertypelist">
+                                                        <div class="row">
+                                                            <div v-for="s in prevData.surgeryTypes" class="col">
+                                                                <div class="px-2 bg-primary rounded-pill mb-1">
+                                                                    <div class="d-flex justify-content-around">
+                                                                        <span class="text-center text-white">{{s.name}}</span>
+                                                                        <span class="text-white text-end ml-auto"><i class="fas fa-times"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div v-for="s in getNewSurgeryTypes" class="col">
+                                                                <div class="px-2 bg-primary rounded-pill mb-1">
+                                                                    <div class="d-flex justify-content-around">
+                                                                        <span class="text-center text-white">{{s.name}}</span>
+                                                                        <span class="text-white text-end ml-auto"><i class="fas fa-times"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>*@
                                         </div>
-                                    </div>
+                                    </fieldset>
                                 </div>
                             </div>
+                            <div class="row">
+                                            <table class="table table-hover table-dark">
+                                                  <thead>
+                                                    <tr>
+                                                      <th colspan="2">Operating Theater Type</th>                                                   
+                                                    </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    <tr>
+                                                      <th scope="row">1</th>
+                                                      <td>Type 1</td>                                                     
+                                                    </tr>
+                                                    </tbody>
+                                                    </table>
+                           </div>
                         </div>
-                    </fieldset>
-                </div>
-            </div>
 
 
-
-
-            <div class="shadow p-0 mb-5 bg-white rounded" hidden>
-                <div class="form_class border border-info">
-                    <fieldset>
-                        <legend><span class="number">3</span> Surgeries </legend>
-                        <div class="row">
-                            <div class="col-12 col-md-6">
-                                <h6>Enter the Surgery :</h6>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col- 12 col-md-8 mb-2">
-                                <label for="surgery" class="sr-only">Name</label>
-                                <input type="text" class="form-control" id="surgery">
-                            </div>
-                            <div class="col-6 col-md-2">
-                                <button v-on:click="surgeryTypeAddClick" type="submit" class="btn btn-primary w-100 form-control">Add</button>
-                            </div>
-                            <div class="col-6 col-md-2">
-                                <p>
-                                    <a class="btn btn-primary w-100 form-control" data-toggle="collapse" href="#surgery-list" role="button" aria-expanded="false" aria-controls="surgerylist">List</a>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="collapse multi-collapse" id="surgery-list">
-                                <div class="card card-body mt-3" id="surgerylist">
-                                    <div class="row">
-                                        <div v-for="s in prevData.surgeryTypes" class="col">
-                                            <div class="px-2 bg-primary rounded-pill mb-1">
-                                                <div class="d-flex justify-content-around">
-                                                    <span class="text-center text-white">{{s.name}}</span>
-                                                    <span class="text-white text-end ml-auto"><i class="fas fa-times"></i></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div v-for="s in getNewSurgeryTypes" class="col">
-                                            <div class="px-2 bg-primary rounded-pill mb-1">
-                                                <div class="d-flex justify-content-around">
-                                                    <span class="text-center text-white">{{s.name}}</span>
-                                                    <span class="text-white text-end ml-auto"><i class="fas fa-times"></i></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-            </div>
-
-
-            <div class="shadow p-0 mb-5 bg-white rounded" hidden>
-                <div class="form_class border border-info">
-                    <fieldset>
-                        <legend><span class="number">4</span> Operating Theater Types </legend>
-                        <h6>Enter the Operating Theater type :</h6>
-                        <div class="form-row">
-                            <div class="col-12 col-md-8 mb-2">
-                                <label for="inlineFormInputName2" class="sr-only">Name</label>
-                                <input type="text" class="form-control" id="inlineFormInputName2">
-                            </div>
-                            <div class="col-6 col-md-2">
-                                <button v-on:click="theatreTypeAddClick" type="submit" class="btn btn-primary w- 100 form-control">Add</button>
-                            </div>
-                            <div class="col-6 col-md-2">
-                                <p>
-                                    <a class="btn btn-primary w-100" data-toggle="collapse" href="#theatretype-list" role="button" aria-expanded="false" aria-controls="theatertypelist">List</a>
-                                </p>
-                            </div>
-                            <div class="col-12">
-                                <div class="collapse multi-collapse" id="theatretype-list">
-                                    <div class="card card-body mt-3" id="theatertypelist">
+                        <div class="tab-pane fade" id="v-pills-theaters" role="tabpanel" aria-labelledby="v-pills-theaters-tab">
+                            <div class="shadow p-0 mb-5 bg-transparent rounded">
+                                <div class="form_class border border-info">
+                                    <fieldset>
+                                        <legend><span class="number">5</span> Operating Theaters </legend>
                                         <div class="row">
-                                            <div v-for="s in prevData.surgeryTypes" class="col">
-                                                <div class="px-2 bg-primary rounded-pill mb-1">
-                                                    <div class="d-flex justify-content-around">
-                                                        <span class="text-center text-white">{{s.name}}</span>
-                                                        <span class="text-white text-end ml-auto"><i class="fas fa-times"></i></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div v-for="s in getNewSurgeryTypes" class="col">
-                                                <div class="px-2 bg-primary rounded-pill mb-1">
-                                                    <div class="d-flex justify-content-around">
-                                                        <span class="text-center text-white">{{s.name}}</span>
-                                                        <span class="text-white text-end ml-auto"><i class="fas fa-times"></i></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-            </div>
-
-
-
-
-            <div class="shadow p-0 mb-5 bg-transparent rounded" hidden>
-                <div class="form_class border border-info">
-                    <fieldset>
-                        <legend><span class="number">5</span> Operating Theaters </legend>
-                        <div class="row">
-                            <div class="col-12 col-md-6">
-                                <div class="d-flex form-group align-content-center">
-                                    <h6 class="my-auto"> Theater Type: </h6>
-                                    <label for="theatre_type_data" class="sr-only">Theatre Type :</label>
-                                    <select id="theatre_type_data" name="user_surgeon" class="ml-2 btn btn-info dropdown-toggle w-100">
+                                            <div class="col-12 col-md-6">
+                                                <div class="d-flex form-group align-content-center">
+                                                    <h6 class="my-auto"> Theater Type: </h6>
+                                                    <label for="theatre_type_data" class="sr-only">Theatre Type :</label>
+                                                    <select id="theatre_type_data" name="user_surgeon" class="ml-2 btn btn-info dropdown-toggle w-100">
                             <option value="-1" selected hidden>Choose...</option>
                             <option v-for="t in prevData.theatreTypes" value="t.id"> {{t.name}} </option>
                          </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-
-                            <div class="col-12 col-md-8 mb-2">
-                                <label for="inlineFormInputName2" class="sr-only">Name</label>
-                                <input type="text" class="form-control" id="inlineFormInputName2">
-                            </div>
-                            <div class="col-6 col-md-2">
-                                <button v-on:click="theatreAddClick" type="submit" class="btn btn-primary w-100 form-control">Add</button>
-                            </div>
-                            <div class="col-6 col-md-2">
-                                <p>
-                                    <a class="btn btn-primary w-100" data-toggle="collapse" href="#theatre-list" role="button" aria-expanded="false" aria-controls="theatrelist">List</a>
-                                </p>
-                            </div>
-                            <div class="col-12">
-                                <div class="collapse multi-collapse" id="theatre-list">
-                                    <div class="card card-body" id="theatrelist" style="height:100px;">
-                                        <div class="row">
-                                            <div v-for="s in prevData.theatres" class="col">
-                                                <div class="px-2 bg-primary rounded-pill mb-1">
-                                                    <div class="d-flex justify-content-around">
-                                                        <span class="text-center text-white">{{s.name}}</span>
-                                                        <span class="text-white text-end ml-auto"><i class="fas fa-times"></i></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div v-for="s in getNewTheatres" class="col">
-                                                <div class="px-2 bg-primary rounded-pill mb-1">
-                                                    <div class="d-flex justify-content-around">
-                                                        <span class="text-center text-white">{{s.name}}</span>
-                                                        <span class="text-white text-end ml-auto"><i class="fas fa-times"></i></span>
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        <div class="form-row">
+
+                                            <div class="col-12 col-md-8 mb-2">
+                                                <label for="inlineFormInputName2" class="sr-only">Name</label>
+                                                <input type="text" class="form-control" id="inlineFormInputName2">
+                                            </div>
+                                            <div class="col-6 col-md-2">
+                                                <button v-on:click="theatreAddClick" type="submit" class="btn btn-primary w-100 form-control">Add</button>
+                                            </div>
+                                            <div class="col-6 col-md-2">
+                                                <button v-on:click="theatreSaveClick" type="submit" class="btn btn-primary w-100 form-control">Save</button>
+                                            </div>
+                                            @*<div class="col-12">
+                                                <div class="collapse multi-collapse" id="theatre-list">
+                                                    <div class="card card-body" id="theatrelist" style="height:100px;">
+                                                        <div class="row">
+                                                            <div v-for="s in prevData.theatres" class="col">
+                                                                <div class="px-2 bg-primary rounded-pill mb-1">
+                                                                    <div class="d-flex justify-content-around">
+                                                                        <span class="text-center text-white">{{s.name}}</span>
+                                                                        <span class="text-white text-end ml-auto"><i class="fas fa-times"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div v-for="s in getNewTheatres" class="col">
+                                                                <div class="px-2 bg-primary rounded-pill mb-1">
+                                                                    <div class="d-flex justify-content-around">
+                                                                        <span class="text-center text-white">{{s.name}}</span>
+                                                                        <span class="text-white text-end ml-auto"><i class="fas fa-times"></i></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>*@
+                                        </div>
+                                    </fieldset>
                                 </div>
                             </div>
+                            <div class="row">
+                                            <table class="table table-hover table-dark">
+                                                  <thead>
+                                                    <tr>
+                                                      <th scope="col">Operating Theater Type</th>
+                                                      <th scope="col">Theater Number</th>  
+                                                    </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    <tr>
+                                                      <th scope="row">Type 1</th>
+                                                      <td>Theater 3</td> 
+                                                      
+                                                    </tr>
+                                                    </tbody>
+                                                    </table>
+                           </div>
                         </div>
-                    </fieldset>
-                </div>
-            </div>
-
-
-            <div class="shadow p-0 mb-5 bg-transparent rounded" hidden>
-                <div class="form_class border border-info">
-                    <fieldset>
-                        <legend><span class="number">6</span> Operating Theaters for Surgeries </legend>
-                        <div class="row">
-                            <div class="col-12 col-md-6">
-                                <div class="d-flex form-group align-content-center">
-                                    <h6 class="my-auto"> Surgery: </h6>
-                                    <label for="surgery-type-data" class="sr-only">Surgery:</label>
-                                    <select id="surgery-type-data" class="ml-2 btn btn-info dropdown-toggle w-100">
+                        <div class="tab-pane fade" id="v-pills-OTforsurgeries" role="tabpanel" aria-labelledby="v-pills-OTforsugeries-tab">
+                            <div class="shadow p-0 mb-5 bg-transparent rounded">
+                                <div class="form_class border border-info">
+                                    <fieldset>
+                                        <legend><span class="number">6</span> Operating Theaters for Surgeries </legend>
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                <div class="d-flex form-group align-content-center">
+                                                    <h6 class="my-auto"> Surgery: </h6>
+                                                    <label for="surgery-type-data" class="sr-only">Surgery:</label>
+                                                    <select id="surgery-type-data" class="ml-2 btn btn-info dropdown-toggle w-100">
                             <option value="-1" selected hidden>Choose...</option>
                             <option v-for="t in prevData.surgeryType" value="t.id"> {{t.name}} </option>
                          </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
 
-                            <div class="col-12 col-md-8">
-                                <div v-for="t in prevData.theatreTypes" class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="t.id">
-                                    <label class="form-check-label" for="ORtype_1">
+                                            <div class="col-12 col-md-8">
+                                                <div v-for="t in prevData.theatreTypes" class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="t.id">
+                                                    <label class="form-check-label" for="ORtype_1">
                              {{t.name}}
                             </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-2">
+                                                <button v-on:click="theatreTypesForSurgeryAddClick" type="submit" class="btn btn-primary w-100 form-control">Add</button>
+                                            </div>
+                                            <div class="col-6 col-md-2">
+                                                <button v-on:click="theatreTypesForSurgerySaveClick" type="submit" class="btn btn-primary w-100 form-control">Save</button>
+                                            </div>
+                                            @*<div class="col-12" style="height:100px;">
+                                                <div class="collapse multi-collapse" id="ORforSurgeries-list">
+                                                    <div class="card card-body mt-3" id="ORforSurgerieslist">
+                                                        wasd
+                                                    </div>
+                                                </div>
+                                            </div>*@
+                                        </div>
+                                    </fieldset>
                                 </div>
                             </div>
-                            <div class="col-6 col-md-2">
-                                <button v-on:click="theatreTypesForSurgeryAddClick" type="submit" class="btn btn-primary w-100 form-control">Add</button>
-                            </div>
-                            <div class="col-6 col-md-2">
-                                <p>
-                                    <a class="btn btn-primary w-100" data-toggle="collapse" href="#ORforSurgeries-list" role="button" aria-expanded="false" aria-controls="ORforSurgerieslist">List</a>
-                                </p>
-                            </div>
-                            <div class="col-12" style="height:100px;">
-                                <div class="collapse multi-collapse" id="ORforSurgeries-list">
-                                    <div class="card card-body mt-3" id="ORforSurgerieslist">
-                                        wasd
-                                    </div>
-                                </div>
-                            </div>
+                            <div class="row">
+                                            <table class="table table-hover table-dark">
+                                                  <thead>
+                                                    <tr>
+                                                      <th scope="col">Surgery</th>
+                                                      <th scope="col"> Operating Theater type</th>
+                                                      
+                                                    </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    <tr>
+                                                      <th scope="row">Cardiac</th>
+                                                      <td>Cardiac OT</td> 
+                                                      
+                                                    </tr>
+                                                    </tbody>
+                                                    </table>
+                           </div>
                         </div>
-                    </fieldset>
-                </div>
-            </div>
 
-
-
-
-            <div class="p-0 mb-5 bg-transparent rounded">
-                <div class="form_class border border-info" id="workingHoursBox">
-                    <fieldset>
-                        <legend><span class="number">7</span> Working Hours </legend>
-                        <div class="row">
-                            <div class="col-12 col-md-6">
-                                <div class="d-flex form-group align-content-center">
-                                    <h6 class="my-auto"> Surgeon: </h6>
-                                    <select v-on:change="renderCalendar" v-model="selectedSurgeonId" class="ml-2 btn btn-info dropdown-toggle w-100">
+                        <div class="tab-pane fade" id="v-pills-workinghours" role="tabpanel" aria-labelledby="v-pills-workinghours-tab">
+                            <div class="p-0 mb-5 bg-transparent rounded">
+                                <div class="form_class border border-info" id="workingHoursBox">
+                                    <fieldset>
+                                        <legend><span class="number">7</span> Working Hours </legend>
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                <div class="d-flex form-group align-content-center">
+                                                    <h6 class="my-auto"> Surgeon: </h6>
+                                                    <select v-on:change="renderCalendar" v-model="selectedSurgeonId" class="ml-2 btn btn-info dropdown-toggle w-100">
                                         <option value="-1" selected hidden>Choose...</option>
                                         <option v-for="option in getPrevSurgeons" v-bind:value="option.id">{{option.name}}</option>
                                     </select>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <div class=" d-flex form-group">
-                                    <h6 class="my-auto"> Theatre: </h6>
-                                    <select v-model="selectedTheatreId" class="ml-2 btn btn-info dropdown-toggle w-100">
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                <div class=" d-flex form-group">
+                                                    <h6 class="my-auto"> Theatre: </h6>
+                                                    <select v-model="selectedTheatreId" class="ml-2 btn btn-info dropdown-toggle w-100">
                                         <option value="-1" selected hidden>Choose...</option>
                                         <option v-for="option in getPrevTheatres" v-bind:value="option.id">{{option.name}}</option>
                                     </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 col-md-6">
-                                <div class="d-flex form-group">
-                                    <h6 class="my-auto">Start time:</h6>
-                                    <div class="ml-2 input-group date" data-target-input="nearest">
-                                        <input v-model="startTime" id="start-time" type="text" class="form-control datetimepicker-input" data-target="#start-time" />
-                                        <div class="input-group-append" data-target="#start-time" data-toggle="datetimepicker">
-                                            <div class="input-group-text"><i class="fas fa-clock"></i></div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6">
-                                <div class="d-flex form-group">
-                                    <h6 class="my-auto">End time:</h6>
-                                    <div class="ml-2 input-group date" data-target-input="nearest">
-                                        <input v-model="endTime" id="end-time" type="text" class="form-control datetimepicker-input" data-target="#end-time" />
-                                        <div class="input-group-append" data-target="#end-time" data-toggle="datetimepicker">
-                                            <div class="input-group-text"><i class="fas fa-clock"></i></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                <div class="d-flex form-group">
+                                                    <h6 class="my-auto">Start time:</h6>
+                                                    <div class="ml-2 input-group date" data-target-input="nearest">
+                                                        <input v-model="startTime" id="start-time" type="text" class="form-control datetimepicker-input" data-target="#start-time" />
+                                                        <div class="input-group-append" data-target="#start-time" data-toggle="datetimepicker">
+                                                            <div class="input-group-text"><i class="fas fa-clock"></i></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                <div class="d-flex form-group">
+                                                    <h6 class="my-auto">End time:</h6>
+                                                    <div class="ml-2 input-group date" data-target-input="nearest">
+                                                        <input v-model="endTime" id="end-time" type="text" class="form-control datetimepicker-input" data-target="#end-time" />
+                                                        <div class="input-group-append" data-target="#end-time" data-toggle="datetimepicker">
+                                                            <div class="input-group-text"><i class="fas fa-clock"></i></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                        </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="row justify-content-end">
-                                    <div class="col-6">
-                                        <button v-on:click="addWorkingHoursClick" type="submit" class="btn btn-primary w-100 form-control">Add</button>
-                                    </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="row justify-content-end">
+                                                    <div class="col-6">
+                                                        <button v-on:click="addWorkingHoursClick" type="submit" class="btn btn-primary w-100 form-control">Add</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
                                 </div>
+                                <div class="my-2" id="surgeon-calendar"></div>
                             </div>
                         </div>
-                    </fieldset>
+                    </div>
                 </div>
-                <div class="my-2" id="surgeon-calendar"></div>
-            </div>
-           </div>
             </div>
         </div>
     </div>
-</div>
+
+
 
 @section Scripts{
-    <script src="~/lib/moment.js/moment.min.js"></script>
-    <script src="~/lib/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-    <script src="~/lib/vue/dist/vue.global.js"></script>
-    <script src="~/js/admin/admin-requests.js"></script>
-    <script src="~/js/admin/surgeon-calendar.js"></script>
-    <script src="~/js/admin/admin-vue-app.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            $('#start-time').datetimepicker({
-                icons: {
-                    time: "fas fa-clock"
-                },
-                sideBySide:true
-            });
-            $('#end-time').datetimepicker({
-                icons: {
-                    time: "fas fa-clock"
-                },
-                useCurrent:false,
-                sideBySide:true
-            });
-            $("#start-time").on("change.datetimepicker", function (e) {
-                $('#end-time').datetimepicker('minDate', e.date);
-            });
-            $("#end-time").on("change.datetimepicker", function (e) {
-                $('#start-time').datetimepicker('maxDate', e.date);
-            });
-            });
-   </script>
+<script src="~/lib/moment.js/moment.min.js"></script>
+<script src="~/lib/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+
+<script src="~/lib/vue/dist/vue.global.js"></script>
+<script src="~/js/admin/admin-requests.js"></script>
+<script src="~/js/admin/surgeon-calendar.js"></script>
+<script src="~/js/admin/admin-vue-app.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $('#start-time').datetimepicker({
+            icons: {
+                time: "fas fa-clock"
+            },
+            sideBySide: true
+        });
+        $('#end-time').datetimepicker({
+            icons: {
+                time: "fas fa-clock"
+            },
+            useCurrent: false,
+            sideBySide: true
+        });
+        $("#start-time").on("change.datetimepicker", function(e) {
+            $('#end-time').datetimepicker('minDate', e.date);
+        });
+        $("#end-time").on("change.datetimepicker", function(e) {
+            $('#start-time').datetimepicker('maxDate', e.date);
+        });
+    });
+</script>
+<script>
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+        e.target // newly activated tab
+        e.relatedTarget // previous active tab
+    })
+</script>
 }

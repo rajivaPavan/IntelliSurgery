@@ -1,5 +1,6 @@
 ﻿using IntelliSurgery.DbOperations;
 using IntelliSurgery.DbOperations.Theatres;
+using IntelliSurgery.DTOs;
 using IntelliSurgery.Global;
 using IntelliSurgery.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +29,12 @@ namespace IntelliSurgery.Controllers
         public async Task<IActionResult> GetTableData(int surgeonId)
         {
             List<Appointment> appointments = await appointmentRepository.GetAppointments(a => a.SurgeonId == surgeonId);
-            return Json(new { success = true, data = appointments });
+            List<AppointmentExtendedProp> records = new List<AppointmentExtendedProp>();
+            foreach (Appointment appointment in appointments)
+            {
+                records.Add(new AppointmentExtendedProp(appointment));
+            }
+            return Json(new { success = true, data = records });
         }
 
         [HttpPost]

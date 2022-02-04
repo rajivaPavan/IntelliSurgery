@@ -1,4 +1,5 @@
 ﻿using IntelliSurgery.DbOperations;
+using IntelliSurgery.DbOperations.Appointments;
 using IntelliSurgery.DbOperations.Theatres;
 using IntelliSurgery.DbOperations.WorkingBlocks;
 using IntelliSurgery.DTOs;
@@ -16,12 +17,16 @@ namespace IntelliSurgery.Controllers
     [Route("api/[controller]/[action]")]
     public class CalendarApiController : Controller
     {
-        private IAppointmentRepository appointmentRepository;
+        private readonly IAppointmentRepository appointmentRepository;
+        private readonly IWorkingBlockRepository workingBlockRepository;
+        private readonly ISurgeryRepository surgeryRepository;
 
-
-        public CalendarApiController(IAppointmentRepository appointmentRepository)
+        public CalendarApiController(IAppointmentRepository appointmentRepository,IWorkingBlockRepository workingBlockRepository,
+            ISurgeryRepository surgeryRepository)
         {
             this.appointmentRepository = appointmentRepository;
+            this.workingBlockRepository = workingBlockRepository;
+            this.surgeryRepository = surgeryRepository;
         }
 
         [HttpGet]
@@ -37,6 +42,12 @@ namespace IntelliSurgery.Controllers
             else if (filter == "surgeons")
             {
                 scheduledAppointments = await appointmentRepository.GetAppointments(a => a.ScheduledSurgeryId != null && a.SurgeonId == filterValue);
+                List<WorkingBlock> workingBlocks = await workingBlockRepository.GetWorkBlocks(w => w.SurgeonId == filterValue);
+                foreach(WorkingBlock workingBlock in workingBlocks)
+                {
+                    fullCalendarEvents.Add(new AppointmentCalendarEvent(workingBlock));
+                }
+
             }
             else if (filter == "theatreTypes")
             {
@@ -50,17 +61,57 @@ namespace IntelliSurgery.Controllers
 
             foreach (var appointment in scheduledAppointments)
             {
-                fullCalendarEvents.Add(new AppointmentCalendarEvent() { 
-                    Id = filter+filterValue.ToString()+appointment.Id.ToString(),
-                    Title = appointment.Patient.Name + " : "+appointment.SurgeryType.Name,
-                    Start = appointment.ScheduledSurgery.SurgeryEvent.Start,
-                    End = appointment.ScheduledSurgery.SurgeryEvent.End,
-                    ExtendedProps = appointment,
-                    Color = AppointmentCalendarEvent.GetPriorityColor(appointment.PriorityLevel)
-                });
+                AppointmentCalendarEvent calendarEvent = new AppointmentCalendarEvent(appointment);
+                calendarEvent.Id = filter + filterValue.ToString() + appointment.Id.ToString();
+                fullCalendarEvents.Add(calendarEvent);
             }
 
             return Json(new { success = true, data = fullCalendarEvents });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetCalendarEvent(int appointmentId)
+        {
+            Appointment appointment = await appointmentRepository.GetAppointment(AppointmentQueryLogic.ById(appointmentId));
+            if (appointment == null)
+            {
+                AppointmentCalendarEvent calendarEvent = new AppointmentCalendarEvent(appointment);
+                return Json(new { success = true, data = calendarEvent });
+            }
+            return Json(new { success = false });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateAppointmentStatus(int appointmentId, int newStatus)
+        {
+            Appointment appointment = await appointmentRepository.GetAppointment(AppointmentQueryLogic.ById(appointmentId));
+            if (appointment == null)
+            {
+                Status appointmentStatus = (Status)newStatus;
+                appointment.Status = appointmentStatus;
+                if(appointmentStatus == Status.Cancelled)
+                {
+                    SurgeryEvent delSurgeryEvent = appointment.ScheduledSurgery.SurgeryEvent;
+                    ScheduledSurgery delScheduledSurgery = appointment.ScheduledSurgery;
+
+                    //update working block time
+                    int workingBlockId = (int)delScheduledSurgery.WorkingBlockId;
+                    WorkingBlock workingBlock = await workingBlockRepository.GetWorkBlock(w => w.Id == workingBlockId);
+                    workingBlock.RemainingTime = workingBlock.RemainingTime.Add(delSurgeryEvent.Duration);
+                    await workingBlockRepository.UpdateWorkingBlock(workingBlock);
+                    
+                    //delete scheduled surgery
+                    appointment.ScheduledSurgeryId = null;
+                    appointment.ScheduledSurgery = null;
+                    await surgeryRepository.DeleteScheduleSurgery(delScheduledSurgery);
+                    await surgeryRepository.DeleteSurgeryEvent(delSurgeryEvent);
+                    
+                }
+                appointment = await appointmentRepository.UpdateAppointment(appointment);
+                AppointmentExtendedProp appointmentExtendedProp = new AppointmentExtendedProp(appointment);
+                return Json(new { success = true, data = appointmentExtendedProp });
+            }
+            return Json(new { success = false });
         }
     }
 

@@ -32,20 +32,19 @@ namespace IntelliSurgery.Global
 
         public async Task CreateSchedule(Surgeon surgeon)
         {
-            List<Appointment> appointments = await appointmentRepository.GetAppointments(AppointmentQueryLogic.BySurgeon(surgeon));
-            //get incomplete appointments
-            appointments = appointments.Where(a => a.Status != Status.Completed).ToList();
+            //get incomplete appointments of the surgeon
+            List<Appointment> appointments = await appointmentRepository.GetAppointments(a => a.SurgeonId == surgeon.Id && a.Status != Status.Completed);
 
             //prioritize appointments for the following week
             //appointments = await PrioritizeAppointments(appointments);
 
-            //create time blocks
-            List<WorkingBlock> workingBlocks = await workingBlockRepository.GetWorkBlocks(w => w.SurgeonId == surgeon.Id);
+            //get time blocks of the surgeon that start after the current time
+            List<WorkingBlock> workingBlocks = await workingBlockRepository.GetWorkBlocks(w => w.SurgeonId == surgeon.Id && w.Start > DateTime.Now);
 
             //allocate time for surgeries within the time blocks
             workingBlocks = await AllocateSurgeriesToBlocks(workingBlocks, appointments);
 
-            //add blocks to the database
+            //update blocks in the database
             await workingBlockRepository.UpdateWorkingBlocks(workingBlocks);
 
         }
@@ -67,7 +66,7 @@ namespace IntelliSurgery.Global
             int numOfAppointments = appointments.Count;
 
             TimeSpan blockDuration;
-            TimeSpan surgeryDuration;
+            TimeSpan finalSurgeryDuration;
             Appointment currentAppointment;
             WorkingBlock currentBlock;
 
@@ -77,17 +76,23 @@ namespace IntelliSurgery.Global
                 WorkingBlock bestBlock = null;
 
                 currentAppointment = appointments.ElementAt(i);
-                surgeryDuration = GetFinalSurgeryDuration(currentAppointment.SystemPredictedDuration);
+
+                finalSurgeryDuration = GetFinalSurgeryDuration(currentAppointment);
+                if (finalSurgeryDuration == TimeSpan.Zero)
+                {
+                    //if neither the system nor surgeon has suggested a time duration, skip the appointment
+                    continue;
+                }
 
                 for (int j = 0; j < numOfBlocks; j++)
                 {
                     currentBlock = workingBlocks[j];
-                    blockDuration = currentBlock.Duration;
+                    blockDuration = currentBlock.RemainingTime;
 
                     //find the best block index for the current appointment
-                    if (blockDuration >= surgeryDuration)
+                    if (blockDuration >= finalSurgeryDuration)
                     {
-                        if (bestBlock == null || bestBlock.Duration > blockDuration)
+                        if (bestBlock == null || bestBlock.RemainingTime > blockDuration)
                         {
                             bestBlockIndex = j;
                             bestBlock = workingBlocks[bestBlockIndex];   
@@ -101,20 +106,25 @@ namespace IntelliSurgery.Global
                     currentAppointment.Status = Status.Scheduled;
 
                     //reduce remaining time in block
-                    bestBlock.RemainingTime = bestBlock.RemainingTime.Subtract(surgeryDuration);
+                    bestBlock.RemainingTime = bestBlock.RemainingTime.Subtract(finalSurgeryDuration);
 
                     //set appointment surgery duration with preparation and cleanging time
                     TimeRange surgeryTimeRange = new TimeRange()
                     {
                         Start = bestBlock.End.Subtract(bestBlock.RemainingTime),
-                        Duration = surgeryDuration
+                        Duration = finalSurgeryDuration
                     };
 
                     //add scheduled surgery to database and add to current appointment
                     SurgeryEvent surgeryEvent = new SurgeryEvent();
                     surgeryEvent.SetTimeRange(surgeryTimeRange);
 
-                    ScheduledSurgery scheduledSurgery = await surgeryRepository.AddSurgery(new ScheduledSurgery() { SurgeryEvent = surgeryEvent});
+                    ScheduledSurgery scheduledSurgery = await surgeryRepository.AddSurgery(
+                            new ScheduledSurgery() { 
+                                SurgeryEvent = surgeryEvent,
+                                WorkingBlockId = bestBlock.Id,
+                            }
+                        );
                     currentAppointment.ScheduledSurgery = scheduledSurgery;
                     currentAppointment.ScheduledSurgeryId = scheduledSurgery.Id;
 
@@ -131,21 +141,31 @@ namespace IntelliSurgery.Global
                     //update best working block
                     workingBlocks[bestBlockIndex] = bestBlock;
                 }
-                else
-                {
-                    //set unscheduled appointment status to InWaitingList
-                    currentAppointment.Status = Status.InWaitingList;
-                    currentAppointment = await appointmentRepository.UpdateAppointment(currentAppointment);
-                }
 
                 
             }
             return workingBlocks;
         }
 
-        private TimeSpan GetFinalSurgeryDuration(TimeSpan predictedTime)
+        private TimeSpan GetFinalSurgeryDuration(Appointment appointment)
         {
-            return predictedTime.Add(prepTime).Add(cleanTime);
+            TimeSpan intitialTimeSpan = TimeSpan.Zero;
+
+            if (appointment.SurgeonsPredictedDuration != null)
+            {
+                intitialTimeSpan = (TimeSpan)appointment.SurgeonsPredictedDuration;
+
+            }
+            else if (appointment.SystemPredictedDuration != null)
+            {
+                intitialTimeSpan = (TimeSpan)appointment.SystemPredictedDuration;
+            }
+            if(intitialTimeSpan == TimeSpan.Zero)
+            {
+                return intitialTimeSpan;
+            }
+
+            return intitialTimeSpan.Add(prepTime).Add(cleanTime);
         }
 
         public Task<List<Appointment>> PrioritizeAppointments(List<Appointment> appointments)

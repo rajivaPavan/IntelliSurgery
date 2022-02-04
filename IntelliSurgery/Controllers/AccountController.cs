@@ -76,8 +76,8 @@ namespace ENA_CLIENT_WEB_APP.Controllers
                 }
 
             }
-
-            return View(model);
+            return RedirectToAction("index", "appointment");
+            //return View(model);
         }
 
     }

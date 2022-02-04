@@ -61,24 +61,7 @@
         setSelectedEvent(appointment, calendarEventId) {
 
             this.selectedCalendarEventId = calendarEventId;
-            
-
-            const NA = "Not assigned";
-            var selected = {
-                appointmentId : appointment.id,
-                surgeon: appointment.surgeon.name,
-                patient: appointment.patient.name,
-                surgery: appointment.surgeryType.name,
-                priority: appointment.priorityLevel,
-                status: appointment.status,
-                statusValue: appointment.statusValue,
-                theatre: appointment.theatre != null ? appointment.theatre.name : NA,
-                startTime: appointment.startTime ? appointment.startTime : NA,
-                endTime: appointment.endTime ? appointment.endTime : NA,
-                duration: appointment.duration ? appointment.duration : NA
-            };
-
-            this.selectedEvent = selected;
+            this.selectedEvent = selectedEventCtor(appointment);
             $("#appointment-box").show();
 
         },
@@ -140,31 +123,36 @@
             var appointmentId = selectedEvent.appointmentId;
             var tableRecord = await updateAppointmentStatusRequest(appointmentId, newStatus); //write this function
 
-            //update tableData
-            this.tableData = updateTableData(this.tableData, tableRecord);
+            if (tableRecord != null) {
+                //update selectedEvent
+                this.selectedEvent = selectedEventCtor(tableRecord);
 
-            //update calendars obj if
-            if (calendarEventId != -1) {
+                //update tableData
+                this.tableData = updateTableData(this.tableData, tableRecord);
 
-                var calendarEvent = await getCalendarEventRequest(appointmentId);
-                this.setSelectedEvent(calendarEvent);
+                //update calendars obj if
+                if (calendarEventId != -1) {
 
-                //update all calendars in different filters
-                this.calendars = updateEventInAllCalendars(this.calendars, calendarEvent);
+                    var calendarEvent = await getCalendarEventRequest(appointmentId);
 
-                //get filters of the current calendar that has been loaded
-                var selectedFilter = "surgeons";
-                var selectedFilterValue = this.selectedSurgeonId;
-                if (this.selectedSurgeonId == -1) {
-                    selectedFilter = this.selectedFilter;
-                    selectedFilterValue = this.selectedFilterValue;
+                    //update all calendars in different filters
+                    this.calendars = updateEventInAllCalendars(this.calendars, calendarEvent);
+
+                    //get filters of the current calendar that has been loaded
+                    var selectedFilter = "surgeons";
+                    var selectedFilterValue = this.selectedSurgeonId;
+                    if (this.selectedSurgeonId == -1) {
+                        selectedFilter = this.selectedFilter;
+                        selectedFilterValue = this.selectedFilterValue;
+                    }
+                    //get the events from the current calendar;
+                    var updatedEvents = getCalendarEvents(selectedFilter, selectedFilterValue);
+
+                    //re init fullcalendar by passing the necesary events;
+                    initCalendar(updatedEvents);
                 }
-                //get the events from the current calendar;
-                var updatedEvents = getCalendarEvents(selectedFilter, selectedFilterValue);
-
-                //re init fullcalendar by passing the necesary events;
-                initCalendar(updatedEvents);
             }
+            
         }
     }
 
@@ -262,4 +250,22 @@ function updateCalendarEventsArray(arr, event) {
         }
     }
     return arr;
+}
+
+function selectedEventCtor(appointment) {
+    const NA = "Not assigned";
+    var selected = {
+        appointmentId: appointment.id,
+        surgeon: appointment.surgeon.name,
+        patient: appointment.patient.name,
+        surgery: appointment.surgeryType.name,
+        priority: appointment.priorityLevel,
+        status: appointment.status,
+        statusValue: appointment.statusValue,
+        theatre: appointment.theatre != null ? appointment.theatre.name : NA,
+        startTime: appointment.startTime ? appointment.startTime : NA,
+        endTime: appointment.endTime ? appointment.endTime : NA,
+        duration: appointment.duration ? appointment.duration : NA
+    };
+    return selected;
 }

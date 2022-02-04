@@ -73,7 +73,7 @@ namespace IntelliSurgery.Controllers
         public async Task<IActionResult> GetCalendarEvent(int appointmentId)
         {
             Appointment appointment = await appointmentRepository.GetAppointment(AppointmentQueryLogic.ById(appointmentId));
-            if (appointment == null)
+            if (appointment != null)
             {
                 AppointmentCalendarEvent calendarEvent = new AppointmentCalendarEvent(appointment);
                 return Json(new { success = true, data = calendarEvent });
@@ -85,11 +85,11 @@ namespace IntelliSurgery.Controllers
         public async Task<IActionResult> UpdateAppointmentStatus(int appointmentId, int newStatus)
         {
             Appointment appointment = await appointmentRepository.GetAppointment(AppointmentQueryLogic.ById(appointmentId));
-            if (appointment == null)
+            if (appointment != null)
             {
                 Status appointmentStatus = (Status)newStatus;
                 appointment.Status = appointmentStatus;
-                if(appointmentStatus == Status.Cancelled)
+                if(appointmentStatus == Status.Cancelled && appointment.ScheduledSurgery != null)
                 {
                     SurgeryEvent delSurgeryEvent = appointment.ScheduledSurgery.SurgeryEvent;
                     ScheduledSurgery delScheduledSurgery = appointment.ScheduledSurgery;

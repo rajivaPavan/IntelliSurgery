@@ -33,10 +33,9 @@ namespace IntelliSurgery.Global
         public async Task CreateSchedule(Surgeon surgeon)
         {
             //get incomplete appointments of the surgeon
-            List<Appointment> appointments = await appointmentRepository.GetAppointments(a => a.SurgeonId == surgeon.Id && a.Status != Status.Completed);
-
-            //prioritize appointments for the following week
-            //appointments = await PrioritizeAppointments(appointments);
+            List<Appointment> appointments = await appointmentRepository.GetAppointments(a => a.SurgeonId == surgeon.Id
+                                                                                              && a.Status != Status.Completed
+                                                                                              && a.Status != Status.Cancelled);
 
             //get time blocks of the surgeon that start after the current time
             List<WorkingBlock> workingBlocks = await workingBlockRepository.GetWorkBlocks(w => w.SurgeonId == surgeon.Id && w.Start > DateTime.Now);
@@ -105,15 +104,15 @@ namespace IntelliSurgery.Global
                     //set appointment status to scheduled
                     currentAppointment.Status = Status.Scheduled;
 
-                    //reduce remaining time in block
-                    bestBlock.RemainingTime = bestBlock.RemainingTime.Subtract(finalSurgeryDuration);
-
                     //set appointment surgery duration with preparation and cleanging time
                     TimeRange surgeryTimeRange = new TimeRange()
                     {
                         Start = bestBlock.End.Subtract(bestBlock.RemainingTime),
                         Duration = finalSurgeryDuration
                     };
+
+                    //reduce remaining time in block
+                    bestBlock.RemainingTime = bestBlock.RemainingTime.Subtract(finalSurgeryDuration);
 
                     //add scheduled surgery to database and add to current appointment
                     SurgeryEvent surgeryEvent = new SurgeryEvent();

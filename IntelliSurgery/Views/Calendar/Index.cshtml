@@ -106,10 +106,23 @@
                 <div class="col-12 my-2">
                     <div class='row justify-content-around'>
                         <!-- refer Status enum in ~/Enum/SurgeryEnums -->
+                        <!--
+                            Pending, = 0
+                            Scheduled, =1
+                            Confirmed,=2
+                            Cancelled,=3
+                            Completed,=4
+                            Ongoing, =5
+                            Interrupted =6
+                        -->
+                        <div v-if="getSelectedEvent.statusValue == 1" 
+                            class="my-1"><button v-on:click="setStatusTo(2)" class="w-100 btn btn-primary">Confirm</button></div>
                         <div v-if="getSelectedEvent.statusValue == 5" 
-                            class="col"><button  v-on:click="setStatusTo(2)" class="w-100 btn btn-warning">Interrupt</button></div>
+                            class="my-1"><button  v-on:click="setStatusTo(6)" class="w-100 btn btn-warning">Interrupt</button></div>
                         <div v-if="getSelectedEvent.statusValue < 3" 
-                            class="col"><button v-on:click="setStatusTo(3)"  class="w-100 btn btn-danger">Cancel</button></div>
+                            class="my-1"><button v-on:click="setStatusTo(3)"  class="w-100 btn btn-danger">Cancel</button></div>
+                        <div v-if="getSelectedEvent.statusValue != 3" 
+                            class="my-1"><button class="w-100 btn btn-success">Complete</button></div> <!--need to check wther its passed the end time-->
                     </div>
                 </div>
             </div>

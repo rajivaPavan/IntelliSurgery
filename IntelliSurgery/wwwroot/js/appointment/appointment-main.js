@@ -1,6 +1,8 @@
 ﻿//event listeners
 $("#validate-patient-btn").click(async () => {   
-    /*if (global.patientId != NULL_ENTITY_ID) {
+    //if (global.patientId != NULL_ENTITY_ID) {
+    if ($('#patient_id').val() != '') {
+        validateId();
         if (!(idError)) {
             global.patientId = await validatePatient();
             Swal.fire({
@@ -19,10 +21,6 @@ $("#validate-patient-btn").click(async () => {
         displaySweetAlert("Enter Patient ID First !");
         validateId();
         return false;
-    }*/
-    validateID();
-    if (!(idError)) {
-
     }
 })
 
@@ -38,9 +36,15 @@ $("#add-patient-btn").click(async () => {
             });
             return true;
         }
-        //else {
-
-        //}
+        else {
+            displaySweetAlert("Enter correct details !");
+            validateName();
+            validateWeight();
+            validateHeight();
+            validateBirthday();
+            validateGender();
+            validateAsaStatus();
+        }
     }
     else {
         displaySweetAlert("Validate Patient First !");
@@ -59,6 +63,15 @@ $("#update-patient-btn").click(async () => {
                 timer: 1500
             });
             return true;
+        }
+        else {
+            displaySweetAlert("Enter correct details !");
+            validateName();
+            validateWeight();
+            validateHeight();
+            validateBirthday();
+            validateGender();
+            validateAsaStatus();
         }
     }
     else {
@@ -80,6 +93,15 @@ $("#add-appointment-btn").click(async () => {       //----------------both valid
             resetForms();
 
             return true;
+        }
+        else {
+            displaySweetAlert("Enter correct details !");
+            validateSurgery();
+            validateSurgeon();
+            validateTheatre();
+            validateAnastheasist();
+            validatevalidateAnasthesia_type();
+            validateImportance();
         }
     }
      else {

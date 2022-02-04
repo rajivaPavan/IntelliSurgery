@@ -98,7 +98,7 @@ label {
     height: 94vh;
     padding: 20px 20px;
     background: #F1F1F1;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
     margin-bottom: 20px;
     /*background-image: url(../assets/images/IntelliSurgery.png);*/

@@ -5,15 +5,17 @@
 
 body {
     overflow: hidden;
+    background-color: #F1F1F1;
 }
 
 #calendar {
     max-width: 1100px;
 }
 
-.logo-bg{
-    background:url("../assets/images/IntelliSurgery.png") no-repeat;
-    background-position:center;
+.logo-bg {
+    background: url("../assets/images/IntelliSurgery.png") no-repeat;
+    background-position: center;
+    background-color: #F1F1F1;
 }
 
 #calendar-main{

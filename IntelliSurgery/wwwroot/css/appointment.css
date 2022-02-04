@@ -8,7 +8,7 @@ body {
     font-family: 'Nunito', sans-serif;
     color: #384047;
     background-color: #F1F1F1;
-    overflow:hidden;
+    /*overflow:hidden;*/
 }
 #logo {
     background: url("../assets/images/IntelliSurgery.png") no-repeat;

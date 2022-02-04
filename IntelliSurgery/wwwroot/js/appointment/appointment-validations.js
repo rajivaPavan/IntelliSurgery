@@ -52,12 +52,13 @@ function validateId() {                                       //validate patient
         isSuccess = false;
     }
     else if (!(idInput.match(/^[0-9]+$/))) {                          //only digits(0-9) will be allowed as the id input
-        $("#idCheck").text($("#idCheck").html("**ID should contain only digits"));          //if code gives wrong input ,return false
+        $("#idCheck").html("**ID should contain only digits");          //if code gives wrong input ,return false
         $("#idCheck").show();
         isSuccess = false;
     }
     else {
         idError = false;
+        $("#idCheck").hide();
     }
     return isSuccess;
 }
@@ -65,12 +66,13 @@ function validateId() {                                       //validate patient
 function validateName() {                                //validate patient name
     var nameInput = $('#patient_name').val();
     var isSuccess = true;
-    if (nameInput == '')) {                                //you matched an invalid character-(nameInput.match(/[^a-z ]/gi)
+    if (nameInput == '') {                                //you matched an invalid character-(nameInput.match(/[^a-z ]/gi)
         $("#nameCheck").show();
         isSuccess = false;
     }
     else {
         nameError = false;
+        $("#nameCheck").hide();
     }
     return isSuccess;
 }
@@ -78,9 +80,9 @@ function validateName() {                                //validate patient name
 function validateWeight() {                                     //validate patient weight       
     let weightInput = $('#weight').val();
     var isSuccess = true;
-    if (weightInput.length == '') {
+    if (weightInput == '') {
         $('#weightCheck').show();                                                  //$("#weight").css("display", "");
-        isSuccess = false;                                                                           //document.getElementById("weight").style.display = null;
+        isSuccess = false;                                                          //document.getElementById("weight").style.display = null;
     }
     else if (!(/^\d+\.\d+$|^\d+$/.test(weightInput))) {                       //allow integers & floats      
         $('#weightCheck').html('**Invalid weight-should be numeric');
@@ -89,6 +91,7 @@ function validateWeight() {                                     //validate patie
     }
     else {
         weightError = false;
+        $('#weightCheck').hide();
     }
     return isSuccess;
 }
@@ -106,6 +109,7 @@ function validateHeight() {                                      //validate pati
         isSuccess = false;
     }
     else {
+        $('#heightCheck').hide();
         heightError = false;
     }
     return isSuccess;
@@ -119,6 +123,7 @@ function validateBirthday() {
         isSuccess = false;
     }
     else {
+        $('#birthdaytCheck').hide();
         birthdayError = false;
     }
     return isSuccess;
@@ -131,6 +136,7 @@ function validateGender() {                                         //validate g
         isSuccess = false;
     }
     else {
+        $('#genderCheck').hide();
         var genderSelected = $('input[name=gender]:checked').val();
         genderError = false;
     }
@@ -144,10 +150,12 @@ function validateAnastheasist() {
         isSuccess = false;
     }
     else if ($('#not_required').prop('checked')) {
+        $('#anastheasistCheck').show();
         $("#ddlList option[value= '-1']").prop("disabled", true);            //--------------------disable Anasthesia_type combo box
         anastheasistError = false;
     }
     else {
+        $('#anastheasistCheck').hide();
         validateAnasthesia_type();
         anastheasistError = false;
     }
@@ -165,6 +173,7 @@ function validateAnasthesia_type() {                               //validate an
         isSuccess = false;
     }
     else {
+        $('#anasthesia_typeCheck').hide();
         anasthesia_typeError = false;
     }
     return isSuccess;
@@ -177,6 +186,7 @@ function validateSurgery() {                                    //validate surge
         isSuccess = false;
     }
     else {
+        $('#surgeryCheck').hide();
         surgeryError = false;
     }
     return isSuccess;
@@ -189,6 +199,7 @@ function validateSurgeon() {                                    //validate surge
         isSuccess = false;
     }
     else {
+        $('#surgeonCheck').hide();
         surgeonError = false;
     }
     return isSuccess;
@@ -201,6 +212,7 @@ function validateTheatre() {                                    //validat or the
         isSuccess = false;
     }
     else {
+        $('#theatreCheck').hide();
         theatreError = false;
     }
     return isSuccess;
@@ -213,6 +225,7 @@ function validateImportance() {                                     //check weat
         isSuccess = false;
     }
     else {
+        $('#importanceCheck').hide();
         var importanceSelected = $('input[name=importance]:checked').val();
         importanceError = false;
     }
@@ -223,10 +236,10 @@ function validateAsaStatus() {                                     //check weath
     var isSuccess = true;
     if ((!($('#status1').prop('checked'))) && (!($('#status2').prop('checked'))) && (!($('#status3').prop('checked')))) {
         $('#AsaCheck').show();
-        //asaError = true;
         isSuccess = false;
     }
     else {
+        $('#AsaCheck').hide();
         var statusSelected = $('input[name=asa]:checked').val();
         asaError = false;
     }

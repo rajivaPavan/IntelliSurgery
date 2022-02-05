@@ -24,13 +24,25 @@ $('#birthday').change(function () {
     validateBirthday();
 });
 
+$('#gender').change(function () {
+    validateGender();
+});
+
 $('#weight').change(function () {
     validateWeight();
 });
 
 $('#height').change(function () {
     validateHeight();
-});   
+});
+
+$('#status1,#status2,#status3').change(function () {
+    validateAsaStatus();
+});
+
+$('#gender_male,#gender_female').change(function () {
+    validateGender();
+});
 
 $('#surgery').change(function () {
     validateSurgery();
@@ -127,9 +139,10 @@ function validateHeight() {                                      //validate pati
 }
 
 function validateBirthday() {
+    
     let birthdayInput = $('#birthday').val();
     var isSuccess = true;
-    if (birthdayInput.length == '') {
+    if (birthdayInput == '') {
         birthdayError = true;
         $('#birthdayCheck').html("**Bithday is missing");
         $('#birthdayCheck').show();
@@ -188,6 +201,7 @@ function validateAnasthesia_type() {                               //validate an
 
     //I have set the combo box defalt value to -1
     if ($('#anasthesia_type').val() == -1) {                   //if ($('#anasthesia_type').children("option:selected").text() == '')
+        
         anasthesia_typeError = true;
         $('#anasthesia_typeCheck').html("**Anasthesia type is missing");
         $('#anasthesia_typeCheck').show();
@@ -265,17 +279,17 @@ function validateImportance() {                                     //check weat
     return isSuccess;
 }
 
-function validateAsaStatus() {                                     //check weather ASA status radio button is selected or not
+function validateAsaStatus() {                                     //check weather ASA status radio button is selected or not    
     var isSuccess = true;
     if ($("input[name=asa]:checked").val() == null) {  //if no radio button is selected value of that radio button group is null
         asaError = true;
-        $('#AsaCheck').html("**ASA status is missing");
-        $('#AsaCheck').show();
+        $('#asaCheck').html("**ASA status is missing");
+        $('#asaCheck').show();
         isSuccess = false;
     }
     else {
-        $('#AsaCheck').hide();
-        //var statusSelected = $('input[name=asa]:checked').val();          no use of this line
+        $('#asaCheck').hide();
+        var asaStatusSelected = $('input[name=asa]:checked').val();
         asaError = false;
     }
     return isSuccess;

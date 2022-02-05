@@ -12,5 +12,6 @@ namespace IntelliSurgery.DbOperations
         Task<List<SurgeryType>> GetAllSurgeryTypes();
         Task<List<SurgeryType>> AddSurgeryTypes(List<SurgeryType> surgeryTypes);
         Task<List<SurgeryType>> UpdateSurgeryTypes(List<SurgeryType> surgeryTypes);
+        Task<List<SurgeryType>> DeleteSurgeryTypes(List<SurgeryType> surgeryTypes);
     }
 }

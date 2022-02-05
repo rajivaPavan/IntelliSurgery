@@ -21,6 +21,11 @@ namespace IntelliSurgery.DbOperations
             return specialities;
         }
 
+        public Task<List<Speciality>> DeleteSpecialities(List<Speciality> specialities)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public async Task<List<Speciality>> GetAllSpecialities()
         {
             return await context.Specialities.ToListAsync();

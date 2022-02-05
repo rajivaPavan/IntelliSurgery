@@ -10,5 +10,6 @@ namespace IntelliSurgery.DbOperations
         Task<List<Surgeon>> GetAllSurgeons();
         Task<Surgeon> AddSurgeon(Surgeon surgeon);
         Task<List<Surgeon>> AddSurgeons(List<Surgeon> surgeons);
+        Task DeleteSurgeons(List<Surgeon> surgeons);
     }
 }

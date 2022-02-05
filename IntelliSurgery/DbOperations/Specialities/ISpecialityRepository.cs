@@ -9,6 +9,7 @@ namespace IntelliSurgery.DbOperations
         Task<List<Speciality>> AddSpecialities(List<Speciality> specialities);
         Task<Speciality> GetSpecialityById(int specialityId);
         Task<List<Speciality>> GetAllSpecialities();
+        Task<List<Speciality>> DeleteSpecialities(List<Speciality> specialities);
     }
 
 }

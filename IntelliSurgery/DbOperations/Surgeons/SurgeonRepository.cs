@@ -39,5 +39,10 @@ namespace IntelliSurgery.DbOperations
         {
             return await readSurgeons.ToListAsync();
         }
+
+        public Task DeleteSurgeons(List<Surgeon> surgeons)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

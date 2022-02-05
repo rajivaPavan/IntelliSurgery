@@ -164,9 +164,13 @@
                                                     </tr>
                                                   </thead>
                                                   <tbody>
-                                                    <tr>
-                                                      <th scope="row">1</th>
-                                                      <td>Cardiologist</td>                                                     
+                                                    <tr class="" v-for="(s,i) in getPrevSpecialities">
+                                                      <th scope="row"  >{{i+1}}</th>
+                                                      <td>{{s.name}}</td>                                                     
+                                                    </tr>
+                                                    <tr class="table-secondary" v-for="(s,i) in getNewSpecialities">
+                                                      <th scope="row"  >{{i+1}}</th>
+                                                      <td>{{s.name}}</td>                                                     
                                                     </tr>
                                                     </tbody>
                                                     </table>

@@ -101,7 +101,7 @@ calendarApp = Vue.createApp({
         specialityRemoveClick(s) {
             removeElementFromArray(s, this.hospitalData.specialities);
         },
-        async saveSpecialities() {
+        async specialitySaveClick() {
             var data = {
                 specialities: this.hospitalData.specialities,
                 deleteSpecialities: this.deleteData.specialities
@@ -133,7 +133,7 @@ calendarApp = Vue.createApp({
         surgeonRemoveClick(s) {
             removeElementFromArray(s, this.hospitalData.surgeons);
         },
-        async saveSurgeons() {
+        async surgeonAddClick() {
             var data = {
                 surgeons: this.hospitalData.surgeons,
                 deleteSurgeons: this.deleteData.surgeons
@@ -163,7 +163,7 @@ calendarApp = Vue.createApp({
         surgeryTypeRemoveClick(s) {
             removeElementFromArray(s, this.hospitalData.surgeryTypes);
         },
-        async saveSurgeryTypes() {
+        async surgeryTypeSaveClick() {
             var data = {
                 surgeryTypes: this.hospitalData.surgeryTypes,
                 deleteSurgeryTypes: this.deleteData.surgeryTypes
@@ -193,7 +193,7 @@ calendarApp = Vue.createApp({
         theatreTypeRemoveClick(s) {
             removeElementFromArray(s, this.hospitalData.theatreTypes);
         },
-        async saveTheatreTypes() {
+        async theatreTypeSaveClick() {
             var data = {
                 theatreTypes: this.hospitalData.theatreTypes,
                 deleteTheatreTypes: this.deleteData.theatreTypes
@@ -226,7 +226,7 @@ calendarApp = Vue.createApp({
         theatreRemoveClick(s) {
             removeElementFromArray(s, this.hospitalData.theatres);
         },
-        async saveTheatres() {
+        async theatreSaveClick() {
             var data = {
                 theatres: this.hospitalData.theatres,
                 deleteTheatres: this.deleteData.theatres
@@ -246,7 +246,7 @@ calendarApp = Vue.createApp({
             this.deleteData.surgeryTypeTheatres.push(s);
             removeElementFromArray(s, this.prevData.surgeryTypeTheatres);
         },
-        surgeryTypeTheatresRemoveClick(s) {
+        theatreTypesForSurgerySaveClick(s) {
             removeElementFromArray(s, this.hospitalData.surgeryTypeTheatres);
         },
 

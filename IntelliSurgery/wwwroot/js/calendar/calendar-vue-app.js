@@ -57,7 +57,9 @@
 
     },
     methods: {
-        
+        isPostponable(status) {
+            return status!=0 || status != 3 || status != 4;
+        },
         setSelectedEvent(appointment, calendarEventId) {
 
             this.selectedCalendarEventId = calendarEventId;

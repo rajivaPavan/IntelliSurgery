@@ -84,12 +84,20 @@ namespace IntelliSurgery.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateAppointmentStatus(int appointmentId, int newStatus)
         {
+            string errorMessage = "";
             Appointment appointment = await appointmentRepository.GetAppointment(AppointmentQueryLogic.ById(appointmentId));
             if (appointment != null)
             {
+                bool isChangeStatus = true;
+
                 Status appointmentStatus = (Status)newStatus;
-                appointment.Status = appointmentStatus;
-                if(appointmentStatus == Status.Cancelled && appointment.ScheduledSurgery != null)
+                if(appointmentStatus == Status.Postponed && appointment.ScheduledSurgery == null && appointment.Status != Status.Postponed)
+                {
+                    //change status back to pending since if previous status was not postponed and no surgery was allocated
+                    appointmentStatus = Status.Pending; 
+                }
+                else if( (appointmentStatus == Status.Cancelled || appointmentStatus == Status.Postponed) 
+                    && appointment.ScheduledSurgery != null )
                 {
                     SurgeryEvent delSurgeryEvent = appointment.ScheduledSurgery.SurgeryEvent;
                     ScheduledSurgery delScheduledSurgery = appointment.ScheduledSurgery;
@@ -106,12 +114,38 @@ namespace IntelliSurgery.Controllers
                     await surgeryRepository.DeleteScheduleSurgery(delScheduledSurgery);
                     await surgeryRepository.DeleteSurgeryEvent(delSurgeryEvent);
                     
+                }else if(appointmentStatus == Status.Ongoing)
+                {
+                    DateTime now = DateTime.Now;
+                    if (!(appointment.ScheduledSurgery.SurgeryEvent.Start < now
+                        && now < appointment.ScheduledSurgery.SurgeryEvent.End))
+                    {
+                        isChangeStatus = false;
+                        errorMessage = "Surgery status cannot be set to ongoing";
+                    }
                 }
-                appointment = await appointmentRepository.UpdateAppointment(appointment);
-                AppointmentExtendedProp appointmentExtendedProp = new AppointmentExtendedProp(appointment);
-                return Json(new { success = true, data = appointmentExtendedProp });
+                else if(appointment.Status == Status.Completed)
+                {
+                    if(appointment.ScheduledSurgery.SurgeryEvent.End < DateTime.Now)
+                    {
+                        isChangeStatus = false;
+                        errorMessage = "Surgery status cannot be set to completed";
+                    }
+                }
+
+                if (isChangeStatus)
+                {
+                    appointment.Status = appointmentStatus;
+                    appointment = await appointmentRepository.UpdateAppointment(appointment);
+                    AppointmentExtendedProp appointmentExtendedProp = new AppointmentExtendedProp(appointment);
+                    return Json(new { success = true, data = appointmentExtendedProp });
+                }
+
+                return Json(new { success = false, error = errorMessage });
+                
             }
-            return Json(new { success = false });
+
+            return Json(new { success = false, error = errorMessage });
         }
     }
 

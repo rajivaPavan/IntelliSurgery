@@ -1,4 +1,6 @@
-﻿async function getScheduledSurgeriesRequest(filter, filterValue) {
+﻿import { error } from "../../lib/sweetalert2/src/utils/utils";
+
+async function getScheduledSurgeriesRequest(filter, filterValue) {
     var res = await axios.get("/api/CalendarApi/GetScheduledSurgeries?filter="+filter+"&filterValue="+filterValue.toString());
     var events = [];
     if (res.data.success == true) {
@@ -48,6 +50,12 @@ async function updateAppointmentStatusRequest(appointmentId, newStatus) {
     var res = await axios.post("/api/CalendarApi/UpdateAppointmentStatus?appointmentId=" + appointmentId+"&newStatus="+newStatus);
     if (res.data.success == true) {
         appointment = res.data.data;
+    }
+    else {
+        errorMesg = res.data.error;
+        if (errorMesg != null) {
+            displaySweetAlert(errorMesg);
+        }
     }
     return appointment;
 }

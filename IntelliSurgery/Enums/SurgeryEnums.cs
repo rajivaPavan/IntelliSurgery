@@ -24,7 +24,7 @@
         Cancelled, //status if appointment is cancelled
         Completed, // status when appointment is completed
         Ongoing, //status when surgery is ongoing
-        Interrupted //status when surgery is interrupted
+        Postponed //status when surgery is interrupted
 
     }
 }

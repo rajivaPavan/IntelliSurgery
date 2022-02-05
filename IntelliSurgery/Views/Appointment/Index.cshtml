@@ -29,7 +29,7 @@
                                 <button class="btn btn-info h-100" id="validate-patient-btn">Validate Patient</button>
                             </div>
                         </div>
-                        <h6 id="idCheck" class="myerror">**ID is missing</h6>
+                        <h6 id="idCheck" class="myerror"></h6>
                 </fieldset>
            
                 <fieldset>
@@ -44,13 +44,13 @@
                                 <div class="col-md-12">
                                     <label for="patient_name">Name:</label>
                                     <input type="text" class="form-control mb-2 mr-sm-2" id="patient_name" name="patient_name">
-                                    <h6 id="nameCheck" class="myerror" >**Name is missing</h6>
+                                    <h6 id="nameCheck" class="myerror" ></h6>
                                 </div>
 
                                 <div class="col-md-7">
                                      <label for="birthday">Birthday:</label>
                                      <input type="date" id="birthday" name="birthday" class="form-control mb-2 mr-sm-2">
-                                     <h6 id="birthdayCheck" class="myerror" >**wrong input</h6>
+                                     <h6 id="birthdayCheck" class="myerror" ></h6>
                                 </div>
 
                                 <div class="col-md-5">
@@ -67,19 +67,19 @@
                                             Female
                                         </label>
                                     </div>
-                                    <h6 id="genderCheck" class="myerror" >**Select gender</h6>
+                                    <h6 id="genderCheck" class="myerror" ></h6>
                                 </div>
 
                                 <div class="col-md-6">
                                     <label for="weight" class="form-label">Weight:</label>
                                     <input type="text" class="form-control" id="weight" placeholder="kg">
-                                    <h6 id="weightCheck" class="myerror" >**Weight is missing</h6>
+                                    <h6 id="weightCheck" class="myerror" ></h6>
                                 </div>
 
                                 <div class="col-md-6">
                                     <label for="height" class="form-label">Height:</label>
                                     <input type="text" class="form-control" id="height" placeholder="cm">
-                                    <h6 id="heightCheck" class="myerror" >**Height is missing</h6>
+                                    <h6 id="heightCheck" class="myerror" ></h6>
                                 </div>
                                 <div class="col-12 my-1">
                                     <div class="row">
@@ -110,7 +110,7 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <h6 id="asaCheck" class="myerror" >**Select ASA status</h6>
+                                        <h6 id="asaCheck" class="myerror" ></h6>
                                         <div class="col-3"></div>
                                     </div>
                             
@@ -189,7 +189,7 @@
                         @*<option selected>Choose...</option>*@
                         
                     </select>
-                    <h6 id="surgeryCheck" class="myerror" >**Choose a surgery type</h6>
+                    <h6 id="surgeryCheck" class="myerror" ><type</h6>
 
                     <label for="surgeon">Surgeon:</label>
                     <select id="surgeon" name="user_surgeon">
@@ -197,7 +197,7 @@
                         @*<option selected>Choose...</option>*@                      
                         
                     </select>
-                    <h6 id="surgeonCheck" class="myerror" >**Choose a surgeon</h6>
+                    <h6 id="surgeonCheck" class="myerror" ></h6>
                     
                     <label> Anastheasists: </label>
                     <div class="form-check mb-2">
@@ -208,19 +208,19 @@
                         <input type="radio" class="form-check-input" id="required" name="anastheasist">
                         <label class="form-check-label" for="required">Required</label>
                     </div>
-                    <h6 id="anastheasistCheck" class="myerror" >**Choose an option</h6>
+                    <h6 id="anastheasistCheck" class="myerror" ></h6>
 
                     <label for="anasthesia_type">Anesthesia Type:</label>
-                    <select disable id="anasthesia_type" name="user_anas_type">
+                    <select id="anasthesia_type" name="user_anas_type" class="select">
                         <option value="-1" selected hidden>Choose...</option>
                     </select>
-                    <h6 id="anasthesia_typeCheck" class="myerror" >**Choose an anasthesia type</h6>
+                    <h6 id="anasthesia_typeCheck" class="myerror" ></h6>
                     
                     <label for="or_theatre">Theatre Type:</label>
                     <select id="theatreType" name="user_or">
                         <option value="-1" selected hidden>Choose...</option>
                     </select>
-                    <h6 id="theatreCheck" class="myerror" >**Choose an operating theatre</h6>
+                    <h6 id="theatreCheck" class="myerror" ></h6>
 
                     <label>Importance:</label>
                     <div class="col-12">
@@ -242,7 +242,7 @@
                                 Low
                             </label>
                     </div>
-                    <h6 id="importanceCheck" class="myerror" >**Choose an option</h6>
+                    <h6 id="importanceCheck" class="myerror" ></h6>
                     <br />
                     <button id="add-appointment-btn" class="btn btn-info mb-0" type="submit">Add Appointment</button>
                     

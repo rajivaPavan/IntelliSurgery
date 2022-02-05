@@ -33,7 +33,7 @@ $("#update-patient-btn").click(async () => {
     if (global.patientId != NULL_ENTITY_ID) {
         var isValidationSuccess = finalUpdatePatientValidation();
         if (isValidationSuccess) {
-            global.patientId = await updatePatient();
+            global.patientId = await updatePatient(global.patientId);
             Swal.fire({
                 icon: 'success',
                 title: 'Patient Updated Successfully',

@@ -1,38 +1,21 @@
 ﻿//event listeners
 $("#validate-patient-btn").click(async () => {
-    global.patientId = await validatePatient();
-    Swal.fire({
-        icon: 'success',
-        title: 'Patient Validated Successfully',
-        showConfirmButton: false,                   //if false given,no need to press ok button
-        timer: 1500
-    });
-    //if ($('#patient_id').val() != '') {
-    //    validateId();
-    //    if (!(idError)) {
-            
-    //        return true;
-    //    } else {
-    //        displaySweetAlert("Enter Correct Patient ID !");
-    //        validateId();
-    //        return false;
-    //    }
-    //} else {
-    //    displaySweetAlert("Enter Patient ID First !");
-    //    validateId();
-    //    return false;
-    //}
+    var isValidationSuccess = validateId();
+    if (isValidationSuccess) {
+        global.patientId = await validatePatient();
+        Swal.fire({
+            icon: 'success',
+            title: 'Patient Validated Successfully',
+            showConfirmButton: false,                   //if false given,no need to press ok button
+            timer: 1500
+        });
+    }
 })
 
 $("#add-patient-btn").click(async () => {    
     if (global.patientId == NULL_ENTITY_ID) {
-        validateName();
-        validateWeight();
-        validateHeight();
-        validateBirthday();
-        validateGender();
-        validateAsaStatus();
-        if (!(nameError || weightError || heightError || birthdayError || genderError || asaError)) {
+        var isValidationSuccess = finalAddPatientValidation();
+        if (isValidationSuccess) {
             global.patientId = await addPatient();
             Swal.fire({
                 icon: 'success',
@@ -40,26 +23,16 @@ $("#add-patient-btn").click(async () => {
                 showConfirmButton: false,                   //if false given,no need to press ok button
                 timer: 1500
             });
-            return true;
-        }else {
-            displaySweetAlert("Enter correct details !");
-            return false;
         }
     }else {
         displaySweetAlert("Validate Patient First !");
-        return false;
     }
 })
 
 $("#update-patient-btn").click(async () => {
     if (global.patientId != NULL_ENTITY_ID) {
-        validateName();
-        validateWeight();
-        validateHeight();
-        validateBirthday();
-        validateGender();
-        validateAsaStatus();
-        if (!(nameError || weightError || heightError || birthdayError || genderError || asaError)) {
+        var isValidationSuccess = finalUpdatePatientValidation();
+        if (isValidationSuccess) {
             global.patientId = await updatePatient();
             Swal.fire({
                 icon: 'success',
@@ -67,33 +40,19 @@ $("#update-patient-btn").click(async () => {
                 showConfirmButton: false,                   //if false given,no need to press ok button
                 timer: 1500
             });
-            return true;
-        }else {
-            displaySweetAlert("Enter correct details !");
         }
     }else {
         displaySweetAlert("Validate Patient First !");
-        return false;
     }
 })
 
 $("#add-appointment-btn").click(async () => {       //----------------both validate button & add patient buttons 2 nma true return karala kiyala check karanne?????  
     if (global.patientId != NULL_ENTITY_ID) {
-    //$('#validate-patient-btn,#add-patient-btn').click(function () {
-    
-        validateSurgery();
-        validateSurgeon();
-        validateTheatre();
-        validateAnastheasist();
-        validateAnasthesia_type();
-        validateImportance();
-    
-        if (!(surgeonError || surgeryError || anastheasistError || anasthesia_typeError || theatreError || importanceError)) {
+        var isValidationSuccess = finalAppointmentValidation();
+        if (isValidationSuccess) {
             await addAppointment(global.patientId);
             resetForms();
             return true;
-        }else {
-            displaySweetAlert("Enter correct details !");
         }
     }
     else {

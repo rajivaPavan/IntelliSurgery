@@ -69,10 +69,10 @@ namespace IntelliSurgery.Global
             myProcess.Close();
             Console.WriteLine(modelOutput);
 
-            double predictedTimeDouble = double.Parse(modelOutput);
+            //double predictedTimeDouble = double.Parse(modelOutput);
 
-            TimeSpan predictedTime = TimeSpan.FromHours(predictedTimeDouble);
-            return predictedTime;
+            //TimeSpan predictedTime = TimeSpan.FromHours(predictedTimeDouble);
+            return TimeSpan.Zero;
 
         }
 

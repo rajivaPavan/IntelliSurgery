@@ -215,7 +215,7 @@ function validateTheatre() {                                    //validat or the
 
 function validateImportance() {                                     //check weather importance radio button is selected or not
     var isSuccess = true;
-    if ($("input:[name=importance]:checked").val() == -1) {    //-1 is the value assigned to Choose...
+    if ($("input[name=importance]:checked").val() == -1) {    //-1 is the value assigned to Choose...
         $('#importanceCheck').html("**Importance is missing");
         $('#importanceCheck').show();
         isSuccess = false;

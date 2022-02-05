@@ -1,31 +1,21 @@
 ﻿//event listeners
-$("#validate-patient-btn").click(async () => {   
-    if ($('#patient_id').val() != '') {
-        validateId();
-        if (!(idError)) {
-            global.patientId = await validatePatient();
-            Swal.fire({
-                icon: 'success',
-                title: 'Patient Validated Successfully',
-                showConfirmButton: false,                   //if false given,no need to press ok button
-                timer: 1500
-            });
-            return true;
-        } else {
-            displaySweetAlert("Enter Correct Patient ID !");
-            validateId();
-            return false;
-        }
-    } else {
-        displaySweetAlert("Enter Patient ID First !");
-        validateId();
-        return false;
+$("#validate-patient-btn").click(async () => {
+    var isValidationSuccess = validateId();
+    if (isValidationSuccess) {
+        global.patientId = await validatePatient();
+        Swal.fire({
+            icon: 'success',
+            title: 'Patient Validated Successfully',
+            showConfirmButton: false,                   //if false given,no need to press ok button
+            timer: 1500
+        });
     }
 })
 
 $("#add-patient-btn").click(async () => {    
-    if (global.patientId != NULL_ENTITY_ID) {
-        if (!(nameError || weightError || heightError || birthdayError || genderError || asaError)) {
+    if (global.patientId == NULL_ENTITY_ID) {
+        var isValidationSuccess = finalAddPatientValidation();
+        if (isValidationSuccess) {
             global.patientId = await addPatient();
             Swal.fire({
                 icon: 'success',
@@ -33,70 +23,39 @@ $("#add-patient-btn").click(async () => {
                 showConfirmButton: false,                   //if false given,no need to press ok button
                 timer: 1500
             });
-            return true;
         }
-        else {
-            displaySweetAlert("Enter correct details !");
-            validateName();
-            validateWeight();
-            validateHeight();
-            validateBirthday();
-            validateGender();
-            validateAsaStatus();
-        }
-    }
-    else {
+    }else {
         displaySweetAlert("Validate Patient First !");
-        return false;
     }
 })
 
 $("#update-patient-btn").click(async () => {
     if (global.patientId != NULL_ENTITY_ID) {
-        if (!(nameError || weightError || heightError || birthdayError || genderError || asaError)) {
-            global.patientId = await updatePatient();
+        var isValidationSuccess = finalUpdatePatientValidation();
+        if (isValidationSuccess) {
+            global.patientId = await updatePatient(global.patientId);
             Swal.fire({
                 icon: 'success',
                 title: 'Patient Updated Successfully',
                 showConfirmButton: false,                   //if false given,no need to press ok button
                 timer: 1500
             });
-            return true;
         }
-        else {
-            displaySweetAlert("Enter correct details !");
-            validateName();
-            validateWeight();
-            validateHeight();
-            validateBirthday();
-            validateGender();
-            validateAsaStatus();
-        }
-    }
-    else {
+    }else {
         displaySweetAlert("Validate Patient First !");
-        return false;
     }
 })
 
 $("#add-appointment-btn").click(async () => {       //----------------both validate button & add patient buttons 2 nma true return karala kiyala check karanne?????  
     if (global.patientId != NULL_ENTITY_ID) {
-        if (!(surgeonError || surgeryError || anastheasistError || anasthesia_typeError || theatreError || importanceError)) {
+        var isValidationSuccess = finalAppointmentValidation();
+        if (isValidationSuccess) {
             await addAppointment(global.patientId);
             resetForms();
             return true;
         }
-        else {
-            displaySweetAlert("Enter correct details !");
-            validateSurgery();
-            validateSurgeon();
-            validateTheatre();
-            validateAnastheasist();
-            validatevalidateAnasthesia_type();
-            validateImportance();
-        }
     }
-     else {
+    else {
         displaySweetAlert("Validate or Add a Patient first !");
         return false;
     }

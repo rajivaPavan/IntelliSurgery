@@ -107,56 +107,71 @@
                                             </label>
                                     </div>
                                 </div>
-                                <h6 id="asaCheck" class="myerror"></h6>
-                                <div class="col-3"></div>
+                                
+                            <div class="col-3"></div>                               
                             </div>
-
-                        </div>
-
+                            <h6 id="asaCheck" class="myerror"></h6>                               
+                        </div>                       
                         <div class="col-md-12">
                             <label for="diseases" class="form-label"> Diseases:</label>
 
                         </div>
+                        <!--
+                            Cancer = 1,
+                            Cardiovascular, = 2
+                            Dementia, =3
+                            Diabetes, =4
+                            Digestive, =5
+                            Osteoarthritis, =6
+                            PyschologicalDisorder =7
+                            Pulmonary = 8
+                        -->
                         <div class="col-md-4">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="disease_1">
-                                <label class="form-check-label" for="disease_1">Disease 1</label>
+                                <input class="form-check-input" type="checkbox" value="1"  name="disease" id="Cancer">
+                                <label class="form-check-label" for="Cancer">Cancer</label>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="disease_1">
-                                <label class="form-check-label" for="disease_1">Disease 1</label>
+                                <input class="form-check-input" type="checkbox" value="2"  name="disease" id="Cardiovascular">
+                                <label class="form-check-label" for="Cardiovascular">Cardiovascular</label>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="disease_1">
-                                <label class="form-check-label" for="disease_1">Disease 1</label>
+                                <input class="form-check-input" type="checkbox" value="3"  name="disease" id="Dementia">
+                                <label class="form-check-label" for="Dementia">Dementia</label>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="disease_1">
-                                <label class="form-check-label" for="disease_1">Disease 1</label>
+                                <input class="form-check-input" type="checkbox" value="4"  name="disease" id="Diabetes">
+                                <label class="form-check-label" for="Diabetes">Diabetes</label>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="disease_1">
-                                <label class="form-check-label" for="disease_1">Disease 1</label>
+                                <input class="form-check-input" type="checkbox" value="5"  name="disease" id="Digestive">
+                                <label class="form-check-label" for="Digestive">Digestive</label>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="disease_1">
-                                <label class="form-check-label" for="disease_1">Disease 1</label>
+                                <input class="form-check-input" type="checkbox" value="6"  name="disease" id="Osteoarthritis">
+                                <label class="form-check-label" for="Osteoarthritis">Osteoarthritis</label>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="disease_1">
-                                <label class="form-check-label" for="disease_1">Disease 1</label>
+                                <input class="form-check-input" type="checkbox" value="7"  name="disease" id="PyschologicalDisorder">
+                                <label class="form-check-label" for="PyschologicalDisorder">Pyschological Disorder </label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="8"  name="disease" id="Pulmonary">
+                                <label class="form-check-label" for="Pulmonary">Pulmonary</label>
                             </div>
                         </div>
                     </div>
@@ -189,27 +204,21 @@
                     <option value="-1" selected hidden>Choose...</option>
                     
                 </select>
-                <h6 id="surgeonCheck" class="myerror"></h6>             
-
-            <div class="">
-             <div class="mb-2 row scrollbar scrollbar-info">
-                 <div class="col-md-12 mb-3">
-                     <label> Anastheasists: </label>
+                <h6 id="surgeonCheck" class="myerror"></h6>
+                
+                <label> Possibilty of Complication: </label>
                 <div class="form-check mb-2">
-                    <input type="radio" class="form-check-input" id="not_required" name="anastheasist">
-                    <label class="form-check-label" for="not_required">Not Required</label>
+                    <input type="radio" class="form-check-input" id="noComplication" name="complication" checked>
+                    <label class="form-check-label" for="noComplication">No</label>
                 </div>
                 <div class="form-check">
-                    <input type="radio" class="form-check-input" id="required" name="anastheasist">
-                    <label class="form-check-label" for="required">Required</label>
+                    <input type="radio" class="form-check-input" id="yesComplication" name="complication">
+                    <label class="form-check-label" for="yesComplication">Yes</label>
                 </div>
-                </div>
-                <h6 id="anastheasistCheck" class="myerror"></h6>
-                 
+                
 
-                 <div class="col-md-12 mb-2">
                 <label for="anasthesia_type">Anesthesia Type:</label>
-                <select id="anasthesia_type" name="user_anas_type" class="select">
+                <select id="anasthesia_type" name="anasthesia_type" class="select">
                     <option value="-1" selected hidden>Choose...</option>
                 </select>
                 </div>

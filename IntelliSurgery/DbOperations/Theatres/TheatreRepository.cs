@@ -61,6 +61,15 @@ namespace IntelliSurgery.DbOperations.Theatres
             return await readTheatres.ToListAsync();
         }
 
+        public Task<List<TheatreType>> DeleteTheatreTypes(List<TheatreType> theatreTypes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteTheatres(List<Theatre> theatres)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class TheatreQueryLogic

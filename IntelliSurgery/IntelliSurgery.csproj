@@ -30,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
     <None Include="wwwroot\css\admin.css" />
     <None Include="wwwroot\css\login.css" />
   </ItemGroup>

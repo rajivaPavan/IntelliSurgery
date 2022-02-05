@@ -1,4 +1,5 @@
-﻿using IntelliSurgery.Models;
+﻿using IntelliSurgery.Enums;
+using IntelliSurgery.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -29,6 +30,8 @@ namespace IntelliSurgery.DbOperations
             await context.SaveChangesAsync();
         }
 
+        
+
         public async Task<Patient> GetPatientById(int patientId)
         {
             return await context.Patients.Include(p => p.Diseases).FirstOrDefaultAsync(p => p.Id == patientId);
@@ -40,5 +43,13 @@ namespace IntelliSurgery.DbOperations
             await context.SaveChangesAsync();
             return update;
         }
+
+
+
+        public async Task<Disease> GetDiseaseByEnumValue(DiseaseEnum d)
+        {
+            return await context.Diseases.FirstOrDefaultAsync(dis => dis.DiseaseEnum == d);
+        }
     }
+
 }

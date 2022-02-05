@@ -19,7 +19,7 @@ namespace IntelliSurgery.DTOs
             Age = DateTime.Now.Subtract(patient.DateOfBirth).Days/365;
             Gender = (int)patient.Gender;
             BMI = patient.BMI;
-            ASA = (int)patient.ASA_Status;
+            ASA = (int)patient.AsaStatus;
             if (patient.Diseases != null)
             {
                 Diseases = patient.Diseases.ConvertAll<string>(DiseaseToString);

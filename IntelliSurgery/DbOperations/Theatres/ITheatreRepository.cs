@@ -16,5 +16,7 @@ namespace IntelliSurgery.DbOperations.Theatres
         Task<Theatre> GetTheatre(Expression<Func<Theatre, bool>> expression);
         Task<List<Theatre>> GetTheatres(Expression<Func<Theatre, bool>> expression);
         Task<List<Theatre>> AddTheatres(List<Theatre> theatres);
+        Task<List<TheatreType>> DeleteTheatreTypes(List<TheatreType> theatreTypes);
+        Task DeleteTheatres(List<Theatre> theatres);
     }
 }

@@ -46,17 +46,23 @@ namespace IntelliSurgery.Controllers
             Patient patient = await patientRepository.GetPatientById(patientId);
             bool isPatientExist = false;
             PatientDTO patientDTO = null;
-
+            
             if (patient != null)
             {
                 isPatientExist = true;
+
+                List<int> diseaseValues = new List<int>();
+                patient.Diseases.ForEach(d => diseaseValues.Add((int)d.DiseaseEnum));
+
                 patientDTO = new PatientDTO()
                 {
                     DateOfBirth = patient.DateOfBirth,
                     Gender = (int)patient.Gender,
                     Height = patient.Height,
                     Weight = patient.Weight,
-                    name = patient.Name
+                    Name = patient.Name,
+                    AsaStatus = (int)patient.AsaStatus,
+                    DiseasesValues = diseaseValues
                 };
             }
             
@@ -66,16 +72,23 @@ namespace IntelliSurgery.Controllers
         [HttpPost]
         public async Task<IActionResult> AddPatient(PatientDTO patientDTO)
         {
+            List<Disease> diseases = new List<Disease>();
+            foreach(int d in patientDTO.DiseasesValues)
+            {
+                Disease disease = await patientRepository.GetDiseaseByEnumValue((DiseaseEnum)d);
+                diseases.Add(disease);  
+            }
+
             Patient newPatient = new Patient()
             {
                 DateOfBirth = patientDTO.DateOfBirth,
                 Gender = (Gender)patientDTO.Gender,
                 Weight = patientDTO.Weight,
-                Name = patientDTO.name,
+                Name = patientDTO.Name,
                 Height = patientDTO.Height,
                 BMI = (float)(patientDTO.Weight / Math.Pow(patientDTO.Height, 2)),
-                //Diseases = 
-                ASA_Status = patientDTO.ASA_Status
+                Diseases = diseases,
+                AsaStatus = (ASA_Status)patientDTO.AsaStatus
             };
             newPatient = await patientRepository.CreatePatient(newPatient);
             return Json(new {success= true, data = newPatient.Id });
@@ -83,12 +96,18 @@ namespace IntelliSurgery.Controllers
 
         public async Task<IActionResult> UpdatePatient(PatientDTO patientDTO)
         {
-            Patient updatePatient = new Patient()
+            Patient updatePatient = await patientRepository.GetPatientById(patientDTO.PatientId);
+            updatePatient.Weight = patientDTO.Weight;
+            updatePatient.Height = patientDTO.Height;
+            updatePatient.BMI = (float)(patientDTO.Weight / Math.Pow(patientDTO.Height, 2));
+            updatePatient.AsaStatus = (ASA_Status)patientDTO.AsaStatus;
+            List<Disease> diseases = new List<Disease>();
+            foreach (int d in patientDTO.DiseasesValues)
             {
-                Weight = patientDTO.Weight,
-                Height = patientDTO.Height,
-                BMI = (float)(patientDTO.Weight / Math.Pow(patientDTO.Height, 2))
-            };
+                Disease disease = await patientRepository.GetDiseaseByEnumValue((DiseaseEnum)d);
+                diseases.Add(disease);
+            }
+            updatePatient.Diseases = diseases;
             updatePatient = await patientRepository.UpdatePatient(updatePatient);
             return Json(new { success = true, data = updatePatient.Id });
         }
@@ -113,7 +132,7 @@ namespace IntelliSurgery.Controllers
                 SurgeryTypeId = surgerytype.Id,
                 TheatreType = theatreType,
                 TheatreTypeId = theatreType.Id,
-                ComplicationPossibility = false /*appointmentDTO.Complication*/,
+                ComplicationPossibility = appointmentDTO.Complication,
                 AnesthesiaType = (AnesthesiaType)appointmentDTO.AnesthesiaType,
                 PriorityLevel = (PriorityLevel)appointmentDTO.PriorityLevel,
                 Status = Status.Pending,

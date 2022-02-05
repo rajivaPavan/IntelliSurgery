@@ -44,5 +44,10 @@ namespace IntelliSurgery.DbOperations
             await context.SaveChangesAsync();
             return surgeryTypes;
         }
+
+        public Task<List<SurgeryType>> DeleteSurgeryTypes(List<SurgeryType> surgeryTypes)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

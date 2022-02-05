@@ -31,23 +31,36 @@ function setPatientDetails(patientDetails) {
     $("#patient_name").val(patientDetails.name);
     $("#birthday").val(formatDateTime(patientDetails.dateOfBirth));
     $("input[name=gender][value=" + patientDetails.gender + "]").prop('checked', true);
+    $("input[name=asa][value=" + patientDetails.asaStatus + "]").prop('checked', true);
     $("#weight").val(patientDetails.weight);
     $("#height").val(patientDetails.height);
+    if (patientDetails.diseasesValues.length != 0) {
+        patientDetails.diseasesValues.forEach((val) => {
+            $("input[name=disease][value=" + val + "]").prop('checked', true);
+        });
+    }
+    
 }
 
 function getPatientDetails() {
     var name = $("#patient_name").val();
     var dateOfBirth = $("#birthday").val();
-    var gender = $("input:radio.gender:checked").val();
+    var gender = $("input[name=gender]:checked").val();
     var weight = $("#weight").val();
     var height = $("#height").val();
-
+    var asaStatus = $("input[name=asa]:checked").val();
+    var diseases = [];
+    $("input[name=disease]:checked").each(function () {
+        diseases.push($(this).val());
+    });
     var patient = {
         Name: name,
         DateOfBirth: dateOfBirth,
         Weight: weight,
         Height: height,
-        Gender: gender
+        Gender: gender,
+        AsaStatus: asaStatus,
+        DiseasesValues:diseases
     };
 
     return patient;
@@ -92,8 +105,9 @@ async function addPatient() {
     return patientId;
 }
 
-async function updatePatient() {
+async function updatePatient(patientId) {
     var patient = getPatientDetails();
+    patient["PatientId"] = patientId;
     var patientId = await updatePatientRequest(patient);
     return patientId;
 }

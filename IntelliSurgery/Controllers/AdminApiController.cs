@@ -59,7 +59,6 @@ namespace IntelliSurgery.Controllers
         public async Task<IActionResult> GetSurgeonSchedule(int surgeonId)
         {
             Surgeon surgeon = await surgeonRepository.GetSurgeonById(surgeonId);
-            
             return Json(new { success = true, surgeon = surgeon });
         }
 
@@ -179,6 +178,36 @@ namespace IntelliSurgery.Controllers
             }
 
             return await theatreRepository.AddTheatres(theatres);
+        }
+
+        [NonAction]
+        private async Task DeleteSurgeons(List<SurgeonDTO> surgeonDTOs)
+        {
+            throw new NotImplementedException();
+        }
+
+        [NonAction]
+        private async Task DeleteSurgeryTypes(List<SurgeryType> surgeryTypes)
+        {
+            throw new NotImplementedException();
+        }
+
+        [NonAction]
+        public async Task DeleteSpecialities(List<Speciality> specialities)
+        {
+            throw new NotImplementedException();
+        }
+
+        [NonAction]
+        public async Task DeleteTheatreTypes(List<TheatreType> theatreTypes)
+        {
+            throw new NotImplementedException();
+        }
+
+        [NonAction]
+        private async Task DeleteTheatres(List<TheatreDTO> theatreDTOs)
+        {
+            throw new NotImplementedException();
         }
 
     }

@@ -4,9 +4,9 @@
         SurgeryType: $("#surgery").val(),
         TheatreType:$("#theatreType").val(),
         SurgeonId: $("#surgeon").val(),
-        IsAnesthesiaRequired: true, //
-        AnesthesiaType: 0 /* $("#anasthesia_type").val()*/,
-        PriorityLevel: $("input:radio.priority:checked").val()
+        Complication: $("#input[name=complication]:checked").val(),
+        AnesthesiaType: $("#input[name=anasthesia_type]:checked").val(),
+        PriorityLevel: $("input:[name=importance]:checked").val()
     };
     return appointment;
 }

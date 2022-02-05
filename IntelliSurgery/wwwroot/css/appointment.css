@@ -111,7 +111,6 @@ label.light {
 }
 .scrollbar {
     /*float: left;*/
-    height: 35vh;
     /*width: 65px;*/
     background: #f4f7f8;
     overflow-y: scroll;

@@ -5,7 +5,6 @@
 @section Styles{
     <link href="~/css/appointment.css" rel="stylesheet"/>
 }
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-2" id="logo">
@@ -37,7 +36,7 @@
                     </div>
                 </div>
                 <div class="">
-                    <div class="mb-2 row scrollbar scrollbar-info">
+                    <div class="mb-2 row scrollbar scrollbar-info" style="height:40vh;">
                         <div class="col-md-12">
                             <label for="patient_name">Name:</label>
                             <input type="text" class="form-control mb-2 mr-sm-2" id="patient_name" name="patient_name">
@@ -107,11 +106,11 @@
                                             </label>
                                     </div>
                                 </div>
-                                
-                            <div class="col-3"></div>                               
+
+                                <div class="col-3"></div>
                             </div>
-                            <h6 id="asaCheck" class="myerror"></h6>                               
-                        </div>                       
+                            <h6 id="asaCheck" class="myerror"></h6>
+                        </div>
                         <div class="col-md-12">
                             <label for="diseases" class="form-label"> Diseases:</label>
 
@@ -128,49 +127,49 @@
                         -->
                         <div class="col-md-4">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="1"  name="disease" id="Cancer">
+                                <input class="form-check-input" type="checkbox" value="1" name="disease" id="Cancer">
                                 <label class="form-check-label" for="Cancer">Cancer</label>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="2"  name="disease" id="Cardiovascular">
+                                <input class="form-check-input" type="checkbox" value="2" name="disease" id="Cardiovascular">
                                 <label class="form-check-label" for="Cardiovascular">Cardiovascular</label>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="3"  name="disease" id="Dementia">
+                                <input class="form-check-input" type="checkbox" value="3" name="disease" id="Dementia">
                                 <label class="form-check-label" for="Dementia">Dementia</label>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="4"  name="disease" id="Diabetes">
+                                <input class="form-check-input" type="checkbox" value="4" name="disease" id="Diabetes">
                                 <label class="form-check-label" for="Diabetes">Diabetes</label>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="5"  name="disease" id="Digestive">
+                                <input class="form-check-input" type="checkbox" value="5" name="disease" id="Digestive">
                                 <label class="form-check-label" for="Digestive">Digestive</label>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="6"  name="disease" id="Osteoarthritis">
+                                <input class="form-check-input" type="checkbox" value="6" name="disease" id="Osteoarthritis">
                                 <label class="form-check-label" for="Osteoarthritis">Osteoarthritis</label>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="7"  name="disease" id="PyschologicalDisorder">
+                                <input class="form-check-input" type="checkbox" value="7" name="disease" id="PyschologicalDisorder">
                                 <label class="form-check-label" for="PyschologicalDisorder">Pyschological Disorder </label>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="8"  name="disease" id="Pulmonary">
+                                <input class="form-check-input" type="checkbox" value="8" name="disease" id="Pulmonary">
                                 <label class="form-check-label" for="Pulmonary">Pulmonary</label>
                             </div>
                         </div>
@@ -208,58 +207,58 @@
 
                 <div class="">
                     <div class="mb-2 row scrollbar scrollbar-info">
-                <div class="col-md-12 mb-3">
-                <label> Possibilty of Complication: </label>
-                <div class="form-check mb-2">
-                    <input type="radio" class="form-check-input" id="noComplication" name="complication" checked>
-                    <label class="form-check-label" for="noComplication">No</label>
-                </div>
-                <div class="form-check">
-                    <input type="radio" class="form-check-input" id="yesComplication" name="complication">
-                    <label class="form-check-label" for="yesComplication">Yes</label>
-                </div>
-                </div>
-                <div class="col-md-12 mb-2">
-                <label for="anasthesia_type">Anesthesia Type:</label>
-                <select id="anasthesia_type" name="anasthesia_type" class="select">
+                        <div class="col-md-12 mb-3">
+                            <label> Possibilty of Complication: </label>
+                            <div class="form-check mb-2">
+                                <input type="radio" class="form-check-input" id="noComplication" name="complication" checked>
+                                <label class="form-check-label" for="noComplication">No</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" id="yesComplication" name="complication">
+                                <label class="form-check-label" for="yesComplication">Yes</label>
+                            </div>
+                        </div>
+                        <div class="col-md-12 mb-2">
+                            <label for="anasthesia_type">Anesthesia Type:</label>
+                            <select id="anasthesia_type" name="anasthesia_type" class="select">
                     <option value="-1" selected hidden>Choose...</option>
                 </select>
-                </div>
-                <h6 id="anasthesia_typeCheck" class="myerror"></h6>
-                
-                <div class="col-md-12 mb-2">
-                <label for="or_theatre">Theatre Type:</label>
-                <select id="theatreType" name="user_or">
+                        </div>
+                        <h6 id="anasthesia_typeCheck" class="myerror"></h6>
+
+                        <div class="col-md-12 mb-2">
+                            <label for="or_theatre">Theatre Type:</label>
+                            <select id="theatreType" name="user_or">
                     <option value="-1" selected hidden>Choose...</option>
                 </select>
-                </div>
-                <h6 id="theatreCheck" class="myerror"></h6>
-                <div class="col-md-12 mb-2">
-                <label>Importance:</label>
-                <div class="col-12">
-                    <div class="form-check col-2">
-                        <input class="form-check-input priority" type="radio" value="2" id="importance_high" name="importance">
-                        <label class="form-check-label" for="importance_high">
+                        </div>
+                        <h6 id="theatreCheck" class="myerror"></h6>
+                        <div class="col-md-12 mb-2">
+                            <label>Importance:</label>
+                            <div class="col-12">
+                                <div class="form-check col-2">
+                                    <input class="form-check-input priority" type="radio" value="2" id="importance_high" name="importance">
+                                    <label class="form-check-label" for="importance_high">
                         High
                     </label>
-                    </div>
-                    <div class="form-check col-2">
-                        <input class="form-check-input priority" type="radio" value="1" id="importance_medium" name="importance">
-                        <label class="form-check-label" for="importance_medium">
+                                </div>
+                                <div class="form-check col-2">
+                                    <input class="form-check-input priority" type="radio" value="1" id="importance_medium" name="importance">
+                                    <label class="form-check-label" for="importance_medium">
                         Medium
                     </label>
-                    </div>
-                    <div class="form-check col-2">
-                        <input class="form-check-input priority" type="radio" value="0" id="importance_low" name="importance">
-                        <label class="form-check-label" for="importance_low">
+                                </div>
+                                <div class="form-check col-2">
+                                    <input class="form-check-input priority" type="radio" value="0" id="importance_low" name="importance">
+                                    <label class="form-check-label" for="importance_low">
                             Low
                         </label>
+                                </div>
+                            </div>
+                            <h6 id="importanceCheck" class="myerror"></h6>
+                            <br />
+                        </div>
                     </div>
-                    </div>
-                    <h6 id="importanceCheck" class="myerror"></h6>
-                    <br />
-                </div>
-               </div>
 
                     <button id="add-appointment-btn" class="btn btn-info mb-0" type="submit">Add Appointment</button>
 

@@ -152,7 +152,7 @@ function validateGender() {                                         //validate g
     }
     else {
         $('#genderCheck').hide();
-        var genderSelected = $('input[name=gender]:checked').val();
+        //var genderSelected = $('input[name=gender]:checked').val();     no use of this line
         genderError = false;
     }
     return isSuccess;
@@ -251,7 +251,7 @@ function validateTheatre() {                                    //validat or the
 
 function validateImportance() {                                     //check weather importance radio button is selected or not
     var isSuccess = true;
-    if ((!($('#importance_high').prop('checked'))) && (!($('#importance_medium').prop('checked'))) && (!($('#importance_low').prop('checked')))) {
+    if ($("input:[name=importance]:checked").val() == -1) {    //-1 is the value assigned to Choose...
         importanceError = true;
         $('#importanceCheck').html("**Importance is missing");
         $('#importanceCheck').show();
@@ -259,7 +259,7 @@ function validateImportance() {                                     //check weat
     }
     else {
         $('#importanceCheck').hide();
-        var importanceSelected = $('input[name=importance]:checked').val();
+        //var importanceSelected = $('input[name=importance]:checked').val();    no use of this line
         importanceError = false;
     }
     return isSuccess;
@@ -267,7 +267,7 @@ function validateImportance() {                                     //check weat
 
 function validateAsaStatus() {                                     //check weather ASA status radio button is selected or not
     var isSuccess = true;
-    if ((!($('#status1').prop('checked'))) && (!($('#status2').prop('checked'))) && (!($('#status3').prop('checked')))) {
+    if ($("input[name=asa]:checked").val() == null) {  //if no radio button is selected value of that radio button group is null
         asaError = true;
         $('#AsaCheck').html("**ASA status is missing");
         $('#AsaCheck').show();
@@ -275,7 +275,7 @@ function validateAsaStatus() {                                     //check weath
     }
     else {
         $('#AsaCheck').hide();
-        var statusSelected = $('input[name=asa]:checked').val();
+        //var statusSelected = $('input[name=asa]:checked').val();          no use of this line
         asaError = false;
     }
     return isSuccess;

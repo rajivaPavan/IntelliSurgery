@@ -15,6 +15,7 @@ namespace IntelliSurgery.DbOperations
         }
 
         public DbSet<Patient> Patients { get; set; }
+        public DbSet<Disease> Diseases { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Speciality> Specialities { get; set; }
         public DbSet<Surgeon> Surgeons { get; set;}

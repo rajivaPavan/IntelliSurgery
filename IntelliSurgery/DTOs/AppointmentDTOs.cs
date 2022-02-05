@@ -15,6 +15,7 @@ namespace IntelliSurgery.DTOs
         public bool Complication { get; set; }
         public int AnesthesiaType { get; set; }
         public int PriorityLevel { get; set; }
+
     }
 
     public class DropDownListsDTO

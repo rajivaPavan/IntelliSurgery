@@ -13,7 +13,7 @@ namespace IntelliSurgery.Models
         public Gender Gender { get; set; }
         public float Weight { get; set; }
         public float Height { get; set; }
-        public ASA_Status ASA_Status { get; set; }
+        public ASA_Status AsaStatus { get; set; }
         public float BMI { get; set; }
         public List<Disease> Diseases { get; set; }
          

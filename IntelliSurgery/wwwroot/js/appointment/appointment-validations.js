@@ -185,7 +185,9 @@ function validateAnastheasist() {
 
 function validateAnasthesia_type() {                               //validate anasthesia type combo is choosed-this function is called inside validateAnastheasist()
     var isSuccess = true;
-    if ($('#anasthesia_type').val() === '') {                   //if ($('#anasthesia_type').children("option:selected").text() == '')
+
+    //I have set the combo box defalt value to -1
+    if ($('#anasthesia_type').val() == -1) {                   //if ($('#anasthesia_type').children("option:selected").text() == '')
         anasthesia_typeError = true;
         $('#anasthesia_typeCheck').html("**Anasthesia type is missing");
         $('#anasthesia_typeCheck').show();
@@ -200,8 +202,9 @@ function validateAnasthesia_type() {                               //validate an
 
 function validateSurgery() {                                    //validate surgery combo is choosed
     var isSuccess = true;
-    if ($('#surgery').val() === '') {
-        urgeryError = true;
+    //I have set the combo box defalt value to -1
+    if ($('#surgery').val() == -1) {
+        surgeryError = true;
         $('#surgeryCheck').html("**Surgery is missing");
         $('#surgeryCheck').show();
         isSuccess = false;
@@ -215,7 +218,9 @@ function validateSurgery() {                                    //validate surge
 
 function validateSurgeon() {                                    //validate surgeon combo is choosed
     var isSuccess = true;
-    if ($('#surgeon').val() === '') {
+    //I have set the combo box defalt value to -1
+
+    if ($('#surgeon').val() == -1) {
         surgeonError = true;
         $('#surgeonCheck').html("**Surgeon is missing");
         $('#surgeonCheck').show();
@@ -230,7 +235,8 @@ function validateSurgeon() {                                    //validate surge
 
 function validateTheatre() {                                    //validat or theatre combo is choosed
     var isSuccess = true;
-    if ($('#theatreType').val() === '') {
+    //I have set the combo box defalt value to -1
+    if ($('#theatreType').val() === -1) {
         surgeonError = true;
         $('#theatreCheck').html("**Theatre type is missing");
         $('#theatreCheck').show();

@@ -47,14 +47,46 @@ namespace IntelliSurgery.Controllers
 
             //else proceed to create and save the block
             Theatre theatre = await theatreRepository.GetTheatre(TheatreQueryLogic.ById(workBlockDTO.TheatreId));
-            WorkingBlock workingBlock = new WorkingBlock(surgeon, theatre);
-            workingBlock.SetTimeRange(timeRange);
-            workingBlock.RemainingTime = timeRange.Duration;
+            
+            WorkingBlock workingBlock = new WorkingBlock(surgeon, theatre, timeRange);
             workingBlock = await workingBlockRepository.AddWorkingBlock(workingBlock);
 
             SurgeonCalendarEvent surgeonCalendarEvent = new SurgeonCalendarEvent(workingBlock);
 
             return Json(new { success = true, data= surgeonCalendarEvent });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetWorkingBlocks(int surgeonId)
+        {
+            Surgeon surgeon = await surgeonRepository.GetSurgeonById(surgeonId);
+            List<WorkingBlock> workingBlocks = await workingBlockRepository.GetWorkBlocks(w => w.Surgeon.Id == surgeon.Id);
+            List<SurgeonCalendarEvent> events = new List<SurgeonCalendarEvent>();
+            foreach (WorkingBlock workingBlock in workingBlocks)
+            {
+                events.Add(new SurgeonCalendarEvent(workingBlock));
+            }
+
+            SurgeonCalendarDTO surgeonCalendarDTO = new SurgeonCalendarDTO() { 
+                Surgeon = surgeon,
+                Events = events
+            };
+            
+            return Json(new { success = true, data = surgeonCalendarDTO});
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteWorkBlock(int workingBlockId)
+        {
+            WorkingBlock workingBlock = await workingBlockRepository.GetWorkBlock(w => w.Id == workingBlockId);
+
+            if(WorkingBlockLogic.IsBlockDeletable(workingBlock))
+            {
+                await workingBlockRepository.DeleteWorkBlock(workingBlock);
+                return Json(new { success = true });
+            }
+
+            return Json(new { success = false });
         }
 
         private async Task<bool> CheckIfBlockOverlapsAsync(TimeRange timeRange, int theatreId, int surgeonId)
@@ -82,35 +114,5 @@ namespace IntelliSurgery.Controllers
             return isOvelaps;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> GetWorkingBlocks(int surgeonId)
-        {
-            Surgeon surgeon = await surgeonRepository.GetSurgeonById(surgeonId);
-            List<WorkingBlock> workingBlocks = await workingBlockRepository.GetWorkBlocks(w => w.Surgeon.Id == surgeon.Id);
-            List<SurgeonCalendarEvent> events = new List<SurgeonCalendarEvent>();
-            foreach (WorkingBlock workingBlock in workingBlocks)
-            {
-                events.Add(new SurgeonCalendarEvent(workingBlock));
-            }
-
-            SurgeonCalendarDTO surgeonCalendarDTO = new SurgeonCalendarDTO() { 
-                Surgeon = surgeon,
-                Events = events
-            };
-            
-            return Json(new { success = true, data = surgeonCalendarDTO});
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> DeleteWorkBlock(int workingBlockId)
-        {
-            WorkingBlock workingBlock = await workingBlockRepository.GetWorkBlock(w => w.Id == workingBlockId);
-            if(workingBlock.AllocatedSurgeries != null || workingBlock.AllocatedSurgeries.Count != 0)
-            {
-                await workingBlockRepository.DeleteWorkBlock(workingBlock);
-                return Json(new { success = true });
-            }
-            return Json(new { success = false });
-        }
     }
 }

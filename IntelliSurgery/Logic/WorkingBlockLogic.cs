@@ -1,5 +1,6 @@
 ﻿using IntelliSurgery.Models;
 using Itenso.TimePeriod;
+using System;
 using System.Collections.Generic;
 
 namespace IntelliSurgery.Logic
@@ -18,6 +19,11 @@ namespace IntelliSurgery.Logic
                 }
             }
             return isOverlaps;
+        }
+
+        public static bool IsBlockDeletable(WorkingBlock workingBlock)
+        {
+            return workingBlock.AllocatedSurgeries != null || workingBlock.AllocatedSurgeries.Count != 0;
         }
     }
 }

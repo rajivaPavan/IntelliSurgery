@@ -22,12 +22,14 @@ namespace IntelliSurgery.Models
 
         }
 
-        public WorkingBlock(Surgeon surgeon, Theatre theatre)
+        public WorkingBlock(Surgeon surgeon, Theatre theatre, TimeRange timeRange)
         {
             SurgeonId = surgeon.Id;
             Surgeon = surgeon;
             TheatreId = theatre.Id;
             Theatre = theatre;
+            SetTimeRange(timeRange);
+            RemainingTime = timeRange.Duration;
         }
 
     }

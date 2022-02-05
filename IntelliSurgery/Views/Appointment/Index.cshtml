@@ -189,9 +189,12 @@
                     <option value="-1" selected hidden>Choose...</option>
                     
                 </select>
-                <h6 id="surgeonCheck" class="myerror"></h6>
+                <h6 id="surgeonCheck" class="myerror"></h6>             
 
-                <label> Anastheasists: </label>
+            <div class="">
+             <div class="mb-2 row scrollbar scrollbar-info">
+                 <div class="col-md-12 mb-3">
+                     <label> Anastheasists: </label>
                 <div class="form-check mb-2">
                     <input type="radio" class="form-check-input" id="not_required" name="anastheasist">
                     <label class="form-check-label" for="not_required">Not Required</label>
@@ -200,20 +203,26 @@
                     <input type="radio" class="form-check-input" id="required" name="anastheasist">
                     <label class="form-check-label" for="required">Required</label>
                 </div>
+                </div>
                 <h6 id="anastheasistCheck" class="myerror"></h6>
+                 
 
+                 <div class="col-md-12 mb-2">
                 <label for="anasthesia_type">Anesthesia Type:</label>
                 <select id="anasthesia_type" name="user_anas_type" class="select">
                     <option value="-1" selected hidden>Choose...</option>
                 </select>
+                </div>
                 <h6 id="anasthesia_typeCheck" class="myerror"></h6>
-
+                
+                <div class="col-md-12 mb-2">
                 <label for="or_theatre">Theatre Type:</label>
                 <select id="theatreType" name="user_or">
                     <option value="-1" selected hidden>Choose...</option>
                 </select>
+                </div>
                 <h6 id="theatreCheck" class="myerror"></h6>
-
+                <div class="col-md-12 mb-2">
                 <label>Importance:</label>
                 <div class="col-12">
                     <div class="form-check col-2">
@@ -234,8 +243,12 @@
                             Low
                         </label>
                     </div>
+                    </div>
                     <h6 id="importanceCheck" class="myerror"></h6>
                     <br />
+                </div>
+               </div>
+
                     <button id="add-appointment-btn" class="btn btn-info mb-0" type="submit">Add Appointment</button>
 
                 </div>

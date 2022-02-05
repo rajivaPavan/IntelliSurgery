@@ -72,7 +72,7 @@ label {
 }
 .navbar-nav {
     overflow: hidden;
-    
+    display: flex;
     padding: 5px;
     margin-left: 3px;
 }
@@ -127,4 +127,5 @@ label {
     form_class {
         max-width: 480px;
     }
+    
 }

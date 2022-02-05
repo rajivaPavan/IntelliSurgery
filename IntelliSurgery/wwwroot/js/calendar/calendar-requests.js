@@ -1,6 +1,4 @@
-﻿import { error } from "../../lib/sweetalert2/src/utils/utils";
-
-async function getScheduledSurgeriesRequest(filter, filterValue) {
+﻿async function getScheduledSurgeriesRequest(filter, filterValue) {
     var res = await axios.get("/api/CalendarApi/GetScheduledSurgeries?filter="+filter+"&filterValue="+filterValue.toString());
     var events = [];
     if (res.data.success == true) {

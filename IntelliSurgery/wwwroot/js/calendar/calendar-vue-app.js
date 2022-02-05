@@ -1,4 +1,12 @@
-﻿calendarApp = Vue.createApp({
+﻿const PENDING = 0;
+const SCHEDULED = 1;
+const CONFIRMED = 2;
+const CANCELLED = 3;
+const COMPLETED = 4;
+const ONGOING = 5;
+const POSTPONED = 6;
+
+calendarApp = Vue.createApp({
     data() {
         return {
             calendars: {},
@@ -57,8 +65,11 @@
 
     },
     methods: {
-        isPostponable(status) {
-            return status!=0 || status != 3 || status != 4;
+        canComplete(status) {
+            return status == CONFIRMED;
+        },
+        canPostpone(status) {
+            return !(status==PENDING || status == CANCELLED || status == COMPLETED);
         },
         setSelectedEvent(appointment, calendarEventId) {
 

@@ -47,7 +47,7 @@ function validateId() {                                       //validate patient
     var idInput = $('#patient_id').val();
     var isSuccess = true;
     //first check data type
-    if (!(idInput.match(/^[0-9]+$/))) {                          //only digits(0-9) will be allowed as the id input
+    if (!(idInput.match(/^[0-9]+$/)) && idInput!='') {                          //only digits(0-9) will be allowed as the id input
         $("#idCheck").html("**ID should contain only digits");          //if code gives wrong input ,return false
         $("#idCheck").show();
         isSuccess = false;
@@ -84,7 +84,7 @@ function validateWeight() {                                     //validate patie
     var weightInput = $('#weight').val();
     var isSuccess = true;
     //first check input data type
-    if (!(/^\d+\.\d+$|^\d+$/.test(weightInput))) {                       //allow integers & floats
+    if (!(/^\d+\.\d+$|^\d+$/.test(weightInput)) && weightInput != '') {                       //allow integers & floats
         $('#weightCheck').html('**Invalid weight-should be numeric');
         $('#weightCheck').show();
         isSuccess = false;
@@ -107,7 +107,7 @@ function validateHeight() {                                      //validate pati
     var heightInput = $('#height').val();
     var isSuccess = true;
     //first check input data type
-    if (!(/^\d+\.\d+$|^\d+$/.test(heightInput))) {                            //allow only integers & floats
+    if (!(/^\d+\.\d+$|^\d+$/.test(heightInput)) && heightInput != '') {                            //allow only integers & floats
         $('#heightCheck').html('**Invalid height-should be numeric');
         $('#heightCheck').show();
         isSuccess = false;

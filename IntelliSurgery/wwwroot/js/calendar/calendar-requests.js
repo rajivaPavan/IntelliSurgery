@@ -49,6 +49,12 @@ async function updateAppointmentStatusRequest(appointmentId, newStatus) {
     if (res.data.success == true) {
         appointment = res.data.data;
     }
+    else {
+        errorMesg = res.data.error;
+        if (errorMesg != null) {
+            displaySweetAlert(errorMesg);
+        }
+    }
     return appointment;
 }
 

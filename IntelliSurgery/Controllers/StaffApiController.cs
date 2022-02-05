@@ -2,6 +2,7 @@
 using IntelliSurgery.DbOperations.Theatres;
 using IntelliSurgery.DbOperations.WorkingBlocks;
 using IntelliSurgery.DTOs;
+using IntelliSurgery.Logic;
 using IntelliSurgery.Models;
 using Itenso.TimePeriod;
 using Microsoft.AspNetCore.Mvc;
@@ -38,36 +39,47 @@ namespace IntelliSurgery.Controllers
 
             //VALIDATE whether timerange overlaps with any other block
             //if overlap occurs return json success = false
-
-            //get blocks that are on the day of the timerange
-            List<WorkingBlock> checkBlocks = await workingBlockRepository.GetWorkBlocks(
-                w => w.Start.Date == timeRange.Start.Date || w.End.Date == timeRange.End.Date);
-
-            foreach(var block in checkBlocks)
+            bool isOverLapping = await CheckIfBlockOverlapsAsync(timeRange, workBlockDTO.TheatreId, surgeon.Id);
+            if (isOverLapping)
             {
-                if (timeRange.OverlapsWith(block.GetTimeRange()))
-                {
-                    return Json(new { success = false });
-                }
+                return Json(new { success = false });
             }
 
             //else proceed to create and save the block
             Theatre theatre = await theatreRepository.GetTheatre(TheatreQueryLogic.ById(workBlockDTO.TheatreId));
-
-            WorkingBlock workingBlock = new WorkingBlock() { 
-                SurgeonId = surgeon.Id,
-                Surgeon = surgeon, 
-                TheatreId = theatre.Id,
-                Theatre = theatre
-            };
+            WorkingBlock workingBlock = new WorkingBlock(surgeon, theatre);
             workingBlock.SetTimeRange(timeRange);
             workingBlock.RemainingTime = timeRange.Duration;
-            
             workingBlock = await workingBlockRepository.AddWorkingBlock(workingBlock);
 
             SurgeonCalendarEvent surgeonCalendarEvent = new SurgeonCalendarEvent(workingBlock);
 
             return Json(new { success = true, data= surgeonCalendarEvent });
+        }
+
+        private async Task<bool> CheckIfBlockOverlapsAsync(TimeRange timeRange, int theatreId, int surgeonId)
+        {
+            bool isOvelaps = false;
+
+            List<WorkingBlock> checkBlocks = null;
+            if (!isOvelaps)
+            {
+                //check whether this time overlaps with any block in the current theatre
+                checkBlocks = await workingBlockRepository.GetWorkBlocks(
+                            w => w.TheatreId == theatreId &&
+                            (w.Start.Date == timeRange.Start.Date || w.End.Date == timeRange.End.Date));
+
+                isOvelaps = WorkingBlockLogic.CheckIfBlockOverlaps(timeRange, checkBlocks);
+            }
+            else if (!isOvelaps)
+            {
+                //check whether this time overlaps with any other block of the surgeon
+                checkBlocks = await workingBlockRepository.GetWorkBlocks(
+                               w => w.SurgeonId == surgeonId &&
+                               (w.Start.Date == timeRange.Start.Date || w.End.Date == timeRange.End.Date));
+                isOvelaps = WorkingBlockLogic.CheckIfBlockOverlaps(timeRange, checkBlocks);
+            }
+            return isOvelaps;
         }
 
         [HttpPost]

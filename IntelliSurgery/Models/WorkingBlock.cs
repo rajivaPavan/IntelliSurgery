@@ -17,6 +17,19 @@ namespace IntelliSurgery.Models
         public TimeSpan RemainingTime { get; set; }
         public List<ScheduledSurgery> AllocatedSurgeries { get; set; }
 
+        public WorkingBlock()
+        {
+
+        }
+
+        public WorkingBlock(Surgeon surgeon, Theatre theatre)
+        {
+            SurgeonId = surgeon.Id;
+            Surgeon = surgeon;
+            TheatreId = theatre.Id;
+            Theatre = theatre;
+        }
+
     }
 
     public class WorkBlockDTO

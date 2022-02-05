@@ -24,7 +24,13 @@ $("#validate-patient-btn").click(async () => {
 })
 
 $("#add-patient-btn").click(async () => {    
-    if (global.patientId != NULL_ENTITY_ID) {
+    if (global.patientId == NULL_ENTITY_ID) {
+        validateName();
+        validateWeight();
+        validateHeight();
+        validateBirthday();
+        validateGender();
+        validateAsaStatus();
         if (!(nameError || weightError || heightError || birthdayError || genderError || asaError)) {
             global.patientId = await addPatient();
             Swal.fire({
@@ -34,18 +40,11 @@ $("#add-patient-btn").click(async () => {
                 timer: 1500
             });
             return true;
-        }
-        else {
+        }else {
             displaySweetAlert("Enter correct details !");
-            validateName();
-            validateWeight();
-            validateHeight();
-            validateBirthday();
-            validateGender();
-            validateAsaStatus();
+            return false;
         }
-    }
-    else {
+    }else {
         displaySweetAlert("Validate Patient First !");
         return false;
     }
@@ -53,6 +52,12 @@ $("#add-patient-btn").click(async () => {
 
 $("#update-patient-btn").click(async () => {
     if (global.patientId != NULL_ENTITY_ID) {
+        validateName();
+        validateWeight();
+        validateHeight();
+        validateBirthday();
+        validateGender();
+        validateAsaStatus();
         if (!(nameError || weightError || heightError || birthdayError || genderError || asaError)) {
             global.patientId = await updatePatient();
             Swal.fire({
@@ -62,18 +67,10 @@ $("#update-patient-btn").click(async () => {
                 timer: 1500
             });
             return true;
-        }
-        else {
+        }else {
             displaySweetAlert("Enter correct details !");
-            validateName();
-            validateWeight();
-            validateHeight();
-            validateBirthday();
-            validateGender();
-            validateAsaStatus();
         }
-    }
-    else {
+    }else {
         displaySweetAlert("Validate Patient First !");
         return false;
     }
@@ -81,22 +78,24 @@ $("#update-patient-btn").click(async () => {
 
 $("#add-appointment-btn").click(async () => {       //----------------both validate button & add patient buttons 2 nma true return karala kiyala check karanne?????  
     if (global.patientId != NULL_ENTITY_ID) {
+    //$('#validate-patient-btn,#add-patient-btn').click(function () {
+    
+        validateSurgery();
+        validateSurgeon();
+        validateTheatre();
+        validateAnastheasist();
+        validateAnasthesia_type();
+        validateImportance();
+    
         if (!(surgeonError || surgeryError || anastheasistError || anasthesia_typeError || theatreError || importanceError)) {
             await addAppointment(global.patientId);
             resetForms();
             return true;
-        }
-        else {
+        }else {
             displaySweetAlert("Enter correct details !");
-            validateSurgery();
-            validateSurgeon();
-            validateTheatre();
-            validateAnastheasist();
-            validatevalidateAnasthesia_type();
-            validateImportance();
         }
     }
-     else {
+    else {
         displaySweetAlert("Validate or Add a Patient first !");
         return false;
     }

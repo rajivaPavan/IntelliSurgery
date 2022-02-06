@@ -38,6 +38,11 @@ namespace IntelliSurgery.Controllers
             if (filter == "theatres")
             {
                 scheduledAppointments = await appointmentRepository.GetAppointments(a => a.ScheduledSurgeryId != null && a.TheatreId == filterValue);
+                List<WorkingBlock> workingBlocks = await workingBlockRepository.GetWorkBlocks(w => w.TheatreId == filterValue);
+                foreach (WorkingBlock workingBlock in workingBlocks)
+                {
+                    fullCalendarEvents.Add(new AppointmentCalendarEvent(workingBlock));
+                }
             }
             else if (filter == "surgeons")
             {
@@ -111,6 +116,7 @@ namespace IntelliSurgery.Controllers
                     //delete scheduled surgery
                     appointment.ScheduledSurgeryId = null;
                     appointment.ScheduledSurgery = null;
+                    appointment.Theatre = null;
                     await appointmentRepository.UpdateAppointment(appointment);
                     await surgeryRepository.DeleteScheduleSurgery(delScheduledSurgery);
                     await surgeryRepository.DeleteSurgeryEvent(delSurgeryEvent);
@@ -118,16 +124,16 @@ namespace IntelliSurgery.Controllers
                 }else if(appointmentStatus == Status.Ongoing)
                 {
                     DateTime now = DateTime.Now;
-                    if (!(appointment.ScheduledSurgery.SurgeryEvent.Start < now
-                        && now < appointment.ScheduledSurgery.SurgeryEvent.End))
+                    if (!(appointment.ScheduledSurgery.SurgeryEvent.Start <= now
+                        && now <= appointment.ScheduledSurgery.SurgeryEvent.End))
                     {
                         isChangeStatus = false;
                         errorMessage = "Surgery status cannot be set to ongoing";
                     }
                 }
-                else if(appointment.Status == Status.Completed)
+                else if(appointmentStatus == Status.Completed)
                 {
-                    if(appointment.ScheduledSurgery.SurgeryEvent.End < DateTime.Now)
+                    if(appointment.ScheduledSurgery.SurgeryEvent.End > DateTime.Now)
                     {
                         isChangeStatus = false;
                         errorMessage = "Surgery status cannot be set to completed";

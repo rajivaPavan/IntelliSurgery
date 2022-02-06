@@ -65,10 +65,12 @@ label {
     display: block;
     margin-bottom: 8px;
 }
-.offcanvas-body{
-   
-   overflow: hidden;
-   
+.offcanvas {
+    background-image: var(--bs-gradient);
+}
+.offcanvas-body {
+    
+    overflow: hidden;
 }
 .navbar-nav {
     overflow: hidden;

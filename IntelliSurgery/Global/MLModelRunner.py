@@ -2,15 +2,16 @@ import pickle
 import sys
 
 #Using the data passed to the file
-age  = int(sys.argv[1])
+age  = int(sys.argv[1])  
 gender = int(sys.argv[2])
 asa = int(sys.argv[3])
 bmi = float(sys.argv[4])
 complication = int(sys.argv[5])
 surgeryType = str(sys.argv[6])
-diseases = str(sys.argv[7])
-file_path = str(sys.argv[8])+"\\model.pkl"
+diseases = str(sys.argv[8])
+file_path = str(sys.argv[7])+"\\hipLRwC.pkl"
 
+diseases= diseases.replace("[","")
 #split the csv in diseases to make the list object
 diseasesList = diseases.split(",")
 

@@ -65,18 +65,18 @@ label {
     display: block;
     margin-bottom: 8px;
 }
-.offcanvas {
-    background-image: var(--bs-gradient);
+
 }
 .offcanvas-body {
     
     overflow: hidden;
 }
 .navbar-nav {
+    
     overflow: hidden;
     display: flex;
     padding: 5px;
-    margin-left: 3px;
+    
 }
 .sidebar-link {
     display: flex;
@@ -92,8 +92,11 @@ label {
    
 }
 .nav-pills .nav-link.active {
-    background-color: lightblue;
-    
+    background-color: #6c757d;
+}
+.nav-pills > nav-link.active > a, .nav-pills > nav-link.active > a:focus, .nav-pills > nav-link.active > a:hover {
+    color: #fff;
+    background-color: #337ab7
 }
 .scrollbar {
     /*float: left;*/

@@ -30,7 +30,7 @@ namespace IntelliSurgery.DTOs
             }
 
             Complication = appointment.ComplicationPossibility ? 1 : 0 ;
-            SurgeryType = appointment.SurgeryType.Name;
+            SurgeryType = appointment.SurgeryType.Name.Replace(" ",""); //remove white spaces in the surgery type name
         }
 
         private static string DiseaseToString(Disease disease)

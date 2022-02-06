@@ -8,7 +8,7 @@ body {
     font-family: 'Nunito', sans-serif;
     color: #384047;
     background-color: #F1F1F1;
-    /*overflow:hidden;*/
+    overflow: hidden;
 }
 #logo {
     background: url("../assets/images/IntelliSurgery.png") no-repeat;
@@ -16,12 +16,12 @@ body {
     background-position:center;
 }
 .form_class {
-/*    max-width: 400px;*/
-    margin: 20px auto;
+    /*    max-width: 400px;*/
+    margin: 5px auto;
     padding: 20px 20px;
     background: #f4f7f8;
     border-radius: 8px;
-    height: 89vh;
+    height: 87vh;
 }
 .form-inline {
     display: flex;
@@ -77,17 +77,17 @@ button {
     border: 1px solid indianred;
     border-width: 1px 1px 3px;
     box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
-    margin-bottom: 20px;
+    
 }
 
 .legend {
     font-size: 1.4em;
-    margin-bottom: 10px;
+    
 }
 
 label {
     display: block;
-    margin-bottom: 8px;
+   
 }
 
 label.light {
@@ -107,7 +107,7 @@ label.light {
     text-align: center;
     text-shadow: 0 1px 0 rgba(255,255,255,0.2);
     border-radius: 100%;
-    margin-bottom: 10px;
+    
 }
 .scrollbar {
     /*float: left;*/

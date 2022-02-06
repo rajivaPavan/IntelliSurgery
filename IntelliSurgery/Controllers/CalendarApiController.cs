@@ -111,6 +111,7 @@ namespace IntelliSurgery.Controllers
                     //delete scheduled surgery
                     appointment.ScheduledSurgeryId = null;
                     appointment.ScheduledSurgery = null;
+                    await appointmentRepository.UpdateAppointment(appointment);
                     await surgeryRepository.DeleteScheduleSurgery(delScheduledSurgery);
                     await surgeryRepository.DeleteSurgeryEvent(delSurgeryEvent);
                     

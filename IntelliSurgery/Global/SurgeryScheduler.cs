@@ -1,5 +1,4 @@
-﻿using IntelliSurgery.DbOperations.Appointments;
-using IntelliSurgery.DbOperations;
+﻿using IntelliSurgery.DbOperations;
 using IntelliSurgery.Enums;
 using IntelliSurgery.Models;
 using System;
@@ -32,12 +31,12 @@ namespace IntelliSurgery.Global
 
         public async Task CreateSchedule(Surgeon surgeon)
         {
-            //get incomplete appointments of the surgeon
+            //get postponed then pending, appointments of the surgeon and unconfirmed appointments in blocks
             List<Appointment> appointments = await appointmentRepository.GetAppointments(a => a.SurgeonId == surgeon.Id
-                                                                                              && a.Status == Status.Confirmed
-                                                                                              );
+                                                                                              && (a.Status == Status.Pending
+                                                                                              || a.Status == Status.Scheduled));
 
-            //get time blocks of the surgeon that start after the current time
+            //get time blocks of the surgeon that start after the current time within one week
             List<WorkingBlock> workingBlocks = await workingBlockRepository.GetWorkBlocks(w => w.SurgeonId == surgeon.Id && w.Start > DateTime.Now);
 
             //allocate time for surgeries within the time blocks
@@ -68,6 +67,7 @@ namespace IntelliSurgery.Global
             TimeSpan finalSurgeryDuration;
             Appointment currentAppointment;
             WorkingBlock currentBlock;
+            TheatreType currentAppointmentTheatreType;
 
             for(int i = 0; i < numOfAppointments; i++)
             {
@@ -86,6 +86,14 @@ namespace IntelliSurgery.Global
                 for (int j = 0; j < numOfBlocks; j++)
                 {
                     currentBlock = workingBlocks[j];
+                    currentAppointmentTheatreType = currentAppointment.TheatreType;
+                    //current block theatre type does not match appointment theatre type skip the current block,
+                    if (currentBlock.Theatre.TheatreType != currentAppointmentTheatreType)
+                    {
+                        continue;
+                    }
+
+                    //block duration is the remaining time of the current block
                     blockDuration = currentBlock.RemainingTime;
 
                     //find the best block index for the current appointment
@@ -167,6 +175,11 @@ namespace IntelliSurgery.Global
 
         public Task<List<Appointment>> PrioritizeAppointments(List<Appointment> appointments)
         {
+            //sort the appointments in the order of
+            //postponed first
+            //pending 
+            //
+
             throw new NotImplementedException();
         }
 

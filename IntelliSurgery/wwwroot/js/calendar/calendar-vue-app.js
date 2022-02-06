@@ -121,6 +121,9 @@ calendarApp = Vue.createApp({
             var events = getCalendarEvents(selectedFilter, selectedFilterValue);
             if (events == null) {
                 events = await getScheduledSurgeriesRequest(selectedFilter, selectedFilterValue);
+                //
+                //update events in calendars object
+                //
             }
             $("#appointments-table").hide();
             $("#calendar").show();
@@ -147,6 +150,7 @@ calendarApp = Vue.createApp({
                 if (calendarEventId != -1) {
 
                     var calendarEvent = await getCalendarEventRequest(appointmentId);
+                    calendarEvent.id = calendarEventId;
 
                     //update all calendars in different filters
                     this.calendars = updateEventInAllCalendars(this.calendars, calendarEvent);

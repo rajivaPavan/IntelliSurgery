@@ -10,10 +10,10 @@
     <link href="~/css/calendar.css" rel="stylesheet">
 }
 
-<div class="col-12 pt-2 bg-light" id="calendar-main">
+<div class="col-12 pt-2" id="calendar-main">
     <div class="row " style="height:94vh;">
         <div class="col-12 col-md-3 scrollbar-info overflow-auto" style="height:91vh" >
-            <div class="border border-dark">
+            <div class="border border-info">
                 <div class="col-12 my-2">
                 <h4>Appointments</h4>
                 </div>
@@ -24,7 +24,7 @@
                         </div>
                         <div class="col-9 my-2">
                             <select v-model="selectedSurgeonId" id="appointmentFilter" name="surgeonFilter" 
-                                    class="w-100 btn dropdown-toggle border border-dark">
+                                    class="w-100 btn dropdown-toggle border border-info">
                                 <option value="-1" selected hidden>Choose...</option>
                                 <option v-for="option in getSurgeons" v-bind:value="option.id">
                                     {{ option.name }}
@@ -45,7 +45,7 @@
                     </div>
                 </div>
             </div>
-            <div class="my-2 border border-dark">
+            <div class="my-2 border border-info">
                 <div class="col-12 my-2">
                 <h4>Calendars</h4>
                 </div>
@@ -54,7 +54,7 @@
                         <div class="col-3 pr-0 my-2">Filter By:</div>
                         <div class="col-9 my-2">
                             <select v-model="selectedFilter" id="calendarFilter" name="calendarFilter" 
-                                class="w-100 btn dropdown-toggle border border-dark">
+                                class="w-100 btn dropdown-toggle border border-info">
                             <option value="" selected hidden>Choose...</option>
                             <option v-for="option in filters" v-bind:value="option.value">
                                 {{ option.text }}

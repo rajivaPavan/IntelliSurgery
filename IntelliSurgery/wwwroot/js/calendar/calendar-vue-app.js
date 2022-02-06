@@ -66,10 +66,10 @@ calendarApp = Vue.createApp({
     },
     methods: {
         canComplete(status) {
-            return status == CONFIRMED;
+            return status == CONFIRMED || status == ONGOING;
         },
         canPostpone(status) {
-            return !(status==PENDING || status == CANCELLED || status == COMPLETED);
+            return status == SCHEDULED || status == CONFIRMED;
         },
         setSelectedEvent(appointment, calendarEventId) {
 

@@ -8,44 +8,67 @@ using System.Threading.Tasks;
 using Itenso.TimePeriod;
 using IntelliSurgery.DbOperations.Theatres;
 using IntelliSurgery.DbOperations.WorkingBlocks;
+using IntelliSurgery.Logic;
 
 namespace IntelliSurgery.Global
 {
     public class SurgeryScheduler : ISurgeryScheduler
     {
-        private readonly ISurgeryRepository surgeryRepository;
         private readonly IAppointmentRepository appointmentRepository;
-        private readonly ITheatreRepository theatreRepository;
         private readonly IWorkingBlockRepository workingBlockRepository;
+        private readonly IWorkingBlockLogic workBlockLogic;
+        private readonly IAppointmentLogic appointmentLogic;
         private readonly TimeSpan prepTime = new(0,5,0);
         private readonly TimeSpan cleanTime = new(0, 5, 0);
+        private readonly double waitDays = 4;
+        private readonly double schedulingDays = 3;
 
-        public SurgeryScheduler(ISurgeryRepository surgeryRepository, IAppointmentRepository appointmentRepository, 
-            ITheatreRepository theatreRepository, IWorkingBlockRepository workingBlockRepository)
+        public SurgeryScheduler(IAppointmentRepository appointmentRepository, IWorkingBlockRepository workingBlockRepository,
+            IWorkingBlockLogic workBlockLogic, IAppointmentLogic appointmentLogic)
         {
-            this.surgeryRepository = surgeryRepository;
             this.appointmentRepository = appointmentRepository;
-            this.theatreRepository = theatreRepository;
             this.workingBlockRepository = workingBlockRepository;
+            this.workBlockLogic = workBlockLogic;
+            this.appointmentLogic = appointmentLogic;
         }
 
         public async Task CreateSchedule(Surgeon surgeon)
         {
+            DateTime todayDate = DateTime.Now.Date;
+            DateTime lowerBound = todayDate.AddDays(waitDays);
+            DateTime upperBound = lowerBound.AddDays(schedulingDays);
+            //get work blocks of the surgeon that start after the current x days from today and within 3 days after the lower bound
+            List<WorkingBlock> workingBlocks = await workingBlockRepository.GetWorkBlocks(w => w.SurgeonId == surgeon.Id
+                                                                                               && w.Start.Date >= lowerBound
+                                                                                               && w.End.Date <= upperBound);
+
             //get postponed then pending, appointments of the surgeon and unconfirmed appointments in blocks
-            List<Appointment> appointments = await appointmentRepository.GetAppointments(a => a.SurgeonId == surgeon.Id
-                                                                                              && (a.Status == Status.Pending
-                                                                                              || a.Status == Status.Scheduled));
+            Status[] statuses = new Status[] { Status.Postponed, Status.Scheduled, Status.Pending };
+            foreach(Status status in statuses)
+            {
 
-            //get time blocks of the surgeon that start after the current time within one week
-            List<WorkingBlock> workingBlocks = await workingBlockRepository.GetWorkBlocks(w => w.SurgeonId == surgeon.Id && w.Start > DateTime.Now);
+                List<Appointment> appointments = await appointmentRepository.GetAppointments(a => a.SurgeonId == surgeon.Id
+                                                                                  && a.Status == status);
 
-            //allocate time for surgeries within the time blocks
-            workingBlocks = await AllocateSurgeriesToBlocks(workingBlocks, appointments);
+                if(status == Status.Scheduled)
+                {
+                    appointments.ForEach(async appointment => {
+                        await workBlockLogic.RestoreWorkBlockTime(appointment);
+                        await appointmentLogic.DeleteScheduledSurgeryAsync(appointment);
+                        //reset the status to pending
+                        appointment.Status = Status.Pending;
+                    });
+                    appointments = await appointmentRepository.UpdateAppointments(appointments);
+                }
 
-            //update blocks in the database
-            await workingBlockRepository.UpdateWorkingBlocks(workingBlocks);
+                //allocate time for surgeries within the time blocks
+                workingBlocks = await AllocateSurgeriesToBlocks(workingBlocks, appointments);
 
+                //update blocks in the database
+                await workingBlockRepository.UpdateWorkingBlocks(workingBlocks);
+            }
         }
+
         private float CalculateAverage(IEnumerable<TimeSpan> timeSpans)
         {
             IEnumerable<long> ticksPerTimeSpan = timeSpans.Select(t => t.Ticks);
@@ -53,7 +76,7 @@ namespace IntelliSurgery.Global
             return (float)averageTicks;
         }
 
-        private async Task<List<WorkingBlock>> AllocateSurgeriesToBlocks(List<WorkingBlock> workingBlocks, 
+        public async Task<List<WorkingBlock>> AllocateSurgeriesToBlocks(List<WorkingBlock> workingBlocks, 
             List<Appointment> appointments)
         {
             ///////best fit algorithm in memory management//////
@@ -122,16 +145,14 @@ namespace IntelliSurgery.Global
                     //reduce remaining time in block
                     bestBlock.RemainingTime = bestBlock.RemainingTime.Subtract(finalSurgeryDuration);
 
+                    //assign the appointment to the workblock
+                    currentAppointment.WorkingBlock = bestBlock;
+                    currentAppointment.WorkingBlockId = bestBlock.Id;
+
                     //add scheduled surgery to database and add to current appointment
                     SurgeryEvent surgeryEvent = new SurgeryEvent();
                     surgeryEvent.SetTimeRange(surgeryTimeRange);
-
-                    ScheduledSurgery scheduledSurgery = await surgeryRepository.AddSurgery(
-                            new ScheduledSurgery() { 
-                                SurgeryEvent = surgeryEvent,
-                                WorkingBlockId = bestBlock.Id,
-                            }
-                        );
+                    ScheduledSurgery scheduledSurgery = new ScheduledSurgery(surgeryEvent);
                     currentAppointment.ScheduledSurgery = scheduledSurgery;
                     currentAppointment.ScheduledSurgeryId = scheduledSurgery.Id;
 
@@ -143,7 +164,7 @@ namespace IntelliSurgery.Global
                     currentAppointment = await appointmentRepository.UpdateAppointment(currentAppointment);
 
                     //add scheduled surgery to working block
-                    bestBlock.AllocatedSurgeries.Add(currentAppointment.ScheduledSurgery);
+                    bestBlock.AllocatedSurgeries.Add(currentAppointment);
 
                     //update best working block
                     workingBlocks[bestBlockIndex] = bestBlock;
@@ -152,7 +173,7 @@ namespace IntelliSurgery.Global
             return workingBlocks;
         }
 
-        private TimeSpan GetFinalSurgeryDuration(Appointment appointment)
+        public TimeSpan GetFinalSurgeryDuration(Appointment appointment)
         {
             TimeSpan intitialTimeSpan = TimeSpan.Zero;
 
@@ -173,14 +194,11 @@ namespace IntelliSurgery.Global
             return intitialTimeSpan.Add(prepTime).Add(cleanTime);
         }
 
-        public Task<List<Appointment>> PrioritizeAppointments(List<Appointment> appointments)
+        public List<Appointment> PrioritizeAppointments(List<Appointment> appointments)
         {
-            //sort the appointments in the order of
-            //postponed first
-            //pending 
-            //
-
-            throw new NotImplementedException();
+            //sort the appointments in the order of priority, high first
+            appointments = appointments.OrderByDescending(a => a.PriorityLevel).ToList();
+            return appointments;
         }
 
         //public async Task<List<Appointment>> PrioritizeAppointments(List<Appointment> appointments)

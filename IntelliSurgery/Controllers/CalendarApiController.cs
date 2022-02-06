@@ -4,6 +4,7 @@ using IntelliSurgery.DbOperations.Theatres;
 using IntelliSurgery.DbOperations.WorkingBlocks;
 using IntelliSurgery.DTOs;
 using IntelliSurgery.Enums;
+using IntelliSurgery.Logic;
 using IntelliSurgery.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -19,14 +20,16 @@ namespace IntelliSurgery.Controllers
     {
         private readonly IAppointmentRepository appointmentRepository;
         private readonly IWorkingBlockRepository workingBlockRepository;
-        private readonly ISurgeryRepository surgeryRepository;
+        private readonly IAppointmentLogic appointmentLogic;
+        private readonly IWorkingBlockLogic workBlockLogic;
 
         public CalendarApiController(IAppointmentRepository appointmentRepository,IWorkingBlockRepository workingBlockRepository,
-            ISurgeryRepository surgeryRepository)
+            IAppointmentLogic appointmentLogic, IWorkingBlockLogic workBlockLogic)
         {
             this.appointmentRepository = appointmentRepository;
             this.workingBlockRepository = workingBlockRepository;
-            this.surgeryRepository = surgeryRepository;
+            this.appointmentLogic = appointmentLogic;
+            this.workBlockLogic = workBlockLogic;
         }
 
         [HttpGet]
@@ -104,22 +107,11 @@ namespace IntelliSurgery.Controllers
                 else if( (appointmentStatus == Status.Cancelled || appointmentStatus == Status.Postponed) 
                     && appointment.ScheduledSurgery != null )
                 {
-                    SurgeryEvent delSurgeryEvent = appointment.ScheduledSurgery.SurgeryEvent;
-                    ScheduledSurgery delScheduledSurgery = appointment.ScheduledSurgery;
+                    //restores the workblock time
+                    await workBlockLogic.RestoreWorkBlockTime(appointment);
 
-                    //update working block time
-                    int workingBlockId = (int)delScheduledSurgery.WorkingBlockId;
-                    WorkingBlock workingBlock = await workingBlockRepository.GetWorkBlock(w => w.Id == workingBlockId);
-                    workingBlock.RemainingTime = workingBlock.RemainingTime.Add(delSurgeryEvent.Duration);
-                    await workingBlockRepository.UpdateWorkingBlock(workingBlock);
-                    
-                    //delete scheduled surgery
-                    appointment.ScheduledSurgeryId = null;
-                    appointment.ScheduledSurgery = null;
-                    appointment.Theatre = null;
-                    await appointmentRepository.UpdateAppointment(appointment);
-                    await surgeryRepository.DeleteScheduleSurgery(delScheduledSurgery);
-                    await surgeryRepository.DeleteSurgeryEvent(delSurgeryEvent);
+                    //delete relevant appointment scheduled surgery and surgery event
+                    await appointmentLogic.DeleteScheduledSurgeryAsync(appointment);
                     
                 }else if(appointmentStatus == Status.Ongoing)
                 {

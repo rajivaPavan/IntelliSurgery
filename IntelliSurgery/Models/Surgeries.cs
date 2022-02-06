@@ -13,11 +13,16 @@ namespace IntelliSurgery.Models
 
     public class ScheduledSurgery : Surgery
     {
+        public ScheduledSurgery() { } //need empty constructor
+        public ScheduledSurgery(SurgeryEvent surgeryEvent)
+        {
+            SurgeryEvent = surgeryEvent;
+        }
+
         public SurgeryEvent SurgeryEvent { get; set; }
-        public int? WorkingBlockId { get; set; }
     }
 
-    
+
 
 
 }

@@ -29,7 +29,7 @@ namespace IntelliSurgery.Global
             int Complication = patientMedicalData.Complication;
             string Surgerytype = patientMedicalData.SurgeryType;
 
-            string DiseasesList = "";
+            string DiseasesList = "[";
             foreach (string s in patientMedicalData.Diseases)
             {
                 DiseasesList += s + ",";
@@ -45,7 +45,7 @@ namespace IntelliSurgery.Global
             // 1st arguments is pointer to itself
             myProcessStartInfo.Arguments = myPythonApp + " " + Age + " " + Gender + " " 
                                            + ASA + " " + BMI + " " + Complication + " " 
-                                           + Surgerytype + " "+ DiseasesList+" "+modelFilePath;
+                                           + Surgerytype+" " + modelFilePath+ " " + DiseasesList;
 
             Process myProcess = new Process();
             // assign start information to  the process 
@@ -69,10 +69,10 @@ namespace IntelliSurgery.Global
             myProcess.Close();
             Console.WriteLine(modelOutput);
 
-            //double predictedTimeDouble = double.Parse(modelOutput);
+            double predictedTimeDouble = double.Parse(modelOutput);
 
-            //TimeSpan predictedTime = TimeSpan.FromHours(predictedTimeDouble);
-            return TimeSpan.Zero;
+            TimeSpan predictedTime = TimeSpan.FromHours(predictedTimeDouble);
+            return predictedTime;
 
         }
 

@@ -31,7 +31,7 @@ namespace IntelliSurgery.Migrations
 
                     b.HasIndex("PatientsId");
 
-                    b.ToTable("DiseasePatient");
+                    b.ToTable("DiseasePatient", (string)null);
                 });
 
             modelBuilder.Entity("IntelliSurgery.Models.Appointment", b =>
@@ -115,7 +115,7 @@ namespace IntelliSurgery.Migrations
 
                     b.HasIndex("ScheduledSurgeryId", "TheatreTypeId");
 
-                    b.ToTable("Appointments");
+                    b.ToTable("Appointments", (string)null);
                 });
 
             modelBuilder.Entity("IntelliSurgery.Models.Disease", b =>
@@ -129,7 +129,7 @@ namespace IntelliSurgery.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Diseases");
+                    b.ToTable("Diseases", (string)null);
                 });
 
             modelBuilder.Entity("IntelliSurgery.Models.Patient", b =>
@@ -161,7 +161,7 @@ namespace IntelliSurgery.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Patients");
+                    b.ToTable("Patients", (string)null);
                 });
 
             modelBuilder.Entity("IntelliSurgery.Models.ScheduledSurgery", b =>
@@ -177,7 +177,7 @@ namespace IntelliSurgery.Migrations
 
                     b.HasIndex("SurgeryEventId");
 
-                    b.ToTable("ScheduledSurgeries");
+                    b.ToTable("ScheduledSurgeries", (string)null);
                 });
 
             modelBuilder.Entity("IntelliSurgery.Models.Speciality", b =>
@@ -191,7 +191,7 @@ namespace IntelliSurgery.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Specialities");
+                    b.ToTable("Specialities", (string)null);
                 });
 
             modelBuilder.Entity("IntelliSurgery.Models.Surgeon", b =>
@@ -210,7 +210,7 @@ namespace IntelliSurgery.Migrations
 
                     b.HasIndex("SpecialityId");
 
-                    b.ToTable("Surgeons");
+                    b.ToTable("Surgeons", (string)null);
                 });
 
             modelBuilder.Entity("IntelliSurgery.Models.SurgeryEvent", b =>
@@ -230,7 +230,7 @@ namespace IntelliSurgery.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SurgeryEvents");
+                    b.ToTable("SurgeryEvents", (string)null);
                 });
 
             modelBuilder.Entity("IntelliSurgery.Models.SurgeryType", b =>
@@ -244,7 +244,7 @@ namespace IntelliSurgery.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SurgeryTypes");
+                    b.ToTable("SurgeryTypes", (string)null);
                 });
 
             modelBuilder.Entity("IntelliSurgery.Models.Theatre", b =>
@@ -263,7 +263,7 @@ namespace IntelliSurgery.Migrations
 
                     b.HasIndex("TheatreTypeId");
 
-                    b.ToTable("Theatres");
+                    b.ToTable("Theatres", (string)null);
                 });
 
             modelBuilder.Entity("IntelliSurgery.Models.TheatreType", b =>
@@ -277,7 +277,7 @@ namespace IntelliSurgery.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TheatreTypes");
+                    b.ToTable("TheatreTypes", (string)null);
                 });
 
             modelBuilder.Entity("IntelliSurgery.Models.WorkingBlock", b =>
@@ -312,7 +312,7 @@ namespace IntelliSurgery.Migrations
 
                     b.HasIndex("SurgeonId", "Start");
 
-                    b.ToTable("WorkingBlocks");
+                    b.ToTable("WorkingBlocks", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -519,7 +519,7 @@ namespace IntelliSurgery.Migrations
 
                     b.HasIndex("SurgeryTypesConductedId");
 
-                    b.ToTable("SurgeryTypeTheatreType");
+                    b.ToTable("SurgeryTypeTheatreType", (string)null);
                 });
 
             modelBuilder.Entity("DiseasePatient", b =>

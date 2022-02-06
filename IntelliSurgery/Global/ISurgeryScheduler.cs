@@ -12,5 +12,6 @@ namespace IntelliSurgery.Global
             List<Appointment> appointments);
         List<Appointment> PrioritizeAppointments(List<Appointment> appointments);
         TimeSpan GetFinalSurgeryDuration(Appointment appointment);
+        Task<List<WorkingBlock>> SortSurgeriesWithinWorkingBlocks(List<WorkingBlock> workingBlocks);
     }
 }

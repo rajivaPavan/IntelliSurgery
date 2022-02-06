@@ -30,10 +30,6 @@ namespace IntelliSurgery.Logic
             appointment.ScheduledSurgeryId = null;
             appointment.ScheduledSurgery = null;
 
-            //set prev allocated theatre to null
-            appointment.Theatre = null;
-            appointment.TheatreId = null;
-
             //sever appointment from workblock
             appointment.WorkingBlock = null;
             appointment.WorkingBlockId = null;

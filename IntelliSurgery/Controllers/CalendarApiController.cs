@@ -108,7 +108,7 @@ namespace IntelliSurgery.Controllers
                     && appointment.ScheduledSurgery != null )
                 {
                     //restores the workblock time
-                    await workBlockLogic.RestoreWorkBlockTime(appointment);
+                    workBlockLogic.RestoreWorkBlockTime(appointment).Wait();
 
                     //delete relevant appointment scheduled surgery and surgery event
                     await appointmentLogic.DeleteScheduledSurgeryAsync(appointment);

@@ -20,7 +20,7 @@ namespace IntelliSurgery.Global
         private readonly IAppointmentLogic appointmentLogic;
         private readonly TimeSpan prepTime = new(0,5,0);
         private readonly TimeSpan cleanTime = new(0, 5, 0);
-        private readonly double waitDays = 4;
+        private readonly double waitDays = 1; //4
         private readonly double schedulingDays = 3;
 
         public SurgeryScheduler(IAppointmentRepository appointmentRepository, IWorkingBlockRepository workingBlockRepository,
@@ -42,38 +42,40 @@ namespace IntelliSurgery.Global
                                                                                                && w.Start.Date >= lowerBound
                                                                                                && w.End.Date <= upperBound);
 
-            //get postponed then pending, appointments of the surgeon and unconfirmed appointments in blocks
-            Status[] statuses = new Status[] { Status.Postponed, Status.Scheduled, Status.Pending };
+            List<Appointment> unconfirmedAppointments = await appointmentRepository.GetAppointments(a => a.SurgeonId == surgeon.Id
+                                                                                  && a.Status == Status.Scheduled);
+            foreach (Appointment appointment in unconfirmedAppointments)
+            {
+                workBlockLogic.RestoreWorkBlockTime(appointment).Wait();
+                await appointmentLogic.DeleteScheduledSurgeryAsync(appointment);
+                //reset the status to pending
+                appointment.Status = Status.Pending;
+            }
+
+            await appointmentRepository.UpdateAppointments(unconfirmedAppointments);
+
+            //get postponed then pending, appointments of the surgeon 
+            Status[] statuses = new Status[] { Status.Postponed, Status.Pending };
             foreach(Status status in statuses)
             {
 
                 List<Appointment> appointments = await appointmentRepository.GetAppointments(a => a.SurgeonId == surgeon.Id
                                                                                   && a.Status == status);
-
-                if(status == Status.Scheduled)
+                if(appointments.Count != 0)
                 {
-                    appointments.ForEach(async appointment => {
-                        await workBlockLogic.RestoreWorkBlockTime(appointment);
-                        await appointmentLogic.DeleteScheduledSurgeryAsync(appointment);
-                        //reset the status to pending
-                        appointment.Status = Status.Pending;
-                    });
-                    appointments = await appointmentRepository.UpdateAppointments(appointments);
+                    appointments = PrioritizeAppointments(appointments);
+
+                    //allocate time for surgeries within the time blocks
+                    workingBlocks = await AllocateSurgeriesToBlocks(workingBlocks, appointments);
+
+                    //sort the surgeries within each workingblock
+                    workingBlocks = await SortSurgeriesWithinWorkingBlocks(workingBlocks);
+
+                    //update blocks in the database
+                    await workingBlockRepository.UpdateWorkingBlocks(workingBlocks);
                 }
-
-                //allocate time for surgeries within the time blocks
-                workingBlocks = await AllocateSurgeriesToBlocks(workingBlocks, appointments);
-
-                //update blocks in the database
-                await workingBlockRepository.UpdateWorkingBlocks(workingBlocks);
+                
             }
-        }
-
-        private float CalculateAverage(IEnumerable<TimeSpan> timeSpans)
-        {
-            IEnumerable<long> ticksPerTimeSpan = timeSpans.Select(t => t.Ticks);
-            double averageTicks = ticksPerTimeSpan.Average();
-            return (float)averageTicks;
         }
 
         public async Task<List<WorkingBlock>> AllocateSurgeriesToBlocks(List<WorkingBlock> workingBlocks, 
@@ -97,7 +99,7 @@ namespace IntelliSurgery.Global
                 int bestBlockIndex = -1;
                 WorkingBlock bestBlock = null;
 
-                currentAppointment = appointments.ElementAt(i);
+                currentAppointment = appointments[i];
 
                 finalSurgeryDuration = GetFinalSurgeryDuration(currentAppointment);
                 if (finalSurgeryDuration == TimeSpan.Zero)
@@ -161,7 +163,7 @@ namespace IntelliSurgery.Global
                     currentAppointment.TheatreId = bestBlock.TheatreId;
 
                     //update appointmentRepo
-                    currentAppointment = await appointmentRepository.UpdateAppointment(currentAppointment);
+                    //currentAppointment = await appointmentRepository.UpdateAppointment(currentAppointment);
 
                     //add scheduled surgery to working block
                     bestBlock.AllocatedSurgeries.Add(currentAppointment);
@@ -170,6 +172,52 @@ namespace IntelliSurgery.Global
                     workingBlocks[bestBlockIndex] = bestBlock;
                 }
             }
+            return workingBlocks;
+        }
+
+        public async Task<List<WorkingBlock>> SortSurgeriesWithinWorkingBlocks(List<WorkingBlock> workingBlocks)
+        {
+            foreach(WorkingBlock workingBlock in workingBlocks)
+            {
+                List<Appointment> appointments = workingBlock.AllocatedSurgeries;
+                appointments = appointments.OrderBy(a => a.ScheduledSurgery.SurgeryEvent.Duration).ToList();
+
+                DateTime blockStart = workingBlock.Start;
+                DateTime blockEnd = workingBlock.End;
+                TimeSpan remainingTime = workingBlock.RemainingTime;
+
+                int appointmentCount = appointments.Count;
+                int numberOfGaps = appointmentCount - 1;
+                TimeSpan gapTime = remainingTime.Divide(numberOfGaps);
+
+                for (int i = 0; i < appointmentCount; i++)
+                {
+                    Appointment currentAppointment = appointments[i];
+                    TimeSpan duration = currentAppointment.ScheduledSurgery.SurgeryEvent.Duration;
+                    
+                    if ((i+1) % 2 != 0)
+                    {
+                        TimeRange timeRange = new TimeRange(blockStart,duration);
+                        DateTime end = timeRange.End;
+                        blockStart = end.Add(gapTime);
+                        currentAppointment.ScheduledSurgery.SurgeryEvent.SetTimeRange(timeRange);
+
+                    }
+                    else
+                    {
+                        DateTime start = blockEnd.Subtract(duration);
+                        TimeRange timeRange = new TimeRange(start,duration);
+                        blockEnd = start.Subtract(gapTime);
+                        currentAppointment.ScheduledSurgery.SurgeryEvent.SetTimeRange(timeRange);
+
+                    }
+
+                    appointments[i] = currentAppointment;
+                }
+
+                await appointmentRepository.UpdateAppointments(appointments);
+            }
+
             return workingBlocks;
         }
 
@@ -200,31 +248,5 @@ namespace IntelliSurgery.Global
             appointments = appointments.OrderByDescending(a => a.PriorityLevel).ToList();
             return appointments;
         }
-
-        //public async Task<List<Appointment>> PrioritizeAppointments(List<Appointment> appointments)
-        //{
-        //    //foreach (int level in Enum.GetValues(typeof(PriorityLevel)))
-        //    //{
-        //    //    appointments = await appointments.GetAppointments(
-        //    //        AppointmentQueryLogic.ByPriorityLevel((PriorityLevel)level));
-
-        //    //    List<TimeSpan> timeSpans = appointments.Select(a => a.SystemPredictedDuration).ToList();
-        //    //    float avgTime = CalculateAverage(timeSpans);
-
-        //    //    foreach(Appointment appointment in appointments)
-        //    //    {
-        //    //        appointment.Priority = (float)appointment.PriorityLevel + appointment.SystemPredictedDuration.Ticks/avgTime;
-        //    //    }
-
-        //    //    appointments = await appointmentRepository.UpdateAppointments(appointments);
-        //    //}
-
-        //    return appointments;
-        //}
-
-
-
     }
-
 }
-

@@ -38,6 +38,11 @@ namespace IntelliSurgery.Controllers
             if (filter == "theatres")
             {
                 scheduledAppointments = await appointmentRepository.GetAppointments(a => a.ScheduledSurgeryId != null && a.TheatreId == filterValue);
+                List<WorkingBlock> workingBlocks = await workingBlockRepository.GetWorkBlocks(w => w.TheatreId == filterValue);
+                foreach (WorkingBlock workingBlock in workingBlocks)
+                {
+                    fullCalendarEvents.Add(new AppointmentCalendarEvent(workingBlock));
+                }
             }
             else if (filter == "surgeons")
             {

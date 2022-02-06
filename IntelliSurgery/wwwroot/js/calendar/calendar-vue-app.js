@@ -121,14 +121,24 @@ calendarApp = Vue.createApp({
             var events = getCalendarEvents(selectedFilter, selectedFilterValue);
             if (events == null) {
                 events = await getScheduledSurgeriesRequest(selectedFilter, selectedFilterValue);
-                //
-                //update events in calendars object
-                //
+                this.updateCalendarEvents(events, selectedFilter, selectedFilterValue);
             }
             $("#appointments-table").hide();
             $("#calendar").show();
             $("#appointment-box").hide();
             initCalendar(events);
+        },
+        updateCalendarEvents(events, searchFilter, searchFilterValue) {
+            var calendars = this.calendars;
+            var entities = calendars[searchFilter];
+            for(var i = 0; i<entities.length; i++) {
+            if (entities[i].id == searchFilterValue) {
+                    entities[i].events = events;
+                    break;
+                }
+            }
+            calendars[searchFilter] = entities;
+            this.calendars = calendars;
         },
         async setStatusTo(newStatus) {
 
@@ -153,7 +163,7 @@ calendarApp = Vue.createApp({
                     calendarEvent.id = calendarEventId;
 
                     //update all calendars in different filters
-                    this.calendars = updateEventInAllCalendars(this.calendars, calendarEvent);
+                    await updateEventInAllCalendars(calendarEvent);
 
                     //get filters of the current calendar that has been loaded
                     var selectedFilter = "surgeons";
@@ -213,35 +223,57 @@ function getCalendarEvents(searchFilter, searchFilterValue) {
     return events;
 }
 
+
+
 function hideAppointmentDetails() {
     $("#appointment-box").hide();
     this.selectedEvent = null;
 }
 
-function updateEventInAllCalendars(calendars, eventDTO) {
-    var events = [];
+async function updateEventInAllCalendars(eventDTO) {
+
+    var selectedFilter = "";
+    var selectedFilterValue = 0;
+    var events;
+
     //surgeons
-    const SURGEONS = "surgeons";
-    events = getCalendarEvents(SURGEONS, eventDTO.surgeon.id);
-    events = updateCalendarEventsArray(events, eventDTO);
-    calendars[SURGEONS] = surgeonEvents;
+    selectedFilter = "surgeons";
+    selectedFilterValue = eventDTO.extendedProps.surgeon.id;
+    events = await updateEventInRelevantCalendarAsync(eventDTO, selectedFilter, selectedFilterValue);
+    calendarVueApp.updateCalendarEvents(events, selectedFilter, selectedFilterValue);
 
     //surgeryTypes
-    const SURGERY_TYPES = "surgeryTypes";
-    events = getCalendarEvents(SURGERY_TYPES, eventDTO.surgeryType.id);
-    calendars[SURGERY_TYPES] = updateCalendarEventsArray(events, eventDTO);
+    selectedFilter = "surgeryTypes"
+    selectedFilterValue = eventDTO.extendedProps.surgeryType.id;
+    events = await updateEventInRelevantCalendarAsync(eventDTO, selectedFilter, selectedFilterValue);
+    calendarVueApp.updateCalendarEvents(events, selectedFilter, selectedFilterValue);
+
 
     //theatreTypes
-    const THEATRE_TYPES = "theatreTypes";
-    events = getCalendarEvents(THEATRE_TYPES, eventDTO.theatreType.id);
-    calendars[THEATRE_TYPES] = updateCalendarEventsArray(events, eventDTO);
+    selectedFilter = "theatreTypes";
+    selectedFilterValue = eventDTO.extendedProps.theatreType.id;
+    events = await updateEventInRelevantCalendarAsync(eventDTO, selectedFilter, selectedFilterValue);
+    calendarVueApp.updateCalendarEvents(events, selectedFilter, selectedFilterValue);
+
 
     //theatres
-    const THEATRES = "theatres";
-    events = getCalendarEvents(THEATRES, eventDTO.theatre.id);
-    calendars[THEATRES] = updateCalendarEventsArray(events, eventDTO);
+    selectedFilter = "theatres";
+    selectedFilterValue = eventDTO.extendedProps.theatre.id;
+    events = await updateEventInRelevantCalendarAsync(eventDTO, selectedFilter, selectedFilterValue);
+    calendarVueApp.updateCalendarEvents(events, selectedFilter, selectedFilterValue);
 
-    return calendars;
+    return;
+}
+
+async function updateEventInRelevantCalendarAsync(event, selectedFilter, selectedFilterValue) {
+    var events = []
+    events = getCalendarEvents(selectedFilter, selectedFilterValue);
+    if (events == null) {
+        events = await getScheduledSurgeriesRequest(selectedFilter, selectedFilterValue);
+    } else {
+        events = updateEventInEventsArray(events, event);
+    }
+    return events;
 }
 
 function updateTableData(tableData, record) {
@@ -259,10 +291,15 @@ function updateArrayByElementId(arr, element) {
     return arr;
 }
 
-function updateCalendarEventsArray(arr, event) {
+function updateEventInEventsArray(arr, event) {
     for (var i = 0; i < arr.length; i++) {
         if (arr[i].id == event.id) {
             arr[i].extendedProps = event.extendedProps;
+            var stval = event.extendedProps.statusValue;
+            if ( stval == CANCELLED || stval == POSTPONED) {
+                arr[i].display = 'background';
+                arr[i].backgroundColor = arr[i].color;
+            }
             break;
         }
     }

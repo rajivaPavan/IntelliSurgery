@@ -23,6 +23,7 @@ function initCalendar(calendarEvents) {
 
         },
         eventTextColor: "#000",
+        eventBackgroundColor: "#5bd2e5",
         headerToolbar: {
             left: 'prev,next today',
             center: 'title',

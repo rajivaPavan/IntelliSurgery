@@ -15,7 +15,7 @@ namespace IntelliSurgery.DTOs
         public FullCalendarEvent(WorkingBlock workingBlock)
         {
             Id = workingBlock.Id.ToString();
-            Title = workingBlock.Theatre.Name;
+            Title = workingBlock.Surgeon.Name +" : "+workingBlock.Theatre.Name;
             Start = workingBlock.Start;
             End = workingBlock.End;
             Display = "auto";
@@ -55,7 +55,7 @@ namespace IntelliSurgery.DTOs
         private static string GetPriorityColor(PriorityLevel priorityLevel)
         {
             string highColor = "#ff8f8f";
-            string lowColor = "#94ff8f";
+            string lowColor = "#55c860";
             string mediumColor = "#ffe18f";
             string color;
             if (priorityLevel == PriorityLevel.Low)

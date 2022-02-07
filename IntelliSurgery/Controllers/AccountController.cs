@@ -43,7 +43,7 @@ namespace ENA_CLIENT_WEB_APP.Controllers
                 // Copy data from RegisterViewModel to IdentityUser
                 var user = new IdentityUser
                 {
-                    UserName = model.Email,
+                    UserName = model.Username,
                     Email = model.Email
                 };
 
@@ -55,7 +55,7 @@ namespace ENA_CLIENT_WEB_APP.Controllers
                 if (result.Succeeded)
                 {
                     await signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("index", "appointment");
+                    return RedirectToAction("index", "admin");
                 }
 
                 // If there are any errors, add them to the ModelState object
@@ -112,13 +112,13 @@ namespace ENA_CLIENT_WEB_APP.Controllers
                 {
                     ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
                 }
+                return RedirectToAction("index", "appointment");
 
             }
-            return RedirectToAction("index", "appointment");
-            //return View(model);
+            return View(model);
         }
 
-
+       
 
     }
 }

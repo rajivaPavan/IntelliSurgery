@@ -54,6 +54,14 @@ namespace IntelliSurgery
 
             services.AddScoped<ISurgeryScheduler, SurgeryScheduler>();
 
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequiredLength = 3;
+                options.Password.RequiredUniqueChars = 0;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
+            });
+
             services.AddMvc();
 
         }

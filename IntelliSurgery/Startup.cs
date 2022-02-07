@@ -10,6 +10,7 @@ using System;
 using IntelliSurgery.DbOperations.Theatres;
 using IntelliSurgery.DbOperations.WorkingBlocks;
 using Microsoft.AspNetCore.Identity;
+using IntelliSurgery.Logic;
 
 namespace IntelliSurgery
 {
@@ -51,8 +52,10 @@ namespace IntelliSurgery
             services.AddScoped<IWorkingBlockRepository, WorkingBlockRepository>();
             services.AddScoped<ISpecialityRepository, SpecialityRepository>();
 
-
+            //add logic
             services.AddScoped<ISurgeryScheduler, SurgeryScheduler>();
+            services.AddScoped<IWorkingBlockLogic, WorkingBlockLogic>();
+            services.AddScoped<IAppointmentLogic, AppointmentLogic>();
 
             services.Configure<IdentityOptions>(options =>
             {

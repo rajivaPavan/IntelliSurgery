@@ -10,10 +10,14 @@
         <div class="col-lg-2" id="logo">
         </div>
         <div class="col-lg-5">
-            <div class="form_class border border-dark">
+            <div class="form_class my-1 border border-dark">
+                <div style="height: 10vh;">
                 <h1> Patient </h1>
-
+                </div>
+                <div style="height: 8vh">
                 <div class="legend"><span class="number bg-info">1</span> Validate Patient </div>
+                </div>
+                <div style="height: 13vh">
                 <div class="row">
                     <div class="col-2 pr-0 my-auto">
                         <label for="patient_id" class="mr-sm-2">Patient ID:</label>
@@ -27,14 +31,19 @@
                         <button class="btn btn-info h-100" id="validate-patient-btn">Validate Patient</button>
                     </div>
                 </div>
-                <h6 id="idCheck" class="myerror"></h6>
+                </div>
 
+                <h6 id="idCheck" class="myerror"></h6>
+                <div style="height: 40vh">
+                <div style="height: 9vh">
                 <div class="col-12 legend">
                     <div class="row"><span class="number bg-info">2</span> Patient's Details
                         <span class="ml-auto"><i onclick="clearAllPatientFields()" class="fas fa-eraser"></i>
                         </span>
                     </div>
                 </div>
+                </div>
+                
                 <div class="">
                     <div class="mb-2 row scrollbar scrollbar-info" style="height:33vh;">
                         <div class="col-md-12">
@@ -175,20 +184,26 @@
                         </div>
                     </div>
                 </div>
+                <div style="height: 10vh">
                 <button id="add-patient-btn" class="btn btn-info mb-0 mb-1" type="submit">Add Patient</button>
                 <button id="update-patient-btn" class="btn btn-primary mb-0" type="submit" style="display:none;">Update Patient</button>
-
+                </div>
+            </div>
             </div>
         </div>
         <div class="col-lg-5">
-            <div class="form_class border border-dark shadow">
+            <div class="form_class my-1 border border-dark shadow">
+                <div style="height: 85vh;">
+                <div style="height: 10vh">
                 <h1> Appointment </h1>
-
-                <div class="col-12 legend">
-                    <div class="row"><span class="number bg-info">3</span> Surgery Requirements
+                </div>
+                <div style="height: 9vh">
+                <div class="col-12">
+                    <div class="row legend"><span class="number bg-info">3</span> Surgery Requirements
                         <span class="ml-auto"><i onclick="clearAllAppointmentFields()" class="fas fa-eraser"></i>
                         </span>
                     </div>
+                </div>
                 </div>
                   <div class="">
                     <div class="mb-2 row scrollbar scrollbar-info" style="height:54vh;">
@@ -239,19 +254,19 @@
                         <div class="col-md-12 mb-2">
                             <label>Importance:</label>
                             <div class="col-12">
-                                <div class="form-check col-2">
+                                <div class="form-check col-2 mb-2">
                                     <input class="form-check-input priority" type="radio" value="2" id="importance_high" name="importance">
                                     <label class="form-check-label" for="importance_high">
                         High
                     </label>
                                 </div>
-                                <div class="form-check col-2">
+                                <div class="form-check col-2 mb-2">
                                     <input class="form-check-input priority" type="radio" value="1" id="importance_medium" name="importance">
                                     <label class="form-check-label" for="importance_medium">
                         Medium
                     </label>
                                 </div>
-                                <div class="form-check col-2">
+                                <div class="form-check col-2 mb-2">
                                     <input class="form-check-input priority" type="radio" value="0" id="importance_low" name="importance">
                                     <label class="form-check-label" for="importance_low">
                             Low
@@ -263,10 +278,11 @@
                         </div>
                     </div>
                      </div>
+                     <div style="height: 12vh;">
                     <button id="add-appointment-btn" class="btn btn-info mb-0" type="submit">Add Appointment</button>
-
+                    </div>
                
-
+                </div>
             </div>
         </div>
     </div>

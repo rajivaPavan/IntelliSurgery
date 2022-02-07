@@ -18,7 +18,7 @@
 </head>
 <body>
     
-        <nav class="pl-2 navbar navbar-expand-md navbar-light border-bottom bg-info">
+        <nav class="pl-2 navbar navbar-expand-md navbar-light  bg-info bg-gradient" style="height: 9vh;">
             <a href='#' class="navbar-brand">IntelliSurgery</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" >
                  <span class="navbar-toggler-icon"></span>
@@ -26,7 +26,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a asp-controller="Appointment" asp-action="Index" class="nav-link"  >
+                    <a asp-controller="Admin" asp-action="Index" class="nav-link">
+                        Admin
+                        <span class="p-1"><i class="fas fa-user-shield fa-fw"></i></span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Appointment" asp-action="Index" class="nav-link">
                         Add Appointment 
                         <span class="p-1"><i class="fas fa-user-plus fa-fw"></i></span>
                         </a>
@@ -37,12 +43,7 @@
                         <span class="p-1"><i class="far fa-calendar-alt fa-fw"></i></span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a asp-controller="Admin" asp-action="Index" class="nav-link" >
-                        Admin
-                        <span class="p-1"><i class="fas fa-user-shield fa-fw"></i></span>
-                    </a>
-                </li>
+                
                 <li class="nav-item">
                     <a asp-controller="Account" asp-action="Logout" class="nav-link" >
                         Logout

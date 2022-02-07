@@ -4,6 +4,7 @@ using IntelliSurgery.DbOperations.Theatres;
 using IntelliSurgery.DbOperations.WorkingBlocks;
 using IntelliSurgery.DTOs;
 using IntelliSurgery.Enums;
+using IntelliSurgery.Logic;
 using IntelliSurgery.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -19,14 +20,16 @@ namespace IntelliSurgery.Controllers
     {
         private readonly IAppointmentRepository appointmentRepository;
         private readonly IWorkingBlockRepository workingBlockRepository;
-        private readonly ISurgeryRepository surgeryRepository;
+        private readonly IAppointmentLogic appointmentLogic;
+        private readonly IWorkingBlockLogic workBlockLogic;
 
         public CalendarApiController(IAppointmentRepository appointmentRepository,IWorkingBlockRepository workingBlockRepository,
-            ISurgeryRepository surgeryRepository)
+            IAppointmentLogic appointmentLogic, IWorkingBlockLogic workBlockLogic)
         {
             this.appointmentRepository = appointmentRepository;
             this.workingBlockRepository = workingBlockRepository;
-            this.surgeryRepository = surgeryRepository;
+            this.appointmentLogic = appointmentLogic;
+            this.workBlockLogic = workBlockLogic;
         }
 
         [HttpGet]
@@ -38,6 +41,11 @@ namespace IntelliSurgery.Controllers
             if (filter == "theatres")
             {
                 scheduledAppointments = await appointmentRepository.GetAppointments(a => a.ScheduledSurgeryId != null && a.TheatreId == filterValue);
+                List<WorkingBlock> workingBlocks = await workingBlockRepository.GetWorkBlocks(w => w.TheatreId == filterValue);
+                foreach (WorkingBlock workingBlock in workingBlocks)
+                {
+                    fullCalendarEvents.Add(new AppointmentCalendarEvent(workingBlock));
+                }
             }
             else if (filter == "surgeons")
             {
@@ -99,35 +107,25 @@ namespace IntelliSurgery.Controllers
                 else if( (appointmentStatus == Status.Cancelled || appointmentStatus == Status.Postponed) 
                     && appointment.ScheduledSurgery != null )
                 {
-                    SurgeryEvent delSurgeryEvent = appointment.ScheduledSurgery.SurgeryEvent;
-                    ScheduledSurgery delScheduledSurgery = appointment.ScheduledSurgery;
+                    //restores the workblock time
+                    workBlockLogic.RestoreWorkBlockTime(appointment).Wait();
 
-                    //update working block time
-                    int workingBlockId = (int)delScheduledSurgery.WorkingBlockId;
-                    WorkingBlock workingBlock = await workingBlockRepository.GetWorkBlock(w => w.Id == workingBlockId);
-                    workingBlock.RemainingTime = workingBlock.RemainingTime.Add(delSurgeryEvent.Duration);
-                    await workingBlockRepository.UpdateWorkingBlock(workingBlock);
-                    
-                    //delete scheduled surgery
-                    appointment.ScheduledSurgeryId = null;
-                    appointment.ScheduledSurgery = null;
-                    await appointmentRepository.UpdateAppointment(appointment);
-                    await surgeryRepository.DeleteScheduleSurgery(delScheduledSurgery);
-                    await surgeryRepository.DeleteSurgeryEvent(delSurgeryEvent);
+                    //delete relevant appointment scheduled surgery and surgery event
+                    await appointmentLogic.DeleteScheduledSurgeryAsync(appointment);
                     
                 }else if(appointmentStatus == Status.Ongoing)
                 {
                     DateTime now = DateTime.Now;
-                    if (!(appointment.ScheduledSurgery.SurgeryEvent.Start < now
-                        && now < appointment.ScheduledSurgery.SurgeryEvent.End))
+                    if (!(appointment.ScheduledSurgery.SurgeryEvent.Start <= now
+                        && now <= appointment.ScheduledSurgery.SurgeryEvent.End))
                     {
                         isChangeStatus = false;
                         errorMessage = "Surgery status cannot be set to ongoing";
                     }
                 }
-                else if(appointment.Status == Status.Completed)
+                else if(appointmentStatus == Status.Completed)
                 {
-                    if(appointment.ScheduledSurgery.SurgeryEvent.End < DateTime.Now)
+                    if(appointment.ScheduledSurgery.SurgeryEvent.End > DateTime.Now)
                     {
                         isChangeStatus = false;
                         errorMessage = "Surgery status cannot be set to completed";

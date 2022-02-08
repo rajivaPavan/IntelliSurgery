@@ -1,13 +1,22 @@
-﻿using IntelliSurgery.Models;
+﻿using IntelliSurgery.DbOperations.WorkingBlocks;
+using IntelliSurgery.Models;
 using Itenso.TimePeriod;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace IntelliSurgery.Logic
 {
-    public static class WorkingBlockLogic
+    public class WorkingBlockLogic : IWorkingBlockLogic
     {
-        public static bool CheckIfBlockOverlaps(TimeRange timeRange, List<WorkingBlock> checkBlocks)
+        private readonly IWorkingBlockRepository workingBlockRepository;
+
+        public WorkingBlockLogic(IWorkingBlockRepository workingBlockRepository)
+        {
+            this.workingBlockRepository = workingBlockRepository;
+        }
+
+        public bool CheckIfBlockOverlaps(TimeRange timeRange, List<WorkingBlock> checkBlocks)
         {
             bool isOverlaps = false;
             foreach (var block in checkBlocks)
@@ -21,9 +30,28 @@ namespace IntelliSurgery.Logic
             return isOverlaps;
         }
 
-        public static bool IsBlockDeletable(WorkingBlock workingBlock)
+        public bool IsBlockDeletable(WorkingBlock workingBlock)
         {
             return workingBlock.AllocatedSurgeries != null || workingBlock.AllocatedSurgeries.Count != 0;
         }
+
+        public async Task RestoreWorkBlockTime(Appointment appointment)
+        {
+            SurgeryEvent delSurgeryEvent = appointment.ScheduledSurgery.SurgeryEvent;
+            ScheduledSurgery delScheduledSurgery = appointment.ScheduledSurgery;
+
+            //update working block time
+            int workingBlockId = (int)appointment.WorkingBlockId;
+            WorkingBlock workingBlock = await workingBlockRepository.GetWorkBlock(w => w.Id == workingBlockId);
+            workingBlock.RemainingTime = workingBlock.RemainingTime.Add(delSurgeryEvent.Duration);
+            await workingBlockRepository.UpdateWorkingBlock(workingBlock);
+        }
+    }
+
+    public interface IWorkingBlockLogic
+    {
+        bool IsBlockDeletable(WorkingBlock workingBlock);
+        bool CheckIfBlockOverlaps(TimeRange timeRange, List<WorkingBlock> checkBlocks);
+        Task RestoreWorkBlockTime(Appointment appointment);
     }
 }

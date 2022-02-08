@@ -27,5 +27,7 @@ namespace IntelliSurgery.Models
         public DateTime DateAdded { get; set; }
         public int? ScheduledSurgeryId { get; set; }
         public ScheduledSurgery ScheduledSurgery { get; set; }
+        public int? WorkingBlockId { get; set; }
+        public WorkingBlock WorkingBlock { get; set; }
     }
 }

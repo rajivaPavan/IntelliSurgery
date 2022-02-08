@@ -15,7 +15,7 @@ namespace IntelliSurgery.Models
         public int TheatreId { get; set; }
         public Theatre Theatre { get; set; }
         public TimeSpan RemainingTime { get; set; }
-        public List<ScheduledSurgery> AllocatedSurgeries { get; set; }
+        public List<Appointment> AllocatedSurgeries { get; set; }
 
         public WorkingBlock()
         {

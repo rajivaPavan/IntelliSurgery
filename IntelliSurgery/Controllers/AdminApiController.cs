@@ -50,7 +50,8 @@ namespace IntelliSurgery.Controllers
                 SurgeryTypes = await surgeryTypeRepository.GetAllSurgeryTypes(),
                 TheatreTypes = await theatreRepository.GetAllTheatreTypes(),
                 Theatres = theatreDTOs,
-                Surgeons = surgeonDTOs
+                Surgeons = surgeonDTOs,
+                SurgeryTypeTheatres = new List<SurgeryTypeTheatresDTO>()
             };
             return Json(new { success = true, data = hospitalData });
         }

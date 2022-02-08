@@ -19,13 +19,15 @@ namespace IntelliSurgery.Controllers
         private readonly IWorkingBlockRepository workingBlockRepository;
         private readonly ISurgeonRepository surgeonRepository;
         private readonly ITheatreRepository theatreRepository;
+        private readonly IWorkingBlockLogic workBlockLogic;
 
         public StaffApiController(IWorkingBlockRepository workingBlockRepository, ISurgeonRepository surgeonRepository,
-            ITheatreRepository theatreRepository)
+            ITheatreRepository theatreRepository, IWorkingBlockLogic workBlockLogic)
         {
             this.workingBlockRepository = workingBlockRepository;
             this.surgeonRepository = surgeonRepository;
             this.theatreRepository = theatreRepository;
+            this.workBlockLogic = workBlockLogic;
         }
 
         [HttpPost]
@@ -50,7 +52,7 @@ namespace IntelliSurgery.Controllers
             
             WorkingBlock workingBlock = new WorkingBlock(surgeon, theatre, timeRange);
             workingBlock = await workingBlockRepository.AddWorkingBlock(workingBlock);
-
+            workingBlock.AllocatedSurgeries = null;//to prevent Json ReferenceLoopHandling.Error 
             SurgeonCalendarEvent surgeonCalendarEvent = new SurgeonCalendarEvent(workingBlock);
 
             return Json(new { success = true, data= surgeonCalendarEvent });
@@ -64,6 +66,7 @@ namespace IntelliSurgery.Controllers
             List<SurgeonCalendarEvent> events = new List<SurgeonCalendarEvent>();
             foreach (WorkingBlock workingBlock in workingBlocks)
             {
+                workingBlock.AllocatedSurgeries = null;//to prevent Json ReferenceLoopHandling.Error 
                 events.Add(new SurgeonCalendarEvent(workingBlock));
             }
 
@@ -80,7 +83,7 @@ namespace IntelliSurgery.Controllers
         {
             WorkingBlock workingBlock = await workingBlockRepository.GetWorkBlock(w => w.Id == workingBlockId);
 
-            if(WorkingBlockLogic.IsBlockDeletable(workingBlock))
+            if(workBlockLogic.IsBlockDeletable(workingBlock))
             {
                 await workingBlockRepository.DeleteWorkBlock(workingBlock);
                 return Json(new { success = true });
@@ -101,7 +104,7 @@ namespace IntelliSurgery.Controllers
                             w => w.TheatreId == theatreId &&
                             (w.Start.Date == timeRange.Start.Date || w.End.Date == timeRange.End.Date));
 
-                isOvelaps = WorkingBlockLogic.CheckIfBlockOverlaps(timeRange, checkBlocks);
+                isOvelaps = workBlockLogic.CheckIfBlockOverlaps(timeRange, checkBlocks);
             }
             else if (!isOvelaps)
             {
@@ -109,7 +112,7 @@ namespace IntelliSurgery.Controllers
                 checkBlocks = await workingBlockRepository.GetWorkBlocks(
                                w => w.SurgeonId == surgeonId &&
                                (w.Start.Date == timeRange.Start.Date || w.End.Date == timeRange.End.Date));
-                isOvelaps = WorkingBlockLogic.CheckIfBlockOverlaps(timeRange, checkBlocks);
+                isOvelaps = workBlockLogic.CheckIfBlockOverlaps(timeRange, checkBlocks);
             }
             return isOvelaps;
         }

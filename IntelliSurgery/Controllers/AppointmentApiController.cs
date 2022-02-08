@@ -145,7 +145,7 @@ namespace IntelliSurgery.Controllers
             appointment.SystemPredictedDuration = predictedTime;
 
             //save appointment in database
-            appointment = await appointmentRepository.CreateAppointment(appointment);
+            appointment = await appointmentRepository.AddAppointment(appointment);
 
             //return predicted Time
             return Json(new { success = true, data = appointment.SystemPredictedDuration, appointmentId = appointment.Id }) ;

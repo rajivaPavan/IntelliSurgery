@@ -13,10 +13,6 @@ function getNewSurgeon() {
     surgeonInput.push(theatre);
 }
 
-function clearNewSurgeonField() {
-    $('#surgeon').val("");
-    $("#surgeonlist").val(-1);
-}
 
 function showNewSurgeonDetails() {
     var message = $('#surgeon').val();

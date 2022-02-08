@@ -1,7 +1,15 @@
 ﻿calendarApp = Vue.createApp({
     data() {
         return {
-            prevData: {},
+            prevData: {
+                specialities: [],
+                surgeons: [],
+                surgeryTypes: [],
+                theatreTypes: [],
+                theatres: [],
+                surgeryTypeTheatres: [],
+                surgeonSchedules: [],
+            },
             hospitalData: {
                 specialities: [],
                 surgeons: [],
@@ -157,18 +165,21 @@
             var res = await saveSpecialitiesRequest(data);
             if (res != null) {
                 this.hospitalData.specialities = [];
-                this.prevData.specialities.concat(res);
+                this.prevData.specialities = this.prevData.specialities.concat(res);
             }
         },
 
         //surgeon
         surgeonAddClick() {
             var newSurgeon = $('#surgeon').val();
-            var specialityId = $("#specialityList :selected").val();
+            var specialityId = $("#surgeon_speciality :selected").val();
             if (newSurgeon != "" && specialityId != -1) {
                 var surgeon = {
                     name: newSurgeon,
-                    surgeonTypeId: specialityId
+                    surgeonTypeId: specialityId,
+                    speciality: {
+                        name: $("#surgeon_speciality :selected").text()
+                    }
                 };
                 this.hospitalData.surgeons.push(surgeon);
                 clearNewSurgeonField();
@@ -189,7 +200,7 @@
             var res = await saveSurgeonsRequest(data);
             if (res != null) {
                 this.hospitalData.surgeons = [];
-                this.prevData.surgeons.concat(res);
+                this.prevData.surgeons = this.prevData.surgeons.concat(res);
             }
         },
 
@@ -219,7 +230,7 @@
             var res = await saveSurgeryTypesRequest(data);
             if (res != null) {
                 this.hospitalData.surgeryTypes = [];
-                this.prevData.surgeryTypes.concat(res);
+                this.prevData.surgeryTypes = this.prevData.surgeryTypes.concat(res);
             }
         },
 
@@ -249,7 +260,7 @@
             var res = await saveTheatreTypesRequest(data);
             if (res != null) {
                 this.hospitalData.theatreTypes = [];
-                this.prevData.theatreTypes.concat(res);
+                this.prevData.theatreTypes = this.prevData.theatreTypes.concat(res);
             }
         },
 
@@ -282,7 +293,7 @@
             var res = await saveTheatresRequest(data);
             if (res != null) {
                 this.hospitalData.theatres = [];
-                this.prevData.theatres.concat(res);
+                this.prevData.theatres = this.prevData.theatres.concat(res);
             }
         },
 
@@ -409,6 +420,11 @@ function clearNewSurgeryField() {
 function clearNewSpecialityField() {
     $('#speciality').val("");
 }
+function clearNewSurgeonField() {
+    $('#surgeon').val("");
+    $("#surgeonlist").val(-1);
+}
+
 
 
 $(document).ready(async () => {

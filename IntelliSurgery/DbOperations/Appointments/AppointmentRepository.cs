@@ -26,11 +26,18 @@ namespace IntelliSurgery.DbOperations
                                              .Include(a => a.Patient);
         }
 
-        public async Task<Appointment> CreateAppointment(Appointment appointment)
+        public async Task<Appointment> AddAppointment(Appointment appointment)
         {
             await context.Appointments.AddAsync(appointment);
             await context.SaveChangesAsync();
             return appointment;
+        }
+
+        public async Task<List<Appointment>> AddAppointments(List<Appointment> appointments)
+        {
+            await context.Appointments.AddRangeAsync(appointments);
+            await context.SaveChangesAsync();
+            return appointments;
         }
 
         public async Task<Appointment> GetAppointment(Expression<Func<Appointment, bool>> expression)
@@ -62,6 +69,11 @@ namespace IntelliSurgery.DbOperations
             return appointment;
         }
 
+        public async Task DeleteAllAppointments()
+        {
+            context.Appointments.RemoveRange(await context.Appointments.ToListAsync());
+            await context.SaveChangesAsync();
+        }
         
     }
 }

@@ -52,7 +52,7 @@ namespace IntelliSurgery.Controllers
             
             WorkingBlock workingBlock = new WorkingBlock(surgeon, theatre, timeRange);
             workingBlock = await workingBlockRepository.AddWorkingBlock(workingBlock);
-
+            workingBlock.AllocatedSurgeries = null;//to prevent Json ReferenceLoopHandling.Error 
             SurgeonCalendarEvent surgeonCalendarEvent = new SurgeonCalendarEvent(workingBlock);
 
             return Json(new { success = true, data= surgeonCalendarEvent });
@@ -66,6 +66,7 @@ namespace IntelliSurgery.Controllers
             List<SurgeonCalendarEvent> events = new List<SurgeonCalendarEvent>();
             foreach (WorkingBlock workingBlock in workingBlocks)
             {
+                workingBlock.AllocatedSurgeries = null;//to prevent Json ReferenceLoopHandling.Error 
                 events.Add(new SurgeonCalendarEvent(workingBlock));
             }
 

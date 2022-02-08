@@ -177,7 +177,7 @@
                                         <td>{{s.speciality.name}}</td>
                                         <td><i class="fas fa-times" v-on:click="removeClick(s,0,2)"></i></td>
                                     </tr>
-                                    <tr v-for="s in getNewSurgeons">
+                                    <tr class="table-secondary" v-for="s in getNewSurgeons">
                                         <td scope="row">{{s.name}}</td>
                                         <td>{{s.speciality.name}}</td>
                                         <td><i class="fas fa-times" v-on:click="removeClick(s,1,2)"></i></td>
@@ -327,7 +327,7 @@
                                         <td>{{s.name}}</td>
                                         <td><i class="fas fa-times" v-on:click="removeClick(s,0,5)"></i></td>
                                     </tr>
-                                    <tr v-for="s in getNewTheatres">
+                                    <tr class="table-secondary" v-for="s in getNewTheatres">
                                         <th scope="row">{{s.theatreType.name}}</th>
                                         <td>{{s.name}}</td>
                                         <td><i class="fas fa-times" v-on:click="removeClick(s,1,5)"></i></td>

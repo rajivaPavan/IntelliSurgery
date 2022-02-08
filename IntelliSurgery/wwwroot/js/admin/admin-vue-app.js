@@ -176,8 +176,8 @@
             if (newSurgeon != "" && specialityId != -1) {
                 var surgeon = {
                     name: newSurgeon,
-                    surgeonTypeId: specialityId,
                     speciality: {
+                        id: specialityId,
                         name: $("#surgeon_speciality :selected").text()
                     }
                 };
@@ -267,11 +267,14 @@
         //theatre
         theatreAddClick() {
             var newTheatre = $('#theatre').val();
-            var selectedId = $("#theatreList :selected").val();
-            if (newTheatre != "" && selectedId != -1) {
+            var selectedTheatreTypeId = $("#theatreList :selected").val();
+            if (newTheatre != "" && selectedTheatreTypeId != -1) {
                 var theatre = {
                     name: newTheatre,
-                    theatreTypeId: selectedId
+                    theatreType: {
+                        id: selectedTheatreTypeId,
+                        name: $("#theatreList :selected").text()
+                    }
                 };
                 this.hospitalData.theatres.push(theatre);
                 clearNewTheatreField();
@@ -299,7 +302,8 @@
 
         //surgery theatreTypes
         theatreTypesForSurgeryAddClick() {
-
+            var selectedSurgeryTypeId = $("#surgery-type-data").val();
+            var selectedSurgeryTypeName = $("#surgery-type-data").text();
         },
         deleteSurgeryTypeTheatresClick(s) {
             this.deleteData.surgeryTypeTheatres.push(s);

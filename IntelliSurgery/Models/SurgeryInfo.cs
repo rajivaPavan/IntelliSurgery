@@ -7,6 +7,7 @@ namespace IntelliSurgery.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public List<SurgeryType> SurgeryTypesPerformed { get; set; }
     }
 
     public class SurgeryType
@@ -14,6 +15,7 @@ namespace IntelliSurgery.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public List<TheatreType> SuitableTheatreTypes { get; set; }
+        public List<Speciality> SuitableSpecialists { get; set; }
 
     }
 }

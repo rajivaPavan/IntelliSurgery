@@ -68,10 +68,10 @@
                         <div class="col-8 my-2">
                             <select v-model="selectedFilterValue" class="w-100 btn dropdown-toggle border border-dark" 
                                 id="filterValuesDropDown">
-                                <option value="-1" selected hidden>Choose...</option>
-                              <option v-for="option in getFilterValueOptions" v-bind:value="option.id">
-                                {{ option.name }}
-                              </option>
+                                  <option value="-1" selected hidden>Choose...</option>
+                                  <option v-for="option in getFilterValueOptions" v-bind:value="option.id">
+                                    {{ option.name }}
+                                  </option>
                             </select>
                         </div>
                     </div>
@@ -141,7 +141,7 @@
                                   <th scope="col">Patient</th>
                                   <th scope="col">Surgeon</th>
                                   <th scope="col">SurgeryType</th>
-                                  <th scope="col">Approximate Procedure Date</th>
+                                  <!--<th scope="col">Approximate Procedure Date</th> -->
                                   <th scope="col">Complication Possibility</th>
                                   <th scope="col">Theatre Type</th>
                                   <th scope="col">Theatre</th>
@@ -160,7 +160,7 @@
                                 <td>{{a.patient.name}}</td>
                                 <td>{{a.surgeon.name}}</td>
                                 <td>{{a.surgeryType.name}}</td>
-                                <td>{{a.approximateProcedureDate}}</td>
+                                <!--<td>{{a.approximateProcedureDate}}</td>-->
                                 <td>{{a.complicationPossibility}}</td>
                                 <td>{{a.theatreType.name}}</td>
                                 <td>{{getName(a.theatre)}}</td>

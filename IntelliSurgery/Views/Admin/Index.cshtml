@@ -1,5 +1,5 @@
 ﻿@{ 
-    ViewBag.Title = "Admin"; 
+    ViewBag.Title = "Hospital Administration"; 
 } 
 
 @section Styles{
@@ -348,7 +348,7 @@
                                                 <label for="surgery-type-data" class="sr-only">Surgery:</label>
                                                 <select id="surgery-type-data" class="ml-2 btn btn-info dropdown-toggle w-100">
                                                    <option value="-1" selected hidden>Choose...</option>
-                                                   <option v-for="t in prevData.surgeryType" v-bind:value="t.id"> {{t.name}} </option>
+                                                   <option v-for="t in prevData.surgeryTypes" v-bind:value="t.id"> {{t.name}} </option>
                                                 </select>
                                             </div>
                                         </div>

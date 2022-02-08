@@ -117,7 +117,7 @@ namespace IntelliSurgery.Controllers
             {
                 SurgeryType surgeryType = await surgeryTypeRepository.GetSurgeryTypeById(s.SurgeryTypeId);
                 List<TheatreType> theatreTypes = new List<TheatreType>();
-                foreach (var tId in s.TheatreIds)
+                foreach (var tId in s.TheatreTypeIds)
                 {
                     theatreTypes.Add(await theatreRepository.GetTheatreType(t => t.Id == tId));
                 }

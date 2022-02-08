@@ -175,7 +175,7 @@ namespace IntelliSurgery.Controllers
                 Surgeons = surgeonDTOs,
                 TheatreTypes = theatreTypes,
                 Anesthesias = anesthesias,
-                Specialities =specialities
+                Specialities = specialities
             };
 
             return Json(new { success = true, data = dropDownLists});

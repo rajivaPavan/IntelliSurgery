@@ -3,12 +3,7 @@ $("#validate-patient-btn").click(async () => {
     var isValidationSuccess = validateId();
     if (isValidationSuccess) {
         global.patientId = await validatePatient();
-        Swal.fire({
-            icon: 'success',
-            title: 'Patient Validated Successfully',
-            showConfirmButton: false,                   //if false given,no need to press ok button
-            timer: 1500
-        });
+        //sweet alerts are written inside the validatePatient function
     }
 })
 

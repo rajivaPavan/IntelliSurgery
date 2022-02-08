@@ -18,6 +18,7 @@ namespace IntelliSurgery.DTOs
         public List<TheatreType> DeleteTheatreTypes { get; set; }
         public List<TheatreDTO> DeleteTheatres { get; set; }
         public List<SurgeryTypeTheatresDTO> SurgeryTypeTheatres { get; set; }
+        public List<SurgerySurgeonSpecialitiesDTO> SurgerySurgeonSpecialities { get; set; }
         public List<Surgeon> SurgeonSchedules { get; internal set; }
 
         //surgeon working hours
@@ -26,7 +27,15 @@ namespace IntelliSurgery.DTOs
     public class SurgeryTypeTheatresDTO
     {
         public int SurgeryTypeId { get; set; }
-        public List<int> TheatreIds { get; set; }
+        public List<TheatreType> TheatreTypes { get; set; }
+        public List<int> TheatreTypeIds { get; set; }
+    }
+
+    public class SurgerySurgeonSpecialitiesDTO
+    {
+        public int SurgeryTypeId { get; set; }
+        public List<Speciality> Specialities { get; set; }
+        public List<int> SpecialityIds { get; set; }
     }
 
     public class TheatreDTO

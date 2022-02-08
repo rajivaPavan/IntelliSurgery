@@ -81,14 +81,28 @@ async function validatePatient() {
             disablePatientConstantFields(true);
 
             showPatientAddBtn(false);
+            Swal.fire({
+                icon: 'success',
+                title: 'Patient validated successfully',
+                showConfirmButton: false,
+                timer: 1500
+            });
 
         } else {
             //patient doesnot exits
+            Swal.fire({
+                icon: 'info',
+                title: "Patient with id "+patientId+" not found!",
+                showConfirmButton: false,                   //if false given,no need to press ok button
+                timer: 1500
+            });
+
             patientId = NULL_ENTITY_ID;
             clearAllPatientFields();
             enableAllPatientFields();
 
             showPatientAddBtn(true);
+            
 
         }
     } else {

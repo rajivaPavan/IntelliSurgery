@@ -42,3 +42,6 @@ async function saveTheatreTypesRequest(hospitalData) {
 async function saveTheatresRequest(hospitalData) {
     return await axiosPostWithData("/api/AdminApi/SaveTheatres", hospitalData);
 }
+async function saveSurgeryTheatreTypesRequest(hospitalData) {
+    return await axiosPostWithData("/api/AdminApi/SaveTheatres", hospitalData);
+}

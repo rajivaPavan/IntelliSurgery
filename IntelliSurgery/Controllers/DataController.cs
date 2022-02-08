@@ -2,6 +2,7 @@
 using IntelliSurgery.DbOperations.WorkingBlocks;
 using IntelliSurgery.Enums;
 using IntelliSurgery.Models;
+using IntelliSurgery.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,31 +12,48 @@ using System.Threading.Tasks;
 
 namespace IntelliSurgery.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]/[action]")]
-    public class DataApiController : Controller
+    //[ApiController]
+    //[Route("api/[controller]/[action]")]
+    public class DataController : Controller
     {
         private readonly IWorkingBlockRepository workingBlockRepository;
         private readonly IAppointmentRepository appointmentRepository;
+        private readonly ISurgeryRepository surgeryRepository;
         string dateFormat = "yyyy-MM-dd HH:mm:ss.ffffff";
         CultureInfo provider = CultureInfo.InvariantCulture;
 
-        public DataApiController(IWorkingBlockRepository workingBlockRepository, IAppointmentRepository appointmentRepository)
+        public DataController(IWorkingBlockRepository workingBlockRepository, IAppointmentRepository appointmentRepository,
+            ISurgeryRepository surgeryRepository) 
         {
             this.workingBlockRepository = workingBlockRepository;
             this.appointmentRepository = appointmentRepository;
+            this.surgeryRepository = surgeryRepository;
         }
-        public async Task<IActionResult> Data(int scenario)
+
+        [HttpGet]
+        public IActionResult Load()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Load(LoadDataViewModel model)
+        {
+            appointmentRepository.DeleteAllAppointments().Wait();
+            workingBlockRepository.DeleteAllWorkingBlocks().Wait();
+            surgeryRepository.DeleteAllScheduledSurgeries().Wait();
+            surgeryRepository.DeleteAllSurgeryEvents().Wait();
+
+            int scenario = model.ScenarioNumber;
             string path = @"../IntelliSurgery/Scenarios/WorkingBlocks/scenario" + scenario.ToString() + ".csv";
             List<WorkingBlock> workingBlocks = ReadWorkingBlocksInCSV(path);
             await workingBlockRepository.AddWorkingBlocks(workingBlocks);
 
-            path = @"../IntelliSurgery/Scenarios/Appointments/scenario"+scenario.ToString()+".csv";
+            path = @"../IntelliSurgery/Scenarios/Appointments/scenario" + scenario.ToString() + ".csv";
             List<Appointment> appointments = ReadAppointmentsInCSV(path);
             await appointmentRepository.AddAppointments(appointments);
-            
-            return Json(new { success = true });
+
+            return View(model);
         }
 
         private List<Appointment> ReadAppointmentsInCSV(string csvPath)
@@ -91,7 +109,7 @@ namespace IntelliSurgery.Controllers
                     Duration = TimeSpan.Parse(columns[4]),
                     TheatreId = int.Parse(columns[5]),
                     SurgeonId = int.Parse(columns[6])
-                }; 
+                };
                 workingBlocks.Add(workingBlock);
 
             }

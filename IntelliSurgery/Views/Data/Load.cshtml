@@ -1,0 +1,21 @@
+﻿@model LoadDataViewModel 
+@{
+    ViewBag.Title = "Scenarios";
+}
+
+<div class="container-fluid">
+     <div class="col-12 justify-content-center my-auto">
+         <form asp-action="Load" asp-controller="Data">
+             <input asp-for="ScenarioNumber" value="0" hidden>
+             <button type="submit" class="btn btn-primary">Load Scenario 1 data</button>
+         </form>
+         <form asp-action="Load" asp-controller="Data">
+             <input asp-for="ScenarioNumber" value="1" hidden>
+             <button type="submit" class="btn btn-success">Load Scenario 2 data</button>
+         </form>
+         <form asp-action="Load" asp-controller="Data">
+             <input asp-for="ScenarioNumber" value="3" hidden>
+             <button type="submit" class="btn btn-warning">Load Scenario 3 data</button>
+         </form>
+     </div>
+</div>

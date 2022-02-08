@@ -21,6 +21,18 @@ namespace IntelliSurgery.DbOperations
             return surgery;
         }
 
+        public async Task DeleteAllScheduledSurgeries()
+        {
+            context.ScheduledSurgeries.RemoveRange(context.ScheduledSurgeries);
+            await context.SaveChangesAsync();
+        }
+
+        public async Task DeleteAllSurgeryEvents()
+        {
+            context.SurgeryEvents.RemoveRange(context.SurgeryEvents);
+            await context.SaveChangesAsync();
+        }
+
         public async Task DeleteScheduleSurgery(ScheduledSurgery delScheduledSurgery)
         {
             context.ScheduledSurgeries.Remove(delScheduledSurgery);

@@ -18,7 +18,9 @@ namespace IntelliSurgery.DbOperations.WorkingBlocks
         public WorkingBlockRepository(AppDbContext context)
         {
             this.context = context;
-            this.readWorkingBlocks = context.WorkingBlocks.Include(w => w.AllocatedSurgeries).Include(w => w.Surgeon).Include(w => w.Theatre);
+            this.readWorkingBlocks = context.WorkingBlocks
+                .Include(w => w.AllocatedSurgeries).ThenInclude(a => a.ScheduledSurgery).ThenInclude(a => a.SurgeryEvent)
+                .Include(w => w.Surgeon).Include(w => w.Theatre);
         }
 
         public async Task<WorkingBlock> AddWorkingBlock(WorkingBlock workingBlock)

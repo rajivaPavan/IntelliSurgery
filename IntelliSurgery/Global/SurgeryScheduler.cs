@@ -188,7 +188,8 @@ namespace IntelliSurgery.Global
 
                 int appointmentCount = appointments.Count;
                 int numberOfGaps = appointmentCount - 1;
-                TimeSpan gapTime = remainingTime.Divide(numberOfGaps);
+                TimeSpan gapTime = TimeSpan.Zero;
+                if (numberOfGaps > 0) { gapTime = remainingTime.Divide(numberOfGaps); }
 
                 for (int i = 0; i < appointmentCount; i++)
                 {
@@ -244,8 +245,10 @@ namespace IntelliSurgery.Global
 
         public List<Appointment> PrioritizeAppointments(List<Appointment> appointments)
         {
+            List<Appointment> prioritized = new List<Appointment>();
             //sort the appointments in the order of priority, high first
-            appointments = appointments.OrderByDescending(a => a.PriorityLevel).ToList();
+            appointments = appointments.OrderByDescending(a => a.PriorityLevel).ThenBy(a => a.DateAdded).ToList();
+            
             return appointments;
         }
     }

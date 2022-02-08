@@ -140,45 +140,58 @@ calendarApp = Vue.createApp({
             calendars[searchFilter] = entities;
             this.calendars = calendars;
         },
-        async setStatusTo(newStatus) {
+        async setStatusTo(newStatus, event) {
+            var newStatusName = $(event.target).text();
 
-            var selectedEvent = this.selectedEvent;
-            var calendarEventId = this.selectedCalendarEventId;
+            var isProceed = await isProceedToSetStatus(newStatusName);
 
-            //update backend
-            var appointmentId = selectedEvent.appointmentId;
-            var tableRecord = await updateAppointmentStatusRequest(appointmentId, newStatus); //write this function
+            if (isProceed) {
+                var selectedEvent = this.selectedEvent;
+                var calendarEventId = this.selectedCalendarEventId;
 
-            if (tableRecord != null) {
-                //update selectedEvent
-                this.selectedEvent = selectedEventCtor(tableRecord);
+                //update backend
+                var appointmentId = selectedEvent.appointmentId;
+                var tableRecord = await updateAppointmentStatusRequest(appointmentId, newStatus); //write this function
 
-                //update tableData
-                this.tableData = updateTableData(this.tableData, tableRecord);
+                if (tableRecord != null) {
+                    //update selectedEvent
+                    this.selectedEvent = selectedEventCtor(tableRecord);
 
-                //update calendars obj if
-                if (calendarEventId != -1) {
+                    //update tableData
+                    this.tableData = updateTableData(this.tableData, tableRecord);
 
-                    var calendarEvent = await getCalendarEventRequest(appointmentId);
-                    calendarEvent.id = calendarEventId;
+                    //update calendars obj if
+                    if (calendarEventId != -1) {
 
-                    //update all calendars in different filters
-                    await updateEventInAllCalendars(calendarEvent);
+                        var calendarEvent = await getCalendarEventRequest(appointmentId);
+                        calendarEvent.id = calendarEventId;
 
-                    //get filters of the current calendar that has been loaded
-                    var selectedFilter = "surgeons";
-                    var selectedFilterValue = this.selectedSurgeonId;
-                    if (this.selectedSurgeonId == -1) {
-                        selectedFilter = this.selectedFilter;
-                        selectedFilterValue = this.selectedFilterValue;
+                        //update all calendars in different filters
+                        await updateEventInAllCalendars(calendarEvent);
+
+                        //get filters of the current calendar that has been loaded
+                        var selectedFilter = "surgeons";
+                        var selectedFilterValue = this.selectedSurgeonId;
+                        if (this.selectedSurgeonId == -1) {
+                            selectedFilter = this.selectedFilter;
+                            selectedFilterValue = this.selectedFilterValue;
+                        }
+                        //get the events from the current calendar;
+                        var updatedEvents = getCalendarEvents(selectedFilter, selectedFilterValue);
+
+                        //re init fullcalendar by passing the necesary events;
+                        initCalendar(updatedEvents);
+
+                        //
+                        Swal.fire(
+                            'Appointment status updated',
+                            'to ' + newStatusName,
+                            'success'
+                        )
                     }
-                    //get the events from the current calendar;
-                    var updatedEvents = getCalendarEvents(selectedFilter, selectedFilterValue);
-
-                    //re init fullcalendar by passing the necesary events;
-                    initCalendar(updatedEvents);
                 }
             }
+            
             
         }
     }
@@ -186,6 +199,24 @@ calendarApp = Vue.createApp({
 });
 
 calendarVueApp = calendarApp.mount("#calendar-main");
+
+async function isProceedToSetStatus(newStatusName) {
+    var isProceed = false;
+    await Swal.fire({
+        icon: 'warning',
+        title: 'Change appointment status',
+        text: 'to ' + newStatusName,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Proceed'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            isProceed = true;
+        }
+    })
+    return isProceed;
+}
 
 function initFilters() {
     var filters = [
@@ -222,8 +253,6 @@ function getCalendarEvents(searchFilter, searchFilterValue) {
     events = entity.events;
     return events;
 }
-
-
 
 function hideAppointmentDetails() {
     $("#appointment-box").hide();

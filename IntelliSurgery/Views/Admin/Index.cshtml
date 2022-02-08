@@ -357,8 +357,8 @@
 
                                         <div class="col-12 col-md-8">
                                             <div v-for="t in prevData.theatreTypes" class="form-check">
-                                                <input class="form-check-input" type="checkbox" v-bind:value="t.id" id="'theatreType'+t.id">
-                                                <label class="form-check-label" for="'theatreType'+t.id">
+                                                <input class="form-check-input" type="checkbox" v-bind:value="t.id" name="tForS" v-bind:id="'theatreType'+t.id">
+                                                <label class="form-check-label" v-bind:for="'theatreType'+t.id" v-bind:id="'theatreTypeLabel'+t.id">
                                                      {{t.name}}
                                                     </label>
                                             </div>

@@ -302,16 +302,32 @@
 
         //surgery theatreTypes
         theatreTypesForSurgeryAddClick() {
-            var selectedSurgeryTypeId = $("#surgery-type-data").val();
-            var selectedSurgeryTypeName = $("#surgery-type-data").text();
+            var selectedSurgeryTypeId = $("#surgery-type-data :selected").val();
+            var selectedSurgeryTypeName = $("#surgery-type-data :selected").text();
+            var theatreTypes = [];
+            $("input[name=tForS]:checked").each(function () {
+                var tId = $(this).val();
+                var t_type = {
+                    id: tId,
+                    name: $("#theatreTypeLabel"+tId).text()
+                };
+                theatreTypes.push(t_type);
+            });
+
+            var data = {
+                surgeryTypeId: selectedSurgeryTypeId,
+                surgeryTypeName: selectedSurgeryTypeName,
+                theatreTypes: theatreTypes
+            };
         },
         deleteSurgeryTypeTheatresClick(s) {
             this.deleteData.surgeryTypeTheatres.push(s);
             removeElementFromArray(s, this.prevData.surgeryTypeTheatres);
         },
-        theatreTypesForSurgerySaveClick(s) {
+        theatreTypesForSurgeryRemoveClick(s) {
             removeElementFromArray(s, this.hospitalData.surgeryTypeTheatres);
         },
+        theatreTypesForSurgerySaveClick() {},
 
         //working hours
         async renderCalendar() {

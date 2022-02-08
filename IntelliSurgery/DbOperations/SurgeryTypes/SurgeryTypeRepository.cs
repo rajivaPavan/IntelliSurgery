@@ -1,5 +1,6 @@
 ﻿using IntelliSurgery.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,10 +9,13 @@ namespace IntelliSurgery.DbOperations
     public class SurgeryTypeRepository : ISurgeryTypeRepository
     {
         private readonly AppDbContext context;
+        private readonly IIncludableQueryable<SurgeryType, List<Speciality>> readSurgeryTypes;
 
         public SurgeryTypeRepository(AppDbContext context)
         {
             this.context = context;
+            this.readSurgeryTypes = context.SurgeryTypes.Include(s => s.SuitableTheatreTypes).
+                Include(s => s.SuitableSpecialists);
         }
 
         public async Task<SurgeryType> AddSurgeryType(SurgeryType surgery)
@@ -23,12 +27,12 @@ namespace IntelliSurgery.DbOperations
 
         public async Task<SurgeryType> GetSurgeryTypeById(int id)
         {
-            return await context.SurgeryTypes.FirstOrDefaultAsync(s => s.Id == id);
+            return await readSurgeryTypes.FirstOrDefaultAsync(s => s.Id == id);
         }
 
         public async Task<List<SurgeryType>> GetAllSurgeryTypes()
         {
-            return await context.SurgeryTypes.ToListAsync();
+            return await readSurgeryTypes.ToListAsync();
         }
 
         public async Task<List<SurgeryType>> AddSurgeryTypes(List<SurgeryType> surgeryTypes)

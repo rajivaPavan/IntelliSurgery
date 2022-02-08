@@ -24,9 +24,11 @@ namespace ENA_CLIENT_WEB_APP.Controllers
             this.roleManager = roleManager;
             this.signInManager = signInManager;
         }
-        public IActionResult Logout()
+
+        [Authorize]
+        public async Task<IActionResult> Logout()
         {
-            //await signInManager.SignOutAsync();
+            await signInManager.SignOutAsync();
             return RedirectToAction("login", "account");
         }
         [HttpGet]
@@ -54,8 +56,7 @@ namespace ENA_CLIENT_WEB_APP.Controllers
                 // SignInManager and redirect to index action of HomeController
                 if (result.Succeeded)
                 {
-                    await signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("index", "admin");
+                    return View();
                 }
 
                 // If there are any errors, add them to the ModelState object
@@ -79,15 +80,15 @@ namespace ENA_CLIENT_WEB_APP.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<IActionResult> Login(LoginViewModel model,string returnUrl)
         {
             if (ModelState.IsValid)
             {
-                var result = await signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
+                var result = await signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, false);
 
                 if (result.Succeeded)
                 {
-                    IdentityUser user = await userManager.FindByNameAsync(model.UserName);
+                    IdentityUser user = await userManager.FindByNameAsync(model.Username);
                     var rolesOfUser = await userManager.GetRolesAsync(user);
                     string userRole = rolesOfUser.FirstOrDefault();
 

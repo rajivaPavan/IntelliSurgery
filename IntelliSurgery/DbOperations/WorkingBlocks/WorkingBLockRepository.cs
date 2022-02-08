@@ -57,6 +57,11 @@ namespace IntelliSurgery.DbOperations.WorkingBlocks
             context.WorkingBlocks.Remove(workingBlock);
             await context.SaveChangesAsync();
         }
+        public async Task DeleteAllWorkingBlocks()
+        {
+            context.WorkingBlocks.RemoveRange(context.WorkingBlocks);
+            await context.SaveChangesAsync();
+        }
 
         public async Task<List<WorkingBlock>> UpdateWorkingBlocks(List<WorkingBlock> workingBlocks)
         {

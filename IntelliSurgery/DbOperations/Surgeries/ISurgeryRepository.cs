@@ -10,5 +10,7 @@ namespace IntelliSurgery.DbOperations
         Task<List<ScheduledSurgery>> GetAllSurgeries();
         Task DeleteScheduleSurgery(ScheduledSurgery delScheduledSurgery);
         Task DeleteSurgeryEvent(SurgeryEvent delSurgeryEvent);
+        Task DeleteAllScheduledSurgeries();
+        Task DeleteAllSurgeryEvents();
     }
 }

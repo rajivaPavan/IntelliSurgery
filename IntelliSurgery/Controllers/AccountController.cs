@@ -83,11 +83,11 @@ namespace ENA_CLIENT_WEB_APP.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, false);
+                var result = await signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, false);
 
                 if (result.Succeeded)
                 {
-                    IdentityUser user = await userManager.FindByNameAsync(model.UserName);
+                    IdentityUser user = await userManager.FindByNameAsync(model.Username);
                     var rolesOfUser = await userManager.GetRolesAsync(user);
                     string userRole = rolesOfUser.FirstOrDefault();
 

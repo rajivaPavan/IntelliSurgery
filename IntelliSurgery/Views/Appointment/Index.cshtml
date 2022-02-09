@@ -17,280 +17,271 @@
         <div class="col-lg-2" id="logo">
         </div>
         <div class="col-lg-5">
-            <div class="form_class my-1 border border-dark" style="height:89vh;">
-                <div style="height: 80vh;">
-                <div style="height: 10vh;">
-                    <h1> Patient </h1>
-                </div>
-                <div style="height: 8vh">
-                    <div class="legend"><span class="number bg-info">1</span> Validate Patient </div>
-                </div>
-                <div style="height: 15vh;">
-                <div style="height: 13vh;">
-                    <div class="row">
-                        <div class="col-2 pr-0 my-auto">
-                            <label for="patient_id" class="mr-sm-2">Patient ID:</label>
-                        </div>
-
-                        <div class="col-5 pr-0 my-auto">
-                            <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" id="patient_id" required>
-                        </div>
-
-                        <div class="col-5 my-auto">
-                            <button class="btn btn-info h-100" id="validate-patient-btn">Validate Patient</button>
-                        </div>
+            <div class="form_class my-1 border border-dark d-flex align-items-center" style="height:89vh;">
+                <div class="row" style="height: 85vh;">
+                    <div class="col-12" style="height: 8vh;">
+                        <h1> Patient </h1>
                     </div>
-                    <h6 id="idCheck" class="myerror"></h6>
-                </div>
-                </div>
-                
-                <div style="height: 40vh">
-                <div style="height: 9vh">
-                <div class="col-12 legend">
-                    <div class="row"><span class="number bg-info">2</span> Patient's Details
-                        <span class="ml-auto"><i onclick="clearAllPatientFields()" class="fas fa-eraser"></i>
-                        </span>
+                    <div class="col-12" style="height: 6vh">
+                        <div class="legend"><span class="number bg-info">1</span> Validate Patient </div>
                     </div>
-                </div>
-                </div>
-                
-                <div class="">
-                    <div class="mb-2 row scrollbar scrollbar-info" style="height:33vh;">
-                        <div class="col-md-12">
-                            <label for="patient_name">Name:</label>
-                            <input type="text" class="form-control mb-2 mr-sm-2" id="patient_name" name="patient_name">
-                            <h6 id="nameCheck" class="myerror"></h6>
-                        </div>
+                    <div class="col-12" style="height: 12vh;">
+                        <div class="row">
+                            <div class="col-2 pr-0 my-auto">
+                                <label for="patient_id" class="mr-sm-2">Patient ID:</label>
+                            </div>
 
-                        <div class="col-md-7">
-                            <label for="birthday">Birthday:</label>
-                            <input type="date" id="birthday" name="birthday" class="form-control mb-2 mr-sm-2">
-                            <h6 id="birthdayCheck" class="myerror"></h6>
-                        </div>
+                            <div class="col-5 pr-0 my-auto">
+                                <input type="text" class="form-control mb-2 mr-sm-2" placeholder="" id="patient_id" required>
+                            </div>
 
-                        <div class="col-md-5">
-                            <label>Gender:</label>
-                            <div class="form-check">
-                                <input class="form-check-input gender" type="radio" value="1" id="gender_male" name="gender">
-                                <label class="form-check-label" for="gender_male">
-                                        Male
-                                    </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input gender" type="radio" value="2" id="gender_female" name="gender">
-                                <label class="form-check-label" for="gender_female">
-                                        Female
-                                    </label>
-                            </div>
-                            <h6 id="genderCheck" class="myerror"></h6>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="weight" class="form-label">Weight:</label>
-                            <input type="text" class="form-control" id="weight" placeholder="kg">
-                            <h6 id="weightCheck" class="myerror"></h6>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="height" class="form-label">Height:</label>
-                            <input type="text" class="form-control" id="height" placeholder="cm">
-                            <h6 id="heightCheck" class="myerror"></h6>
-                        </div>
-                        <div class="col-12 my-1">
-                            <div class="row">
-                                <div class="col-3 pr-0">
-                                    <label for="asatype" class="form-label"> ASA Status:</label>
-                                </div>
-                                <div class="col-2">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" value="1" id="status1" name="asa">
-                                        <label class="form-check-label" for="status1">
-                                                I
-                                            </label>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" value="2" id="status2" name="asa">
-                                        <label class="form-check-label" for="status2">
-                                                II
-                                            </label>
-                                    </div>
-                                </div>
-                                <div class="col-2">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" value="3" id="status3" name="asa">
-                                        <label class="form-check-label" for="status3">
-                                                III
-                                            </label>
-                                    </div>
-                                </div>
-
-                                <div class="col-3"></div>
-                            </div>
-                            <h6 id="asaCheck" class="myerror"></h6>
-                        </div>
-                        <div class="col-md-12">
-                            <label for="diseases" class="form-label"> Diseases:</label>
-
-                        </div>
-                        <!--
-                            Cancer = 1,
-                            Cardiovascular, = 2
-                            Dementia, =3
-                            Diabetes, =4
-                            Digestive, =5
-                            Osteoarthritis, =6
-                            PyschologicalDisorder =7
-                            Pulmonary = 8
-                        -->
-                        <div class="col-md-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="1" name="disease" id="Cancer">
-                                <label class="form-check-label" for="Cancer">Cancer</label>
+                            <div class="col-5 my-auto">
+                                <button class="btn btn-info h-100" id="validate-patient-btn">Validate Patient</button>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="2" name="disease" id="Cardiovascular">
-                                <label class="form-check-label" for="Cardiovascular">Cardiovascular</label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="3" name="disease" id="Dementia">
-                                <label class="form-check-label" for="Dementia">Dementia</label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="4" name="disease" id="Diabetes">
-                                <label class="form-check-label" for="Diabetes">Diabetes</label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="5" name="disease" id="Digestive">
-                                <label class="form-check-label" for="Digestive">Digestive</label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="6" name="disease" id="Osteoarthritis">
-                                <label class="form-check-label" for="Osteoarthritis">Osteoarthritis</label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="7" name="disease" id="PyschologicalDisorder">
-                                <label class="form-check-label" for="PyschologicalDisorder">Pyschological Disorder </label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="8" name="disease" id="Pulmonary">
-                                <label class="form-check-label" for="Pulmonary">Pulmonary</label>
+                        <h6 id="idCheck" class="myerror"></h6>
+                    </div>
+                    <div class="col-12" style="height: 6vh">
+                        <div class="col-12 legend">
+                            <div class="row"><span class="number bg-info">2</span> Patient's Details
+                                <span class="ml-auto"><i onclick="clearAllPatientFields()" class="fas fa-eraser"></i>
+                                </span>
                             </div>
                         </div>
                     </div>
+                    <div class="col-12 scrollbar scrollbar-info" style="height:44vh;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label for="patient_name">Name:</label>
+                                <input type="text" class="form-control mb-2 mr-sm-2" id="patient_name" name="patient_name">
+                                <h6 id="nameCheck" class="myerror"></h6>
+                            </div>
+
+                            <div class="col-md-7">
+                                <label for="birthday">Birthday:</label>
+                                <input type="date" id="birthday" name="birthday" class="form-control mb-2 mr-sm-2">
+                                <h6 id="birthdayCheck" class="myerror"></h6>
+                            </div>
+
+                            <div class="col-md-5">
+                                <label>Gender:</label>
+                                <div class="form-check">
+                                    <input class="form-check-input gender" type="radio" value="1" id="gender_male" name="gender">
+                                    <label class="form-check-label" for="gender_male">
+                                            Male
+                                        </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input gender" type="radio" value="2" id="gender_female" name="gender">
+                                    <label class="form-check-label" for="gender_female">
+                                            Female
+                                        </label>
+                                </div>
+                                <h6 id="genderCheck" class="myerror"></h6>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="weight" class="form-label">Weight:</label>
+                                <input type="text" class="form-control" id="weight" placeholder="kg">
+                                <h6 id="weightCheck" class="myerror"></h6>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="height" class="form-label">Height:</label>
+                                <input type="text" class="form-control" id="height" placeholder="cm">
+                                <h6 id="heightCheck" class="myerror"></h6>
+                            </div>
+                            <div class="col-12 my-1">
+                                <div class="row">
+                                    <div class="col-3 pr-0">
+                                        <label for="asatype" class="form-label"> ASA Status:</label>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" value="1" id="status1" name="asa">
+                                            <label class="form-check-label" for="status1">
+                                                    I
+                                                </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" value="2" id="status2" name="asa">
+                                            <label class="form-check-label" for="status2">
+                                                    II
+                                                </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" value="3" id="status3" name="asa">
+                                            <label class="form-check-label" for="status3">
+                                                    III
+                                                </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-3"></div>
+                                </div>
+                                <h6 id="asaCheck" class="myerror"></h6>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="diseases" class="form-label"> Diseases:</label>
+                            </div>
+                            <!--
+                                Cancer = 1,
+                                Cardiovascular, = 2
+                                Dementia, =3
+                                Diabetes, =4
+                                Digestive, =5
+                                Osteoarthritis, =6
+                                PyschologicalDisorder =7
+                                Pulmonary = 8
+                            -->
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="1" name="disease" id="Cancer">
+                                    <label class="form-check-label" for="Cancer">Cancer</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="2" name="disease" id="Cardiovascular">
+                                    <label class="form-check-label" for="Cardiovascular">Cardiovascular</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="3" name="disease" id="Dementia">
+                                    <label class="form-check-label" for="Dementia">Dementia</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="4" name="disease" id="Diabetes">
+                                    <label class="form-check-label" for="Diabetes">Diabetes</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="5" name="disease" id="Digestive">
+                                    <label class="form-check-label" for="Digestive">Digestive</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="6" name="disease" id="Osteoarthritis">
+                                    <label class="form-check-label" for="Osteoarthritis">Osteoarthritis</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="7" name="disease" id="PyschologicalDisorder">
+                                    <label class="form-check-label" for="PyschologicalDisorder">Pyschological Disorder </label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="8" name="disease" id="Pulmonary">
+                                    <label class="form-check-label" for="Pulmonary">Pulmonary</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="height: 9vh" class="col-12 d-flex align-items-end">
+                        <button id="add-patient-btn" class="btn btn-info" type="submit">Add Patient</button>
+                        <button id="update-patient-btn" class="btn btn-primary" type="submit" style="display:none;">Update Patient</button>
+                    </div>
                 </div>
-                <div style="height: 10vh" class="d-flex align-items-center">
-                <button id="add-patient-btn" class="btn btn-info mb-0 mb-1" type="submit">Add Patient</button>
-                <button id="update-patient-btn" class="btn btn-primary mb-0" type="submit" style="display:none;">Update Patient</button>
-                </div>
-              </div>
-            </div>
             </div>
         </div>
         <div class="col-lg-5">
-            <div class="form_class my-1 mr-2 border border-dark shadow" style="height:89vh;">
-                <div style="height: 87vh;">
-                <div style="height: 10vh">
-                <h1> Appointment </h1>
-                </div>
-                <div style="height: 9vh">
-                <div class="col-12">
-                    <div class="row legend"><span class="number bg-info">3</span> Surgery Requirements
-                        <span class="ml-auto"><i onclick="clearAllAppointmentFields()" class="fas fa-eraser"></i>
-                        </span>
+            <div class="form_class my-1 mr-2 border border-dark shadow d-flex align-items-center" style="height:89vh;">
+                <div class="row" style="height: 85vh;">
+                    <div class="col-12" style="height: 8vh">
+                        <h1> Appointment </h1>
                     </div>
-                </div>
-                </div>
-                  <div class="">
-                    <div class="mb-2 row scrollbar scrollbar-info" style="height:54vh;">
-                        <div class= "col-md-12 mb-2">
-                <label for="surgery">Surgery:</label>
-                <select id="surgery" name="user_surgery">
-                    <option value="-1" selected hidden>Choose...</option>
-                    
-                </select>
-                </div>
-                <h6 id="surgeryCheck" class="myerror ml-3"></h6>
-                <div class="col-md-12 mb-2">
-                <label for="surgeon">Surgeon:</label>
-                <select id="surgeon" name="user_surgeon">
-                    <option value="-1" selected hidden>Choose...</option>
-                    
-                </select>
-                </div>
-                <h6 id="surgeonCheck" class="myerror ml-3"></h6>
-
-                
-                        <div class="col-md-12 mb-3">
-                            <label> Possibilty of Complication: </label>
-                            <div class="form-check mb-2">
-                                <input type="radio" value="1" class="form-check-input" id="noComplication" name="complication" checked>
-                                <label class="form-check-label" for="noComplication">No</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="radio" value="0" class="form-check-input" id="yesComplication" name="complication">
-                                <label class="form-check-label" for="yesComplication">Yes</label>
+                    <div class="col-12" style="height: 6vh">
+                        <div class="col-12">
+                            <div class="row legend"><span class="number bg-info">3</span> Surgery Requirements
+                                <span class="ml-auto"><i onclick="clearAllAppointmentFields()" class="fas fa-eraser"></i>
+                                </span>
                             </div>
                         </div>
-                        <div class="col-md-12 mb-2">
-                            <label for="anasthesia_type">Anesthesia Type:</label>
-                            <select id="anasthesia_type" name="anasthesia_type" class="select">
-                    <option value="-1" selected hidden>Choose...</option>
-                </select>
-                        </div>
-                        <h6 id="anasthesia_typeCheck" class="myerror ml-3"></h6>
+                    </div>
+                    <div class="col-12 scrollbar scrollbar-info" style="height:62vh;">
+                        <div class="row">
+                            <div class= "col-md-12 mb-2">
+                                <label for="surgery">Surgery:</label>
+                                <select id="surgery" name="user_surgery">
+                                    <option value="-1" selected hidden>Choose...</option>
+                    
+                                </select>
+                            </div>
+                            <h6 id="surgeryCheck" class="myerror ml-3"></h6>
+                            <div class="col-md-12 mb-2">
+                                <label for="surgeon">Surgeon:</label>
+                                <select id="surgeon" name="user_surgeon">
+                                    <option value="-1" selected hidden>Choose...</option>
+                    
+                                </select>
+                            </div>
+                            <h6 id="surgeonCheck" class="myerror ml-3"></h6>
+                            <div class="col-12 mb-3">
+                                <label> Possibilty of Complication: </label>
+                                <div class="form-check mb-2">
+                                    <input type="radio" value="1" class="form-check-input" id="noComplication" name="complication" checked>
+                                    <label class="form-check-label" for="noComplication">No</label>
+                                </div>
+                                <div class="form-check">
+                                    <input type="radio" value="0" class="form-check-input" id="yesComplication" name="complication">
+                                    <label class="form-check-label" for="yesComplication">Yes</label>
+                                </div>
+                            </div>
+                            <div class="col-12 mb-2">
+                                <label for="anasthesia_type">Anesthesia Type:</label>
+                                <select id="anasthesia_type" name="anasthesia_type" class="select">
+                                    <option value="-1" selected hidden>Choose...</option>
+                                </select>
+                            </div>
+                            <h6 id="anasthesia_typeCheck" class="myerror ml-3"></h6>
 
-                        <div class="col-md-12 mb-2">
-                            <label for="or_theatre">Theatre Type:</label>
-                            <select id="theatreType" name="user_or">
-                    <option value="-1" selected hidden>Choose...</option>
-                </select>
-                        </div>
-                        <h6 id="theatreCheck" class="myerror ml-3"></h6>
-                        <div class="col-md-12 mb-2">
-                            <label>Importance:</label>
+                            <div class="col-12 mb-2">
+                                <label for="or_theatre">Theatre Type:</label>
+                                <select id="theatreType" name="user_or">
+                                    <option value="-1" selected hidden>Choose...</option>
+                                </select>
+                            </div>
+                            <h6 id="theatreCheck" class="myerror ml-3"></h6>
                             <div class="col-12">
-                                <div class="form-check col-2 mb-2">
+                                <div class="row">
+                                    <div class="col-12 mb-2">Priority:</div>
+                                </div>
+                                <div class="form-check">
                                     <input class="form-check-input priority" type="radio" value="2" id="importance_high" name="importance">
                                     <label class="form-check-label" for="importance_high">
-                        High
-                    </label>
+                                        High
+                                    </label>
                                 </div>
-                                <div class="form-check col-2 mb-2">
+                                <div class="form-check">
                                     <input class="form-check-input priority" type="radio" value="1" id="importance_medium" name="importance">
                                     <label class="form-check-label" for="importance_medium">
-                        Medium
-                    </label>
+                                        Medium
+                                    </label>
                                 </div>
-                                <div class="form-check col-2 mb-2">
+                                <div class="form-check">
                                     <input class="form-check-input priority" type="radio" value="0" id="importance_low" name="importance">
                                     <label class="form-check-label" for="importance_low">
-                            Low
-                        </label>
+                                        Low
+                                    </label>
                                 </div>
                             </div>
                             <h6 id="importanceCheck" class="myerror ml-3"></h6>
-                            <br />
+
                         </div>
                     </div>
-                     </div>
-                     <div style="height: 12vh;" class="d-flex align-items-center">
-                    <button id="add-appointment-btn" class="btn btn-info mb-0" type="submit">Add Appointment</button>
+                    <div style="height: 9vh;" class="col-12 d-flex align-items-end">
+                        <button id="add-appointment-btn" class="btn btn-info mb-0" type="submit">Add Appointment</button>
                     </div>
                 </div>
             </div>

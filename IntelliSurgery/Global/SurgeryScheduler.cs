@@ -156,7 +156,7 @@ namespace IntelliSurgery.Global
                     surgeryEvent.SetTimeRange(surgeryTimeRange);
                     ScheduledSurgery scheduledSurgery = new ScheduledSurgery(surgeryEvent);
                     currentAppointment.ScheduledSurgery = scheduledSurgery;
-                    currentAppointment.ScheduledSurgeryId = scheduledSurgery.Id;
+                    //currentAppointment.ScheduledSurgeryId = scheduledSurgery.Id;
 
                     //set theatre for the appointment
                     currentAppointment.Theatre = bestBlock.Theatre;
@@ -198,18 +198,25 @@ namespace IntelliSurgery.Global
                     
                     if ((i+1) % 2 != 0)
                     {
-                        TimeRange timeRange = new TimeRange(blockStart,duration);
+
+                        TimeRange timeRange = new TimeRange(blockStart, duration);
                         DateTime end = timeRange.End;
                         blockStart = end.Add(gapTime);
-                        currentAppointment.ScheduledSurgery.SurgeryEvent.SetTimeRange(timeRange);
+                        SurgeryEvent surgeryEvent = new SurgeryEvent();
+                        surgeryEvent.SetTimeRange(timeRange);
+                        currentAppointment.ScheduledSurgery.SurgeryEvent = surgeryEvent;
+
 
                     }
                     else
                     {
                         DateTime start = blockEnd.Subtract(duration);
-                        TimeRange timeRange = new TimeRange(start,duration);
                         blockEnd = start.Subtract(gapTime);
-                        currentAppointment.ScheduledSurgery.SurgeryEvent.SetTimeRange(timeRange);
+                        TimeRange timeRange = new TimeRange(start,duration);
+                        SurgeryEvent surgeryEvent = new SurgeryEvent();
+                        surgeryEvent.SetTimeRange(timeRange);
+                        currentAppointment.ScheduledSurgery.SurgeryEvent = surgeryEvent;
+                        
 
                     }
 

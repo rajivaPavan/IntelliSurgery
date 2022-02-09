@@ -14,7 +14,9 @@
 async function addAppointment(patientId) {
 
     var appointment = getAppointmentDetails(patientId);
+    $("#loading").show();
     var res = await addAppointmentRequest(appointment);
+    $("#loading").hide();
     var predictedTime = res.predicatedTime;
     var appointmentId = res.appointmentId;
     if (appointmentId != -1 && predictedTime != null) {
@@ -58,12 +60,6 @@ async function addAppointment(patientId) {
                 }
             }
         })
-
-        
-
-        
-
-
     } else {
         displaySweetAlert("Error occured. Appointment was not added.")
     }

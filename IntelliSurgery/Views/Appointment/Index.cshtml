@@ -5,7 +5,14 @@
 @section Styles{
     <link href="~/css/appointment.css" rel="stylesheet"/>
 }
-<div class="container-fluid" id="appointment-page-main"> 
+<div class="container-fluid px-0" id="appointment-page-main"> 
+    <div id="loading" >
+        <div class="d-flex justify-content-center align-items-center overlay">
+          <div class="spinner spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </div>
+    </div>
     <div class="row">
         <div class="col-lg-2" id="logo">
         </div>
@@ -196,7 +203,7 @@
             </div>
         </div>
         <div class="col-lg-5">
-            <div class="form_class my-1 border border-dark shadow" style="height:89vh;">
+            <div class="form_class my-1 mr-2 border border-dark shadow" style="height:89vh;">
                 <div style="height: 87vh;">
                 <div style="height: 10vh">
                 <h1> Appointment </h1>
@@ -285,18 +292,17 @@
                      <div style="height: 12vh;" class="d-flex align-items-center">
                     <button id="add-appointment-btn" class="btn btn-info mb-0" type="submit">Add Appointment</button>
                     </div>
-               
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+
 @section Scripts{
     <script src="~/js/appointment/appointment-requests.js"></script>
     <script src="~/js/appointment/appointment-validations.js"></script>
     <script src="~/js/appointment/patient.js"></script>
     <script src="~/js/appointment/appointment.js"></script>
-    <script src="~/js/appointment/appointment-vue-app.js"></script>
     <script src="~/js/appointment/appointment-main.js"></script>
 }

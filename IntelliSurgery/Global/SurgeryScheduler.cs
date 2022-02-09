@@ -20,8 +20,8 @@ namespace IntelliSurgery.Global
         private readonly IAppointmentLogic appointmentLogic;
         private readonly TimeSpan prepTime = new(0,5,0);
         private readonly TimeSpan cleanTime = new(0, 5, 0);
-        private readonly double waitDays = 1; //4
-        private readonly double schedulingDays = 3;
+        public static double WaitDays { get; set; } = 1; //4
+        public static double SchedulingDays { get; set; } = 3;
 
         public SurgeryScheduler(IAppointmentRepository appointmentRepository, IWorkingBlockRepository workingBlockRepository,
             IWorkingBlockLogic workBlockLogic, IAppointmentLogic appointmentLogic)
@@ -35,8 +35,8 @@ namespace IntelliSurgery.Global
         public async Task CreateSchedule(Surgeon surgeon)
         {
             DateTime todayDate = DateTime.Now.Date;
-            DateTime lowerBound = todayDate.AddDays(waitDays);
-            DateTime upperBound = lowerBound.AddDays(schedulingDays);
+            DateTime lowerBound = todayDate.AddDays(WaitDays);
+            DateTime upperBound = lowerBound.AddDays(SchedulingDays);
             //get work blocks of the surgeon that start after the current x days from today and within 3 days after the lower bound
             List<WorkingBlock> workingBlocks = await workingBlockRepository.GetWorkBlocks(w => w.SurgeonId == surgeon.Id
                                                                                                && w.Start.Date >= lowerBound

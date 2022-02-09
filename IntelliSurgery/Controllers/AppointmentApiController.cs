@@ -86,7 +86,7 @@ namespace IntelliSurgery.Controllers
                 Weight = patientDTO.Weight,
                 Name = patientDTO.Name,
                 Height = patientDTO.Height,
-                BMI = (float)(patientDTO.Weight / Math.Pow(patientDTO.Height, 2)),
+                BMI = (float)(patientDTO.Weight / Math.Pow(patientDTO.Height/100, 2)),
                 Diseases = diseases,
                 AsaStatus = (ASA_Status)patientDTO.AsaStatus
             };
@@ -99,7 +99,7 @@ namespace IntelliSurgery.Controllers
             Patient updatePatient = await patientRepository.GetPatientById(patientDTO.PatientId);
             updatePatient.Weight = patientDTO.Weight;
             updatePatient.Height = patientDTO.Height;
-            updatePatient.BMI = (float)(patientDTO.Weight / Math.Pow(patientDTO.Height, 2));
+            updatePatient.BMI = (float)(patientDTO.Weight / Math.Pow(patientDTO.Height/100, 2));
             updatePatient.AsaStatus = (ASA_Status)patientDTO.AsaStatus;
             List<Disease> diseases = new List<Disease>();
             foreach (int d in patientDTO.DiseasesValues)

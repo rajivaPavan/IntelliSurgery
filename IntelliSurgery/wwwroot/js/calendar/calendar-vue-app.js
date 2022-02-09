@@ -88,7 +88,8 @@ calendarApp = Vue.createApp({
             var selectedFilter = this.selectedFilter;
             var selectedFilterValue = this.selectedFilterValue;
             if (selectedFilter != "" && selectedFilterValue != -1) {
-                await this.showCalendar(selectedFilter, selectedFilterValue);
+                var events = null; //getCalendarEvents(selectedFilter, selectedFilterValue)
+                await this.showCalendar(events,selectedFilter, selectedFilterValue);
             } else {
                 displaySweetAlert("Choose filters");
             }
@@ -113,12 +114,12 @@ calendarApp = Vue.createApp({
                         "Schedule created",
                         'success'
                     );
-                    await this.showCalendar("surgeons", selectedSurgeonId);
+                    var events = null;
+                    await this.showCalendar(events,"surgeons", selectedSurgeonId);
                 }
             }
         },
-        async showCalendar(selectedFilter, selectedFilterValue) {
-            var events = getCalendarEvents(selectedFilter, selectedFilterValue);
+        async showCalendar(events, selectedFilter, selectedFilterValue) {
             if (events == null) {
                 events = await getScheduledSurgeriesRequest(selectedFilter, selectedFilterValue);
                 this.updateCalendarEvents(events, selectedFilter, selectedFilterValue);

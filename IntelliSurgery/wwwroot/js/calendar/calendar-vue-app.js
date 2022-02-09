@@ -31,6 +31,9 @@ calendarApp = Vue.createApp({
         selectedSurgeonId: function () { hideAppointmentDetails(); }
     },
     computed: {
+        getSelectedFilter() {
+            return this.selectedFilter;
+        },
         getSelectedFilterText() {
             var text = "Select filter first";
             if (this.selectedFilter == "") {
@@ -56,7 +59,18 @@ calendarApp = Vue.createApp({
             return this.selectedEvent;
         },
         getSurgeons() {
-            return this.surgeons;
+            var surgeonsByType = {};
+
+            this.surgeons.forEach((surgeon) => {
+                var specialityName = surgeon.speciality.name;
+                if (!(surgeonsByType.hasOwnProperty(specialityName))) {
+                    surgeonsByType[specialityName] = [];
+                }
+                surgeonsByType[specialityName].push(surgeon);
+
+            });
+            return surgeonsByType;
+            //return this.surgeons;
         },
         getTableData() {
             return this.tableData;

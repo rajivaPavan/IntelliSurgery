@@ -26,9 +26,12 @@
                             <select v-model="selectedSurgeonId" id="appointmentFilter" name="surgeonFilter" 
                                     class="w-100 btn dropdown-toggle border border-info">
                                 <option value="-1" selected hidden>Choose...</option>
-                                <option v-for="option in getSurgeons" v-bind:value="option.id">
-                                    {{ option.name }}
-                                </option>
+                                <optgroup v-for="(surgeons, speciality) in getSurgeons" v-bind:label="speciality">
+                                    <option v-for="option in surgeons" v-bind:value="option.id">
+                                        {{ option.name }}
+                                    </option>
+                                </optgroup>
+                                
                             </select>
                         </div>
                     </div>
@@ -65,13 +68,22 @@
                     </div>
                     <div class="row" style="display:none;" id="filterValuesSection"> 
                         <div class="col-4 my-2 pr-0">{{getSelectedFilterText}}:</div>
-                        <div class="col-8 my-2">
-                            <select v-model="selectedFilterValue" class="w-100 btn dropdown-toggle border border-dark" 
-                                id="filterValuesDropDown">
+                        <div class="col-8 my-2" v-if="getSelectedFilter != 'surgeons'">
+                            <select v-model="selectedFilterValue" class="w-100 btn dropdown-toggle border border-info">
                                   <option value="-1" selected hidden>Choose...</option>
                                   <option v-for="option in getFilterValueOptions" v-bind:value="option.id">
                                     {{ option.name }}
                                   </option>
+                            </select>
+                        </div>
+                        <div class="col-8 my-2" v-else>
+                            <select v-model="selectedFilterValue" class="w-100 btn dropdown-toggle border border-info">
+                                <option value="-1" selected hidden>Choose...</option>
+                                <optgroup v-for="(surgeons, speciality) in getSurgeons" v-bind:label="speciality">
+                                    <option v-for="option in surgeons" v-bind:value="option.id">
+                                        {{ option.name }}
+                                    </option>
+                                </optgroup>
                             </select>
                         </div>
                     </div>

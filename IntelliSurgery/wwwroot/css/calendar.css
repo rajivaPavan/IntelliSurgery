@@ -8,6 +8,7 @@ body {
     background-color: #F1F1F1;
 }
 
+
 #calendar {
     max-width: 1100px;
 }
@@ -21,6 +22,7 @@ body {
 #calendar-main{
     height : 94vh;
     overflow: hidden;
+    position:relative;
 }
 
 #right-side {

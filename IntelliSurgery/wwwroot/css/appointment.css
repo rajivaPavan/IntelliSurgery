@@ -148,23 +148,6 @@ label.light {
     display:none;
 }
 
-#loading {
-    position: absolute;
-    z-index: 99;
-    width:100%;
-    display:none;
-}
-
-.overlay {
-    height: 94vh;
-    background-color:rgba(255,255,255,0.5);
-}
-
-.spinner {
-    width: 200px;
-    height: 200px;
-}
-
 #appointment-page-main {
     position: relative;
 }

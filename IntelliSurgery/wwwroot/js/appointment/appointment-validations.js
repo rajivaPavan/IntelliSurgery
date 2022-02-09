@@ -31,17 +31,17 @@ $('#height').change(function () {
 //    validateGender();
 //});
 
-//$('#surgery').change(function () {
-//    validateSurgery();
-//});
+$('#surgery').change(function () {
+    validateSurgery();
+});
 
-//$('#surgeon').change(function () {
-//    validateSurgeon();
-//});
+$('#surgeon').change(function () {
+    validateSurgeon();
+});
 
-//$('#theatreType').change(function () {
-//    validateTheatre();
-//});
+$('#theatreType').change(function () {
+    validateTheatre();
+});
 
 function validateId() {                                       //validate patient ID
     var idInput = $('#patient_id').val();
@@ -200,22 +200,20 @@ function validateSurgeon() {                                    //validate surge
 function validateTheatre() {                                    //validat or theatre combo is choosed
     var isSuccess = true;
     //I have set the combo box defalt value to -1
-    if ($('#theatreType').val() === -1) {
-        surgeonError = true;
+    if ($('#theatreType').val() == -1) {
         $('#theatreCheck').html("**Theatre type is missing");
         $('#theatreCheck').show();
         isSuccess = false;
     }
     else {
         $('#theatreCheck').hide();
-        surgeonError = false;
     }
     return isSuccess;
 }
 
 function validateImportance() {                                     //check weather importance radio button is selected or not
     var isSuccess = true;
-    if ($("input[name=importance]:checked").val() == -1) {    //-1 is the value assigned to Choose...
+    if ($("input[name=importance]:checked").val() == null) {    //-1 is the value assigned to Choose...
         $('#importanceCheck').html("**Importance is missing");
         $('#importanceCheck').show();
         isSuccess = false;
@@ -253,8 +251,8 @@ function finalAppointmentValidation() {
     var isSuccess = true;
     isSuccess = validateSurgery() &&
                 validateSurgeon() &&
-                validateTheatre() &&
                 validateAnasthesia_type() &&
+                validateTheatre() &&
                 validateImportance();
     return isSuccess;
 }

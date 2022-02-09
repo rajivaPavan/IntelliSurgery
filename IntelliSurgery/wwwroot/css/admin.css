@@ -11,7 +11,7 @@ body {
     font-family: 'Nunito', sans-serif;
     color: #384047;
     background-color: #F1F1F1;
-    overflow-x: hidden;
+    overflow: hidden;
     /*background-image: url("../assets/images/IntelliSurgeryAdmin.png");*/
     
 }
@@ -68,9 +68,8 @@ label {
 
 }
 .offcanvas-body {
-    
-    overflow-y: auto;
-    overflow-x: hidden;
+
+    overflow: hidden;
 }
 .navbar-nav {
     

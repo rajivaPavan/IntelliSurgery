@@ -111,7 +111,9 @@ calendarApp = Vue.createApp({
         async renderAppoinmentsTable() {
             var selectedSurgeonId = this.selectedSurgeonId;
             if (selectedSurgeonId != -1) {
+                $("#loading").show();
                 var appointments = await getSurgeonAppointments(selectedSurgeonId);
+                $("#loading").hide();
                 this.tableData = appointments;
                 $("#calendar").hide();
                 $("#appointments-table").show();
@@ -121,7 +123,9 @@ calendarApp = Vue.createApp({
         async createSchedule() {
             var selectedSurgeonId = this.selectedSurgeonId;
             if (selectedSurgeonId != -1) {
+                $("#loading").show();
                 var isComplete = await CreateScheduleRequest(selectedSurgeonId);
+                $("#loading").hide();
                 if (isComplete == true) {
                     Swal.fire(
                         'Successful!',
@@ -135,7 +139,9 @@ calendarApp = Vue.createApp({
         },
         async showCalendar(events, selectedFilter, selectedFilterValue) {
             if (events == null) {
+                $("#loading").show();
                 events = await getScheduledSurgeriesRequest(selectedFilter, selectedFilterValue);
+                $("#loading").hide();
                 this.updateCalendarEvents(events, selectedFilter, selectedFilterValue);
             }
             $("#appointments-table").hide();

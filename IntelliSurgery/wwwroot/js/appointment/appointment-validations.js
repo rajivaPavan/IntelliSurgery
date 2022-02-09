@@ -264,24 +264,3 @@ function finalUpdatePatientValidation() {
                 validateAsaStatus();
     return isSuccess;
 }
-
-//function validateAnastheasist() {
-//    var isSuccess = true;
-//    if ((!($('#not_required').prop('checked'))) && (!($('#required').prop('checked')))) {
-//        anastheasistError = true;
-//        $('#anastheasistCheck').html("**Anastheasist requirement is missing");
-//        $('#anastheasistCheck').show();
-//        isSuccess = false;
-//    }
-//    else if ($('#not_required').prop('checked')) {
-//        $('#anastheasistCheck').hide();
-//        //$("#ddlList option[value= '-1']").prop("disabled", true);            //--------------------disable Anasthesia_type combo box
-//        anastheasistError = false;
-//    }
-//    else {
-//        $('#anastheasistCheck').hide();
-//        validateAnasthesia_type();
-//        anastheasistError = false;
-//    }
-//    return isSuccess;
-//}

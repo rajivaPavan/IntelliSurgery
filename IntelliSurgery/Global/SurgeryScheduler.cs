@@ -36,7 +36,7 @@ namespace IntelliSurgery.Global
         {
             DateTime todayDate = DateTime.Now.Date;
             DateTime lowerBound = todayDate.AddDays(WaitDays);
-            DateTime upperBound = lowerBound.AddDays(SchedulingDays);
+            DateTime upperBound = lowerBound.AddDays(SchedulingDays-1);
             //get work blocks of the surgeon that start after the current x days from today and within 3 days after the lower bound
             List<WorkingBlock> workingBlocks = await workingBlockRepository.GetWorkBlocks(w => w.SurgeonId == surgeon.Id
                                                                                                && w.Start.Date >= lowerBound
@@ -66,7 +66,7 @@ namespace IntelliSurgery.Global
                     appointments = PrioritizeAppointments(appointments);
 
                     //allocate time for surgeries within the time blocks
-                    workingBlocks = await AllocateSurgeriesToBlocks(workingBlocks, appointments);
+                    workingBlocks = AllocateSurgeriesToBlocks(workingBlocks, appointments);
 
                     //sort the surgeries within each workingblock
                     workingBlocks = await SortSurgeriesWithinWorkingBlocks(workingBlocks);
@@ -78,7 +78,7 @@ namespace IntelliSurgery.Global
             }
         }
 
-        public async Task<List<WorkingBlock>> AllocateSurgeriesToBlocks(List<WorkingBlock> workingBlocks, 
+        public List<WorkingBlock> AllocateSurgeriesToBlocks(List<WorkingBlock> workingBlocks, 
             List<Appointment> appointments)
         {
             ///////best fit algorithm in memory management//////
@@ -131,6 +131,8 @@ namespace IntelliSurgery.Global
                         }
                     }
                 }
+
+               
                 //if a block was found for the current appointment
                 if (bestBlockIndex != -1)
                 {
@@ -167,6 +169,7 @@ namespace IntelliSurgery.Global
 
                     //add scheduled surgery to working block
                     bestBlock.AllocatedSurgeries.Add(currentAppointment);
+                    appointments[i] = currentAppointment;
 
                     //update best working block
                     workingBlocks[bestBlockIndex] = bestBlock;
@@ -175,12 +178,18 @@ namespace IntelliSurgery.Global
             return workingBlocks;
         }
 
+        private TimeSpan CalculateAverage(IEnumerable<TimeSpan> timeSpans)
+        {
+            IEnumerable<long> ticksPerTimeSpan = timeSpans.Select(t => t.Ticks);
+            double averageTicks = ticksPerTimeSpan.Average();
+            return TimeSpan.FromTicks((long)averageTicks);
+        }
+
         public async Task<List<WorkingBlock>> SortSurgeriesWithinWorkingBlocks(List<WorkingBlock> workingBlocks)
         {
             foreach(WorkingBlock workingBlock in workingBlocks)
             {
                 List<Appointment> appointments = workingBlock.AllocatedSurgeries;
-                appointments = appointments.OrderBy(a => a.ScheduledSurgery.SurgeryEvent.Duration).ToList();
 
                 DateTime blockStart = workingBlock.Start;
                 DateTime blockEnd = workingBlock.End;
@@ -191,37 +200,8 @@ namespace IntelliSurgery.Global
                 TimeSpan gapTime = TimeSpan.Zero;
                 if (numberOfGaps > 0) { gapTime = remainingTime.Divide(numberOfGaps); }
 
-                for (int i = 0; i < appointmentCount; i++)
-                {
-                    Appointment currentAppointment = appointments[i];
-                    TimeSpan duration = currentAppointment.ScheduledSurgery.SurgeryEvent.Duration;
-                    
-                    if ((i+1) % 2 != 0)
-                    {
-
-                        TimeRange timeRange = new TimeRange(blockStart, duration);
-                        DateTime end = timeRange.End;
-                        blockStart = end.Add(gapTime);
-                        SurgeryEvent surgeryEvent = new SurgeryEvent();
-                        surgeryEvent.SetTimeRange(timeRange);
-                        currentAppointment.ScheduledSurgery.SurgeryEvent = surgeryEvent;
-
-
-                    }
-                    else
-                    {
-                        DateTime start = blockEnd.Subtract(duration);
-                        blockEnd = start.Subtract(gapTime);
-                        TimeRange timeRange = new TimeRange(start,duration);
-                        SurgeryEvent surgeryEvent = new SurgeryEvent();
-                        surgeryEvent.SetTimeRange(timeRange);
-                        currentAppointment.ScheduledSurgery.SurgeryEvent = surgeryEvent;
-                        
-
-                    }
-
-                    appointments[i] = currentAppointment;
-                }
+                appointments = DistributeInPriorityOrder(appointments, appointmentCount,
+                                    blockStart, blockEnd, gapTime);
 
                 await appointmentRepository.UpdateAppointments(appointments);
             }
@@ -256,6 +236,66 @@ namespace IntelliSurgery.Global
             //sort the appointments in the order of priority, high first
             appointments = appointments.OrderByDescending(a => a.PriorityLevel).ThenBy(a => a.DateAdded).ToList();
             
+            return appointments;
+        }
+
+        private List<Appointment> DistributeInPriorityOrder(List<Appointment> appointments, int appointmentCount,
+            DateTime blockStart, DateTime blockEnd, TimeSpan gapTime)
+        {
+            for (int i = 0; i < appointmentCount; i++)
+            {
+                Appointment currentAppointment = appointments[i];
+                TimeSpan duration = currentAppointment.ScheduledSurgery.SurgeryEvent.Duration;
+
+                TimeRange timeRange = new TimeRange(blockStart, duration);
+                DateTime end = timeRange.End;
+                blockStart = end.Add(gapTime);
+                SurgeryEvent surgeryEvent = new SurgeryEvent();
+                surgeryEvent.SetTimeRange(timeRange);
+                currentAppointment.ScheduledSurgery.SurgeryEvent = surgeryEvent;
+
+                appointments[i] = currentAppointment;
+            }
+
+            return appointments;
+        }
+
+        private List<Appointment> NormallyDistrubute(List<Appointment> appointments, int appointmentCount, 
+            DateTime blockStart,DateTime blockEnd, TimeSpan gapTime)
+        {
+            appointments = appointments.OrderBy(a => a.ScheduledSurgery.SurgeryEvent.Duration).ToList();
+
+            for (int i = 0; i < appointmentCount; i++)
+            {
+                Appointment currentAppointment = appointments[i];
+                TimeSpan duration = currentAppointment.ScheduledSurgery.SurgeryEvent.Duration;
+
+                if ((i + 1) % 2 != 0)
+                {
+
+                    TimeRange timeRange = new TimeRange(blockStart, duration);
+                    DateTime end = timeRange.End;
+                    blockStart = end.Add(gapTime);
+                    SurgeryEvent surgeryEvent = new SurgeryEvent();
+                    surgeryEvent.SetTimeRange(timeRange);
+                    currentAppointment.ScheduledSurgery.SurgeryEvent = surgeryEvent;
+
+
+                }
+                else
+                {
+                    DateTime start = blockEnd.Subtract(duration);
+                    blockEnd = start.Subtract(gapTime);
+                    TimeRange timeRange = new TimeRange(start, duration);
+                    SurgeryEvent surgeryEvent = new SurgeryEvent();
+                    surgeryEvent.SetTimeRange(timeRange);
+                    currentAppointment.ScheduledSurgery.SurgeryEvent = surgeryEvent;
+
+                }
+
+                appointments[i] = currentAppointment;
+            }
+
             return appointments;
         }
     }

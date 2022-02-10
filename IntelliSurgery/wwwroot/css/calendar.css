@@ -11,6 +11,7 @@ body {
 
 #calendar {
     max-width: 1100px;
+    background-color: #F1F1F1 !important;
 }
 
 .logo-bg {

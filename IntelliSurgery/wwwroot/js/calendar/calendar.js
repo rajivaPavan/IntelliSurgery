@@ -9,9 +9,12 @@ function initCalendar(calendarEvents) {
         views: {
             dayGridMonth: { 
                 titleFormat: { year: 'numeric', month: '2-digit', day: '2-digit' }
+            },
+            timeGrid: {
+                nowIndicator: true
             }
         },
-        height:"90vh",
+        height: "89vh",
         eventClick: function (info) {
 
             var event = info.event;
@@ -33,4 +36,7 @@ function initCalendar(calendarEvents) {
 
     calendar.render();
 
+    return calendar;
+
 }
+

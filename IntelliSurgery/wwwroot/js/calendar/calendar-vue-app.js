@@ -9,6 +9,7 @@ const POSTPONED = 6;
 calendarApp = Vue.createApp({
     data() {
         return {
+            calendar: null,
             calendars: {},
             filters: [],
             fitlerValues: {},
@@ -115,6 +116,7 @@ calendarApp = Vue.createApp({
                 var appointments = await getSurgeonAppointments(selectedSurgeonId);
                 $("#loading").hide();
                 this.tableData = appointments;
+                this.calendar = null;
                 $("#calendar").hide();
                 $("#appointments-table").show();
                 $("#appointment-box").hide();
@@ -147,7 +149,7 @@ calendarApp = Vue.createApp({
             $("#appointments-table").hide();
             $("#calendar").show();
             $("#appointment-box").hide();
-            initCalendar(events);
+            this.calendar = initCalendar(events);
         },
         updateCalendarEvents(events, searchFilter, searchFilterValue) {
             var calendars = this.calendars;
@@ -201,7 +203,7 @@ calendarApp = Vue.createApp({
                         var updatedEvents = getCalendarEvents(selectedFilter, selectedFilterValue);
 
                         //re init fullcalendar by passing the necesary events;
-                        initCalendar(updatedEvents);
+                        this.calendar = initCalendar(updatedEvents);
 
                         //
                         Swal.fire(
@@ -220,6 +222,18 @@ calendarApp = Vue.createApp({
 });
 
 calendarVueApp = calendarApp.mount("#calendar-main");
+
+const LEFT_KEY = 37;
+const RIGHT_KEY = 39;
+$("html").keydown((e) => {
+    if (calendarVueApp.calendar != null) {
+        if (e.keyCode == LEFT_KEY) {
+            calendarVueApp.calendar.prev();
+        } else if (e.keyCode == RIGHT_KEY) {
+            calendarVueApp.calendar.next();
+        }
+    }
+});
 
 async function isProceedToSetStatus(newStatusName) {
     var isProceed = false;

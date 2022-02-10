@@ -1,6 +1,7 @@
 ﻿using IntelliSurgery.DbOperations;
 using IntelliSurgery.DbOperations.WorkingBlocks;
 using IntelliSurgery.Enums;
+using IntelliSurgery.Global;
 using IntelliSurgery.Models;
 using IntelliSurgery.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -30,10 +31,22 @@ namespace IntelliSurgery.Controllers
             this.surgeryRepository = surgeryRepository;
         }
 
+        public IActionResult SetDays(LoadDataViewModel model)
+        {
+            SurgeryScheduler.SchedulingDays = model.ScheduleDays;
+            SurgeryScheduler.WaitDays = model.WaitingDays;
+            return RedirectToAction("load");
+        }
+
         [HttpGet]
         public IActionResult Load()
         {
-            return View();
+            LoadDataViewModel model = new LoadDataViewModel()
+            {
+                ScheduleDays = SurgeryScheduler.SchedulingDays,
+                WaitingDays = SurgeryScheduler.WaitDays
+            };
+            return View(model);
         }
 
         [HttpPost]
@@ -52,6 +65,12 @@ namespace IntelliSurgery.Controllers
             path = @"../IntelliSurgery/Scenarios/Appointments/scenario" + scenario.ToString() + ".csv";
             List<Appointment> appointments = ReadAppointmentsInCSV(path);
             await appointmentRepository.AddAppointments(appointments);
+
+            model = new LoadDataViewModel()
+            {
+                ScheduleDays = SurgeryScheduler.SchedulingDays,
+                WaitingDays = SurgeryScheduler.WaitDays
+            };
 
             return View(model);
         }

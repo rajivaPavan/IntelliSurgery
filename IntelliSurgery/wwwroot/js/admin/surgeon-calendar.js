@@ -11,6 +11,7 @@
                 // other view-specific options here
             }
         },
+        height: '80vh',
         eventClick: function (info) {
 
             var event = info.event;

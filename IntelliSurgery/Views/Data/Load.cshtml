@@ -2,20 +2,107 @@
 @{
     ViewBag.Title = "Scenarios";
 }
+@section Styles{
+    <style>
+        .slidecontainer {
+          width: 100%; /* Width of the outside container */
+        }
 
+        /* The slider itself */
+        .slider {
+          -webkit-appearance: none;  /* Override default CSS styles */
+          appearance: none;
+          width: 100%; /* Full-width */
+          height: 25px; /* Specified height */
+          background: #d3d3d3; /* Grey background */
+          outline: none; /* Remove outline */
+          opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+          -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+          transition: opacity .2s;
+        }
+
+        /* Mouse-over effects */
+        .slider:hover {
+          opacity: 1; /* Fully shown on mouse-over */
+        }
+
+        /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+        .slider::-webkit-slider-thumb {
+          -webkit-appearance: none; /* Override default look */
+          appearance: none;
+          width: 25px; /* Set a specific slider handle width */
+          height: 25px; /* Slider handle height */
+          background: #04AA6D; /* Green background */
+          cursor: pointer; /* Cursor on hover */
+        }
+
+        .slider::-moz-range-thumb {
+          width: 25px; /* Set a specific slider handle width */
+          height: 25px; /* Slider handle height */
+          background: #04AA6D; /* Green background */
+          cursor: pointer; /* Cursor on hover */
+        }
+    </style>
+}
 <div class="container-fluid">
      <div class="col-12 justify-content-center my-auto">
-         <form asp-action="Load" asp-controller="Data">
-             <input asp-for="ScenarioNumber" value="0" hidden>
-             <button type="submit" class="btn btn-primary">Load Scenario 1 data</button>
-         </form>
-         <form asp-action="Load" asp-controller="Data">
-             <input asp-for="ScenarioNumber" value="1" hidden>
-             <button type="submit" class="btn btn-success">Load Scenario 2 data</button>
-         </form>
-         <form asp-action="Load" asp-controller="Data">
-             <input asp-for="ScenarioNumber" value="3" hidden>
-             <button type="submit" class="btn btn-warning">Load Scenario 3 data</button>
-         </form>
+         <div class="row my-2">
+             <div class="col-6">
+                 <form asp-action="SetDays" asp-controller="Data">                        
+                     <div class="slidecontainer">
+                        <input asp-for="WaitingDays" type="range" min="1" max="30" class="slider" id="slider1">
+                     </div>
+                     <label asp-for="WaitingDays"></label>  <span id="wait-days"></span>
+                     <div class="sildercontainer">
+                        <input asp-for="ScheduleDays" type="range" min="1" max="30" class="slider" id="slider2">
+                     </div>
+                     <label asp-for="ScheduleDays"></label> <span id="schedule-days"></span>
+                     <div>
+                     <button type="submit" class="btn btn-info">Save</button>
+                     </div>
+                 </form>
+             </div>
+         </div>
+         <div class="row">
+             <div class="col-12 col-md-4 d-flex justify-content-center">
+                 <form asp-action="Load" asp-controller="Data">
+                     <input asp-for="ScenarioNumber" value="1" hidden>
+                     <button type="submit" class="btn btn-primary">Load Scenario 1 data</button>
+                 </form>
+             </div>
+             <div class="col-12 col-md-4 d-flex justify-content-center">
+                 <form asp-action="Load" asp-controller="Data">
+                     <input asp-for="ScenarioNumber" value="2" hidden>
+                     <button type="submit" class="btn btn-success">Load Scenario 2 data</button>
+                 </form>    
+             </div>
+             <div class="col-12 col-md-4 d-flex justify-content-center">
+                 <form asp-action="Load" asp-controller="Data">
+                     <input asp-for="ScenarioNumber" value="3" hidden>
+                     <button type="submit" class="btn btn-warning">Load Scenario 3 data</button>
+                 </form>
+             </div>
+         </div>
+         
+         
+
      </div>
 </div>
+
+@section Scripts{
+    <script>
+        $(document).ready(() =>{
+            $("#wait-days").text(" "+@Model.WaitingDays.ToString()+" days");
+            $("#schedule-days").text(" "+@Model.ScheduleDays.ToString()+" days");
+        });
+        $("#slider1").on("input",()=>{
+            var slider1Val = $("#slider1").val();
+            $("#wait-days").text(slider1Val+" days");
+        });
+        
+        $("#slider2").on("input",()=>{
+            var slider2Val = $("#slider2").val();
+            $("#schedule-days").text(slider2Val+" days");
+        });
+    </script>
+}

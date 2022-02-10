@@ -6,6 +6,16 @@ $("#validate-patient-btn").click(async () => {
         //sweet alerts are written inside the validatePatient function
     }
 })
+const ENTER = 13;
+$("#patient_id").keydown(async (e) => {
+    if (e.keyCode == ENTER) {
+        var isValidationSuccess = validateId();
+        if (isValidationSuccess) {
+            global.patientId = await validatePatient();
+            //sweet alerts are written inside the validatePatient function
+        }
+    }
+});
 
 $("#add-patient-btn").click(async () => {    
     if (global.patientId == NULL_ENTITY_ID) {
@@ -59,8 +69,7 @@ $("#add-appointment-btn").click(async () => {       //----------------both valid
 function resetForms() {
     global = initGlobalVariable()
     clearAllFields();
-    enableAllPatientFields();
-    showPatientAddBtn(true);
+    disableVariablePatientFields(true);
 }
 
 function clearAllFields() {

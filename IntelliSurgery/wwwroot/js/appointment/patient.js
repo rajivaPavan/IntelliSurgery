@@ -1,8 +1,11 @@
 ﻿function clearAllPatientFields() {
     $("#patient_name").val("");
+    $("input[name=gender]:checked").prop("checked", false);
     $("#birthday").val("");
     $("#weight").val("");
     $("#height").val("");
+    $("input[name=asa]:checked").prop("checked", false);
+    $("input[name=disease]").prop("checked", false);
 }
 
 function showPatientAddBtn(ishow) {
@@ -15,16 +18,21 @@ function showPatientAddBtn(ishow) {
     }
 }
 
+function disableUpdatePatientButton(isDisable) {
+    $("#update-patient-btn").prop("disabled", isDisable);
+};
+
 function disablePatientConstantFields(isDisable) {
     $("#patient_name").prop("disabled", isDisable);
     $("#birthday").prop("disabled", isDisable);
     $("input:radio.gender").prop("disabled", isDisable);
 }
 
-function enableAllPatientFields() {
-    disablePatientConstantFields(false);
-    $("#weight").prop("disabled", false);
-    $("#height").prop("disabled", false);
+function disableVariablePatientFields(isDisable) {
+    $("#weight").prop("disabled", isDisable);
+    $("#height").prop("disabled", isDisable);
+    $("input[name=asa]").prop("disabled", isDisable);
+    $("input[name=disease]").prop("disabled", isDisable);
 }
 
 function setPatientDetails(patientDetails) {
@@ -78,9 +86,13 @@ async function validatePatient() {
             //if patient exists
             patientId = parseInt(patientId);
             setPatientDetails(patientDetails);
-            disablePatientConstantFields(true);
 
-            showPatientAddBtn(false);
+            //enable variable fields
+            disableVariablePatientFields(false);
+
+            //enable update patient button
+            disableUpdatePatientButton(false);
+
             Swal.fire({
                 icon: 'success',
                 title: 'Patient validated successfully',
@@ -99,14 +111,14 @@ async function validatePatient() {
 
             patientId = NULL_ENTITY_ID;
             clearAllPatientFields();
-            enableAllPatientFields();
 
-            showPatientAddBtn(true);
+            //disable patient fields;
+            disableVariablePatientFields(true);
+            //disable update patient button
+            disableUpdatePatientButton(true);
             
 
         }
-    } else {
-        //displaySweetAlert("Patient Id is empty");
     }
 
     return patientId;

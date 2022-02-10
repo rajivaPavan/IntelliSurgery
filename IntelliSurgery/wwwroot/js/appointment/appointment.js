@@ -27,6 +27,7 @@ async function addAppointment(patientId) {
             text: predictedTime,
             icon: 'success',
             showCancelButton: true,
+            allowOutsideClick: false,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Accept',
@@ -39,6 +40,7 @@ async function addAppointment(patientId) {
                 const { value: inputVal } = await Swal.fire({
                     title: 'Enter new time duration',
                     input: 'text',
+                    allowOutsideClick: false,
                     inputPlaceholder: "hours : minutes",
                     showCancelButton: true,
                     inputValidator: (value) => {

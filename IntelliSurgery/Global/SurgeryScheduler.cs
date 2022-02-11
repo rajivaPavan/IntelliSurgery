@@ -22,7 +22,6 @@ namespace IntelliSurgery.Global
         private readonly TimeSpan cleanTime = new(0, 5, 0);
         public static double WaitDays { get; set; } = 1; //4
         public static double SchedulingDays { get; set; } = 3;
-        public TimeSpan BlockMargin { get; set; } = new TimeSpan(0, 30, 0);
 
 
 
@@ -40,10 +39,14 @@ namespace IntelliSurgery.Global
             DateTime todayDate = DateTime.Now.Date;
             DateTime lowerBound = todayDate.AddDays(WaitDays);
             DateTime upperBound = lowerBound.AddDays(SchedulingDays-1);
-            //get work blocks of the surgeon that start after the current x days from today and within 3 days after the lower bound
+            //get work blocks of the surgeon that start after WaitDays from today and within ScheduleingDays after the lower bound
             List<WorkingBlock> workingBlocks = await workingBlockRepository.GetWorkBlocks(w => w.SurgeonId == surgeon.Id
                                                                                                && w.Start.Date >= lowerBound
                                                                                                && w.End.Date <= upperBound);
+            //sort working blocks in chronological order
+            workingBlocks = workingBlocks.OrderBy(w => w.Start).ToList();
+            int numOfBlocks = workingBlocks.Count;
+
 
             List<Appointment> unconfirmedAppointments = await appointmentRepository.GetAppointments(a => a.SurgeonId == surgeon.Id
                                                                                   && a.Status == Status.Scheduled);
@@ -64,13 +67,17 @@ namespace IntelliSurgery.Global
 
                 List<Appointment> appointments = await appointmentRepository.GetAppointments(a => a.SurgeonId == surgeon.Id
                                                                                   && a.Status == status);
-                if(appointments.Count != 0)
+                int numOfAppointments = appointments.Count;
+                if (numOfAppointments != 0)
                 {
                     appointments = PrioritizeAppointments(appointments);
 
                     //allocate time for surgeries within the time blocks
-                    workingBlocks = AllocateSurgeriesToBlocks(workingBlocks, appointments);
+                    workingBlocks = AllocateSurgeriesToBlocks(workingBlocks,numOfBlocks, appointments, numOfAppointments);
 
+                    //sort the surgeries among the above working blocks
+                    workingBlocks = SortSurgeriesAmongBlocks(workingBlocks, numOfBlocks);
+                    
                     //sort the surgeries within each workingblock
                     workingBlocks = await SortSurgeriesWithinWorkingBlocks(workingBlocks);
 
@@ -80,31 +87,19 @@ namespace IntelliSurgery.Global
                 
             }
         }
-
-        public List<WorkingBlock> AllocateSurgeriesToBlocks(List<WorkingBlock> workingBlocks, 
-            List<Appointment> appointments)
+        public List<WorkingBlock> AllocateSurgeriesToBlocks(List<WorkingBlock> workingBlocks, int numOfBlocks,
+           List<Appointment> appointments, int numOfAppointments)
         {
             ///////best fit algorithm in memory management//////
-            
+
             //initially every appointment is unscheduled
 
-            int numOfBlocks = workingBlocks.Count;
-            int numOfAppointments = appointments.Count;
-            
-            TimeSpan blockDuration;
             TimeSpan finalSurgeryDuration;
             Appointment currentAppointment;
-            WorkingBlock currentBlock;
-            TheatreType currentAppointmentTheatreType;
 
-
-            //add exceeding margins to blocks
-            //workingBlocks.ForEach(workingBlock => workingBlock.RemainingTime += BlockMargin); ///////
-
-            for(int i = 0; i < numOfAppointments; i++)
+            for (int i = 0; i < numOfAppointments; i++)
             {
-                int bestBlockIndex = -1;
-                WorkingBlock bestBlock = null;
+                
 
                 currentAppointment = appointments[i];
 
@@ -115,34 +110,14 @@ namespace IntelliSurgery.Global
                     continue;
                 }
 
-                for (int j = 0; j < numOfBlocks; j++)
-                {
-                    currentBlock = workingBlocks[j];
-                    currentAppointmentTheatreType = currentAppointment.TheatreType;
-                    //current block theatre type does not match appointment theatre type skip the current block,
-                    if (currentBlock.Theatre.TheatreType != currentAppointmentTheatreType)
-                    {
-                        continue;
-                    }
+                //run the best fit algorithm
+                int bestBlockIndex = BestFit(workingBlocks, numOfBlocks, currentAppointment, finalSurgeryDuration);
 
-                    //block duration is the remaining time of the current block
-                    blockDuration = currentBlock.RemainingTime;
-
-                    //find the best block index for the current appointment
-                    if (blockDuration >= finalSurgeryDuration)
-                    {
-                        if (bestBlock == null || blockDuration < bestBlock.RemainingTime )
-                        {
-                            bestBlockIndex = j;
-                            bestBlock = workingBlocks[bestBlockIndex];   
-                        }
-                    }
-                }
-
-               
                 //if a block was found for the current appointment
                 if (bestBlockIndex != -1)
                 {
+                    WorkingBlock bestBlock = workingBlocks[bestBlockIndex];
+
                     //set appointment status to scheduled
                     currentAppointment.Status = Status.Scheduled;
 
@@ -182,6 +157,189 @@ namespace IntelliSurgery.Global
                     workingBlocks[bestBlockIndex] = bestBlock;
                 }
             }
+            return workingBlocks;
+        }
+
+        private int BestFit(List<WorkingBlock> workingBlocks, int numOfBlocks, 
+                Appointment currentAppointment, TimeSpan finalSurgeryDuration)
+        {
+            int bestBlockIndex = -1;
+            WorkingBlock bestBlock = null;
+            for (int j = 0; j < numOfBlocks; j++)
+            {
+                WorkingBlock currentBlock = workingBlocks[j];
+                TheatreType currentAppointmentTheatreType = currentAppointment.TheatreType;
+                //current block theatre type does not match appointment theatre type skip the current block,
+                if (currentBlock.Theatre.TheatreType != currentAppointmentTheatreType)
+                {
+                    continue;
+                }
+
+                //block duration is the remaining time of the current block
+                TimeSpan blockDuration = currentBlock.RemainingTime;
+
+                //find the best block index for the current appointment
+                if (blockDuration >= finalSurgeryDuration)
+                {
+                    if (bestBlock == null || blockDuration < bestBlock.RemainingTime)
+                    {
+                        bestBlockIndex = j;
+                        bestBlock = workingBlocks[bestBlockIndex];
+                    }
+                }
+            }
+            return bestBlockIndex;
+        }
+        private List<WorkingBlock> SortSurgeriesAmongBlocks(List<WorkingBlock> workingBlocks, int numOfBlocks)
+        {
+            for (int currentBlockIndex = 0; currentBlockIndex < numOfBlocks; currentBlockIndex++)
+            {
+                WorkingBlock currentBlock = workingBlocks[currentBlockIndex];
+                List<Appointment> allocatedSurgeries = currentBlock.AllocatedSurgeries;
+                int appointmentCount = allocatedSurgeries.Count;
+                TimeSpan blockRemainingTime = currentBlock.RemainingTime;
+                if (appointmentCount == 0)
+                {
+                    TimeSpan swapMaxTime = blockRemainingTime;
+                    workingBlocks = TryFill(workingBlocks, currentBlockIndex, numOfBlocks, swapMaxTime);
+                }
+                for (int currentAppointmentIndex = 0; currentAppointmentIndex < appointmentCount; currentAppointmentIndex++)
+                {
+                    Appointment appointment = allocatedSurgeries[currentAppointmentIndex];
+                    //do the check if priority level is not high
+                    if (appointment.PriorityLevel != PriorityLevel.High)
+                    {
+                        TimeSpan surgeryDuration = appointment.ScheduledSurgery.SurgeryEvent.Duration;
+                        TimeSpan swapMaxTime = surgeryDuration.Add(blockRemainingTime);
+
+                        workingBlocks = TrySwap(workingBlocks, numOfBlocks, currentBlockIndex, currentAppointmentIndex, surgeryDuration, swapMaxTime);
+
+                    }
+                }
+            }
+
+            return workingBlocks;
+        }
+
+        private List<WorkingBlock> TryFill(List<WorkingBlock> workingBlocks, int currentBlockIndex, int numOfBlocks, TimeSpan swapMaxTime)
+        {
+            bool isBreak = false;
+            WorkingBlock currentBlock = workingBlocks[currentBlockIndex];
+            //go throught the next blocks to find a suitable appointment to swap
+            for (int otherBlockIndex = currentBlockIndex + 1; otherBlockIndex < numOfBlocks; otherBlockIndex++)
+            {
+                WorkingBlock otherBlock = workingBlocks[otherBlockIndex];
+                List<Appointment> otherAllocatedSurgeries = otherBlock.AllocatedSurgeries;
+                int otherAppointmentsCount = otherAllocatedSurgeries.Count;
+                TimeSpan otherRemainingTime = otherBlock.RemainingTime;
+
+                //go throught appointments in the blocks until a suitable one to swap is found
+                for (int otherAppointmentIndex = 0; otherAppointmentIndex < otherAppointmentsCount; otherAppointmentIndex++)
+                {
+                    Appointment otherAppointment = otherAllocatedSurgeries[otherAppointmentIndex];
+                    TimeSpan otherSurgeryDuration = otherAppointment.ScheduledSurgery.SurgeryEvent.Duration;
+                    TimeSpan otherSwapMaxTime = otherSurgeryDuration.Add(otherRemainingTime);
+
+                    TimeSpan surgeryDuration = TimeSpan.Zero;
+
+                    //is swappable
+                    if (workBlockLogic.AreAppointmentsSwappable(surgeryDuration, swapMaxTime, otherSurgeryDuration, otherSwapMaxTime))
+                    {
+                        TimeSpan difference;
+                        
+                        //fill
+
+                        //correct the remaining times in the two blocks
+                        difference = otherSurgeryDuration.Subtract(surgeryDuration);
+                        //do the opposite of that of in the if case
+                        otherBlock.RemainingTime = otherBlock.RemainingTime.Add(difference);
+                        currentBlock.RemainingTime = currentBlock.RemainingTime.Subtract(difference);
+
+                        workingBlocks[currentBlockIndex].AllocatedSurgeries.Add(otherAppointment);
+                        workingBlocks[otherBlockIndex].AllocatedSurgeries.Remove(otherAppointment);
+
+                        //current appointment swapped
+                        //now back to the top for loop 
+                        isBreak = true;
+                        break;
+                    }
+                }
+                //end looping through other appointments
+                if (isBreak) { break; }
+
+            }
+            //end looping through the next blocks
+            return workingBlocks;
+        }
+
+        private List<WorkingBlock> TrySwap(List<WorkingBlock> workingBlocks, int numOfBlocks, int currentBlockIndex, 
+            int currentAppointmentIndex, TimeSpan surgeryDuration, TimeSpan swapMaxTime)
+        {
+            WorkingBlock currentBlock = workingBlocks[currentBlockIndex];
+            List<Appointment> allocatedSurgeries = currentBlock.AllocatedSurgeries;
+            Appointment appointment = allocatedSurgeries[currentAppointmentIndex];
+
+            bool isBreak = false;
+            //go throught the next blocks to find a suitable appointment to swap
+            for (int otherBlockIndex = currentBlockIndex + 1; otherBlockIndex < numOfBlocks; otherBlockIndex++)
+            {
+                WorkingBlock otherBlock = workingBlocks[otherBlockIndex];
+                List<Appointment> otherAllocatedSurgeries = otherBlock.AllocatedSurgeries;
+                int otherAppointmentsCount = otherAllocatedSurgeries.Count;
+                TimeSpan otherRemainingTime = otherBlock.RemainingTime;
+
+                //go throught appointments in the blocks until a suitable one to swap is found
+                for (int otherAppointmentIndex = 0; otherAppointmentIndex < otherAppointmentsCount; otherAppointmentIndex++)
+                {
+                    Appointment otherAppointment = otherAllocatedSurgeries[otherAppointmentIndex];
+                    if (otherAppointment.PriorityLevel > appointment.PriorityLevel)
+                    {
+                        TimeSpan otherSurgeryDuration = otherAppointment.ScheduledSurgery.SurgeryEvent.Duration;
+                        TimeSpan otherSwapMaxTime = otherSurgeryDuration.Add(otherRemainingTime);
+
+                        //is swappable
+                        if (workBlockLogic.AreAppointmentsSwappable(surgeryDuration, swapMaxTime, otherSurgeryDuration, otherSwapMaxTime))
+                        {
+                            TimeSpan difference;
+                            //swap
+
+                            allocatedSurgeries[currentAppointmentIndex] = otherAppointment;
+                            otherAllocatedSurgeries[otherAppointmentIndex] = appointment;
+
+                            //correct the remaining times in the two blocks
+                            if (surgeryDuration >= otherSurgeryDuration)
+                            {
+
+                                difference = surgeryDuration.Subtract(otherSurgeryDuration);
+                                //subrtact the difference from the remaining time of other block
+                                otherBlock.RemainingTime = otherBlock.RemainingTime.Subtract(difference);
+                                //add the difference to the remaining time of the current block
+                                currentBlock.RemainingTime = currentBlock.RemainingTime.Add(difference);
+                            }
+                            else
+                            {
+                                difference = otherSurgeryDuration.Subtract(surgeryDuration);
+                                //do the opposite of that of in the if case
+                                otherBlock.RemainingTime = otherBlock.RemainingTime.Add(difference);
+                                currentBlock.RemainingTime = currentBlock.RemainingTime.Subtract(difference);
+                            }
+
+                            workingBlocks[currentBlockIndex].AllocatedSurgeries = allocatedSurgeries;
+                            workingBlocks[otherBlockIndex].AllocatedSurgeries = otherAllocatedSurgeries;
+
+                            //current appointment swapped
+                            //now back to the top for loop 
+                            isBreak = true;
+                            break;
+                        }
+                    }
+                }
+                //end looping through other appointments
+                if (isBreak) { break; }
+
+            }
+            //end looping through the next blocks
+
             return workingBlocks;
         }
 
@@ -305,5 +463,6 @@ namespace IntelliSurgery.Global
 
             return appointments;
         }
+
     }
 }

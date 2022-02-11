@@ -16,6 +16,12 @@ namespace IntelliSurgery.Logic
             this.workingBlockRepository = workingBlockRepository;
         }
 
+        public bool AreAppointmentsSwappable(TimeSpan surgeryDuration, TimeSpan swapMaxTime,
+                        TimeSpan otherSurgeryDuration, TimeSpan otherSwapMaxTime)
+        {
+            return (surgeryDuration <= otherSwapMaxTime) && (otherSurgeryDuration <= swapMaxTime);
+        }
+
         public bool CheckIfBlockOverlaps(TimeRange timeRange, List<WorkingBlock> checkBlocks)
         {
             bool isOverlaps = false;
@@ -53,5 +59,6 @@ namespace IntelliSurgery.Logic
         bool IsBlockDeletable(WorkingBlock workingBlock);
         bool CheckIfBlockOverlaps(TimeRange timeRange, List<WorkingBlock> checkBlocks);
         Task RestoreWorkBlockTime(Appointment appointment);
+        bool AreAppointmentsSwappable(TimeSpan surgeryDuration, TimeSpan swapMaxTime, TimeSpan otherSurgeryDuration, TimeSpan otherSwapMaxTime);
     }
 }

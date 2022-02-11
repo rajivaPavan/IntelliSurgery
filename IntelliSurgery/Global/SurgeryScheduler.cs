@@ -22,6 +22,9 @@ namespace IntelliSurgery.Global
         private readonly TimeSpan cleanTime = new(0, 5, 0);
         public static double WaitDays { get; set; } = 1; //4
         public static double SchedulingDays { get; set; } = 3;
+        public TimeSpan BlockMargin { get; set; } = new TimeSpan(0, 30, 0);
+
+
 
         public SurgeryScheduler(IAppointmentRepository appointmentRepository, IWorkingBlockRepository workingBlockRepository,
             IWorkingBlockLogic workBlockLogic, IAppointmentLogic appointmentLogic)
@@ -96,7 +99,7 @@ namespace IntelliSurgery.Global
 
 
             //add exceeding margins to blocks
-            //workingBlocks.ForEach(workingBlock => workingBlock.RemainingTime += new TimeSpan(0, 30, 0));
+            //workingBlocks.ForEach(workingBlock => workingBlock.RemainingTime += BlockMargin); ///////
 
             for(int i = 0; i < numOfAppointments; i++)
             {

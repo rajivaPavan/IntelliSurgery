@@ -20,6 +20,8 @@ namespace IntelliSurgery.Controllers
         private readonly ISurgeonRepository surgeonRepository;
         private readonly ITheatreRepository theatreRepository;
         private readonly IWorkingBlockLogic workBlockLogic;
+        private const string SURGEON_CONFLICT = "Working hours have already been allocted to surgeon at this time";
+        private const string THEATRE_CONFLICT = "Theatre is occupied at this time";
 
         public StaffApiController(IWorkingBlockRepository workingBlockRepository, ISurgeonRepository surgeonRepository,
             ITheatreRepository theatreRepository, IWorkingBlockLogic workBlockLogic)
@@ -41,10 +43,10 @@ namespace IntelliSurgery.Controllers
 
             //VALIDATE whether timerange overlaps with any other block
             //if overlap occurs return json success = false
-            bool isOverLapping = await CheckIfBlockOverlapsAsync(timeRange, workBlockDTO.TheatreId, surgeon.Id);
-            if (isOverLapping)
+            string overLapReason = await CheckIfBlockOverlapsAsync(timeRange, workBlockDTO.TheatreId, surgeon.Id);
+            if (overLapReason != null)
             {
-                return Json(new { success = false });
+                return Json(new { success = false, message = overLapReason });
             }
 
             //else proceed to create and save the block
@@ -92,10 +94,10 @@ namespace IntelliSurgery.Controllers
             return Json(new { success = false });
         }
 
-        private async Task<bool> CheckIfBlockOverlapsAsync(TimeRange timeRange, int theatreId, int surgeonId)
+        private async Task<string> CheckIfBlockOverlapsAsync(TimeRange timeRange, int theatreId, int surgeonId)
         {
             bool isOvelaps = false;
-
+            string reason = null;
             List<WorkingBlock> checkBlocks = null;
             if (!isOvelaps)
             {
@@ -105,6 +107,7 @@ namespace IntelliSurgery.Controllers
                             (w.Start.Date == timeRange.Start.Date || w.End.Date == timeRange.End.Date));
 
                 isOvelaps = workBlockLogic.CheckIfBlockOverlaps(timeRange, checkBlocks);
+                reason = isOvelaps ? THEATRE_CONFLICT : null;
             }
             else if (!isOvelaps)
             {
@@ -113,8 +116,10 @@ namespace IntelliSurgery.Controllers
                                w => w.SurgeonId == surgeonId &&
                                (w.Start.Date == timeRange.Start.Date || w.End.Date == timeRange.End.Date));
                 isOvelaps = workBlockLogic.CheckIfBlockOverlaps(timeRange, checkBlocks);
+                reason = isOvelaps ? SURGEON_CONFLICT : null;
             }
-            return isOvelaps;
+            
+            return reason;
         }
 
     }

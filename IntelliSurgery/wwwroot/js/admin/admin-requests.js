@@ -19,7 +19,16 @@ async function getWorkingBlocksRequest(surgeonId) {
 }
 
 async function saveWorkingBlockRequest(block) {
-    return await axiosPostWithData("/api/StaffApi/SaveWorkingBlock", block);
+    var res = await axios.post("/api/StaffApi/SaveWorkingBlock", block);
+    if (res.data.success == false) {
+        Swal.fire(
+            'Unsuccessful!',
+            res.data.message,
+            'warning'
+        )
+        return null;
+    }
+    return res.data.data;
 }
 
 async function deleteWorkingBlockRequest(blockId) {

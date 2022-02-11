@@ -373,12 +373,6 @@
                     this.startTime = null;
                     this.endTime = null;
 
-                } else {
-                    Swal.fire(
-                        'Unsuccessful!',
-                        "Time is overlapping with another block",
-                        'warning'
-                    )
                 }
             }
         },

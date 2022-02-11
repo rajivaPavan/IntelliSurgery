@@ -11,6 +11,12 @@
     return appointment;
 }
 
+function formatTimeSpan(timeSpan) {
+    var hh = timeSpan.substr(0, 2);
+    var mm = timeSpan.substr(3, 2);
+    return hh + " hours " + mm +" minutes";
+}
+
 async function addAppointment(patientId) {
 
     var appointment = getAppointmentDetails(patientId);
@@ -24,7 +30,7 @@ async function addAppointment(patientId) {
         Swal.fire({
 
             title: 'Predicted Time Duration',
-            text: predictedTime,
+            text: formatTimeSpan(predictedTime),
             icon: 'success',
             showCancelButton: true,
             allowOutsideClick: false,

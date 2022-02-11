@@ -87,12 +87,16 @@ namespace IntelliSurgery.Global
 
             int numOfBlocks = workingBlocks.Count;
             int numOfAppointments = appointments.Count;
-
+            
             TimeSpan blockDuration;
             TimeSpan finalSurgeryDuration;
             Appointment currentAppointment;
             WorkingBlock currentBlock;
             TheatreType currentAppointmentTheatreType;
+
+
+            //add exceeding margins to blocks
+            //workingBlocks.ForEach(workingBlock => workingBlock.RemainingTime += new TimeSpan(0, 30, 0));
 
             for(int i = 0; i < numOfAppointments; i++)
             {
@@ -124,7 +128,7 @@ namespace IntelliSurgery.Global
                     //find the best block index for the current appointment
                     if (blockDuration >= finalSurgeryDuration)
                     {
-                        if (bestBlock == null || bestBlock.RemainingTime > blockDuration)
+                        if (bestBlock == null || blockDuration < bestBlock.RemainingTime )
                         {
                             bestBlockIndex = j;
                             bestBlock = workingBlocks[bestBlockIndex];   
@@ -201,7 +205,7 @@ namespace IntelliSurgery.Global
                 if (numberOfGaps > 0) { gapTime = remainingTime.Divide(numberOfGaps); }
 
                 appointments = DistributeInPriorityOrder(appointments, appointmentCount,
-                                    blockStart, blockEnd, gapTime);
+                                    blockStart, gapTime);
 
                 await appointmentRepository.UpdateAppointments(appointments);
             }
@@ -240,7 +244,7 @@ namespace IntelliSurgery.Global
         }
 
         private List<Appointment> DistributeInPriorityOrder(List<Appointment> appointments, int appointmentCount,
-            DateTime blockStart, DateTime blockEnd, TimeSpan gapTime)
+            DateTime blockStart, TimeSpan gapTime)
         {
             for (int i = 0; i < appointmentCount; i++)
             {

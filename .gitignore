@@ -363,3 +363,5 @@ MigrationBackup/
 FodyWeavers.xsd
 /IntelliSurgery/Global/BestFitAlgorithm.cs
 /IntelliSurgery/appsettings.json
+
+*/wwwroot/lib
